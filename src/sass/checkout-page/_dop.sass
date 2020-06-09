@@ -1,0 +1,50 @@
+@import "../settings/color"
+@import "../tools/mixin"
+@import "../tools/media"
+
+.checkout__dop
+  margin-top: 18px
+
+.dop
+  justify-content: space-between
+  @include mobile
+    flex-direction: column
+    justify-content: flex-start
+    padding: 15px 10px
+
+.dop__title
+  @include fontSWCL(16px, bold, #000, 20px)
+  text-transform: uppercase
+
+.dop__check-items
+  width: 50%
+  padding-top: 15px
+  padding-bottom: 15px
+  @include tabletSmall
+    width: 60%
+  @include mobile
+    width: 100%
+    margin-top: 20px
+  &::after
+    top: 19px
+  .collapse__items
+    width: 724px
+    right: -1px
+    left: auto
+    flex-wrap: wrap
+    padding: 23px 23px 0
+    border-top: 1px solid $yellow
+    border-radius: 10px 0 10px 10px
+    @include tabletSmall
+      width: calc(100% + 2px)
+      border-top: none
+      border-radius: 0 0 10px 10px
+      flex-direction: column
+
+.dop__check-items.collapse_active
+  .collapse__items
+    display: flex
+
+.dop__check
+  flex-basis: 33%
+  margin-bottom: 19px

@@ -1,0 +1,28 @@
+@import "../settings/color"
+@import "../tools/mixin"
+@import "../tools/media"
+
+.checkout__client-form
+  margin-top: 33px
+  margin-bottom: 114px
+
+.client-form
+  padding: 30px 9px 30px 30px
+  background-color: #FBFBFB
+  box-sizing: border-box
+  display: flex
+  justify-content: space-between
+  @include tabletSmall
+    flex-direction: column
+    padding: 20px
+
+.client-form__input
+  flex-basis: 23.3%
+  @include tabletSmall
+    flex-basis: auto
+    margin-bottom: 10px
+
+.client-form__button
+  flex-basis: 23.3%
+  @include tabletSmall
+    flex-basis: auto

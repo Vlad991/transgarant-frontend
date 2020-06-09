@@ -1,0 +1,178 @@
+@import "../settings/color"
+@import "../tools/mixin"
+@import "../tools/media"
+
+.checkout__cargo
+
+.cargo
+
+.cargo__heading
+  margin-top: 60px
+  @include mobile
+    margin-top: 30px
+
+.cargo__form
+  display: flex
+  margin-top: 33px
+  justify-content: space-between
+  @include tablet
+    flex-direction: column
+
+.cargo__first-col
+  flex-basis: 72%
+  @include tablet
+    flex-basis: auto
+
+.cargo__second-col
+  flex-basis: 25%
+  @include tablet
+    flex-basis: auto
+
+.cargo__head-block
+  padding: 20px 26px
+  box-sizing: border-box
+  border: 1px solid $yellow
+  border-radius: 10px
+  @include mobile
+    padding: 10px
+
+.cargo__name
+  @include fontSWCL(16px, bold, #7B7B7B, 20px)
+
+.cargo__description
+  @include fontSWCL(13px, normal, #000, 16px)
+  margin-top: 15px
+
+.cargo__charac-heading
+  margin-top: 30px
+  @include fontSWCL(18px, bold, #000, 22px)
+  @include mobile
+    margin-top: 20px
+
+.cargo__characteristic
+  margin-top: 26px
+  @include mobile
+    margin-top: 15px
+
+.characteristic
+  display: flex
+  justify-content: space-between
+  @include tabletSmall
+    flex-direction: column
+
+.characteristic__tab-links
+  flex-basis: 31%
+  @include tabletSmall
+    flex-basis: auto
+
+.characteristic__tab-link
+  margin-bottom: 12px
+
+.characteristic__tab-items
+  flex-basis: 66%
+  @include tabletSmall
+    flex-basis: auto
+
+.characteristic__tab-item
+  display: none
+  &_active
+    display: block
+
+.characteristic__line
+  display: flex
+  margin-bottom: 25px
+  @include mobile
+    flex-direction: column
+    margin-bottom: 10px
+
+.characteristic__currency
+  flex-basis: 143px
+  margin-right: 14px
+  @include mobile
+    flex-basis: auto
+    margin-right: 0
+    margin-top: 20px
+
+.characteristic__cargo-name
+  margin-right: 14px
+  flex-basis: 261px
+  @include mobile
+    flex-basis: auto
+    margin-right: 0
+    margin-top: 10px
+
+.characteristic__input
+  flex-basis: 18.4%
+  margin-right: 14px
+  @include mobile
+    flex-basis: auto
+    margin-right: 0
+    margin-top: 10px
+  .input-wrap__input
+    text-align: center
+
+.cargo__button
+  width: 143px
+  margin-top: 20px
+  @include tablet
+    display: none
+  &_mobile
+    display: none
+    @include tablet
+      display: flex
+    @include mobile
+      width: 100%
+
+.cargo__info-block
+  display: flex
+  justify-content: center
+  align-items: center
+  box-sizing: border-box
+  min-height: 64px
+  background-color: #FBFBFB
+  border-radius: 10px
+  border: 1px solid #C1C1C1
+  div
+    @include fontSWCL(16px, bold, #7B7B7B, 20px)
+    text-transform: capitalize
+    margin-right: 14px
+
+.cargo__sizes
+  margin-top: 13px
+  padding: 19px
+  box-sizing: border-box
+  background: #FCFCFC
+  border: 1px solid #EDEDED
+  border-radius: 10px
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  @include desktopSmall
+    justify-content: space-around
+
+.cargo__size-block
+  &:nth-child(1), &:nth-child(2), &:nth-child(3)
+    margin-bottom: 11px
+
+.size-block
+  width: 114px
+  height: 141px
+  box-sizing: border-box
+  background-color: $yellow
+  padding: 5px 10px
+  position: relative
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: center
+
+.size-block__value
+  @include fontSWCL(13px, bold, #fff, 16px)
+  &:nth-child(2), &:nth-child(4)
+    position: absolute
+    top: calc(50% - 9px)
+    transform: rotate(-90deg)
+  &:nth-child(2)
+    right: 10px
+  &:nth-child(4)
+    left: 5px

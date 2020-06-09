@@ -1,0 +1,95 @@
+@import "settings/color"
+@import "settings/font"
+@import "tools/mixin"
+@import "tools/media"
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+  margin: 0
+  padding: 0
+  border: 0
+  color: #000
+  font-size: 100%
+  vertical-align: baseline
+  list-style: none
+  text-decoration: none
+  font-family: $font-family
+  font-weight: normal
+
+a
+  outline: none
+
+button, input
+  &:focus
+    outline: none
+
+.checkout
+  width: 1160px
+  margin: 0 auto
+  background-color: rgba(255,255,255, 0.6)
+  padding-top: 0.01%
+  box-sizing: border-box
+  @media screen and (max-width: 479px)
+    width: 95%
+    margin: 0 auto
+    padding: 50px 0
+  @media screen and (max-width: 719px) and (min-width: 480px)
+    width: auto
+    margin: 0 20px
+    padding: 50px 0
+  @media screen and (min-width: 720px) and (max-width: 999px)
+    width: auto
+    margin: 0 20px
+    padding: 50px 0
+  @media screen and (min-width: 981px) and (max-width: 1159px)
+    width: 95%
+
+.checkout__heading
+  margin-top: 28px
+  @include fontSWCL(30px, bold, #000, 37px)
+  text-transform: uppercase
+  border-bottom: 2px solid $yellow
+  padding-bottom: 11px
+
+//......................................Elements.............................................
+
+@import "elements"
+
+//......................................Category.............................................
+
+@import "checkout-page/category"
+
+//......................................Car Body.............................................
+
+@import "checkout-page/car-body"
+
+//......................................DOP.............................................
+
+@import "checkout-page/dop"
+
+//......................................Route.............................................
+
+@import "checkout-page/route"
+
+//......................................Picker.............................................
+
+@import "checkout-page/date-time-picker"
+
+//......................................Cargo.............................................
+
+@import "checkout-page/cargo"
+
+//......................................Tariff.............................................
+
+@import "checkout-page/tariff"
+
+//......................................Payment.............................................
+
+@import "checkout-page/payment"
+
+//......................................Social.............................................
+
+@import "checkout-page/social"
+
+//......................................Client Form.............................................
+
+@import "checkout-page/client-form"

@@ -1,0 +1,26 @@
+@import "../settings/color"
+@import "../tools/mixin"
+@import "../tools/media"
+
+.checkout__payment
+  @include tablet
+    margin-top: 20px
+
+.payment
+  display: flex
+  justify-content: space-between
+  @include tabletSmall
+    flex-direction: column
+    align-items: flex-start
+    padding: 20px 20px 0
+
+.payment__check
+  @include fontSWCL(16px, normal, #000, 20px)
+  text-transform: none
+
+.payment__item
+  @include tabletSmall
+    margin-bottom: 20px
+
+.payment__info
+  margin-left: 10px

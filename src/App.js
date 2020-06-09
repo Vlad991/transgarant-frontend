@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './sass/checkout.sass';
+import CategoryContainer from "./components/Category/CategoryContainer";
+import CarBodyContainer from "./components/CarBody/CarBodyContainer";
+import DopContainer from "./components/Dop/DopContainer";
+import RouteContainer from "./components/Route/RouteContainer";
+import CargoContainer from "./components/Cargo/CargoContainer";
+import TariffContainer from "./components/Tariff/TariffContainer";
+import PaymentContainer from "./components/Payment/PaymentContainer";
+import SocialContainer from "./components/Social/SocialContainer";
+import ClientFormContainer from "./components/ClientForm/ClientFormContainer";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    return (
+        <div className="checkout">
+            <h1 className="checkout__heading">Оформление заказа</h1>
+
+            <CategoryContainer/>
+
+            <CarBodyContainer/>
+
+            <DopContainer/>
+
+            <RouteContainer/>
+
+            <CargoContainer/>
+
+            <TariffContainer/>
+
+            <PaymentContainer/>
+
+            <SocialContainer/>
+
+            <ClientFormContainer/>
+        </div>
+    );
 }
 
 export default App;

@@ -1,0 +1,251 @@
+@import "../settings/color"
+@import "../tools/mixin"
+@import "../tools/media"
+
+.checkout__route
+
+.route
+  position: relative
+
+.route__title
+  margin-top: 20px
+  @include mobile
+    flex-direction: column
+    padding: 10px
+
+.route__text
+  @include fontSWCL(18px, bold, #000, 22px)
+  text-transform: uppercase
+
+.route__date
+  padding-left: 30px
+  margin-left: 30px
+  border-left: 1px solid #D9D9D9
+  height: 34px
+  display: flex
+  align-items: center
+  @include tabletSmall
+    padding-left: 15px
+    margin-left: 15px
+  @include mobile
+    margin-left: 0
+    margin-top: 5px
+    padding-left: 0
+    border: none
+
+.route__link
+  margin-left: 20px
+  @include tabletSmall
+    margin-left: 10px
+
+.route__time-text
+  margin-left: 20px
+  text-transform: none
+  @include tabletSmall
+    margin-left: 10px
+
+//...
+
+.route__calendar
+
+.route__points
+  margin-top: 32px
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+  @include desktopSmall
+    justify-content: space-evenly
+
+.route__point
+  margin-bottom: 30px
+
+.route-point
+  width: 536px
+  height: 259px
+  padding: 12px 39px 21px 30px
+  box-sizing: border-box
+  background-color: #fff
+  border-radius: 10px
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1)
+  position: relative
+  @include tabletSmall
+    width: 300px
+    height: auto
+    padding: 10px 30px 10px 20px
+
+.route-point__cross
+  position: absolute
+  top: 26px
+  right: 16px
+  @include tabletSmall
+    top: 22px
+    right: 12px
+
+.route-point__header
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+.route-point__name
+  @include fontSWCL(24px, bold, $yellow, 29px)
+  @include tabletSmall
+    font-size: 16px
+
+.route-point__value
+  width: 328px
+  height: 42px
+  padding:  0 17px
+  box-sizing: border-box
+  background-color: #FBFBFB
+  border-radius: 10px
+  @include fontSWCL(13px, normal, #000, 16px)
+  display: flex
+  align-items: center
+  @include tabletSmall
+    width: 175px
+    padding: 0 10px
+
+.route-point__address
+  margin-top: 23px
+  @include fontSWCL(14px, normal, #636363, 17px)
+  display: flex
+  align-items: center
+  max-width: 266px
+  @include tabletSmall
+    margin-top: 10px
+  &::before
+    content: url("data:image/svg+xml,%3Csvg width='16' height='20' viewBox='0 0 16 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.9533 2.05161C11.6304 0.728674 9.87135 0 8.00054 0C6.12936 0 4.37068 0.728674 3.04775 2.05161C0.599474 4.49952 0.29522 9.10532 2.38883 11.8958L8.00054 20L13.6038 11.9072C15.7059 9.10532 15.4016 4.49952 12.9533 2.05161ZM8.06519 9.4965C6.65569 9.4965 5.50844 8.34925 5.50844 6.93975C5.50844 5.53025 6.65569 4.383 8.06519 4.383C9.47469 4.383 10.6219 5.53025 10.6219 6.93975C10.6219 8.34925 9.47469 9.4965 8.06519 9.4965Z' fill='%23FFB700'/%3E%3C/svg%3E%0A")
+    display: inline-block
+    height: 20px
+    margin-right: 8px
+
+.route-point__contact
+  margin-top: 23px
+  @include fontSWCL(16px, normal, #636363, 20px)
+  @include tabletSmall
+    margin-top: 10px
+    font-size: 14px
+
+.route-point__footer
+  margin-top: 19px
+  margin-left: -30px
+  display: flex
+  justify-content: space-between
+  align-items: center
+  @include tabletSmall
+    margin-top: 10px
+    margin-left: -20px
+
+.route-point__text
+  max-width: 400px
+  background-color: #f2f2f2
+  border-radius: 0 10px 10px 0
+  padding: 9px 15px 12px 31px
+  box-sizing: border-box
+  @include fontSWCL(13px, mormal, #6C6C6C, 22px)
+  @include tabletSmall
+    padding: 9px 10px 10px 20px
+    max-width: 210px
+    font-size: 12px
+
+.route-point__check-mark
+
+.route__add-button
+  margin-top: 16px
+  @include tabletSmall
+    margin: 16px auto
+
+.route__add-form
+  margin-top: 64px
+  margin-bottom: 44px
+
+.add-form
+  display: flex
+  @include tablet
+    flex-direction: column
+
+.add-form__col
+  box-sizing: border-box
+
+.add-form__col_first
+  background-color: #EFEFEF
+  border-radius: 10px 0 0 10px
+  width: 55%
+  padding: 42px 34px 72px 35px
+  @include tablet
+    width: 100%
+    border-radius: 10px 10px 0 0
+  @include mobile
+    padding: 20px
+
+.add-form__col_second
+  background-color: #FBFBFB
+  border-radius: 0 10px 10px 0
+  width: 45%
+  padding: 36px 37px 72px 34px
+  @include tablet
+    width: 100%
+    border-radius: 0 0 10px 10px
+  @include mobile
+    padding: 20px
+
+.add-form__heading
+  @include fontSWCL(24px, normal, #000, 29px)
+
+.add-form__address
+  margin-top: 28px
+  @include mobile
+    margin-top: 15px
+
+.add-form__inputs
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+
+.add-form__input
+  flex-basis: 48.5%
+  margin-top: 20px
+  @include mobile
+    margin-top: 15px
+    flex-basis: 100%
+
+.add-form__input_file
+  background-color: transparent
+  display: flex
+  justify-content: center
+  > input
+    width: 0.1px
+    height: 0.1px
+    opacity: 0
+    overflow: hidden
+    position: absolute
+    z-index: -1
+
+.add-form__file-text
+  margin-left: 20px
+
+.add-form__time
+  display: flex
+  justify-content: space-between
+  margin-top: 35px
+  @include mobile
+    margin-top: 15px
+
+.add-form__time-item
+  flex-basis: 45.5%
+
+.add-form__pause
+  display: flex
+  margin-top: 30px
+  @include mobile
+    margin-top: 15px
+  > label
+    margin-left: 20px
+
+.add-form__collapse
+  margin-top: 26px
+  border-color: #C5C5C5
+  @include mobile
+    margin-top: 15px
+
+.route__add-button

@@ -1,0 +1,139 @@
+@import "../settings/color"
+@import "../tools/mixin"
+@import "../tools/media"
+
+.checkout__category
+  margin-top: 33px
+
+.category
+
+.category__heading
+  @include fontSWCL(22px, bold, #000, 27px)
+
+.category__description
+  margin-top: 21px
+  @include fontSWCL(13px, normal, #000, 16px)
+
+.category__items
+  margin-top: 37px
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  @include tablet
+    justify-content: space-evenly
+
+.category__category-item
+  margin-bottom: 20px
+
+.category-item
+  width: 259px
+  height: 70px
+  background: #FFFFFF
+  border: 1px solid $yellow
+  box-sizing: border-box
+  border-radius: 10px
+  padding: 5px 13px 8px 11px
+  position: relative
+  display: flex
+  justify-content: space-between
+  align-items: center
+  cursor: pointer
+  &_active::after
+    display: flex
+    justify-content: center
+    align-items: center
+    content: url("data:image/svg+xml,%3Csvg width='13' height='11' viewBox='0 0 13 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.15 6C0.05 5.9 0 5.75 0 5.65C0 5.55 0.05 5.4 0.15 5.3L0.85 4.6C1.05 4.4 1.35 4.4 1.55 4.6L1.6 4.65L4.35 7.6C4.45 7.7 4.6 7.7 4.7 7.6L11.4 0.65H11.45C11.65 0.45 11.95 0.45 12.15 0.65L12.85 1.35C13.05 1.55 13.05 1.85 12.85 2.05L4.85 10.35C4.75 10.45 4.65 10.5 4.5 10.5C4.35 10.5 4.25 10.45 4.15 10.35L0.25 6.15L0.15 6Z' fill='white'/%3E%3C/svg%3E%0A")
+    width: 25px
+    height: 25px
+    background-color: $yellow
+    position: absolute
+    bottom: -1px
+    right: -1px
+    border-radius: 5px 0 9px
+
+
+.category-item__img
+  flex-basis: 97px
+  display: flex
+  justify-content: center
+  flex-shrink: 0
+  *
+    max-width: 100%
+
+.category-item__description
+
+.category-item__heading
+  @include fontSWCL(13px, bold, #000, 16px)
+
+.category-item__text
+  margin-top: 6px
+  @include fontSWCL(12px, normal, #000, 15px)
+
+.category-item__info
+  position: absolute
+  top: 9px
+  right: 8px
+  height: 18px
+  cursor: pointer
+  &:hover
+    .category-info
+      display: flex
+
+.svg
+
+.category-info
+  display: none
+  width: 528px
+  height: 177px
+  background-color: #fff
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.15)
+  border-radius: 10px
+  position: absolute
+  top: 27px
+  left: -250px
+  z-index: 2
+  padding: 20px 28px
+  box-sizing: border-box
+  @include tabletSmall
+    flex-direction: column
+    width: 300px
+    height: auto
+    padding: 10px 15px
+    top: 75px
+    left: -252px
+  &::after
+    display: block
+    content: ''
+    width: 15px
+    height: 15px
+    background-color: #fff
+    transform: rotate(45deg)
+    position: absolute
+    top: -7px
+    left: 48%
+
+.category-info__col
+  display: flex
+  flex-direction: column
+  flex-basis: 50%
+  box-sizing: border-box
+  &:first-child
+    border-right: 1px solid #e8e8e8
+    padding-right: 39px
+    @include tabletSmall
+      padding: 0
+      border: none
+  &:last-child
+    padding-left: 39px
+    @include tabletSmall
+      padding: 0
+
+.category-info__line
+  display: flex
+
+.category-info__name
+  @include fontSWCL(12px, bold, #545454, 24px)
+  flex-basis: 50%
+
+.category-info__value
+  @include fontSWCL(12px, normal, #000, 24px)
