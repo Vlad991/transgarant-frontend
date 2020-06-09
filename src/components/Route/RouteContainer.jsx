@@ -11,23 +11,36 @@ class RouteContainer extends React.Component {
         points: [
             {
                 name: 'Точка 1',
-                values: ['Погр', 'Разг'],
                 address: 'г. Москва ул. Пушкинская оф. 2 (в арочку)',
-                contact: 'В ООО "Salus" Васька + 7 934 43 59 435',
-            },
-            {
-                name: 'Точка 2',
-                values: ['Погр', 'Разг'],
-                address: 'г. Москва ул. Пушкинская оф. 2 (в арочку)',
-                contact: 'В ООО "Salus" Васька + 7 934 43 59 435',
-            },
-            {
-                name: 'Точка 2',
-                values: ['Погр', 'Разг'],
-                address: 'г. Москва ул. Пушкинская оф. 2 (в арочку)',
-                contact: 'В ООО "Salus" Васька + 7 934 43 59 435',
+                comment: '',
+                company: 'В ООО "Salus"',
+                contact_name: 'Васька',
+                number: '+ 7 934 43 59 435',
+                todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
+                file: 'file.txt',
+                timeFrom: '09.00',
+                timeTo: '18.00',
+                hasPause: true,
+                pauseFrom: '09.00',
+                pauseTo: '18.00',
+                values: ['Погр', 'Разг']
             }
-        ]
+        ],
+        showForm: false,
+        name: '',
+        address: '',
+        comment: '',
+        company: '',
+        contact_name: '',
+        number: '',
+        todo: '',
+        file: '',
+        timeFrom: '',
+        timeTo: '',
+        hasPause: false,
+        pauseFrom: '',
+        pauseTo: '',
+        values: []
     }
 
     setDateFrom = (date) => {
@@ -54,6 +67,38 @@ class RouteContainer extends React.Component {
         })
     }
 
+    toggleForm = (show) => {
+        this.setState({
+            showForm: show
+        })
+    }
+
+    addPoint = (name) => {
+        let point = {
+            showForm: this.state.showForm,
+            name: name,
+            address: this.state.address,
+            comment: this.state.comment,
+            company: this.state.company,
+            contact_name: this.state.contact_name,
+            number: this.state.number,
+            todo: this.state.todo,
+            file: this.state.file,
+            timeFrom: this.state.timeFrom,
+            timeTo: this.state.timeTo,
+            hasPause: this.state.hasPause,
+            pauseFrom: this.state.pauseFrom,
+            pauseTo: this.state.pauseTo,
+            values: [...this.state.values]
+        }
+        let points = [...this.state.points];
+        points.push(point);
+        this.setState({
+            points: points
+        });
+        this.toggleForm(false);
+    }
+
     render() {
         return (
             <Route dateFrom={this.state.dateFrom}
@@ -64,7 +109,26 @@ class RouteContainer extends React.Component {
                    setDateTo={this.setDateTo}
                    toggleFromPicker={this.toggleFromPicker}
                    toggleToPicker={this.toggleToPicker}
-                   points={this.state.points}/>
+                   points={this.state.points}
+                   showForm={this.state.showForm}
+                   toggleForm={this.toggleForm}
+                   addPoint={this.addPoint}
+                   setState={this.setState.bind(this)}
+                   name={this.state.name}
+                   address={this.state.address}
+                   comment={this.state.comment}
+                   company={this.state.company}
+                   contactName={this.state.contact_name}
+                   number={this.state.number}
+                   todo={this.state.todo}
+                   file={this.state.file}
+                   timeFrom={this.state.timeFrom}
+                   timeTo={this.state.timeTo}
+                   hasPause={this.state.hasPause}
+                   pauseFrom={this.state.pauseFrom}
+                   pauseTo={this.state.pauseTo}
+                   values={this.state.values}
+            />
         );
     };
 }
