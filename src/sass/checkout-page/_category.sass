@@ -50,7 +50,29 @@
     bottom: -1px
     right: -1px
     border-radius: 5px 0 9px
-
+  &:nth-child(4n)
+    .category-info
+      left: auto
+      right: -20px
+      @media screen and (max-width: 1090px)
+        left: -250px
+        right: auto
+  &:nth-child(3n)
+    .category-info
+      @media screen and (max-width: 1090px)
+        left: auto
+        right: -20px
+      @media screen and (max-width: 816px)
+        left: -250px
+        right: auto
+  &:nth-child(2n)
+    .category-info
+      @media screen and (max-width: 816px)
+        left: auto
+        right: -20px
+      @include tabletSmall
+        left: -250px
+        right: auto
 
 .category-item__img
   flex-basis: 97px
@@ -78,6 +100,20 @@
   &:hover
     .category-info
       display: flex
+  &:hover::after
+    display: block
+    content: ''
+    width: 15px
+    height: 15px
+    background-color: #fff
+    transform: rotate(45deg)
+    position: absolute
+    top: 22px
+    left: 2px
+    z-index: 3
+    @include tabletSmall
+      top: 68px
+      left: -105px
 
 .svg
 
@@ -89,7 +125,7 @@
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.15)
   border-radius: 10px
   position: absolute
-  top: 27px
+  top: 29px
   left: -250px
   z-index: 2
   padding: 20px 28px
@@ -101,16 +137,6 @@
     padding: 10px 15px
     top: 75px
     left: -252px
-  &::after
-    display: block
-    content: ''
-    width: 15px
-    height: 15px
-    background-color: #fff
-    transform: rotate(45deg)
-    position: absolute
-    top: -7px
-    left: 48%
 
 .category-info__col
   display: flex

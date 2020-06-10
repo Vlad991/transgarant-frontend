@@ -7,6 +7,8 @@
 
 .dop
   justify-content: space-between
+  position: relative
+  z-index: 1
   @include mobile
     flex-direction: column
     justify-content: flex-start
@@ -31,25 +33,18 @@
     width: 724px
     right: -1px
     left: auto
+    top: 36px
     flex-wrap: wrap
     padding: 23px 23px 0
-    //border-top: 1px solid $yellow
+    border-top: 1px solid $yellow
     border-radius: 10px 0 10px 10px
-    &:before
-      content: ''
-      width: 22%
-      height: 1px
-      background-color: $yellow
-      position: absolute
-      top: 0
-      left: 6px
-      @include tabletSmall
-        display: none
+    z-index: -1
     @include tabletSmall
       width: calc(100% + 2px)
       border-top: none
       border-radius: 0 0 10px 10px
       flex-direction: column
+      top: 20px
 
 .dop__check-items.collapse_active
   .collapse__items

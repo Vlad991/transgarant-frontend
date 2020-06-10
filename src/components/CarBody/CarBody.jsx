@@ -1,7 +1,8 @@
 import React from "react";
 import CollapseContainer from "../CollapseContainer";
 
-const CarBody = ({bodyTypes,
+const CarBody = ({
+                     bodyTypes,
                      activeBodyType,
                      setActiveBodyType,
                      bodyOptions,
@@ -10,7 +11,8 @@ const CarBody = ({bodyTypes,
                      bodyOptionCharacteristics,
                      bodyOptionCharacteristicValues,
                      activeBodyOptionCharacteristicValues,
-                     setBodyOptionChVal}) => {
+                     setBodyOptionChVal
+                 }) => {
     return (
         <section className="checkout__car-body car-body">
             <div className="car-body__heading checkout__title">Тип кузова</div>
@@ -25,11 +27,12 @@ const CarBody = ({bodyTypes,
                                 </div>
                             )
                         })}
-                        {activeBodyType !== 1 ?
+                        {activeBodyType === 0 ?
                             <CollapseContainer elementClass="car-body__variant-card"
                                                selected={bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption)}
                                                items={bodyOptions.filter(bodyOption => bodyOption.body_type_id === activeBodyType)}
-                                               setItem={setBodyOption}/> : null}
+                                               setItem={setBodyOption}/>:
+                            <div className="car-body__variant-card collapse collapse_disabled">{bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption).name}</div>}
                     </div>
                 </div>
                 <div className="car-body__col check-block">

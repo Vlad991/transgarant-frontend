@@ -46,6 +46,11 @@ class CarBodyContainer extends React.Component {
                 id: '5',
                 body_type_id: 0,
                 name: 'РЕФ'
+            },
+            {
+                id: '6',
+                body_type_id: 1,
+                name: 'БОРТ'
             }
         ],
         active_body_option: '0',
@@ -95,23 +100,42 @@ class CarBodyContainer extends React.Component {
                 name: "МЕДКНИЖКА"
             },
             {
-                id: '5',
+                id: '8',
                 body_type_id: 0,
                 body_option_id: "1",
                 name: "Гидроборт",
                 type: "ref"
             },
             {
-                id: '6',
+                id: '9',
                 body_type_id: 0,
                 body_option_id: "1",
                 name: "СТАНДАРТ"
             },
             {
-                id: '7',
+                id: '10',
                 body_type_id: 0,
                 body_option_id: "1",
                 name: "МЕДКНИЖКА"
+            },
+            {
+                id: '11',
+                body_type_id: 1,
+                body_option_id: "6",
+                name: "Пандус",
+                type: "ref"
+            },
+            {
+                id: '12',
+                body_type_id: 1,
+                body_option_id: "6",
+                name: "Ремни"
+            },
+            {
+                id: '13',
+                body_type_id: 1,
+                body_option_id: "6",
+                name: "Конники"
             },
         ],
         body_option_characteristics_values: [
@@ -131,6 +155,11 @@ class CarBodyContainer extends React.Component {
                 name: "Гидроборт 300"
             },
             {
+                id: "14",
+                body_option_characteristics_id: '8',
+                name: "Гидроборт 300"
+            },
+            {
                 id: "4",
                 body_option_characteristics_id: '4',
                 name: "ПАНДУС 90"
@@ -139,6 +168,26 @@ class CarBodyContainer extends React.Component {
                 id: "5",
                 body_option_characteristics_id: '4',
                 name: "ПАНДУС 80"
+            },
+            {
+                id: "6",
+                body_option_characteristics_id: '11',
+                name: "ПАНДУС 90"
+            },
+            {
+                id: "7",
+                body_option_characteristics_id: '11',
+                name: "ПАНДУС 100"
+            },
+            {
+                id: "8",
+                body_option_characteristics_id: '11',
+                name: "ПАНДУС 110"
+            },
+            {
+                id: "9",
+                body_option_characteristics_id: '11',
+                name: "ПАНДУС 120"
             }
         ],
         active_body_option_characteristics_values: [
@@ -146,10 +195,19 @@ class CarBodyContainer extends React.Component {
                 id: "1",
                 body_option_characteristics_id: '5',
                 name: "Гидроборт 400"
+            },{
+                id: "2",
+                body_option_characteristics_id: '8',
+                name: "Гидроборт 400"
             },
             {
                 id: "4",
                 body_option_characteristics_id: '4',
+                name: "ПАНДУС 90"
+            },
+            {
+                id: "6",
+                body_option_characteristics_id: '11',
                 name: "ПАНДУС 90"
             },
         ]

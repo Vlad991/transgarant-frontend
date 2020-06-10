@@ -46,14 +46,36 @@ class RouteContainer extends React.Component {
     }
 
     setDateFrom = (date) => {
+        let dateToCopy = this.state.dateTo;
+        dateToCopy.setMonth(date.getMonth());
+        dateToCopy.setFullYear(date.getFullYear());
+        dateToCopy.setDate(date.getDate());
+        if (date.getHours() > dateToCopy.getHours()) {
+            dateToCopy.setHours(date.getHours());
+            dateToCopy.setMinutes(date.getMinutes() + 15);
+        } else if (date.getMinutes() > dateToCopy.getMinutes()) {
+            dateToCopy.setMinutes(date.getMinutes() + 15);
+        }
         this.setState({
-            dateFrom: date
+            dateFrom: date,
+            dateTo: dateToCopy
         })
     }
 
     setDateTo = (date) => {
+        let dateFromCopy = this.state.dateFrom;
+        dateFromCopy.setMonth(date.getMonth());
+        dateFromCopy.setFullYear(date.getFullYear());
+        dateFromCopy.setDate(date.getDate());
+        if (date.getHours() < dateFromCopy.getHours()) {
+            dateFromCopy.setHours(date.getHours());
+            dateFromCopy.setMinutes(date.getMinutes() - 15);
+        } else if (date.getMinutes() < dateFromCopy.getMinutes()) {
+            dateFromCopy.setMinutes(date.getMinutes() - 15);
+        }
         this.setState({
-            dateTo: date
+            dateTo: date,
+            dateFrom: dateFromCopy
         })
     }
 
