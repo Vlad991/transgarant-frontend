@@ -111,6 +111,14 @@
   display: flex
   align-items: center
   cursor: pointer
+  &:focus-within
+    border-color: $yellow
+  &_error
+    border-color: crimson
+  &_address
+    cursor: auto
+    > div
+      width: calc(100% + 2px)
   *
     @include fontSWCL(13px, normal, #636363, 16px)
     cursor: pointer
@@ -207,3 +215,35 @@
   @include fontSWCL(14px, normal, #fff, 17px)
   font-style: italic
   transform: skewX(30deg)
+
+
+.react-dadata__suggestions
+  position: absolute
+  top: 45px
+  left: -1px
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  width: 100%
+  background-color: #fff
+  border-right: 1px solid $yellow
+  border-left: 1px solid $yellow
+  border-bottom: 1px solid $yellow
+  padding: 10px 0
+  box-sizing: border-box
+  border-radius: 0 0 10px 10px
+
+.react-dadata__suggestion
+  display: block
+  width: 100%
+  text-align: left
+  border: none
+  box-shadow: none
+  outline: none
+  background-color: transparent
+  @include fontSWCL(14px, normal, #000, 30px)
+  padding: 0 20px
+  &:hover
+    background-color: rgba(0, 0, 0, 0.1)
+  span
+  .react-dadata--hightlighted

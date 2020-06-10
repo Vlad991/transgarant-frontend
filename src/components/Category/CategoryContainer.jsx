@@ -1,5 +1,6 @@
 import React from 'react';
 import Category from "./Category";
+import {vehicleAPI} from "../../api/api";
 
 class CategoryContainer extends React.Component {
     state = {
@@ -186,6 +187,13 @@ class CategoryContainer extends React.Component {
             },
         ],
         activeCategory: 5
+    }
+
+    componentDidMount() {
+        vehicleAPI.getBodyTypes().then(response => {
+            debugger;
+            console.log(response);
+        });
     }
 
     setCategory = (id) => {

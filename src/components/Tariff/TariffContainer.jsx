@@ -12,17 +12,22 @@ class TariffContainer extends React.Component {
             },
             {
                 id: '2',
+                name: 'Ставка',
+                text: '2000 р',
+                selected: false
+            },
+            {
+                id: '3',
                 name: 'Ставка PM -',
                 text: '3000 р',
                 selected: false
             },
             {
-                id: '3',
+                id: '4',
                 name: 'Доставка - 3000 р',
                 text: 'доставка 2000 р (условия) (для тарифа доставка нужно внести данные по грузу)',
                 selected: false
-            },
-
+            }
         ]
     }
 

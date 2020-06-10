@@ -1,6 +1,7 @@
 import React from "react";
 import DatePicker, {registerLocale} from "react-datepicker";
 import ru from "date-fns/locale/ru";
+import {AddressSuggestions} from "react-dadata";
 
 const Route = ({
                    dateFrom,
@@ -20,6 +21,8 @@ const Route = ({
                    addPoint,
                    setState,
                    address,
+                   addressError,
+                   setAddress,
                    comment,
                    company,
                    contactName,
@@ -32,7 +35,7 @@ const Route = ({
                    pauseFrom,
                    pauseTo,
                    values,
-                   addValue,
+                   toggleValue,
                    showCollapse,
                    toggleCollapse,
                    showPointInfo
@@ -94,7 +97,7 @@ const Route = ({
                             </div>
                             <div className="route-point__header">
                                 <div className="route-point__name">{point.name}</div>
-                                <div className="route-point__value">{point.values.map(value => value + ', ')}</div>
+                                <div className="route-point__value">{point.values.map(value => value.selected ? value.name + ', ' : '')}</div>
                             </div>
                             <div className="route-point__address">{point.address}</div>
                             <div className="route-point__contact">{point.company + " " + point.contact_name + " " + point.number}</div>
@@ -120,9 +123,12 @@ const Route = ({
                     <div className="route__add-form add-form">
                         <div className="add-form__col add-form__col_first">
                             <div className="add-form__heading">Точка {updatePoint || (updatePoint === 0) ? updatePoint + 1 : points.length + 1}</div>
-                            <label className="add-form__address input-wrap">
-                                <input onChange={(e) => setState({address: e.target.value})} value={address} type="text" className="input-wrap__input" placeholder="Адрес"/>
-                            </label>
+                            <div className="add-form__address-text">{address}</div>
+                            <AddressSuggestions token="4907ed3e0ba286c611e621c3db1588fe3ce7f53c"
+                                                value={address}
+                                                onChange={setAddress}
+                                                containerClassName={"add-form__address input-wrap input-wrap_address" + (addressError ? ' input-wrap_error' : '')}
+                                                inputProps={{className: 'input-wrap__input', placeholder: 'Адрес'}}/>
                             <div className="add-form__inputs">
                                 <label className="add-form__input input-wrap">
                                     <input onChange={(e) => setState({comment: e.target.value})} value={comment} type="text" className="input-wrap__input" placeholder="Комментарий к адресу"/>
@@ -169,41 +175,35 @@ const Route = ({
                                 <span>Перерыв</span>
                                 <label className="check-wrap">
                                     Нет
-                                    <input onChange={(e) => setState({hasPause: e.target.value})} value={hasPause} type="checkbox" className="check-wrap__input"/>
+                                    {hasPause ?
+                                        <input onClick={(e) => setState({hasPause: false})} checked type="checkbox" className="check-wrap__input"/> :
+                                        <input onClick={(e) => setState({hasPause: true})} type="checkbox" className="check-wrap__input"/>}
                                     <span className="check-wrap__mark"></span>
                                 </label>
                             </div>
-                            <div className="add-form__time">
-                                <label className="add-form__time-item input-wrap">
-                                    <input onChange={(e) => setState({pauseFrom: e.target.value})} value={pauseFrom} type="text" className="input-wrap__input" placeholder="с 09.00"/>
-                                </label>
-                                <label className="add-form__time-item input-wrap">
-                                    <input onChange={(e) => setState({pauseTo: e.target.value})} value={pauseTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
-                                </label>
-                            </div>
+                            {!hasPause ?
+                                <div className="add-form__time">
+                                    <label className="add-form__time-item input-wrap">
+                                        <input onChange={(e) => setState({pauseFrom: e.target.value})} value={pauseFrom} type="text" className="input-wrap__input" placeholder="с 09.00"/>
+                                    </label>
+                                    <label className="add-form__time-item input-wrap">
+                                        <input onChange={(e) => setState({pauseTo: e.target.value})} value={pauseTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
+                                    </label>
+                                </div> : null}
                             <div onClick={toggleCollapse} className={"add-form__collapse collapse collapse_gray" + (showCollapse ? ' collapse_active' : '')}>
-                                <div className="collapse__selected">Услуги: {values.map(value => value + ', ')}</div>
+                                <div className="collapse__selected">Услуги: {values.map(value => value.selected ? value.name + ', ' : '')}</div>
                                 <div onClick={(e) => e.stopPropagation()} className="collapse__items">
-                                    <label className="collapse__item check-wrap">
-                                        Погр
-                                        <input onChange={() => addValue('Погр')} type="checkbox" className="check-wrap__input"/>
-                                        <span className="check-wrap__mark"></span>
-                                    </label>
-                                    <label className="collapse__item check-wrap">
-                                        Разг
-                                        <input onChange={() => addValue('Разг')}  type="checkbox" className="check-wrap__input"/>
-                                        <span className="check-wrap__mark"></span>
-                                    </label>
-                                    <label className="collapse__item check-wrap">
-                                        Получ док
-                                        <input onChange={() => addValue('Получ док')}  type="checkbox" className="check-wrap__input"/>
-                                        <span className="check-wrap__mark"></span>
-                                    </label>
-                                    <label className="collapse__item check-wrap">
-                                        Встретить экспедитора
-                                        <input onChange={() => addValue('Встретить экспедитора')}  type="checkbox" className="check-wrap__input"/>
-                                        <span className="check-wrap__mark"></span>
-                                    </label>
+                                    {values.map(value => {
+                                        return (
+                                            <label className="collapse__item check-wrap">
+                                                {value.name}
+                                                {value.selected ?
+                                                    <input onChange={() => toggleValue(value.id)} type="checkbox" checked className="check-wrap__input"/> :
+                                                    <input onChange={() => toggleValue(value.id)} type="checkbox" className="check-wrap__input"/>}
+                                                <span className="check-wrap__mark"></span>
+                                            </label>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         </div>

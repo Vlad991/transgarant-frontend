@@ -11,7 +11,7 @@ class RouteContainer extends React.Component {
         points: [
             {
                 name: 'Точка 1',
-                address: 'г. Москва ул. Пушкинская оф. 2 (в арочку)',
+                address: 'г Москва, Пушкинская пл, д 2',
                 comment: '',
                 company: 'В ООО "Salus"',
                 contact_name: 'Васька',
@@ -23,13 +23,35 @@ class RouteContainer extends React.Component {
                 hasPause: true,
                 pauseFrom: '09.00',
                 pauseTo: '18.00',
-                values: []
+                values: [
+                    {
+                        id: 1,
+                        name: 'Погр',
+                        selected: false
+                    },
+                    {
+                        id: 2,
+                        name: 'Разг',
+                        selected: true
+                    },
+                    {
+                        id: 3,
+                        name: 'Получ док',
+                        selected: false
+                    },
+                    {
+                        id: 4,
+                        name: 'Встретить экспедитора',
+                        selected: false
+                    },
+                ]
             }
         ],
         showForm: false,
         updatePoint: null,
         name: '',
         address: '',
+        address_error: false,
         comment: '',
         company: '',
         contact_name: '',
@@ -41,7 +63,28 @@ class RouteContainer extends React.Component {
         hasPause: 0,
         pauseFrom: '',
         pauseTo: '',
-        values: [],
+        values: [
+            {
+                id: 1,
+                name: 'Погр',
+                selected: false
+            },
+            {
+                id: 2,
+                name: 'Разг',
+                selected: false
+            },
+            {
+                id: 3,
+                name: 'Получ док',
+                selected: false
+            },
+            {
+                id: 4,
+                name: 'Встретить экспедитора',
+                selected: false
+            },
+        ],
         showCollapse: false
     }
 
@@ -187,7 +230,28 @@ class RouteContainer extends React.Component {
             hasPause: 0,
             pauseFrom: '',
             pauseTo: '',
-            values: [],
+            values: [
+                {
+                    id: 1,
+                    name: 'Погр',
+                    selected: false
+                },
+                {
+                    id: 2,
+                    name: 'Разг',
+                    selected: false
+                },
+                {
+                    id: 3,
+                    name: 'Получ док',
+                    selected: false
+                },
+                {
+                    id: 4,
+                    name: 'Встретить экспедитора',
+                    selected: false
+                },
+            ],
         });
         this.toggleForm(false);
     }
@@ -201,12 +265,26 @@ class RouteContainer extends React.Component {
         })
     }
 
-    addValue = (value) => {
+    toggleValue = (id) => {
         let values = [...this.state.values];
-        values.push(value);
+        let value = values.find(value => value.id === id);
+        value.selected = !value.selected;
         this.setState({
             values
         })
+    }
+
+    setAddress = (value) => {
+        if (!value) {
+            this.setState({
+                address_error: true
+            })
+        } else {
+            this.setState({
+                address_error: false,
+                address: value.value
+            });
+        }
     }
 
     render() {
@@ -229,6 +307,8 @@ class RouteContainer extends React.Component {
                    setState={this.setState.bind(this)}
                    name={this.state.name}
                    address={this.state.address}
+                   addressError={this.state.address_error}
+                   setAddress={this.setAddress}
                    comment={this.state.comment}
                    company={this.state.company}
                    contactName={this.state.contact_name}
@@ -241,7 +321,7 @@ class RouteContainer extends React.Component {
                    pauseFrom={this.state.pauseFrom}
                    pauseTo={this.state.pauseTo}
                    values={this.state.values}
-                   addValue={this.addValue}
+                   toggleValue={this.toggleValue}
                    showCollapse={this.state.showCollapse}
                    toggleCollapse={this.toggleCollapse}
                    showPointInfo={this.showPointInfo}
