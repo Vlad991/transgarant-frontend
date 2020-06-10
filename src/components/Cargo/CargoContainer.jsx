@@ -2,17 +2,29 @@ import React from 'react';
 import Cargo from "./Cargo";
 
 class CargoContainer extends React.Component {
-    state = {}
+    state = {
+        activeTab: 1,
+        cargo: [],
+        quantity: 1,
+        length: 1.2,
+        width: 0.8,
+        height: 1,
+    }
 
-    componentDidMount() {
-    };
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-    };
+    setActiveTab = (tabNumber) => {
+        this.setState({
+            activeTab: tabNumber
+        })
+    }
 
     render() {
         return (
-            <Cargo state={this.props.state}/>
+            <Cargo activeTab={this.state.activeTab} setActiveTab={this.setActiveTab}
+                   quantity={this.state.quantity}
+                   length={this.state.length}
+                   width={this.state.width}
+                   height={this.state.height}
+            />
         );
     };
 }

@@ -10,6 +10,10 @@
   display: none
   &_active
     display: block
+  &_second
+    left: 500px
+    @include mobile
+      left: auto
 
 .calendar
   width: 450px
@@ -17,6 +21,8 @@
   border-radius: 10px
   background-color: #fff
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.15)
+  @include mobile
+    width: 300px
 
 .react-datepicker
   width: 100%
@@ -100,6 +106,9 @@
   @include fontSWCL(12px, normal, #000, 14px)
   font-family: 'Roboto'
   cursor: pointer
+  @include mobile
+    width: 25px
+    height: 26px
 
 .react-datepicker__day--selected
   background-color: $yellow
@@ -112,6 +121,8 @@
   height: 100%
   padding: 9px 19px 11px 26px
   box-sizing: border-box
+  @include mobile
+    padding: 5px 15px
 
 .react-datepicker__time-list
   box-sizing: border-box
@@ -158,10 +169,14 @@
     cursor: pointer
   &--previous
     left: 100px
+    @include mobile
+      left: 30px
     &::before
       content: url("data:image/svg+xml,%3Csvg width='7' height='6' viewBox='0 0 7 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.29678 -4.45454e-07C6.49503 -4.62786e-07 6.65576 0.137769 6.65576 0.307695L6.65576 5.69232C6.65576 5.86224 6.49503 6 6.29678 6L0.463446 3.23079C0.463446 3.23079 0.194213 3.00001 0.463446 2.76923C0.73268 2.53847 6.29678 -4.45454e-07 6.29678 -4.45454e-07Z' fill='black' fill-opacity='0.25'/%3E%3C/svg%3E%0A")
   &--next
     right: 210px
+    @include mobile
+      right: 105px
     &::before
       content: url("data:image/svg+xml,%3Csvg width='7' height='6' viewBox='0 0 7 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.703216 6C0.504969 6 0.344238 5.86223 0.344238 5.6923V0.307681C0.344238 0.137755 0.504969 0 0.703216 0L6.53655 2.76921C6.53655 2.76921 6.80579 2.99999 6.53655 3.23077C6.26732 3.46153 0.703216 6 0.703216 6Z' fill='black' fill-opacity='0.25'/%3E%3C/svg%3E%0A")
 

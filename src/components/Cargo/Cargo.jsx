@@ -1,6 +1,13 @@
 import React from "react";
 
-const Cargo = (props) => {
+const Cargo = ({
+                   activeTab,
+                   setActiveTab,
+                   quantity,
+                   length,
+                   width,
+                   height
+               }) => {
     return (
         <section className="checkout__cargo cargo">
             <div className="checkout__title cargo__heading">Данные о грузе</div>
@@ -13,12 +20,48 @@ const Cargo = (props) => {
                     <div className="cargo__charac-heading">Характеристика груза</div>
                     <div className="cargo__characteristic characteristic">
                         <div className="characteristic__tab-links">
-                            <div className="characteristic__tab-link button button_inverse button_small">Машино место</div>
-                            <div className="characteristic__tab-link button button_inverse button_small button_active">На палетах</div>
-                            <div className="characteristic__tab-link button button_inverse button_small">Упаковки</div>
+                            <div onClick={() => setActiveTab(1)} className={"characteristic__tab-link button button_inverse button_small" + (activeTab === 1 ? ' button_active' : '')}>Машино место</div>
+                            <div onClick={() => setActiveTab(2)} className={"characteristic__tab-link button button_inverse button_small" + (activeTab === 2 ? ' button_active' : '')}>На палетах</div>
+                            <div onClick={() => setActiveTab(3)} className={"characteristic__tab-link button button_inverse button_small" + (activeTab === 3 ? ' button_active' : '')}>Упаковки</div>
                         </div>
                         <div className="characteristic__tab-items">
-                            <div className="characteristic__tab-item characteristic__tab-item_active">
+                            <div className={"characteristic__tab-item" + (activeTab === 1 ? ' characteristic__tab-item_active' : '')}>
+                                <div className="characteristic__line">
+                                    <label className="characteristic__cargo-name input-wrap">
+                                        <input type="text" className="input-wrap__input" placeholder="Наименование груза"/>
+                                    </label>
+                                    <label className="characteristic__input input-wrap">
+                                        <input type="text" className="input-wrap__input" placeholder="2500р"/>
+                                    </label>
+                                </div>
+                                <div className="characteristic__line">
+                                    <div className="characteristic__input input-label-wrap">
+                                        <label htmlFor="" className="input-label-wrap__label">Длина</label>
+                                        <label className="input-label-wrap__input input-wrap">
+                                            <input id="2" type="text" className="input-wrap__input" placeholder="3,000"/>
+                                        </label>
+                                    </div>
+                                    <div className="characteristic__input input-label-wrap">
+                                        <label htmlFor="" className="input-label-wrap__label">Ширина</label>
+                                        <label className="input-label-wrap__input input-wrap">
+                                            <input id="3" type="text" className="input-wrap__input" placeholder="1,000"/>
+                                        </label>
+                                    </div>
+                                    <div className="characteristic__input input-label-wrap">
+                                        <label htmlFor="" className="input-label-wrap__label">Высота</label>
+                                        <label className="input-label-wrap__input input-wrap">
+                                            <input id="4" type="text" className="input-wrap__input" placeholder="1,000"/>
+                                        </label>
+                                    </div>
+                                    <div className="characteristic__input input-label-wrap">
+                                        <label htmlFor="" className="input-label-wrap__label">Вес груза</label>
+                                        <label className="input-label-wrap__input input-wrap">
+                                            <input id="5" type="text" className="input-wrap__input" placeholder="100,000"/>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={"characteristic__tab-item" + (activeTab === 2 ? ' characteristic__tab-item_active' : '')}>
                                 <div className="characteristic__line">
                                     <div className="characteristic__currency collapse">
                                         <div className="collapse__selected">Евро</div>
@@ -67,43 +110,7 @@ const Cargo = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="characteristic__tab-item">
-                                <div className="characteristic__line">
-                                    <label className="characteristic__cargo-name input-wrap">
-                                        <input type="text" className="input-wrap__input" placeholder="Наименование груза"/>
-                                    </label>
-                                    <label className="characteristic__input input-wrap">
-                                        <input type="text" className="input-wrap__input" placeholder="2500р"/>
-                                    </label>
-                                </div>
-                                <div className="characteristic__line">
-                                    <div className="characteristic__input input-label-wrap">
-                                        <label htmlFor="" className="input-label-wrap__label">Длина</label>
-                                        <label className="input-label-wrap__input input-wrap">
-                                            <input id="2" type="text" className="input-wrap__input" placeholder="3,000"/>
-                                        </label>
-                                    </div>
-                                    <div className="characteristic__input input-label-wrap">
-                                        <label htmlFor="" className="input-label-wrap__label">Ширина</label>
-                                        <label className="input-label-wrap__input input-wrap">
-                                            <input id="3" type="text" className="input-wrap__input" placeholder="1,000"/>
-                                        </label>
-                                    </div>
-                                    <div className="characteristic__input input-label-wrap">
-                                        <label htmlFor="" className="input-label-wrap__label">Высота</label>
-                                        <label className="input-label-wrap__input input-wrap">
-                                            <input id="4" type="text" className="input-wrap__input" placeholder="1,000"/>
-                                        </label>
-                                    </div>
-                                    <div className="characteristic__input input-label-wrap">
-                                        <label htmlFor="" className="input-label-wrap__label">Вес груза</label>
-                                        <label className="input-label-wrap__input input-wrap">
-                                            <input id="5" type="text" className="input-wrap__input" placeholder="100,000"/>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="characteristic__tab-item">
+                            <div className={"characteristic__tab-item" + (activeTab === 3 ? ' characteristic__tab-item_active' : '')}>
                                 <div className="characteristic__line">
                                     <div className="characteristic__currency collapse">
                                         <div className="collapse__selected">Евро</div>
@@ -164,6 +171,16 @@ const Cargo = (props) => {
                         </svg>
                     </div>
                     <div className="cargo__sizes">
+                        {/*{new Array(quantity).map(block => {*/}
+                        {/*    return (*/}
+                        {/*        <div className="cargo__size-block size-block">*/}
+                        {/*            <div className="size-block__value">0,8</div>*/}
+                        {/*            <div className="size-block__value">1,2</div>*/}
+                        {/*            <div className="size-block__value">0,8</div>*/}
+                        {/*            <div className="size-block__value">1,2</div>*/}
+                        {/*        </div>*/}
+                        {/*    )*/}
+                        {/*})}*/}
                         <div className="cargo__size-block size-block">
                             <div className="size-block__value">0,8</div>
                             <div className="size-block__value">1,2</div>

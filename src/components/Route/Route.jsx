@@ -13,6 +13,9 @@ const Route = ({
                    toggleToPicker,
                    points,
                    showForm,
+                   updatePoint,
+                   doUpdatePoint,
+                   deletePoint,
                    toggleForm,
                    addPoint,
                    setState,
@@ -28,7 +31,11 @@ const Route = ({
                    hasPause,
                    pauseFrom,
                    pauseTo,
-                   values
+                   values,
+                   addValue,
+                   showCollapse,
+                   toggleCollapse,
+                   showPointInfo
                }) => {
     registerLocale('ru', ru)
     return (
@@ -62,7 +69,7 @@ const Route = ({
                         <button onClick={toggleFromPicker} className="calendar__save calendar__button button">Сохранить</button>
                     </div>
                 </div>
-                <div className={"route__calendar calendar" + (showToPicker ? " route__calendar_active" : '')} style={{left: '500px'}}>
+                <div className={"route__calendar route__calendar_second calendar" + (showToPicker ? " route__calendar_active" : '')}>
                     <DatePicker
                         onChange={setDateTo}
                         selected={dateTo}
@@ -78,10 +85,10 @@ const Route = ({
                 </div>
             </div>
             <div className="route__points">
-                {points.map(point => {
+                {points.map((point, index) => {
                     return (
-                        <div className="route__point route-point">
-                            <div className="route-point__cross">
+                        <div key={index} onClick={() => showPointInfo(index)} className="route__point route-point">
+                            <div onClick={(e) => deletePoint(e, index)} className="route-point__cross">
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M14 1.4L12.6 0L7 5.6L1.4 0L0 1.4L5.6 7L0 12.6L1.4 14L7 8.4L12.6 14L14 12.6L8.4 7L14 1.4Z" fill="#A3A3A3"/>
                                 </svg>
@@ -113,7 +120,7 @@ const Route = ({
                 <>
                     <div className="route__add-form add-form">
                         <div className="add-form__col add-form__col_first">
-                            <div className="add-form__heading">Точка {points.length + 1}</div>
+                            <div className="add-form__heading">Точка {updatePoint || (updatePoint === 0) ? updatePoint + 1 : points.length + 1}</div>
                             <label className="add-form__address input-wrap">
                                 <input onChange={(e) => setState({address: e.target.value})} value={address} type="text" className="input-wrap__input" placeholder="Адрес"/>
                             </label>
@@ -153,56 +160,58 @@ const Route = ({
                             <div className="add-form__heading">Часы работы</div>
                             <div className="add-form__time">
                                 <label className="add-form__time-item input-wrap">
-                                    <input type="text" className="input-wrap__input" placeholder="c 09.00"/>
+                                    <input onChange={(e) => setState({timeFrom: e.target.value})} value={timeFrom} type="text" className="input-wrap__input" placeholder="c 09.00"/>
                                 </label>
                                 <label className="add-form__time-item input-wrap">
-                                    <input type="text" className="input-wrap__input" placeholder="до 18.00"/>
+                                    <input onChange={(e) => setState({timeTo: e.target.value})} value={timeTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
                                 </label>
                             </div>
                             <div className="add-form__pause">
                                 <span>Перерыв</span>
                                 <label className="check-wrap">
                                     Нет
-                                    <input type="checkbox" className="check-wrap__input"/>
+                                    <input onChange={(e) => setState({hasPause: e.target.value})} value={hasPause} type="checkbox" className="check-wrap__input"/>
                                     <span className="check-wrap__mark"></span>
                                 </label>
                             </div>
                             <div className="add-form__time">
                                 <label className="add-form__time-item input-wrap">
-                                    <input type="text" className="input-wrap__input" placeholder="с 09.00"/>
+                                    <input onChange={(e) => setState({pauseFrom: e.target.value})} value={pauseFrom} type="text" className="input-wrap__input" placeholder="с 09.00"/>
                                 </label>
                                 <label className="add-form__time-item input-wrap">
-                                    <input type="text" className="input-wrap__input" placeholder="до 18.00"/>
+                                    <input onChange={(e) => setState({pauseTo: e.target.value})} value={pauseTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
                                 </label>
                             </div>
-                            <div className="add-form__collapse collapse collapse_gray">
-                                <div className="collapse__selected">Погр, Получ.....</div>
-                                <div className="collapse__items">
+                            <div onClick={toggleCollapse} className={"add-form__collapse collapse collapse_gray" + (showCollapse ? ' collapse_active' : '')}>
+                                <div className="collapse__selected">Услуги: {values.map(value => value + ', ')}</div>
+                                <div onClick={(e) => e.stopPropagation()} className="collapse__items">
                                     <label className="collapse__item check-wrap">
                                         Погр
-                                        <input type="checkbox" className="check-wrap__input"/>
+                                        <input onChange={() => addValue('Погр')} type="checkbox" className="check-wrap__input"/>
                                         <span className="check-wrap__mark"></span>
                                     </label>
                                     <label className="collapse__item check-wrap">
                                         Разг
-                                        <input type="checkbox" className="check-wrap__input"/>
+                                        <input onChange={() => addValue('Разг')}  type="checkbox" className="check-wrap__input"/>
                                         <span className="check-wrap__mark"></span>
                                     </label>
                                     <label className="collapse__item check-wrap">
                                         Получ док
-                                        <input type="checkbox" className="check-wrap__input"/>
+                                        <input onChange={() => addValue('Получ док')}  type="checkbox" className="check-wrap__input"/>
                                         <span className="check-wrap__mark"></span>
                                     </label>
                                     <label className="collapse__item check-wrap">
                                         Встретить экспедитора
-                                        <input type="checkbox" className="check-wrap__input"/>
+                                        <input onChange={() => addValue('Встретить экспедитора')}  type="checkbox" className="check-wrap__input"/>
                                         <span className="check-wrap__mark"></span>
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button onClick={() => addPoint("Точка " + (points.length + 1))} type="button" className="route__add-button button-rhomb"><span className="button-rhomb__text">Добавить</span></button>
+                    {updatePoint || (updatePoint === 0) ?
+                        <button onClick={() => doUpdatePoint(updatePoint, "Точка " + (updatePoint + 1))} type="button" className="route__add-button button-rhomb"><span className="button-rhomb__text">Обновить</span></button> :
+                        <button onClick={() => addPoint("Точка " + (points.length + 1))} type="button" className="route__add-button button-rhomb"><span className="button-rhomb__text">Добавить</span></button>}
                 </>}
         </section>
     );

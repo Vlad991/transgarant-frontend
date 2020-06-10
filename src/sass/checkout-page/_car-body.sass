@@ -98,6 +98,11 @@
 .check-block__item
   flex-basis: 47.6%
   margin-top: 16px
+  &:first-child, &:nth-child(2)
+    margin-top: 0
+  &:nth-child(2)
+    @include mobile
+      margin-top: 16px
   @include tablet
     min-width: 240px
   .collapse

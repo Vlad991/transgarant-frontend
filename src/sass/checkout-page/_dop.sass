@@ -33,8 +33,18 @@
     left: auto
     flex-wrap: wrap
     padding: 23px 23px 0
-    border-top: 1px solid $yellow
+    //border-top: 1px solid $yellow
     border-radius: 10px 0 10px 10px
+    &:before
+      content: ''
+      width: 22%
+      height: 1px
+      background-color: $yellow
+      position: absolute
+      top: 0
+      left: 6px
+      @include tabletSmall
+        display: none
     @include tabletSmall
       width: calc(100% + 2px)
       border-top: none

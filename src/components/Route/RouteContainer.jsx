@@ -23,10 +23,11 @@ class RouteContainer extends React.Component {
                 hasPause: true,
                 pauseFrom: '09.00',
                 pauseTo: '18.00',
-                values: ['Погр', 'Разг']
+                values: []
             }
         ],
         showForm: false,
+        updatePoint: null,
         name: '',
         address: '',
         comment: '',
@@ -37,10 +38,11 @@ class RouteContainer extends React.Component {
         file: '',
         timeFrom: '',
         timeTo: '',
-        hasPause: false,
+        hasPause: 0,
         pauseFrom: '',
         pauseTo: '',
-        values: []
+        values: [],
+        showCollapse: false
     }
 
     setDateFrom = (date) => {
@@ -99,6 +101,92 @@ class RouteContainer extends React.Component {
         this.toggleForm(false);
     }
 
+    toggleCollapse = () => {
+        this.setState({
+            showCollapse: !this.state.showCollapse
+        })
+    }
+
+    showPointInfo = (index) => {
+        let point = this.state.points[index];
+        this.setState({
+            showForm: true,
+            updatePoint: index,
+            name: point.name,
+            address: point.address,
+            comment: point.comment,
+            company: point.company,
+            contact_name: point.contact_name,
+            number: point.number,
+            todo: point.todo,
+            file: point.file,
+            timeFrom: point.timeFrom,
+            timeTo: point.timeTo,
+            hasPause: point.hasPause,
+            pauseFrom: point.pauseFrom,
+            pauseTo: point.pauseTo,
+            values: [...point.values]
+        })
+    }
+
+    doUpdatePoint = (index, name) => {
+        let point = {
+            showForm: this.state.showForm,
+            name: name,
+            address: this.state.address,
+            comment: this.state.comment,
+            company: this.state.company,
+            contact_name: this.state.contact_name,
+            number: this.state.number,
+            todo: this.state.todo,
+            file: this.state.file,
+            timeFrom: this.state.timeFrom,
+            timeTo: this.state.timeTo,
+            hasPause: this.state.hasPause,
+            pauseFrom: this.state.pauseFrom,
+            pauseTo: this.state.pauseTo,
+            values: [...this.state.values]
+        }
+        let points = [...this.state.points];
+        points[index] = point;
+        this.setState({
+            points: points,
+            updatePoint: null,
+            name: '',
+            address: '',
+            comment: '',
+            company: '',
+            contact_name: '',
+            number: '',
+            todo: '',
+            file: '',
+            timeFrom: '',
+            timeTo: '',
+            hasPause: 0,
+            pauseFrom: '',
+            pauseTo: '',
+            values: [],
+        });
+        this.toggleForm(false);
+    }
+
+    deletePoint = (e, index) => {
+        e.stopPropagation();
+        let points = [...this.state.points];
+        points.splice(index, 1);
+        this.setState({
+            points
+        })
+    }
+
+    addValue = (value) => {
+        let values = [...this.state.values];
+        values.push(value);
+        this.setState({
+            values
+        })
+    }
+
     render() {
         return (
             <Route dateFrom={this.state.dateFrom}
@@ -111,6 +199,9 @@ class RouteContainer extends React.Component {
                    toggleToPicker={this.toggleToPicker}
                    points={this.state.points}
                    showForm={this.state.showForm}
+                   updatePoint={this.state.updatePoint}
+                   doUpdatePoint={this.doUpdatePoint}
+                   deletePoint={this.deletePoint}
                    toggleForm={this.toggleForm}
                    addPoint={this.addPoint}
                    setState={this.setState.bind(this)}
@@ -128,6 +219,10 @@ class RouteContainer extends React.Component {
                    pauseFrom={this.state.pauseFrom}
                    pauseTo={this.state.pauseTo}
                    values={this.state.values}
+                   addValue={this.addValue}
+                   showCollapse={this.state.showCollapse}
+                   toggleCollapse={this.toggleCollapse}
+                   showPointInfo={this.showPointInfo}
             />
         );
     };
