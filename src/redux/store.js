@@ -3,18 +3,24 @@ import thunkMiddleware from "redux-thunk";
 import categoryReducer from "./categoryReducer";
 import carBodyReducer from "./carBodyReducer";
 import dopReducer from "./dopReducer";
+import dateReducer from "./dateReducer";
+import pointsReducer from "./pointsReducer";
+import { reducer as formReducer } from 'redux-form';
+import cargoReducer from "./cargoReducer";
 
 
 let reducers = combineReducers({
     categoryReducer,
     carBodyReducer,
     dopReducer,
-    // routeReducer,
-    // cargoReducer,
+    dateReducer,
+    pointsReducer,
+    cargoReducer,
     // tariffReducer,
     // paymentReducer,
     // socialReducer,
     // clientFormReducer
+    form: formReducer
 });
 
 const composeEnhancers = compose;

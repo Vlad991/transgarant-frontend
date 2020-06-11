@@ -6,7 +6,8 @@ const Cargo = ({
                    quantity,
                    length,
                    width,
-                   height
+                   height,
+                   palletTypes
                }) => {
     return (
         <section className="checkout__cargo cargo">
@@ -64,10 +65,14 @@ const Cargo = ({
                             <div className={"characteristic__tab-item" + (activeTab === 2 ? ' characteristic__tab-item_active' : '')}>
                                 <div className="characteristic__line">
                                     <div className="characteristic__currency collapse">
-                                        <div className="collapse__selected">Евро</div>
+                                        <div className="collapse__selected">{palletTypes[0].name}</div>
                                         <div className="collapse__items">
-                                            <div className="collapse__item">Доллар</div>
-                                            <div className="collapse__item">Рубль</div>
+                                            {palletTypes.map((palletType, index) => {
+                                                if (index > 0) {
+                                                    return <div className="collapse__item">{palletType.name}</div>
+                                                }
+                                                return null;
+                                            })}
                                         </div>
                                     </div>
                                     <label className="characteristic__cargo-name input-wrap">
@@ -113,10 +118,14 @@ const Cargo = ({
                             <div className={"characteristic__tab-item" + (activeTab === 3 ? ' characteristic__tab-item_active' : '')}>
                                 <div className="characteristic__line">
                                     <div className="characteristic__currency collapse">
-                                        <div className="collapse__selected">Евро</div>
+                                        <div className="collapse__selected">{palletTypes[0].name}</div>
                                         <div className="collapse__items">
-                                            <div className="collapse__item">Доллар</div>
-                                            <div className="collapse__item">Рубль</div>
+                                            {palletTypes.map((palletType, index) => {
+                                                if (index > 0) {
+                                                    return <div className="collapse__item">{palletType.name}</div>
+                                                }
+                                                return null;
+                                            })}
                                         </div>
                                     </div>
                                     <label className="characteristic__cargo-name input-wrap">

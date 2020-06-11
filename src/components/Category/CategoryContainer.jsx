@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from "react-redux";
 import Category from "./Category";
 import {setCategory} from "../../redux/categoryReducer";
-
 class CategoryContainer extends React.Component {
+
     setCategory = (id) => {
         this.props.setCategory(id);
     }

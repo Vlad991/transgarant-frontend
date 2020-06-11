@@ -19,7 +19,7 @@ const Route = ({
                    deletePoint,
                    toggleForm,
                    addPoint,
-                   setState,
+                   setFormState,
                    address,
                    addressError,
                    setAddress,
@@ -131,19 +131,19 @@ const Route = ({
                                                 inputProps={{className: 'input-wrap__input', placeholder: 'Адрес'}}/>
                             <div className="add-form__inputs">
                                 <label className="add-form__input input-wrap">
-                                    <input onChange={(e) => setState({comment: e.target.value})} value={comment} type="text" className="input-wrap__input" placeholder="Комментарий к адресу"/>
+                                    <input onChange={(e) => setFormState({comment: e.target.value})} value={comment} type="text" className="input-wrap__input" placeholder="Комментарий к адресу"/>
                                 </label>
                                 <label className="add-form__input input-wrap">
-                                    <input onChange={(e) => setState({company: e.target.value})} value={company} type="text" className="input-wrap__input" placeholder="В какую компанию по адресу"/>
+                                    <input onChange={(e) => setFormState({company: e.target.value})} value={company} type="text" className="input-wrap__input" placeholder="В какую компанию по адресу"/>
                                 </label>
                                 <label className="add-form__input input-wrap">
-                                    <input onChange={(e) => setState({contact_name: e.target.value})} value={contactName} type="text" className="input-wrap__input" placeholder="Контактное лицо (ФИО)"/>
+                                    <input onChange={(e) => setFormState({contact_name: e.target.value})} value={contactName} type="text" className="input-wrap__input" placeholder="Контактное лицо (ФИО)"/>
                                 </label>
                                 <label className="add-form__input input-wrap">
-                                    <input onChange={(e) => setState({number: e.target.value})} value={number} type="text" className="input-wrap__input" placeholder="Номер телефона"/>
+                                    <input onChange={(e) => setFormState({number: e.target.value})} value={number} type="text" className="input-wrap__input" placeholder="Номер телефона"/>
                                 </label>
                                 <label className="add-form__input input-wrap">
-                                    <input onChange={(e) => setState({todo: e.target.value})} value={todo} type="text" className="input-wrap__input" placeholder="Что нужно сделать по адресу"/>
+                                    <input onChange={(e) => setFormState({todo: e.target.value})} value={todo} type="text" className="input-wrap__input" placeholder="Что нужно сделать по адресу"/>
                                 </label>
                                 <label className="add-form__input add-form__input_file input-wrap">
                                     <svg width="21" height="25" viewBox="0 0 21 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -157,7 +157,7 @@ const Route = ({
                                         <path d="M11.8139 19.8223C11.7139 19.6887 11.5997 19.5926 11.4721 19.5336C11.3445 19.4745 11.21 19.4452 11.0682 19.4452C10.923 19.4452 10.7842 19.4723 10.6527 19.5275C10.5208 19.5827 10.4031 19.6758 10.2992 19.8073C10.1949 19.9392 10.1135 20.1086 10.0548 20.3172C9.99623 20.5258 9.96433 20.7805 9.96045 21.0831C9.96433 21.3779 9.99493 21.6292 10.0518 21.8374C10.1087 22.0456 10.1872 22.2154 10.2876 22.3473C10.388 22.4792 10.5018 22.5749 10.6294 22.6361C10.757 22.6973 10.8915 22.7275 11.0333 22.7275C11.1786 22.7275 11.3169 22.6991 11.4488 22.6422C11.5803 22.5853 11.6984 22.4917 11.8023 22.3624C11.9061 22.2327 11.988 22.0629 12.0467 21.8525C12.1053 21.6422 12.1367 21.3861 12.1411 21.0836C12.1372 20.7887 12.1066 20.5383 12.0497 20.3323C11.9923 20.1258 11.9139 19.956 11.8139 19.8223Z" fill="#AFAFAF"/>
                                     </svg>
                                     <span className="add-form__file-text">Прикрепить файл</span>
-                                    {/*<input onChange={(e) => setState({file: e.target.value})} value={file} type="file" className="input-wrap__input" placeholder="Прикрепить файл"/>*/}
+                                    {/*<input onChange={(e) => setFormState({file: e.target.value})} value={file} type="file" className="input-wrap__input" placeholder="Прикрепить файл"/>*/}
                                 </label>
                             </div>
                         </div>
@@ -165,10 +165,10 @@ const Route = ({
                             <div className="add-form__heading">Часы работы</div>
                             <div className="add-form__time">
                                 <label className="add-form__time-item input-wrap">
-                                    <input onChange={(e) => setState({timeFrom: e.target.value})} value={timeFrom} type="text" className="input-wrap__input" placeholder="c 09.00"/>
+                                    <input onChange={(e) => setFormState({timeFrom: e.target.value})} value={timeFrom} type="text" className="input-wrap__input" placeholder="c 09.00"/>
                                 </label>
                                 <label className="add-form__time-item input-wrap">
-                                    <input onChange={(e) => setState({timeTo: e.target.value})} value={timeTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
+                                    <input onChange={(e) => setFormState({timeTo: e.target.value})} value={timeTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
                                 </label>
                             </div>
                             <div className="add-form__pause">
@@ -176,18 +176,18 @@ const Route = ({
                                 <label className="check-wrap">
                                     Нет
                                     {hasPause ?
-                                        <input onClick={(e) => setState({hasPause: false})} checked type="checkbox" className="check-wrap__input"/> :
-                                        <input onClick={(e) => setState({hasPause: true})} type="checkbox" className="check-wrap__input"/>}
+                                        <input onClick={(e) => setFormState({hasPause: false})} checked type="checkbox" className="check-wrap__input"/> :
+                                        <input onClick={(e) => setFormState({hasPause: true})} type="checkbox" className="check-wrap__input"/>}
                                     <span className="check-wrap__mark"></span>
                                 </label>
                             </div>
                             {!hasPause ?
                                 <div className="add-form__time">
                                     <label className="add-form__time-item input-wrap">
-                                        <input onChange={(e) => setState({pauseFrom: e.target.value})} value={pauseFrom} type="text" className="input-wrap__input" placeholder="с 09.00"/>
+                                        <input onChange={(e) => setFormState({pauseFrom: e.target.value})} value={pauseFrom} type="text" className="input-wrap__input" placeholder="с 09.00"/>
                                     </label>
                                     <label className="add-form__time-item input-wrap">
-                                        <input onChange={(e) => setState({pauseTo: e.target.value})} value={pauseTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
+                                        <input onChange={(e) => setFormState({pauseTo: e.target.value})} value={pauseTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
                                     </label>
                                 </div> : null}
                             <div onClick={toggleCollapse} className={"add-form__collapse collapse collapse_gray" + (showCollapse ? ' collapse_active' : '')}>

@@ -1,14 +1,15 @@
 import React from 'react';
 import Cargo from "./Cargo";
+import {connect} from "react-redux";
+import {setPalletTypesThunk} from "../../redux/cargoReducer";
 
 class CargoContainer extends React.Component {
     state = {
-        activeTab: 1,
-        cargo: [],
-        quantity: 1,
-        length: 1.2,
-        width: 0.8,
-        height: 1,
+        activeTab: 1
+    }
+
+    componentDidMount() {
+        this.props.setPalletTypesThunk();
     }
 
     setActiveTab = (tabNumber) => {
@@ -20,13 +21,23 @@ class CargoContainer extends React.Component {
     render() {
         return (
             <Cargo activeTab={this.state.activeTab} setActiveTab={this.setActiveTab}
-                   quantity={this.state.quantity}
-                   length={this.state.length}
-                   width={this.state.width}
-                   height={this.state.height}
+                   quantity={this.props.quantity}
+                   length={this.props.length}
+                   width={this.props.width}
+                   height={this.props.height}
+                   palletTypes={this.props.pallet_types}
             />
         );
     };
 }
 
-export default CargoContainer;
+let mapStateToProps = (state) => ({
+    cargo: state.cargoReducer.cargo,
+    quantity: state.cargoReducer.quantity,
+    length: state.cargoReducer.length,
+    width: state.cargoReducer.width,
+    height: state.cargoReducer.height,
+    pallet_types: state.cargoReducer.pallet_types
+});
+
+export default connect(mapStateToProps, {setPalletTypesThunk})(CargoContainer);
