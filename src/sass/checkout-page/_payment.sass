@@ -18,6 +18,14 @@
   @include fontSWCL(16px, normal, #000, 20px)
   text-transform: none
 
+
+.check-wrap_disabled
+  .payment__check
+    color: rgba(0, 0, 0, 0.3)
+    cursor: not-allowed
+  svg
+    cursor: not-allowed
+
 .payment__item
   @include tabletSmall
     margin-bottom: 20px
