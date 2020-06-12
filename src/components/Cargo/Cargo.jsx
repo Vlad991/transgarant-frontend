@@ -1,13 +1,44 @@
 import React from "react";
+import CollapseContainer from "../CollapseContainer";
+import {setFormState} from "../../redux/pointsReducer";
 
 const Cargo = ({
                    activeTab,
                    setActiveTab,
+                   name,
+                   price,
                    quantity,
                    length,
                    width,
                    height,
-                   palletTypes
+
+                   palletQuantity,
+                   palletLength,
+                   palletWidth,
+                   palletHeight,
+                   palletWeight,
+                   addPallet,
+                   palletTypes,
+
+                   placeLength,
+                   placeWidth,
+                   placeHeight,
+                   placeWeight,
+                   addPlace,
+    
+                   packageQuantity,
+                   packageLength,
+                   packageWidth,
+                   packageHeight,
+                   packageWeight,
+                   addPackage,
+                   packageTypes,
+
+                   selectedPallet,
+                   selectedPackage,
+                   setPallet,
+                   setPackage,
+                   setCargoState
                }) => {
     return (
         <section className="checkout__cargo cargo">
@@ -15,7 +46,7 @@ const Cargo = ({
             <form className="cargo__form">
                 <div className="cargo__first-col">
                     <div className="cargo__head-block">
-                        <div className="cargo__name">Наименование груза (Ценность груза (4500р)</div>
+                        <div className="cargo__name">{name ? name : 'Наименование груза'} ({price ? price + 'р' : 'Ценность груза'})</div>
                         <div className="cargo__description">ОБЩИ ВЕС / ОБЪЕМ ГРУЗА (700кг / 5 куб) / Площадь (3м2)</div>
                     </div>
                     <div className="cargo__charac-heading">Характеристика груза</div>
@@ -29,148 +60,136 @@ const Cargo = ({
                             <div className={"characteristic__tab-item" + (activeTab === 1 ? ' characteristic__tab-item_active' : '')}>
                                 <div className="characteristic__line">
                                     <label className="characteristic__cargo-name input-wrap">
-                                        <input type="text" className="input-wrap__input" placeholder="Наименование груза"/>
+                                        <input type="text" value={name} onChange={(e) => setCargoState({name: e.target.value})} className="input-wrap__input" placeholder="Наименование груза"/>
                                     </label>
                                     <label className="characteristic__input input-wrap">
-                                        <input type="text" className="input-wrap__input" placeholder="2500р"/>
+                                        <input type="text" value={price} onChange={(e) => setCargoState({price: e.target.value})} className="input-wrap__input" placeholder="2500р"/>
                                     </label>
                                 </div>
                                 <div className="characteristic__line">
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Длина</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="2" type="text" className="input-wrap__input" placeholder="3,000"/>
+                                            <input id="2" type="text" value={placeLength} onChange={(e) => setCargoState({place_length: e.target.value})} className="input-wrap__input" placeholder="3,000"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Ширина</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="3" type="text" className="input-wrap__input" placeholder="1,000"/>
+                                            <input id="3" type="text" value={placeWidth} onChange={(e) => setCargoState({place_width: e.target.value})} className="input-wrap__input" placeholder="1,000"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Высота</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="4" type="text" className="input-wrap__input" placeholder="1,000"/>
+                                            <input id="4" type="text" value={placeHeight} onChange={(e) => setCargoState({place_height: e.target.value})} className="input-wrap__input" placeholder="1,000"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Вес груза</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="5" type="text" className="input-wrap__input" placeholder="100,000"/>
+                                            <input id="5" type="text" value={placeWeight} onChange={(e) => setCargoState({place_weight: e.target.value})} className="input-wrap__input" placeholder="100,000"/>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             <div className={"characteristic__tab-item" + (activeTab === 2 ? ' characteristic__tab-item_active' : '')}>
                                 <div className="characteristic__line">
-                                    <div className="characteristic__currency collapse">
-                                        <div className="collapse__selected">{palletTypes[0].name}</div>
-                                        <div className="collapse__items">
-                                            {palletTypes.map((palletType, index) => {
-                                                if (index > 0) {
-                                                    return <div className="collapse__item">{palletType.name}</div>
-                                                }
-                                                return null;
-                                            })}
-                                        </div>
-                                    </div>
+                                    <CollapseContainer elementClass="characteristic__currency"
+                                                       selected={palletTypes.find(palletType => palletType.id === selectedPallet)}
+                                                       items={palletTypes}
+                                                       setItem={setPallet}/>
                                     <label className="characteristic__cargo-name input-wrap">
-                                        <input type="text" className="input-wrap__input" placeholder="Наименование груза"/>
+                                        <input type="text" value={name} onChange={(e) => setCargoState({name: e.target.value})} className="input-wrap__input" placeholder="Наименование груза"/>
                                     </label>
                                     <label className="characteristic__input input-wrap">
-                                        <input type="text" className="input-wrap__input" placeholder="2500р"/>
+                                        <input type="text" value={price} onChange={(e) => setCargoState({price: e.target.value})} className="input-wrap__input" placeholder="2500р"/>
                                     </label>
                                 </div>
                                 <div className="characteristic__line">
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Количество</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="1" type="text" className="input-wrap__input" placeholder="5"/>
+                                            <input id="1" type="text" value={palletQuantity} onChange={(e) => setCargoState({pallet_quantity: e.target.value})} className="input-wrap__input" placeholder="5"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Длина</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="2" type="text" className="input-wrap__input" placeholder="3,000"/>
+                                            <input id="2" type="text" value={palletLength} onChange={(e) => setCargoState({pallet_length: e.target.value})} className="input-wrap__input" placeholder="3,000"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Ширина</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="3" type="text" className="input-wrap__input" placeholder="1,000"/>
+                                            <input id="3" type="text" value={palletWidth} onChange={(e) => setCargoState({pallet_width: e.target.value})} className="input-wrap__input" placeholder="1,000"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Высота</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="4" type="text" className="input-wrap__input" placeholder="1,000"/>
+                                            <input id="4" type="text" value={palletHeight} onChange={(e) => setCargoState({pallet_height: e.target.value})} className="input-wrap__input" placeholder="1,000"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Вес груза</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="5" type="text" className="input-wrap__input" placeholder="100,000"/>
+                                            <input id="5" type="text" value={palletWeight} onChange={(e) => setCargoState({pallet_weight: e.target.value})} className="input-wrap__input" placeholder="100,000"/>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             <div className={"characteristic__tab-item" + (activeTab === 3 ? ' characteristic__tab-item_active' : '')}>
                                 <div className="characteristic__line">
-                                    <div className="characteristic__currency collapse">
-                                        <div className="collapse__selected">{palletTypes[0].name}</div>
-                                        <div className="collapse__items">
-                                            {palletTypes.map((palletType, index) => {
-                                                if (index > 0) {
-                                                    return <div className="collapse__item">{palletType.name}</div>
-                                                }
-                                                return null;
-                                            })}
-                                        </div>
-                                    </div>
+                                    <CollapseContainer elementClass="characteristic__currency"
+                                                       selected={packageTypes.find(packageType => packageType.id === selectedPackage)}
+                                                       items={packageTypes}
+                                                       setItem={setPackage}/>
                                     <label className="characteristic__cargo-name input-wrap">
-                                        <input type="text" className="input-wrap__input" placeholder="Наименование груза"/>
+                                        <input type="text" value={name} onChange={(e) => setCargoState({name: e.target.value})} className="input-wrap__input" placeholder="Наименование груза"/>
                                     </label>
                                     <label className="characteristic__input input-wrap">
-                                        <input type="text" className="input-wrap__input" placeholder="2500р"/>
+                                        <input type="text" value={price} onChange={(e) => setCargoState({price: e.target.value})} className="input-wrap__input" placeholder="2500р"/>
                                     </label>
                                 </div>
                                 <div className="characteristic__line">
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Количество</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="1" type="text" className="input-wrap__input" placeholder="5"/>
+                                            <input id="1" type="text" value={packageQuantity} onChange={(e) => setCargoState({package_quantity: e.target.value})} className="input-wrap__input" placeholder="5"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Длина</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="2" type="text" className="input-wrap__input" placeholder="3,000"/>
+                                            <input id="2" type="text" value={packageLength} onChange={(e) => setCargoState({package_length: e.target.value})} className="input-wrap__input" placeholder="3,000"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Ширина</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="3" type="text" className="input-wrap__input" placeholder="1,000"/>
+                                            <input id="3" type="text" value={packageWidth} onChange={(e) => setCargoState({package_width: e.target.value})} className="input-wrap__input" placeholder="1,000"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Высота</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="4" type="text" className="input-wrap__input" placeholder="1,000"/>
+                                            <input id="4" type="text" value={packageHeight} onChange={(e) => setCargoState({package_height: e.target.value})} className="input-wrap__input" placeholder="1,000"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Вес груза</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="5" type="text" className="input-wrap__input" placeholder="100,000"/>
+                                            <input id="5" type="text" value={packageWeight} onChange={(e) => setCargoState({package_weight: e.target.value})} className="input-wrap__input" placeholder="100,000"/>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button type="button" className="cargo__button button">Добавить</button>
+                    {activeTab === 1 ? <button type="button" onClick={addPlace} className="cargo__button button">Добавить</button> : null}
+                    {activeTab === 2 ? <button type="button" onClick={addPallet} className="cargo__button button">Добавить</button> : null}
+                    {activeTab === 3 ? <button type="button" onClick={addPackage} className="cargo__button button">Добавить</button> : null}
                 </div>
                 <div className="cargo__second-col">
                     <div className="cargo__info-block">

@@ -12,11 +12,43 @@ const instance = axios.create({
 export const vehicleAPI = {
     getBodyTypes() {
         return instance.get('/body-types');
+    },
+    getBodyOptions(bodyTypeId) {
+        return instance.get('/body-options?body_type_id=' + bodyTypeId);
+    },
+    getBodyOptionChs(bodyOptionId, bodyTypeId) {
+        return instance.get('/body-option-characteristics?body_option_id=' + bodyOptionId + '&body_type_id=' + bodyTypeId);
+    },
+    getBodyOptionChValues(bodyOptionChId) {
+        return instance.get('/body-option-characteristics-values?body_option_characteristics_id=' + bodyOptionChId);
     }
 };
 
 export const cargoAPI = {
     getPalletTypes() {
         return instance.get('/pallet-types');
+    },
+    getPackageTypes() {
+        return instance.get('/package-types');
+    },
+    addCargo(name, price, places, pallets, packages, body_option_id, body_option_characteristics) {
+        let data = {
+            cargo: {
+                name: "",
+                price: 0,
+                places: places,
+                pallets: pallets,
+                packages: packages
+            },
+            body_option_id,
+            body_option_characteristics,
+        }
+        return instance.post('/pack', data)
+    }
+};
+
+export const dopAPI = {
+    getDop() {
+        return instance.get('/additional-requirements');
     }
 };

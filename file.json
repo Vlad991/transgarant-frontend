@@ -1,0 +1,47 @@
+{
+  "cargo": {
+    "name": "",
+    "price": 0,
+    "places": [
+      {
+        "size": {
+          "length": 0.5,
+          "width": 1,
+          "height": 1.2,
+          "weight": 100
+        }
+      }
+    ],
+    "pallets": [
+      {
+        "pallet_type_id": "053f2dd3-2133-11ea-a9ad-00155d8e4e05",
+        "quantity": 2,
+        "size": {
+          "length": 0.5,
+          "width": 1,
+          "height": 1.2,
+          "weight": 100
+        }
+      }
+    ],
+    "packages": [
+      {
+        "package_type_id": "f708eb63-7fcb-11ea-a9c9-00155d8e4e03",
+        "quantity": 10,
+        "size": {
+          "length": 0.5,
+          "width": 1,
+          "height": 1.2,
+          "weight": 100
+        }
+      }
+    ]
+  },
+  "body_option_id": "bca0024e-f0f9-11db-9d25-000cf16cef9c",
+  "body_option_characteristics": [
+    {
+      "id": "9cebde15-25e2-11ea-a9ad-00155d8e4e05",
+      "value": "5f1226f1-38ef-11ea-a9be-00155d8e4e03"
+    }
+  ]
+}

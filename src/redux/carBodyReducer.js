@@ -1,220 +1,49 @@
+import {vehicleAPI} from "../api/api";
+
+const SET_BODY_TYPES = 'SET-BODY-TYPES';
+const SET_BODY_OPTIONS = 'SET-BODY-OPTIONS';
+const SET_BODY_OPTION_CHS = 'SET-BODY-OPTION-CHS';
+const SET_BODY_OPTION_CH_VALUES = 'SET-BODY-OPTION-CH-VALUES';
 const SET_ACTIVE_BODY_TYPE = 'SET-ACTIVE-BODY-TYPE';
 const SET_BODY_OPTION = 'SET-BODY-OPTION';
 const SET_BODY_OPTION_CH_VAL = 'SET-BODY-OPTION-CH-VAL';
+const CLEAR_BODY_OPTION_CH_VAL = 'CLEAR-BODY-OPTION-CH-VAL';
 
 let initialState = {
-    body_types: [
-        {
-            id: 0,
-            img: '../img/car-body/vc-4-04 6.svg',
-            name: 'Кузов закрытый'
-        },
-        {
-            id: 1,
-            img: '../img/car-body/Group.svg',
-            name: 'Кузов откытый'
-        },
-    ],
+    body_types: [],
     active_body_type: 0,
-    body_options: [
-        {
-            id: '0',
-            body_type_id: 0,
-            name: 'Любой закрытый'
-        },
-        {
-            id: '1',
-            body_type_id: 0,
-            name: 'ТЕНТ'
-        },
-        {
-            id: '2',
-            body_type_id: 0,
-            name: 'ФУРГОН'
-        },
-        {
-            id: '3',
-            body_type_id: 0,
-            name: 'ЦМ'
-        },
-        {
-            id: '4',
-            body_type_id: 0,
-            name: 'ИЗОТ'
-        },
-        {
-            id: '5',
-            body_type_id: 0,
-            name: 'РЕФ'
-        },
-        {
-            id: '6',
-            body_type_id: 1,
-            name: 'БОРТ'
-        }
-    ],
-    active_body_option: '0',
-    body_option_characteristics: [
-        {
-            id: '1',
-            body_type_id: 0,
-            body_option_id: "0",
-            name: "РАСТЕНТОВКА - БОК"
-        },
-        {
-            id: '2',
-            body_type_id: 0,
-            body_option_id: "0",
-            name: "РАСТЕНТОВКА-ПОЛНАЯ"
-        },
-        {
-            id: '3',
-            body_type_id: 0,
-            body_option_id: "0",
-            name: "РАСТЕНТОВКА-ВЕРХ"
-        },
-        {
-            id: '4',
-            body_type_id: 0,
-            body_option_id: "0",
-            name: "ПАНДУС 90",
-            type: "ref"
-        },
-        {
-            id: '5',
-            body_type_id: 0,
-            body_option_id: "0",
-            name: "Гидроборт",
-            type: "ref"
-        },
-        {
-            id: '6',
-            body_type_id: 0,
-            body_option_id: "0",
-            name: "СТАНДАРТ"
-        },
-        {
-            id: '7',
-            body_type_id: 0,
-            body_option_id: "0",
-            name: "МЕДКНИЖКА"
-        },
-        {
-            id: '8',
-            body_type_id: 0,
-            body_option_id: "1",
-            name: "Гидроборт",
-            type: "ref"
-        },
-        {
-            id: '9',
-            body_type_id: 0,
-            body_option_id: "1",
-            name: "СТАНДАРТ"
-        },
-        {
-            id: '10',
-            body_type_id: 0,
-            body_option_id: "1",
-            name: "МЕДКНИЖКА"
-        },
-        {
-            id: '11',
-            body_type_id: 1,
-            body_option_id: "6",
-            name: "Пандус",
-            type: "ref"
-        },
-        {
-            id: '12',
-            body_type_id: 1,
-            body_option_id: "6",
-            name: "Ремни"
-        },
-        {
-            id: '13',
-            body_type_id: 1,
-            body_option_id: "6",
-            name: "Конники"
-        },
-    ],
-    body_option_characteristics_values: [
-        {
-            id: "1",
-            body_option_characteristics_id: '5',
-            name: "Гидроборт 400"
-        },
-        {
-            id: "2",
-            body_option_characteristics_id: '5',
-            name: "Гидроборт 100"
-        },
-        {
-            id: "3",
-            body_option_characteristics_id: '5',
-            name: "Гидроборт 300"
-        },
-        {
-            id: "14",
-            body_option_characteristics_id: '8',
-            name: "Гидроборт 300"
-        },
-        {
-            id: "4",
-            body_option_characteristics_id: '4',
-            name: "ПАНДУС 90"
-        },
-        {
-            id: "5",
-            body_option_characteristics_id: '4',
-            name: "ПАНДУС 80"
-        },
-        {
-            id: "6",
-            body_option_characteristics_id: '11',
-            name: "ПАНДУС 90"
-        },
-        {
-            id: "7",
-            body_option_characteristics_id: '11',
-            name: "ПАНДУС 100"
-        },
-        {
-            id: "8",
-            body_option_characteristics_id: '11',
-            name: "ПАНДУС 110"
-        },
-        {
-            id: "9",
-            body_option_characteristics_id: '11',
-            name: "ПАНДУС 120"
-        }
-    ],
-    active_body_option_characteristics_values: [
-        {
-            id: "1",
-            body_option_characteristics_id: '5',
-            name: "Гидроборт 400"
-        },{
-            id: "2",
-            body_option_characteristics_id: '8',
-            name: "Гидроборт 400"
-        },
-        {
-            id: "4",
-            body_option_characteristics_id: '4',
-            name: "ПАНДУС 90"
-        },
-        {
-            id: "6",
-            body_option_characteristics_id: '11',
-            name: "ПАНДУС 90"
-        },
-    ]
+    body_options: [],
+    active_body_option: 'ae606bfa-1df7-11e4-9a8e-e41f13c2b943',
+    body_option_characteristics: [],
+    body_option_characteristics_values: [],
+    active_body_option_characteristics_values: []
 };
 
 const carBodyReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_BODY_TYPES:
+            return {
+                ...state,
+                body_types: [...action.body_types]
+            }
+        case SET_BODY_OPTIONS:
+            return {
+                ...state,
+                body_options: [...action.body_options],
+                active_body_option: action.body_options[0].id
+            }
+        case SET_BODY_OPTION_CHS:
+            return {
+                ...state,
+                body_option_characteristics: action.body_option_characteristics,
+            };
+        case SET_BODY_OPTION_CH_VALUES:
+            let chValuesCopy = [...state.body_option_characteristics_values];
+            chValuesCopy = chValuesCopy.concat(action.body_option_characteristics_values);
+            return {
+                ...state,
+                body_option_characteristics_values: chValuesCopy,
+            };
         case SET_ACTIVE_BODY_TYPE:
             return {
                 ...state,
@@ -243,13 +72,59 @@ const carBodyReducer = (state = initialState, action) => {
                 ...state,
                 active_body_option_characteristics_values: valuesCopy
             };
+        case CLEAR_BODY_OPTION_CH_VAL:
+            return {
+                ...state,
+                body_option_characteristics_values: []
+            };
         default:
             return state;
     }
 };
 
+export const setBodyTypes = (bodyTypes) => ({type: SET_BODY_TYPES, body_types: bodyTypes});
+export const setBodyOptions = (bodyOptions) => ({type: SET_BODY_OPTIONS, body_options: bodyOptions});
+export const setBodyOptionChs = (bodyOptionChs) => ({type: SET_BODY_OPTION_CHS, body_option_characteristics: bodyOptionChs});
+export const setBodyOptionChValues = (bodyOptionChValues) => ({type: SET_BODY_OPTION_CH_VALUES, body_option_characteristics_values: bodyOptionChValues});
+export const clearBodyOptionChValues = () => ({type: CLEAR_BODY_OPTION_CH_VAL});
 export const setActiveBodyType = (typeId, optionId) => ({type: SET_ACTIVE_BODY_TYPE, typeId, optionId});
 export const setBodyOption = (optionId) => ({type: SET_BODY_OPTION, optionId});
 export const setBodyOptionChVal = (optionChValId, bodyOptionChId) => ({type: SET_BODY_OPTION_CH_VAL, optionChValId, bodyOptionChId});
+
+export const setBodyTypesThunk = () => async (dispatch) => {
+    let response = await vehicleAPI.getBodyTypes();
+    let bodyTypes = response.data;
+    bodyTypes = bodyTypes.map((bodyType, index) => {
+        switch (index) {
+            case 0:
+                bodyType.img = '../img/car-body/vc-4-04 6.svg';
+                return  bodyType;
+            case 1:
+                bodyType.img = '../img/car-body/Group.svg';
+                return  bodyType;
+            default:
+                return bodyType;
+        }
+    });
+    dispatch(setBodyTypes(bodyTypes));
+};
+
+export const setBodyOptionsThunk = () => async (dispatch) => {
+    let response = await vehicleAPI.getBodyOptions(0);
+    let bodyOptions = response.data;
+    response = await vehicleAPI.getBodyOptions(1);
+    bodyOptions = bodyOptions.concat(response.data);
+    dispatch(setBodyOptions(bodyOptions));
+};
+
+export const setBodyOptionChsThunk = (bodyOptionId, bodyTypeId) => async (dispatch) => {
+    let response = await vehicleAPI.getBodyOptionChs(bodyOptionId, bodyTypeId);
+    dispatch(setBodyOptionChs(response.data));
+};
+
+export const setBodyOptionChValuesThunk = (bodyOptionChId) => async (dispatch) => {
+    let response = await vehicleAPI.getBodyOptionChValues(bodyOptionChId);
+    dispatch(setBodyOptionChValues(response.data));
+};
 
 export default carBodyReducer;

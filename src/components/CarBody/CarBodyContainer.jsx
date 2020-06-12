@@ -1,9 +1,18 @@
 import React from 'react';
 import CarBody from "./CarBody";
 import {connect} from "react-redux";
-import {setActiveBodyType, setBodyOption, setBodyOptionChVal} from "../../redux/carBodyReducer";
+import {clearBodyOptionChValues, setActiveBodyType, setBodyOption, setBodyOptionChsThunk, setBodyOptionChVal, setBodyOptionChValuesThunk, setBodyOptionsThunk, setBodyTypesThunk} from "../../redux/carBodyReducer";
 
 class CarBodyContainer extends React.Component {
+
+    componentDidMount() {
+        this.props.setBodyTypesThunk();
+        this.props.setBodyOptionsThunk();
+        this.props.setBodyOptionChsThunk(this.props.active_body_option, this.props.active_body_type);
+        this.props.body_option_characteristics.forEach(char => {
+            this.props.setBodyOptionChValuesThunk(char.id);
+        });
+    }
 
     setActiveBodyType = (typeId, option = this.props.body_options.find(opt => opt.body_type_id === typeId)) => {
         let optionId;
@@ -11,10 +20,18 @@ class CarBodyContainer extends React.Component {
             optionId = option.id;
         }
         this.props.setActiveBodyType(typeId, optionId);
+        this.props.setBodyOptionChsThunk(optionId, typeId);
+        this.props.clearBodyOptionChValues();
+        this.props.body_option_characteristics.forEach(char => {
+            if (char.type === 'ref') {
+                this.props.setBodyOptionChValuesThunk(char.id);
+            }
+        });
     }
 
     setBodyOption = (optionId) => {
-        this.props.setBodyOption(optionId)
+        this.props.setBodyOption(optionId);
+        this.props.setBodyOptionChsThunk(optionId, this.props.active_body_type);
     }
 
     setBodyOptionChVal = (optionChValId, bodyOptionChId) => {
@@ -47,4 +64,5 @@ let mapStateToProps = (state) => ({
     active_body_option_characteristics_values: state.carBodyReducer.active_body_option_characteristics_values,
 });
 
-export default connect(mapStateToProps, {setActiveBodyType, setBodyOption, setBodyOptionChVal})(CarBodyContainer);
+export default connect(mapStateToProps,
+    {setActiveBodyType, setBodyOption, setBodyOptionChVal, setBodyTypesThunk, setBodyOptionsThunk, setBodyOptionChsThunk, setBodyOptionChValuesThunk, clearBodyOptionChValues})(CarBodyContainer);

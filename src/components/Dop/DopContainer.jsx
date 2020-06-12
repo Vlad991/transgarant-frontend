@@ -1,9 +1,13 @@
 import React from 'react';
 import Dop from "./Dop";
 import {connect} from "react-redux";
-import {dopToggle} from "../../redux/dopReducer";
+import {dopToggle, setDopThunk} from "../../redux/dopReducer";
 
 class DopContainer extends React.Component {
+
+    componentDidMount() {
+        this.props.setDopThunk();
+    }
 
     toggle = (e) => {
         e.stopPropagation();
@@ -24,4 +28,4 @@ let mapStateToProps = (state) => ({
     additional_requirements: state.dopReducer.additional_requirements
 });
 
-export default connect(mapStateToProps, {dopToggle})(DopContainer);
+export default connect(mapStateToProps, {dopToggle, setDopThunk})(DopContainer);

@@ -31,8 +31,8 @@ const CarBody = ({
                             <CollapseContainer elementClass="car-body__variant-card"
                                                selected={bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption)}
                                                items={bodyOptions.filter(bodyOption => bodyOption.body_type_id === activeBodyType)}
-                                               setItem={setBodyOption}/>:
-                            <div className="car-body__variant-card collapse collapse_disabled">{bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption).name}</div>}
+                                               setItem={setBodyOption}/> :
+                            bodyOptions.length > 0 ? <div className="car-body__variant-card collapse collapse_disabled">{bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption).name}</div> : null}
                     </div>
                 </div>
                 <div className="car-body__col check-block">
@@ -50,21 +50,9 @@ const CarBody = ({
                                 return (
                                     <label className="check-block__item check-wrap">
                                         <CollapseContainer small={true}
-                                                           selected={activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)}
+                                                           selected={bodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)}
                                                            items={bodyOptionCharacteristicValues.filter(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)}
                                                            setItem={(id) => setBodyOptionChVal(id, bodyOptionCh.id)}/>
-                                        {/*<span className="collapse collapse_small">*/}
-                                        {/*    <span className="collapse__selected">{bodyOptionCh.name}</span>*/}
-                                        {/*    <span className="collapse__items">*/}
-                                        {/*        {bodyOptionCharacteristicValues.map(bodyOptionChVal => {*/}
-                                        {/*            if (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id) {*/}
-                                        {/*                return <span className="collapse__item">{bodyOptionChVal.name}</span>*/}
-                                        {/*            } else {*/}
-                                        {/*                return null;*/}
-                                        {/*            }*/}
-                                        {/*        })}*/}
-                                        {/*    </span>*/}
-                                        {/*</span>*/}
                                         <input type="checkbox" className="check-wrap__input"/>
                                         <span className="check-wrap__mark"></span>
                                     </label>
