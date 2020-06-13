@@ -2,15 +2,25 @@ import React from 'react';
 import Cargo from "./Cargo";
 import {connect} from "react-redux";
 import {addPackageThunk, addPalletThunk, addPlaceThunk, setCargoState, setPackage, setPackageTypesThunk, setPallet, setPalletTypesThunk} from "../../redux/cargoReducer";
+import {setCategory} from "../../redux/categoryReducer";
 
 class CargoContainer extends React.Component {
     state = {
-        activeTab: 1
+        activeTab: 1,
+        categoryChanged: false
     }
 
     componentDidMount() {
         this.props.setPalletTypesThunk();
         this.props.setPackageTypesThunk();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.activeCategory !== this.props.activeCategory) {
+            this.setState({
+                categoryChanged: true
+            });
+        }
     }
 
     setActiveTab = (tabNumber) => {
@@ -22,7 +32,7 @@ class CargoContainer extends React.Component {
     addPallet = () => {
         let pallets = this.props.pallets;
         let pallet = {
-            pallet_type_id: this.props.selected_pallet.id,
+            pallet_type_id: this.props.selected_pallet,
             quantity: this.props.pallet_quantity,
             size: {
                 length: this.props.pallet_length,
@@ -68,7 +78,7 @@ class CargoContainer extends React.Component {
     addPackage = () => {
         let packages = this.props.packages;
         let package1 = {
-            package_type_id: this.props.selected_package.id,
+            package_type_id: this.props.selected_package,
             quantity: this.props.package_quantity,
             size: {
                 length: this.props.package_length,
@@ -126,6 +136,14 @@ class CargoContainer extends React.Component {
                    setPallet={this.props.setPallet}
                    setPackage={this.props.setPackage}
                    setCargoState={this.props.setCargoState}
+
+                   categoryChanged={this.state.categoryChanged}
+                   activeCategory={this.props.activeCategory}
+                   categories={this.props.categories}
+                   bodyOptions={this.props.body_options}
+                   activeBodyOption={this.props.active_body_option}
+
+                   packedItems={this.props.packed_items}
             />
         );
     };
@@ -166,8 +184,13 @@ let mapStateToProps = (state) => ({
     selected_package: state.cargoReducer.selected_package,
 
     active_body_option: state.carBodyReducer.active_body_option,
-    active_body_option_characteristics_values: state.carBodyReducer.active_body_option_characteristics_values
+    body_options: state.carBodyReducer.body_options,
+    active_body_option_characteristics_values: state.carBodyReducer.active_body_option_characteristics_values,
+    activeCategory: state.categoryReducer.activeCategory,
+    categories: state.categoryReducer.categories,
+
+    packed_items: state.cargoReducer.packed_items
 });
 
 export default connect(mapStateToProps, 
-    {setPalletTypesThunk, setPackageTypesThunk, setPallet, setPackage, setCargoState, addPalletThunk, addPlaceThunk, addPackageThunk})(CargoContainer);
+    {setPalletTypesThunk, setPackageTypesThunk, setPallet, setPackage, setCargoState, addPalletThunk, addPlaceThunk, addPackageThunk, setCategory})(CargoContainer);

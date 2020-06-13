@@ -34,8 +34,8 @@ export const cargoAPI = {
     addCargo(name, price, places, pallets, packages, body_option_id, body_option_characteristics) {
         let data = {
             cargo: {
-                name: "",
-                price: 0,
+                name: name,
+                price: price,
                 places: places,
                 pallets: pallets,
                 packages: packages

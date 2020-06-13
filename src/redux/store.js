@@ -7,6 +7,9 @@ import dateReducer from "./dateReducer";
 import pointsReducer from "./pointsReducer";
 import { reducer as formReducer } from 'redux-form';
 import cargoReducer from "./cargoReducer";
+import tariffReducer from "./tariffReducer";
+import paymentReducer from "./paymentReducer";
+import socialReducer from "./socialReducer";
 
 
 let reducers = combineReducers({
@@ -16,9 +19,9 @@ let reducers = combineReducers({
     dateReducer,
     pointsReducer,
     cargoReducer,
-    // tariffReducer,
-    // paymentReducer,
-    // socialReducer,
+    tariffReducer,
+    paymentReducer,
+    socialReducer,
     // clientFormReducer
     form: formReducer
 });

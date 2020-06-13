@@ -56,18 +56,21 @@ const carBodyReducer = (state = initialState, action) => {
                 active_body_option: action.optionId,
             };
         case SET_BODY_OPTION_CH_VAL:
+            let value = {};
+            if (state.active_body_option_characteristics_values.length > 0) {
+                value = state.active_body_option_characteristics_values.find(value => value && value.body_option_characteristics_id === action.bodyOptionChId)
+            }
+            let newValue;
+            if (action.optionChValId) {
+                newValue = state.body_option_characteristics_values.find(value => value.id === action.optionChValId);
+            } else {
+                newValue = state.body_option_characteristics_values.find(value => value.body_option_characteristics_id === action.bodyOptionChId)
+            }
+            let index = state.active_body_option_characteristics_values.indexOf(value);
             let valuesCopy = [...state.active_body_option_characteristics_values];
-            valuesCopy = valuesCopy.map(value => {
-                if (value.body_option_characteristics_id === action.bodyOptionChId) {
-                    let valueCopy = {...value};
-                    let findValue = state.body_option_characteristics_values.find(value => value.id === action.optionChValId);
-                    valueCopy.name = findValue.name;
-                    valueCopy.id = findValue.id;
-                    return valueCopy;
-                } else {
-                    return value;
-                }
-            });
+            if (index !== -1)
+                valuesCopy.splice(index, 1);
+            valuesCopy.push(newValue);
             return {
                 ...state,
                 active_body_option_characteristics_values: valuesCopy
@@ -89,7 +92,7 @@ export const setBodyOptionChValues = (bodyOptionChValues) => ({type: SET_BODY_OP
 export const clearBodyOptionChValues = () => ({type: CLEAR_BODY_OPTION_CH_VAL});
 export const setActiveBodyType = (typeId, optionId) => ({type: SET_ACTIVE_BODY_TYPE, typeId, optionId});
 export const setBodyOption = (optionId) => ({type: SET_BODY_OPTION, optionId});
-export const setBodyOptionChVal = (optionChValId, bodyOptionChId) => ({type: SET_BODY_OPTION_CH_VAL, optionChValId, bodyOptionChId});
+export const setBodyOptionChVal = (bodyOptionChId, optionChValId) => ({type: SET_BODY_OPTION_CH_VAL, bodyOptionChId, optionChValId});
 
 export const setBodyTypesThunk = () => async (dispatch) => {
     let response = await vehicleAPI.getBodyTypes();
@@ -98,10 +101,10 @@ export const setBodyTypesThunk = () => async (dispatch) => {
         switch (index) {
             case 0:
                 bodyType.img = '../img/car-body/vc-4-04 6.svg';
-                return  bodyType;
+                return bodyType;
             case 1:
                 bodyType.img = '../img/car-body/Group.svg';
-                return  bodyType;
+                return bodyType;
             default:
                 return bodyType;
         }

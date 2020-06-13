@@ -3,7 +3,7 @@ const SET_CATEGORY = 'SET-CATEGORY';
 let initialState = {
     categories: [
         {
-            id: 1,
+            id: '52b30be1-49d5-11e7-9696-e41f13c2b942',
             img: '../img/checkout/category/vc-4-01 2 1.svg',
             name: 'Категория 1',
             text: 'от 0 кг до 500 кг от 1 м3 до 2.7м3',
@@ -23,7 +23,7 @@ let initialState = {
             ]
         },
         {
-            id: 2,
+            id: 'bb0df94d-7dde-11e8-81b0-e41f13c2b942',
             img: '../img/checkout/category/vc-4-01 2 2.svg',
             name: 'Категория 1 +',
             text: 'от 501 кг до 1000 кг от 3.2м3 до 7м3',
@@ -43,7 +43,7 @@ let initialState = {
             ]
         },
         {
-            id: 3,
+            id: '52b30bdd-49d5-11e7-9696-e41f13c2b942',
             img: '../img/checkout/category/vc-4-01 2 3.svg',
             name: 'Категория 2',
             text: 'от 1001 кг до 1500 кг от 7.1 м3 до 12м3',
@@ -63,7 +63,7 @@ let initialState = {
             ]
         },
         {
-            id: 4,
+            id: '52b30bde-49d5-11e7-9696-e41f13c2b942',
             img: '../img/checkout/category/vc-4-01 2 4.svg',
             name: 'Категория 2 +',
             text: 'от 1001 кг до 1500 кг от 9.5м3 до 16м3',
@@ -83,7 +83,7 @@ let initialState = {
             ]
         },
         {
-            id: 5,
+            id: '52b30bdc-49d5-11e7-9696-e41f13c2b942',
             img: '../img/checkout/category/vc-4-01 3.svg',
             name: 'Категория 3',
             text: 'от 1501 кг до 3000 кг от 12м3 до 20м3',
@@ -103,7 +103,7 @@ let initialState = {
             ]
         },
         {
-            id: 6,
+            id: '52b30bdf-49d5-11e7-9696-e41f13c2b942',
             img: '../img/checkout/category/vc-4-04 3.svg',
             name: 'Категория 4',
             text: 'от 3001 кг до 5000 кг от 14м3 до 32м3',
@@ -123,7 +123,7 @@ let initialState = {
             ]
         },
         {
-            id: 7,
+            id: '52b30be0-49d5-11e7-9696-e41f13c2b942',
             img: '../img/checkout/category/vc-4-04 7.svg',
             name: 'Категория 5',
             text: 'от 5001 кг до 10000 кг от 26м3 до 35м3',
@@ -143,7 +143,7 @@ let initialState = {
             ]
         },
         {
-            id: 8,
+            id: '52b30be2-49d5-11e7-9696-e41f13c2b942',
             img: '../img/checkout/category/vc-4-04 8.svg',
             name: 'Категория 6',
             text: 'от 5001 кг до 10000 кг от З6 м3 до 45 м3',
@@ -163,7 +163,7 @@ let initialState = {
             ]
         },
         {
-            id: 9,
+            id: '52b30be4-49d5-11e7-9696-e41f13c2b942',
             img: '../img/checkout/category/vc-4-04 1.svg',
             name: 'Категория 7',
             text: 'от 10001 кг до 20000 кг от 43м3 до 82м3',
@@ -183,7 +183,7 @@ let initialState = {
             ]
         },
     ],
-    activeCategory: 5
+    activeCategory: '52b30be1-49d5-11e7-9696-e41f13c2b942'
 };
 
 const categoryReducer = (state = initialState, action) => {

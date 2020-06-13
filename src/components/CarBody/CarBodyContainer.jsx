@@ -9,9 +9,24 @@ class CarBodyContainer extends React.Component {
         this.props.setBodyTypesThunk();
         this.props.setBodyOptionsThunk();
         this.props.setBodyOptionChsThunk(this.props.active_body_option, this.props.active_body_type);
-        this.props.body_option_characteristics.forEach(char => {
-            this.props.setBodyOptionChValuesThunk(char.id);
-        });
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.body_option_characteristics !== this.props.body_option_characteristics) {
+            this.props.clearBodyOptionChValues();
+            this.props.body_option_characteristics.forEach(char => {
+                if (char.type === 'ref') {
+                    this.props.setBodyOptionChValuesThunk(char.id);
+                }
+            });
+        }
+        if (prevProps.body_option_characteristics_values !== this.props.body_option_characteristics_values) {
+            this.props.body_option_characteristics.forEach(char => {
+                if (char.type === 'ref') {
+                    this.props.setBodyOptionChVal(char.id);
+                }
+            });
+        }
     }
 
     setActiveBodyType = (typeId, option = this.props.body_options.find(opt => opt.body_type_id === typeId)) => {
@@ -21,12 +36,6 @@ class CarBodyContainer extends React.Component {
         }
         this.props.setActiveBodyType(typeId, optionId);
         this.props.setBodyOptionChsThunk(optionId, typeId);
-        this.props.clearBodyOptionChValues();
-        this.props.body_option_characteristics.forEach(char => {
-            if (char.type === 'ref') {
-                this.props.setBodyOptionChValuesThunk(char.id);
-            }
-        });
     }
 
     setBodyOption = (optionId) => {
@@ -34,8 +43,8 @@ class CarBodyContainer extends React.Component {
         this.props.setBodyOptionChsThunk(optionId, this.props.active_body_type);
     }
 
-    setBodyOptionChVal = (optionChValId, bodyOptionChId) => {
-        this.props.setBodyOptionChVal(optionChValId, bodyOptionChId);
+    setBodyOptionChVal = (bodyOptionChId, optionChValId) => {
+        this.props.setBodyOptionChVal(bodyOptionChId, optionChValId);
     }
 
     render() {

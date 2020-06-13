@@ -1,20 +1,19 @@
 import React from 'react';
 import Payment from "./Payment";
+import {connect} from "react-redux";
+import {setPayment} from "../../redux/paymentReducer";
 
 class PaymentContainer extends React.Component {
-    state = {}
-
-    componentDidMount() {
-    };
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-    };
-
     render() {
         return (
-            <Payment state={this.props.state}/>
+            <Payment selectedPayment={this.props.selected_payment}
+                     setPayment={this.props.setPayment}/>
         );
     };
 }
 
-export default PaymentContainer;
+let mapStateToProps = (state) => ({
+    selected_payment: state.paymentReducer.selected_payment
+});
+
+export default connect(mapStateToProps, {setPayment})(PaymentContainer);

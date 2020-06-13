@@ -1,12 +1,12 @@
 import React from "react";
 import {Map, YMaps} from "react-yandex-maps";
 
-const Route = ({tariffTypes, setTariff}) => {
+const Tariff = ({tariffTypes, selectedTariff, setTariff}) => {
     return (
         <section className="checkout__tariff tariff">
             <div className="checkout__title tariff__heading">Выбор тарифа и детализация</div>
             <div className="tariff__variants">
-                <div onClick={() => setTariff(tariffTypes[0].id)} className={"tariff__variant tariff-variant" + (tariffTypes[0].selected ? ' tariff-variant_active' : '')}>
+                <div onClick={() => setTariff(tariffTypes[0].id)} className={"tariff__variant tariff-variant" + (tariffTypes[0].id === selectedTariff ? ' tariff-variant_active' : '')}>
                     <div className="tariff-variant__item">
                         <div className="tariff-variant__heading">
                             {tariffTypes[0].name}
@@ -17,7 +17,7 @@ const Route = ({tariffTypes, setTariff}) => {
                         <div className="tariff-variant__description">
                             <div className="tariff-variant__text">{tariffTypes[0].text}</div>
                             <label className="tariff-variant__check check-wrap">
-                                {tariffTypes[0].selected ?
+                                {tariffTypes[0].id === selectedTariff ?
                                     <input type="checkbox" name="payment" checked className="check-wrap__input"/> :
                                     <input type="checkbox" name="payment" className="check-wrap__input"/>}
                                 <span className="check-wrap__mark"></span>
@@ -25,7 +25,7 @@ const Route = ({tariffTypes, setTariff}) => {
                         </div>
                     </div>
                 </div>
-                <div className={"tariff__variant tariff-variant" + ((tariffTypes[1].selected || tariffTypes[2].selected) ? ' tariff-variant_active' : '')}>
+                <div className={"tariff__variant tariff-variant" + (((tariffTypes[1].id === selectedTariff) || (tariffTypes[2].id === selectedTariff)) ? ' tariff-variant_active' : '')}>
                     <div onClick={() => setTariff(tariffTypes[1].id)} className="tariff-variant__item">
                         <div className="tariff-variant__heading">
                             {tariffTypes[1].name}
@@ -36,7 +36,7 @@ const Route = ({tariffTypes, setTariff}) => {
                         <div className="tariff-variant__description">
                             <div className="tariff-variant__text">{tariffTypes[1].text}</div>
                             <label className="tariff-variant__check check-wrap">
-                                {tariffTypes[1].selected ?
+                                {tariffTypes[1].id === selectedTariff ?
                                     <input type="checkbox" name="payment" checked className="check-wrap__input"/> :
                                     <input type="checkbox" name="payment" className="check-wrap__input"/>}
                                 <span className="check-wrap__mark"></span>
@@ -53,15 +53,15 @@ const Route = ({tariffTypes, setTariff}) => {
                         <div className="tariff-variant__description">
                             <div className="tariff-variant__text">{tariffTypes[2].text}</div>
                             <label className="tariff-variant__check check-wrap">
-                                {tariffTypes[2].selected ?
-                                    <input type="checkbox" name="payment" checked className="check-wrap__input"/> :
+                                {tariffTypes[2].id === selectedTariff ?
+                                    <input type="checkbox" checked name="payment" className="check-wrap__input"/> :
                                     <input type="checkbox" name="payment" className="check-wrap__input"/>}
                                 <span className="check-wrap__mark"></span>
                             </label>
                         </div>
                     </div>
                 </div>
-                <div onClick={() => setTariff(tariffTypes[3].id)} className={"tariff__variant tariff-variant" + (tariffTypes[3].selected ? ' tariff-variant_active' : '')}>
+                <div onClick={() => setTariff(tariffTypes[3].id)} className={"tariff__variant tariff-variant" + (tariffTypes[3].id === selectedTariff ? ' tariff-variant_active' : '')}>
                     <div className="tariff-variant__item">
                         <div className="tariff-variant__heading">
                             {tariffTypes[3].name}
@@ -72,7 +72,7 @@ const Route = ({tariffTypes, setTariff}) => {
                         <div className="tariff-variant__description">
                             <div className="tariff-variant__text">{tariffTypes[3].text}</div>
                             <label className="tariff-variant__check check-wrap">
-                                {tariffTypes[3].selected ?
+                                {tariffTypes[3].id === selectedTariff ?
                                     <input type="checkbox" name="payment" checked className="check-wrap__input"/> :
                                     <input type="checkbox" name="payment" className="check-wrap__input"/>}
                                 <span className="check-wrap__mark"></span>
@@ -205,4 +205,4 @@ const Route = ({tariffTypes, setTariff}) => {
     );
 }
 
-export default Route;
+export default Tariff;

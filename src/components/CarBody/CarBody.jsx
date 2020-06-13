@@ -50,9 +50,12 @@ const CarBody = ({
                                 return (
                                     <label className="check-block__item check-wrap">
                                         <CollapseContainer small={true}
-                                                           selected={bodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)}
+                                                           selected={{
+                                                               name: bodyOptionCh.name + ": " + (activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) ? activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id) : {}).name,
+                                                               id: (activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) ? activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id) : {}).id
+                                                           }}
                                                            items={bodyOptionCharacteristicValues.filter(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)}
-                                                           setItem={(id) => setBodyOptionChVal(id, bodyOptionCh.id)}/>
+                                                           setItem={(id) => setBodyOptionChVal(bodyOptionCh.id, id)}/>
                                         <input type="checkbox" className="check-wrap__input"/>
                                         <span className="check-wrap__mark"></span>
                                     </label>

@@ -1,20 +1,17 @@
 import React from 'react';
 import Social from "./Social";
+import {connect} from "react-redux";
 
 class SocialContainer extends React.Component {
-    state = {}
-
-    componentDidMount() {
-    };
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-    };
-
     render() {
         return (
-            <Social state={this.props.state}/>
+            <Social selectedPayment={this.props.selected_payment}/>
         );
     };
 }
 
-export default SocialContainer;
+let mapStateToProps = (state) => ({
+    selected_payment: state.paymentReducer.selected_payment
+});
+
+export default connect(mapStateToProps)(SocialContainer);

@@ -21,7 +21,7 @@ class CollapseContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if ((!prevProps.selected && this.props.selected) || (prevProps.selected && (prevProps.selected.id !== this.props.selected.id))) {
+        if ((!prevProps.selected && this.props.selected) || (prevProps.selected && (prevProps.selected.id !== this.props.selected.id)) || (prevProps.items !== this.props.items)) {
             this.setState({
                 elementClass: this.props.elementClass,
                 small: this.props.small,

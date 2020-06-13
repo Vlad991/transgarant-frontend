@@ -1,4 +1,5 @@
 import {cargoAPI} from "../api/api";
+import {setCategory} from "./categoryReducer";
 
 const SET_PALLET_TYPES = 'SET-PALLET-TYPES';
 const SET_PALLET = 'SET-PALLET';
@@ -8,6 +9,7 @@ const SET_CARGO_STATE = 'SET-CARGO-STATE';
 const ADD_PALLET = 'ADD-PALLET';
 const ADD_PACKAGE = 'ADD-PACKAGE';
 const ADD_PLACE = 'ADD-PLACE';
+const SET_PACKED_ITEMS = 'SET-PACKED-ITEMS';
 
 let initialState = {
     name: '',
@@ -16,7 +18,7 @@ let initialState = {
     length: 1.2,
     width: 0.8,
     height: 1,
-    
+
     pallet_quantity: 1,
     pallet_length: 1,
     pallet_width: 1,
@@ -30,7 +32,7 @@ let initialState = {
     place_height: 1,
     place_weight: 1,
     places: [],
-    
+
     package_quantity: 1,
     package_length: 1,
     package_width: 1,
@@ -41,7 +43,7 @@ let initialState = {
 
     selected_pallet: '',
     selected_package: '',
-    cargo: {}
+    packed_items: []
 };
 
 const cargoReducer = (state = initialState, action) => {
@@ -49,7 +51,10 @@ const cargoReducer = (state = initialState, action) => {
         case SET_PALLET_TYPES:
             return {
                 ...state,
-                pallet_types: [...action.pallet_types]
+                pallet_types: [...action.pallet_types],
+                selected_pallet: action.pallet_types[0].id,
+                pallet_length: action.pallet_types[0].length,
+                pallet_width: action.pallet_types[0].width
             }
         case SET_PACKAGE_TYPES:
             return {
@@ -57,9 +62,12 @@ const cargoReducer = (state = initialState, action) => {
                 package_types: [...action.package_types]
             }
         case SET_PALLET:
+            let pallet = state.pallet_types.find(pallet => pallet.id === action.selected_pallet);
             return {
                 ...state,
-                selected_pallet: action.selected_pallet
+                selected_pallet: action.selected_pallet,
+                pallet_length: pallet.length,
+                pallet_width: pallet.width
             }
         case SET_PACKAGE:
             return {
@@ -86,6 +94,11 @@ const cargoReducer = (state = initialState, action) => {
                 ...state,
                 packages: action.packages
             }
+        case SET_PACKED_ITEMS:
+            return {
+                ...state,
+                packed_items: action.packed_items
+            }
         default:
             return state;
     }
@@ -99,6 +112,7 @@ export const setCargoState = (object) => ({type: SET_CARGO_STATE, object});
 export const addPallets = (pallets) => ({type: ADD_PALLET, pallets});
 export const addPlaces = (places) => ({type: ADD_PLACE, places});
 export const addPackages = (packages) => ({type: ADD_PACKAGE, packages});
+export const setPackedItems = (packed_items) => ({type: SET_PACKED_ITEMS, packed_items});
 
 export const setPalletTypesThunk = () => async (dispatch) => {
     let response = await cargoAPI.getPalletTypes();
@@ -115,16 +129,22 @@ export const setPackageTypesThunk = () => async (dispatch) => {
 export const addPalletThunk = (name, price, places, pallets, packages, body_option_id, body_option_characteristics) => async (dispatch) => {
     let response = await cargoAPI.addCargo(name, price, places, pallets, packages, body_option_id, body_option_characteristics);
     dispatch(addPallets(pallets));
+    dispatch(setCategory(response.data.car_type_id));
+    dispatch(setPackedItems(response.data.packed_items));
 };
 
 export const addPlaceThunk = (name, price, places, pallets, packages, body_option_id, body_option_characteristics) => async (dispatch) => {
     let response = await cargoAPI.addCargo(name, price, places, pallets, packages, body_option_id, body_option_characteristics);
     dispatch(addPlaces(places));
+    dispatch(setCategory(response.data.car_type_id));
+    dispatch(setPackedItems(response.data.packed_items));
 };
 
 export const addPackageThunk = (name, price, places, pallets, packages, body_option_id, body_option_characteristics) => async (dispatch) => {
     let response = await cargoAPI.addCargo(name, price, places, pallets, packages, body_option_id, body_option_characteristics);
     dispatch(addPackages(packages));
+    dispatch(setCategory(response.data.car_type_id));
+    dispatch(setPackedItems(response.data.packed_items));
 };
 
 export default cargoReducer;

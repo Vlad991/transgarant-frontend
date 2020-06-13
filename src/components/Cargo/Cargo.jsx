@@ -25,7 +25,7 @@ const Cargo = ({
                    placeHeight,
                    placeWeight,
                    addPlace,
-    
+
                    packageQuantity,
                    packageLength,
                    packageWidth,
@@ -38,7 +38,15 @@ const Cargo = ({
                    selectedPackage,
                    setPallet,
                    setPackage,
-                   setCargoState
+                   setCargoState,
+
+                   categoryChanged,
+                   activeCategory,
+                   categories,
+                   bodyOptions,
+                   activeBodyOption,
+
+                   packedItems
                }) => {
     return (
         <section className="checkout__cargo cargo">
@@ -108,22 +116,30 @@ const Cargo = ({
                                 </div>
                                 <div className="characteristic__line">
                                     <div className="characteristic__input input-label-wrap">
-                                        <label htmlFor="" className="input-label-wrap__label">Количество</label>
+                                        <label className="input-label-wrap__label">Количество</label>
                                         <label className="input-label-wrap__input input-wrap">
-                                            <input id="1" type="text" value={palletQuantity} onChange={(e) => setCargoState({pallet_quantity: e.target.value})} className="input-wrap__input" placeholder="5"/>
+                                            <input type="text" value={palletQuantity} onChange={(e) => setCargoState({pallet_quantity: e.target.value})} className="input-wrap__input" placeholder="5"/>
                                         </label>
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
-                                        <label htmlFor="" className="input-label-wrap__label">Длина</label>
-                                        <label className="input-label-wrap__input input-wrap">
-                                            <input id="2" type="text" value={palletLength} onChange={(e) => setCargoState({pallet_length: e.target.value})} className="input-wrap__input" placeholder="3,000"/>
-                                        </label>
+                                        <label className="input-label-wrap__label">Длина</label>
+                                        {palletTypes.find(pallet => pallet.id === selectedPallet) && palletTypes.find(pallet => pallet.id === selectedPallet).manual ?
+                                            <label className="input-label-wrap__input input-wrap">
+                                                <input type="text" value={palletLength} onChange={(e) => setCargoState({pallet_length: e.target.value})} className="input-wrap__input" placeholder="3,000"/>
+                                            </label> :
+                                            <label className="input-label-wrap__input input-wrap" style={{cursor: "not-allowed"}}>
+                                                <input type="text" disabled value={palletLength} style={{cursor: "not-allowed"}} className="input-wrap__input" placeholder="3,000"/>
+                                            </label>}
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
-                                        <label htmlFor="" className="input-label-wrap__label">Ширина</label>
-                                        <label className="input-label-wrap__input input-wrap">
-                                            <input id="3" type="text" value={palletWidth} onChange={(e) => setCargoState({pallet_width: e.target.value})} className="input-wrap__input" placeholder="1,000"/>
-                                        </label>
+                                        <label className="input-label-wrap__label">Ширина</label>
+                                        {palletTypes.find(pallet => pallet.id === selectedPallet) && palletTypes.find(pallet => pallet.id === selectedPallet).manual ?
+                                            <label className="input-label-wrap__input input-wrap">
+                                                <input type="text" value={palletWidth} onChange={(e) => setCargoState({pallet_width: e.target.value})} className="input-wrap__input" placeholder="3,000"/>
+                                            </label> :
+                                            <label className="input-label-wrap__input input-wrap" style={{cursor: "not-allowed"}}>
+                                                <input type="text" disabled value={palletWidth} style={{cursor: "not-allowed"}} className="input-wrap__input" placeholder="3,000"/>
+                                            </label>}
                                     </div>
                                     <div className="characteristic__input input-label-wrap">
                                         <label htmlFor="" className="input-label-wrap__label">Высота</label>
@@ -192,47 +208,38 @@ const Cargo = ({
                     {activeTab === 3 ? <button type="button" onClick={addPackage} className="cargo__button button">Добавить</button> : null}
                 </div>
                 <div className="cargo__second-col">
-                    <div className="cargo__info-block">
-                        <div>КАТЕГОРИЯ 2+ ТЕНТ</div>
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15.3644 2.63581C11.8497 -0.87857 6.15097 -0.878962 2.63581 2.63581C-0.878962 6.15058 -0.87857 11.8493 2.63581 15.3644C6.15058 18.8784 11.8493 18.8788 15.3644 15.3644C18.8788 11.8493 18.8784 6.15097 15.3644 2.63581ZM10.1737 12.9133C10.1737 13.5617 9.64814 14.0872 8.99973 14.0872C8.35133 14.0872 7.82579 13.5617 7.82579 12.9133V8.2175C7.82579 7.56909 8.35133 7.04356 8.99973 7.04356C9.64814 7.04356 10.1737 7.56909 10.1737 8.2175V12.9133ZM8.97899 6.21084C8.3028 6.21084 7.85201 5.73188 7.8661 5.1406C7.85201 4.52076 8.3028 4.05628 8.99269 4.05628C9.68296 4.05628 10.1197 4.52116 10.1341 5.1406C10.1338 5.73188 9.68335 6.21084 8.97899 6.21084Z" fill="#ADADAD"/>
-                        </svg>
-                    </div>
+                    {categoryChanged ?
+                        <div className="cargo__info-block">
+                            <div style={{textTransform: "uppercase"}}>{categories.map(category => {
+                                if (category.id === activeCategory) {
+                                    return category.name;
+                                } else {
+                                    return null;
+                                }
+                            })} {bodyOptions.map(option => option.id === activeBodyOption ? option.name : null)}
+                            </div>
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.3644 2.63581C11.8497 -0.87857 6.15097 -0.878962 2.63581 2.63581C-0.878962 6.15058 -0.87857 11.8493 2.63581 15.3644C6.15058 18.8784 11.8493 18.8788 15.3644 15.3644C18.8788 11.8493 18.8784 6.15097 15.3644 2.63581ZM10.1737 12.9133C10.1737 13.5617 9.64814 14.0872 8.99973 14.0872C8.35133 14.0872 7.82579 13.5617 7.82579 12.9133V8.2175C7.82579 7.56909 8.35133 7.04356 8.99973 7.04356C9.64814 7.04356 10.1737 7.56909 10.1737 8.2175V12.9133ZM8.97899 6.21084C8.3028 6.21084 7.85201 5.73188 7.8661 5.1406C7.85201 4.52076 8.3028 4.05628 8.99269 4.05628C9.68296 4.05628 10.1197 4.52116 10.1341 5.1406C10.1338 5.73188 9.68335 6.21084 8.97899 6.21084Z" fill="#ADADAD"/>
+                            </svg>
+                        </div> : null}
                     <div className="cargo__sizes">
-                        {/*{new Array(quantity).map(block => {*/}
-                        {/*    return (*/}
-                        {/*        <div className="cargo__size-block size-block">*/}
-                        {/*            <div className="size-block__value">0,8</div>*/}
-                        {/*            <div className="size-block__value">1,2</div>*/}
-                        {/*            <div className="size-block__value">0,8</div>*/}
-                        {/*            <div className="size-block__value">1,2</div>*/}
-                        {/*        </div>*/}
-                        {/*    )*/}
-                        {/*})}*/}
-                        <div className="cargo__size-block size-block">
-                            <div className="size-block__value">0,8</div>
-                            <div className="size-block__value">1,2</div>
-                            <div className="size-block__value">0,8</div>
-                            <div className="size-block__value">1,2</div>
-                        </div>
-                        <div className="cargo__size-block size-block">
-                            <div className="size-block__value">0,8</div>
-                            <div className="size-block__value">1,2</div>
-                            <div className="size-block__value">0,8</div>
-                            <div className="size-block__value">1,2</div>
-                        </div>
-                        <div className="cargo__size-block size-block">
-                            <div className="size-block__value">0,8</div>
-                            <div className="size-block__value">1,2</div>
-                            <div className="size-block__value">0,8</div>
-                            <div className="size-block__value">1,2</div>
-                        </div>
-                        <div className="cargo__size-block size-block">
-                            <div className="size-block__value">0,8</div>
-                            <div className="size-block__value">1,2</div>
-                            <div className="size-block__value">0,8</div>
-                            <div className="size-block__value">1,2</div>
-                        </div>
+                        {packedItems.map(block => {
+                            return (
+                                <div className="cargo__size-block" style={{
+                                    width: parseFloat(block.width) * 100 + 'px',
+                                    height: parseFloat(block.height) * 100 + 'px',
+                                    left: parseFloat(block.x) * 100 + 10 + 'px',
+                                    top: parseFloat(block.y) * 100 + 10 + 'px'
+                                }}>
+                                    <div className="size-block">
+                                        <div className="size-block__value">{block.width}</div>
+                                        <div className="size-block__value">{block.height}</div>
+                                        <div className="size-block__value">{block.width}</div>
+                                        <div className="size-block__value">{block.height}</div>
+                                    </div>
+                                </div>
+                            )
+                        })}
                     </div>
                     <button type="button" className="cargo__button cargo__button_mobile button">Добавить</button>
                 </div>
