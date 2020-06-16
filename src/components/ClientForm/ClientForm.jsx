@@ -12,7 +12,7 @@ const ClientForm = (props) => {
             <label className="client-form__input input-wrap">
                 <input type="text" className="input-wrap__input" placeholder="Ваша почта"/>
             </label>
-            <div className="client-form__button button">Зарегистрироваться</div>
+            <div className="client-form__button button">Разместить заказ</div>
         </section>
     );
 }

@@ -11,7 +11,8 @@ const CarBody = ({
                      bodyOptionCharacteristics,
                      bodyOptionCharacteristicValues,
                      activeBodyOptionCharacteristicValues,
-                     setBodyOptionChVal
+                     setBodyOptionChVal,
+                     markBodyOptionCh
                  }) => {
     return (
         <section className="checkout__car-body car-body">
@@ -21,7 +22,7 @@ const CarBody = ({
                     <div className="car-body__variants">
                         {bodyTypes.map(bodyType => {
                             return (
-                                <div className={"car-body__variant-card variant-card" + (bodyType.id === activeBodyType ? ' variant-card_active' : '')} onClick={() => setActiveBodyType(bodyType.id)}>
+                                <div key={bodyType.id} className={"car-body__variant-card variant-card" + (bodyType.id === activeBodyType ? ' variant-card_active' : '')} onClick={() => setActiveBodyType(bodyType.id)}>
                                     <div className="variant-card__img"><img src={bodyType.img} alt="Car Body"/></div>
                                     <div className="variant-card__title">{bodyType.name}</div>
                                 </div>
@@ -39,19 +40,29 @@ const CarBody = ({
                     {bodyOptionCharacteristics.map(bodyOptionCh => {
                         if (bodyOptionCh.body_option_id === activeBodyOption) {
                             if (bodyOptionCh.type !== 'ref') {
-                                return (
-                                    <label className="check-block__item check-wrap">
+                                return activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) && activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)).value ?
+                                    <label key={bodyOptionCh.id} className="check-block__item check-wrap" onClick={(e) => {
+                                        e.preventDefault();
+                                        markBodyOptionCh(bodyOptionCh.id, false);
+                                    }}>
+                                        {bodyOptionCh.name}
+                                        <input type="checkbox" checked className="check-wrap__input"/>
+                                        <span className="check-wrap__mark"></span>
+                                    </label> :
+                                    <label key={bodyOptionCh.id} className="check-block__item check-wrap" onClick={(e) => {
+                                        e.preventDefault();
+                                        markBodyOptionCh(bodyOptionCh.id, true);
+                                    }}>
                                         {bodyOptionCh.name}
                                         <input type="checkbox" className="check-wrap__input"/>
                                         <span className="check-wrap__mark"></span>
                                     </label>
-                                )
                             } else {
                                 return (
-                                    <label className="check-block__item check-wrap">
+                                    <label key={bodyOptionCh.id} className="check-block__item check-wrap">
                                         <CollapseContainer small={true}
                                                            selected={{
-                                                               name: bodyOptionCh.name + ": " + (activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) ? activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id) : {}).name,
+                                                               name: bodyOptionCh.name + ": " + (activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) ? activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id) : {name: ''}).name,
                                                                id: (activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) ? activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id) : {}).id
                                                            }}
                                                            items={bodyOptionCharacteristicValues.filter(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)}

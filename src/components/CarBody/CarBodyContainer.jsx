@@ -1,7 +1,7 @@
 import React from 'react';
 import CarBody from "./CarBody";
 import {connect} from "react-redux";
-import {clearBodyOptionChValues, setActiveBodyType, setBodyOption, setBodyOptionChsThunk, setBodyOptionChVal, setBodyOptionChValuesThunk, setBodyOptionsThunk, setBodyTypesThunk} from "../../redux/carBodyReducer";
+import {clearBodyOptionChValues, setActiveBodyType, setBodyOption, setBodyOptionChBoolVal, setBodyOptionChsThunk, setBodyOptionChVal, setBodyOptionChValuesThunk, setBodyOptionsThunk, setBodyTypesThunk} from "../../redux/carBodyReducer";
 
 class CarBodyContainer extends React.Component {
 
@@ -24,6 +24,8 @@ class CarBodyContainer extends React.Component {
             this.props.body_option_characteristics.forEach(char => {
                 if (char.type === 'ref') {
                     this.props.setBodyOptionChVal(char.id);
+                } else {
+                    this.props.setBodyOptionChBoolVal(char.id);
                 }
             });
         }
@@ -47,6 +49,10 @@ class CarBodyContainer extends React.Component {
         this.props.setBodyOptionChVal(bodyOptionChId, optionChValId);
     }
 
+    markBodyOptionCh = (bodyOptionChId, value) => {
+        this.props.setBodyOptionChBoolVal(bodyOptionChId, value);
+    }
+
     render() {
         return (
             <CarBody bodyTypes={this.props.body_types}
@@ -58,7 +64,8 @@ class CarBodyContainer extends React.Component {
                      bodyOptionCharacteristics={this.props.body_option_characteristics}
                      bodyOptionCharacteristicValues={this.props.body_option_characteristics_values}
                      activeBodyOptionCharacteristicValues={this.props.active_body_option_characteristics_values}
-                     setBodyOptionChVal={this.setBodyOptionChVal}/>
+                     setBodyOptionChVal={this.setBodyOptionChVal}
+                     markBodyOptionCh={this.markBodyOptionCh}/>
         );
     };
 }
@@ -74,4 +81,4 @@ let mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps,
-    {setActiveBodyType, setBodyOption, setBodyOptionChVal, setBodyTypesThunk, setBodyOptionsThunk, setBodyOptionChsThunk, setBodyOptionChValuesThunk, clearBodyOptionChValues})(CarBodyContainer);
+    {setActiveBodyType, setBodyOption, setBodyOptionChVal, setBodyOptionChBoolVal, setBodyTypesThunk, setBodyOptionsThunk, setBodyOptionChsThunk, setBodyOptionChValuesThunk, clearBodyOptionChValues})(CarBodyContainer);

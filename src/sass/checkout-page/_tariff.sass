@@ -23,7 +23,7 @@
 .tariff-variant
   display: flex
   width: 360px
-  height: 99px
+  min-height: 99px
   box-sizing: border-box
   border: 1px solid $yellow
   background-color: #fff
@@ -129,7 +129,8 @@
       height: auto
 
 .chosen__col
-  display: block
+  display: flex
+  align-items: center
   flex-basis: 100%
   @include mobile
     flex-basis: auto
@@ -137,13 +138,19 @@
     //text-align: right
 
 .chosen__name
-  @include fontSWCL(13px, normal, #000, 37px)
+  @include fontSWCL(13px, normal, #000, 15px)
+  display: block
 
 .chosen__value
-  @include fontSWCL(13px, bold, #000, 37px)
+  @include fontSWCL(13px, bold, #000, 15px)
+  margin-left: 8px
 
 .tariff__map
   width: 47.4%
+  min-height: 600px
+  > div
+    border: 1px solid $yellow
+    border-radius: 20px
   *
     width: 100%
   @include tablet
@@ -153,3 +160,6 @@
     width: 100%
     @include tablet
       height: 100%
+
+.ymaps-2-1-76-inner-panes, .ymaps-2-1-76-map
+  border-radius: 20px

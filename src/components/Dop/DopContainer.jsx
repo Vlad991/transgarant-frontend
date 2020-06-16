@@ -1,7 +1,7 @@
 import React from 'react';
 import Dop from "./Dop";
 import {connect} from "react-redux";
-import {dopToggle, setDopThunk} from "../../redux/dopReducer";
+import {dopToggle, setDopThunk, toggleAdditional} from "../../redux/dopReducer";
 
 class DopContainer extends React.Component {
 
@@ -14,18 +14,26 @@ class DopContainer extends React.Component {
         this.props.dopToggle();
     }
 
+    toggleAdditional = (e, id) => {
+        e.preventDefault();
+        this.props.toggleAdditional(id);
+    }
+
     render() {
         return (
             <Dop active={this.props.active}
                  toggle={this.toggle}
-                additionalRequirements={this.props.additional_requirements}/>
+                 additionalRequirements={this.props.additional_requirements}
+                 selectedAdditional={this.props.selected_additional_requirements}
+                 toggleAdditional={this.toggleAdditional}/>
         );
     };
 }
 
 let mapStateToProps = (state) => ({
     active: state.dopReducer.active,
-    additional_requirements: state.dopReducer.additional_requirements
+    additional_requirements: state.dopReducer.additional_requirements,
+    selected_additional_requirements: state.dopReducer.selected_additional_requirements
 });
 
-export default connect(mapStateToProps, {dopToggle, setDopThunk})(DopContainer);
+export default connect(mapStateToProps, {dopToggle, setDopThunk, toggleAdditional})(DopContainer);

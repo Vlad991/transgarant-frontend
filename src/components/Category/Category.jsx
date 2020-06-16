@@ -8,7 +8,7 @@ const Category = ({categories, activeCategory, setCategory}) => {
             <div className="category__items">
                 {categories.map(category => {
                     return (
-                        <div className={"category__category-item category-item" + (category.id === activeCategory ? ' category-item_active' : '')}
+                        <div key={category.id} className={"category__category-item category-item" + (category.id === activeCategory ? ' category-item_active' : '')}
                              onClick={() => setCategory(category.id)}>
                             <div className="category-item__img"><img src={category.img} alt="Category"/></div>
                             <div className="category-item__description">

@@ -1,33 +1,74 @@
+import {orderAPI} from "../api/api";
+
 const SET_TARIFF = 'SET-TARIFF';
+const LOAD_TARIFF = 'LOAD-TARIFF';
 
 let initialState = {
     tariff_types: [
         {
-            id: '1',
-            name: 'Часовая аренда - 3000 р',
-            text: 'Планир. 3000 р (437р - час 4 часа работы + час подачи + + )',
+            id: 'bdc31826-7d68-11ea-a9c9-00155d8e4e03',
+            name: 'Часовая аренда',
+            cost: 0,
+            min_cost: 0,
+            rate: '',
+            min_hours: 0,
+            hours: 0,
+            cost_by_hour: [],
+            items: []
         },
         {
-            id: '2',
+            id: 'bdc31824-7d68-11ea-a9c9-00155d8e4e03',
             name: 'Ставка',
-            text: '2000 р',
+            cost: 0,
+            min_cost: 0,
+            rate: '',
+            min_hours: 0,
+            hours: 0,
+            cost_by_hour: 0,
+            items: []
         },
         {
-            id: '3',
-            name: 'Ставка PM -',
-            text: '3000 р',
+            id: 'bdc31825-7d68-11ea-a9c9-00155d8e4e03',
+            name: 'Ставка PM',
+            cost: 0,
+            min_cost: 0,
+            rate: '',
+            min_hours: 0,
+            hours: 0,
+            cost_by_hour: 0,
+            items: []
         },
         {
-            id: '4',
-            name: 'Доставка - 3000 р',
-            text: 'доставка 2000 р (условия) (для тарифа доставка нужно внести данные по грузу)',
+            id: 'bdc31823-7d68-11ea-a9c9-00155d8e4e03',
+            name: 'Доставка',
+            cost: 0,
+            min_cost: 0,
+            rate: '',
+            min_hours: 0,
+            hours: 0,
+            cost_by_hour: 0,
+            items: []
         }
     ],
-    selected_tariff: ''
+    selected_tariff: '',
 };
 
 const tariffReducer = (state = initialState, action) => {
     switch (action.type) {
+        case LOAD_TARIFF:
+            let tariffTypes = [...state.tariff_types];
+            let tariff = tariffTypes.find(tariff => tariff.id === action.id);
+            tariff.cost = action.cost;
+            tariff.min_cost = action.min_cost;
+            tariff.rate = action.rate;
+            tariff.min_hours = action.min_hours;
+            tariff.hours = action.hours;
+            tariff.cost_by_hour = action.cost_by_hour;
+            tariff.items = action.items;
+            return {
+                ...state,
+                tariff_types: tariffTypes
+            }
         case SET_TARIFF:
             return {
                 ...state,
@@ -38,6 +79,16 @@ const tariffReducer = (state = initialState, action) => {
     }
 };
 
+export const loadTariff = (id, cost, min_cost, rate, min_hours, hours, cost_by_hour, items) => ({type: LOAD_TARIFF, id, cost, min_cost, rate, min_hours, hours, cost_by_hour, items});
 export const setTariff = (selected_tariff) => ({type: SET_TARIFF, selected_tariff});
+
+export const loadTariffThunk = (date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type) => async (dispatch) => {
+    let response = await orderAPI.calc(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type);
+    if (response.status === 200) {
+        dispatch(loadTariff(tariff_type_id, response.data.cost, response.data.min_cost, response.data.rate, response.data.min_hours, response.data.hours, response.data.cost_by_hour, response.data.items));
+    } else {
+        debugger;
+    }
+};
 
 export default tariffReducer;

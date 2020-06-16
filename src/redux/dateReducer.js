@@ -13,12 +13,8 @@ const dateReducer = (state = initialState, action) => {
             dateToCopy.setMonth(action.date.getMonth());
             dateToCopy.setFullYear(action.date.getFullYear());
             dateToCopy.setDate(action.date.getDate());
-            if (action.date.getHours() > dateToCopy.getHours()) {
-                dateToCopy.setHours(action.date.getHours());
-                dateToCopy.setMinutes(action.date.getMinutes() + 15);
-            } else if (action.date.getMinutes() > dateToCopy.getMinutes()) {
-                dateToCopy.setMinutes(action.date.getMinutes() + 15);
-            }
+            dateToCopy.setHours(action.date.getHours());
+            dateToCopy.setMinutes(action.date.getMinutes() + 15);
             return {
                 ...state,
                 dateFrom: action.date,

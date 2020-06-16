@@ -5,46 +5,84 @@ const DELETE_POINT = 'DELETE-POINT';
 const TOGGLE_VALUE = 'TOGGLE-VALUE';
 const SET_ADDRESS = 'SET-ADDRESS';
 const SET_FORM_STATE = 'SET-FORM-STATE';
+const TOGGLE_FORM = 'TOGGLE_FORM';
 
 let initialState = {
     points: [
-        {
-            name: 'Точка 1',
-            address: 'г Москва, Пушкинская пл, д 2',
-            comment: '',
-            company: 'В ООО "Salus"',
-            contact_name: 'Васька',
-            number: '+ 7 934 43 59 435',
-            todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
-            file: 'file.txt',
-            timeFrom: '09.00',
-            timeTo: '18.00',
-            hasPause: true,
-            pauseFrom: '09.00',
-            pauseTo: '18.00',
-            values: [
-                {
-                    id: 1,
-                    name: 'Погр',
-                    selected: false
-                },
-                {
-                    id: 2,
-                    name: 'Разг',
-                    selected: true
-                },
-                {
-                    id: 3,
-                    name: 'Получ док',
-                    selected: false
-                },
-                {
-                    id: 4,
-                    name: 'Встретить экспедитора',
-                    selected: false
-                },
-            ]
-        }
+        // {
+        //     name: 'Точка 1',
+        //     address: 'г Москва, Пушкинская пл, д 2',
+        //     comment: '',
+        //     company: 'В ООО "Salus"',
+        //     contact_name: 'Васька',
+        //     number: '+ 7 934 43 59 435',
+        //     todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
+        //     file: 'file.txt',
+        //     timeFrom: '09.00',
+        //     timeTo: '18.00',
+        //     hasPause: true,
+        //     pauseFrom: '09.00',
+        //     pauseTo: '18.00',
+        //     values: [
+        //         {
+        //             id: 1,
+        //             name: 'Погр',
+        //             selected: false
+        //         },
+        //         {
+        //             id: 2,
+        //             name: 'Разг',
+        //             selected: true
+        //         },
+        //         {
+        //             id: 3,
+        //             name: 'Получ док',
+        //             selected: false
+        //         },
+        //         {
+        //             id: 4,
+        //             name: 'Встретить экспедитора',
+        //             selected: false
+        //         },
+        //     ]
+        // },
+        // {
+        //     name: 'Точка 1',
+        //     address: 'г Москва, пр-кт Защитников Москвы',
+        //     comment: '',
+        //     company: 'В ООО "Salus"',
+        //     contact_name: 'Васька',
+        //     number: '+ 7 934 43 59 435',
+        //     todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
+        //     file: 'file.txt',
+        //     timeFrom: '09.00',
+        //     timeTo: '18.00',
+        //     hasPause: true,
+        //     pauseFrom: '09.00',
+        //     pauseTo: '18.00',
+        //     values: [
+        //         {
+        //             id: 1,
+        //             name: 'Погр',
+        //             selected: false
+        //         },
+        //         {
+        //             id: 2,
+        //             name: 'Разг',
+        //             selected: true
+        //         },
+        //         {
+        //             id: 3,
+        //             name: 'Получ док',
+        //             selected: false
+        //         },
+        //         {
+        //             id: 4,
+        //             name: 'Встретить экспедитора',
+        //             selected: false
+        //         },
+        //     ]
+        // }
     ],
     updatePoint: null,
     name: '',
@@ -54,6 +92,7 @@ let initialState = {
     company: '',
     contact_name: '',
     number: '',
+    number_error: false,
     todo: '',
     file: '',
     timeFrom: '',
@@ -82,12 +121,23 @@ let initialState = {
             name: 'Встретить экспедитора',
             selected: false
         },
-    ]
+    ],
+    values_error: false,
+    showForm: false
 };
 
 const pointsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POINT:
+            if (!state.address || !state.number || (!state.values.find(value => value.selected))) {
+                return {
+                    ...state,
+                    address_error: !state.address,
+                    number_error: !state.number,
+                    values_error: !(state.values.find(value => value.selected)),
+                    showForm: true
+                };
+            }
             let point = {
                 name: action.name,
                 address: state.address,
@@ -108,7 +158,9 @@ const pointsReducer = (state = initialState, action) => {
             points.push(point);
             return {
                 ...state,
-                points: points
+                points: points,
+                address_error: false,
+                showForm: false
             };
         case SHOW_POINT_INFO:
             let pointToShow = state.points[action.index];
@@ -131,6 +183,13 @@ const pointsReducer = (state = initialState, action) => {
                 values: [...pointToShow.values]
             };
         case DO_UPDATE_POINT:
+            if (!state.address) {
+                return {
+                    ...state,
+                    address_error: true,
+                    showForm: true
+                };
+            }
             let pointToUpdate = {
                 name: action.name,
                 address: state.address,
@@ -188,6 +247,8 @@ const pointsReducer = (state = initialState, action) => {
                         selected: false
                     },
                 ],
+                showForm: false,
+                address_error: false
             };
         case DELETE_POINT:
             let pointsToDelete = [...state.points];
@@ -205,22 +266,20 @@ const pointsReducer = (state = initialState, action) => {
                 values: values
             };
         case SET_ADDRESS:
-            if (!action.value) {
-                return {
-                    ...state,
-                    address_error: true
-                };
-            } else {
-                return {
-                    ...state,
-                    address_error: false,
-                    address: action.value.value
-                }
+            return {
+                ...state,
+                address_error: false,
+                address: action.value.value
             }
         case SET_FORM_STATE:
             return {
                 ...state,
                 ...action.object
+            }
+        case TOGGLE_FORM:
+            return {
+                ...state,
+                showForm: action.show
             }
         default:
             return state;
@@ -234,5 +293,6 @@ export const deletePoint = (index) => ({type: DELETE_POINT, index});
 export const toggleValue = (id) => ({type: TOGGLE_VALUE, id});
 export const setAddress = (value) => ({type: SET_ADDRESS, value});
 export const setFormState = (object) => ({type: SET_FORM_STATE, object});
+export const toggleForm = (show) => ({type: TOGGLE_FORM, show});
 
 export default pointsReducer;

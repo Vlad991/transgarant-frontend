@@ -1,6 +1,5 @@
 import React from "react";
 import CollapseContainer from "../CollapseContainer";
-import {setFormState} from "../../redux/pointsReducer";
 
 const Cargo = ({
                    activeTab,
@@ -46,7 +45,10 @@ const Cargo = ({
                    bodyOptions,
                    activeBodyOption,
 
-                   packedItems
+                   packedItems,
+
+                   cargoHeight,
+                   cargoWidth
                }) => {
     return (
         <section className="checkout__cargo cargo">
@@ -222,24 +224,29 @@ const Cargo = ({
                                 <path d="M15.3644 2.63581C11.8497 -0.87857 6.15097 -0.878962 2.63581 2.63581C-0.878962 6.15058 -0.87857 11.8493 2.63581 15.3644C6.15058 18.8784 11.8493 18.8788 15.3644 15.3644C18.8788 11.8493 18.8784 6.15097 15.3644 2.63581ZM10.1737 12.9133C10.1737 13.5617 9.64814 14.0872 8.99973 14.0872C8.35133 14.0872 7.82579 13.5617 7.82579 12.9133V8.2175C7.82579 7.56909 8.35133 7.04356 8.99973 7.04356C9.64814 7.04356 10.1737 7.56909 10.1737 8.2175V12.9133ZM8.97899 6.21084C8.3028 6.21084 7.85201 5.73188 7.8661 5.1406C7.85201 4.52076 8.3028 4.05628 8.99269 4.05628C9.68296 4.05628 10.1197 4.52116 10.1341 5.1406C10.1338 5.73188 9.68335 6.21084 8.97899 6.21084Z" fill="#ADADAD"/>
                             </svg>
                         </div> : null}
-                    <div className="cargo__sizes">
-                        {packedItems.map(block => {
-                            return (
-                                <div className="cargo__size-block" style={{
-                                    width: parseFloat(block.width) * 100 + 'px',
-                                    height: parseFloat(block.height) * 100 + 'px',
-                                    left: parseFloat(block.x) * 100 + 10 + 'px',
-                                    top: parseFloat(block.y) * 100 + 10 + 'px'
-                                }}>
-                                    <div className="size-block">
-                                        <div className="size-block__value">{block.width}</div>
-                                        <div className="size-block__value">{block.height}</div>
-                                        <div className="size-block__value">{block.width}</div>
-                                        <div className="size-block__value">{block.height}</div>
+                    <div className="cargo__sizes" style={{
+                        height: parseFloat(cargoHeight) * 100 + 'px',
+                        width: parseFloat(cargoWidth) * 100 + 'px'
+                    }}>
+                        <div className="sizes-block">
+                            {packedItems.map(block => {
+                                return (
+                                    <div className="cargo__size-block" style={{
+                                        width: parseFloat(block.width) * 100 + 'px',
+                                        height: parseFloat(block.height) * 100 + 'px',
+                                        left: parseFloat(block.x) * 100 + 'px',
+                                        top: parseFloat(block.y) * 100 + 'px'
+                                    }}>
+                                        <div className="size-block">
+                                            <div className="size-block__value">{block.width}</div>
+                                            <div className="size-block__value">{block.height}</div>
+                                            <div className="size-block__value">{block.width}</div>
+                                            <div className="size-block__value">{block.height}</div>
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })}
+                                )
+                            })}
+                        </div>
                     </div>
                     <button type="button" className="cargo__button cargo__button_mobile button">Добавить</button>
                 </div>

@@ -67,6 +67,8 @@
     text-align: center
     &::after
       display: none
+  &_error
+    border-color: crimson
 
 .collapse__selected
   @include fontSWCL(13px, normal, #000, 16px)
@@ -115,6 +117,8 @@
     border-color: $yellow
   &_error
     border-color: crimson
+    &:focus-within
+      border-color: crimson
   &_address
     cursor: auto
     > div

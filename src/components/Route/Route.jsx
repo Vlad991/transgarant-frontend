@@ -27,6 +27,7 @@ const Route = ({
                    company,
                    contactName,
                    number,
+                   numberError,
                    todo,
                    file,
                    timeFrom,
@@ -35,6 +36,7 @@ const Route = ({
                    pauseFrom,
                    pauseTo,
                    values,
+                   valuesError,
                    toggleValue,
                    showCollapse,
                    toggleCollapse,
@@ -67,7 +69,7 @@ const Route = ({
                         inline
                     />
                     <div className="calendar__footer">
-                        <button onClick={() => setDateFrom(new Date)} className="calendar__clear calendar__button button">Сбросить</button>
+                        <button onClick={() => setDateFrom(new Date())} className="calendar__clear calendar__button button">Сбросить</button>
                         <button onClick={toggleFromPicker} className="calendar__save calendar__button button">Сохранить</button>
                     </div>
                 </div>
@@ -81,7 +83,7 @@ const Route = ({
                         inline
                     />
                     <div className="calendar__footer">
-                        <button onClick={() => setDateTo(new Date)} className="calendar__clear calendar__button button">Сбросить</button>
+                        <button onClick={() => setDateTo(new Date())} className="calendar__clear calendar__button button">Сбросить</button>
                         <button onClick={toggleToPicker} className="calendar__save calendar__button button">Сохранить</button>
                     </div>
                 </div>
@@ -139,7 +141,7 @@ const Route = ({
                                 <label className="add-form__input input-wrap">
                                     <input onChange={(e) => setFormState({contact_name: e.target.value})} value={contactName} type="text" className="input-wrap__input" placeholder="Контактное лицо (ФИО)"/>
                                 </label>
-                                <label className="add-form__input input-wrap">
+                                <label className={"add-form__input input-wrap" + (numberError ? ' input-wrap_error' : '')}>
                                     <input onChange={(e) => setFormState({number: e.target.value})} value={number} type="text" className="input-wrap__input" placeholder="Номер телефона"/>
                                 </label>
                                 <label className="add-form__input input-wrap">
@@ -190,7 +192,7 @@ const Route = ({
                                         <input onChange={(e) => setFormState({pauseTo: e.target.value})} value={pauseTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
                                     </label>
                                 </div> : null}
-                            <div onClick={toggleCollapse} className={"add-form__collapse collapse collapse_gray" + (showCollapse ? ' collapse_active' : '')}>
+                            <div onClick={toggleCollapse} className={"add-form__collapse collapse collapse_gray" + (showCollapse ? ' collapse_active' : '')  + (valuesError ? ' collapse_error' : '')}>
                                 <div className="collapse__selected">Услуги: {values.map(value => value.selected ? value.name + ', ' : '')}</div>
                                 <div onClick={(e) => e.stopPropagation()} className="collapse__items">
                                     {values.map(value => {

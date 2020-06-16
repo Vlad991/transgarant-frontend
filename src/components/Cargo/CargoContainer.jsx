@@ -30,7 +30,7 @@ class CargoContainer extends React.Component {
     }
 
     addPallet = () => {
-        let pallets = this.props.pallets;
+        let pallets = [...this.props.pallets];
         let pallet = {
             pallet_type_id: this.props.selected_pallet,
             quantity: this.props.pallet_quantity,
@@ -54,7 +54,7 @@ class CargoContainer extends React.Component {
     }
     
     addPlace = () => {
-        let places = this.props.places;
+        let places = [...this.props.places];
         let place = {
             size: {
                 length: this.props.place_length,
@@ -76,7 +76,7 @@ class CargoContainer extends React.Component {
     }
     
     addPackage = () => {
-        let packages = this.props.packages;
+        let packages = [...this.props.packages];
         let package1 = {
             package_type_id: this.props.selected_package,
             quantity: this.props.package_quantity,
@@ -144,6 +144,8 @@ class CargoContainer extends React.Component {
                    activeBodyOption={this.props.active_body_option}
 
                    packedItems={this.props.packed_items}
+                   cargoHeight={this.props.cargoHeight}
+                   cargoWidth={this.props.cargoWidth}
             />
         );
     };
@@ -189,7 +191,9 @@ let mapStateToProps = (state) => ({
     activeCategory: state.categoryReducer.activeCategory,
     categories: state.categoryReducer.categories,
 
-    packed_items: state.cargoReducer.packed_items
+    packed_items: state.cargoReducer.packed_items,
+    cargoHeight: state.cargoReducer.cargoHeight,
+    cargoWidth: state.cargoReducer.cargoWidth
 });
 
 export default connect(mapStateToProps, 

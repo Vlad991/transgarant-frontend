@@ -10,10 +10,11 @@ const ADD_PALLET = 'ADD-PALLET';
 const ADD_PACKAGE = 'ADD-PACKAGE';
 const ADD_PLACE = 'ADD-PLACE';
 const SET_PACKED_ITEMS = 'SET-PACKED-ITEMS';
+const SET_CARGO_SIZES = 'SET-CARGO-SIZES';
 
 let initialState = {
     name: '',
-    price: null,
+    price: 0,
     quantity: 1,
     length: 1.2,
     width: 0.8,
@@ -43,7 +44,9 @@ let initialState = {
 
     selected_pallet: '',
     selected_package: '',
-    packed_items: []
+    packed_items: [],
+    cargoHeight: 3.7,
+    cargoWidth: 2.9
 };
 
 const cargoReducer = (state = initialState, action) => {
@@ -99,6 +102,12 @@ const cargoReducer = (state = initialState, action) => {
                 ...state,
                 packed_items: action.packed_items
             }
+        case SET_CARGO_SIZES:
+            return {
+                ...state,
+                cargoHeight: action.height,
+                cargoWidth: action.width
+            }
         default:
             return state;
     }
@@ -113,6 +122,7 @@ export const addPallets = (pallets) => ({type: ADD_PALLET, pallets});
 export const addPlaces = (places) => ({type: ADD_PLACE, places});
 export const addPackages = (packages) => ({type: ADD_PACKAGE, packages});
 export const setPackedItems = (packed_items) => ({type: SET_PACKED_ITEMS, packed_items});
+export const setCargoSizes = (height, width) => ({type: SET_CARGO_SIZES, height, width});
 
 export const setPalletTypesThunk = () => async (dispatch) => {
     let response = await cargoAPI.getPalletTypes();
@@ -128,23 +138,35 @@ export const setPackageTypesThunk = () => async (dispatch) => {
 
 export const addPalletThunk = (name, price, places, pallets, packages, body_option_id, body_option_characteristics) => async (dispatch) => {
     let response = await cargoAPI.addCargo(name, price, places, pallets, packages, body_option_id, body_option_characteristics);
-    dispatch(addPallets(pallets));
-    dispatch(setCategory(response.data.car_type_id));
-    dispatch(setPackedItems(response.data.packed_items));
+    if (response.status === 200) {
+        dispatch(addPallets(pallets));
+        dispatch(setCategory(response.data.car_type_id));
+        dispatch(setPackedItems(response.data.packed_items));
+        dispatch(setCargoSizes(response.data.height, response.data.width));
+    } else {
+    }
 };
 
 export const addPlaceThunk = (name, price, places, pallets, packages, body_option_id, body_option_characteristics) => async (dispatch) => {
     let response = await cargoAPI.addCargo(name, price, places, pallets, packages, body_option_id, body_option_characteristics);
-    dispatch(addPlaces(places));
-    dispatch(setCategory(response.data.car_type_id));
-    dispatch(setPackedItems(response.data.packed_items));
+    if (response.status === 200) {
+        dispatch(addPlaces(places));
+        dispatch(setCategory(response.data.car_type_id));
+        dispatch(setPackedItems(response.data.packed_items));
+        dispatch(setCargoSizes(response.data.height, response.data.width));
+    } else {
+    }
 };
 
 export const addPackageThunk = (name, price, places, pallets, packages, body_option_id, body_option_characteristics) => async (dispatch) => {
     let response = await cargoAPI.addCargo(name, price, places, pallets, packages, body_option_id, body_option_characteristics);
-    dispatch(addPackages(packages));
-    dispatch(setCategory(response.data.car_type_id));
-    dispatch(setPackedItems(response.data.packed_items));
+    if (response.status === 200) {
+        dispatch(addPackages(packages));
+        dispatch(setCategory(response.data.car_type_id));
+        dispatch(setPackedItems(response.data.packed_items));
+        dispatch(setCargoSizes(response.data.height, response.data.width));
+    } else {
+    }
 };
 
 export default cargoReducer;
