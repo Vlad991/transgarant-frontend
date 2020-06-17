@@ -2,7 +2,7 @@ import React from 'react';
 import Route from "./Route";
 import {connect} from "react-redux";
 import {setDateFrom, setDateTo} from "../../redux/dateReducer";
-import {addPoint, deletePoint, doUpdatePoint, setAddress, setFormState, showPointInfo, toggleForm, toggleValue} from "../../redux/pointsReducer";
+import {addFileThunk, addPoint, deletePoint, doUpdatePoint, setAddress, setFormState, setNumber, showPointInfo, toggleForm, toggleValue} from "../../redux/pointsReducer";
 
 class RouteContainer extends React.Component {
     state = {
@@ -67,6 +67,22 @@ class RouteContainer extends React.Component {
         this.props.setAddress(value);
     }
 
+    setNumber = (value) => {
+        this.props.setNumber(value);
+    }
+
+    addFile = (e) => {
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        let name = file.name;
+        let data;
+        reader.onload = e => {
+            data = e.target.result;
+            this.props.addFileThunk(name, data);
+        }
+    }
+
     setFormState = (object) => {
         this.props.setFormState(object);
     }
@@ -98,9 +114,11 @@ class RouteContainer extends React.Component {
                    company={this.props.company}
                    contactName={this.props.contact_name}
                    number={this.props.number}
+                   setNumber={this.setNumber}
                    numberError={this.props.number_error}
                    todo={this.props.todo}
-                   file={this.props.file}
+                   files={this.props.files}
+                   addFile={this.addFile}
                    timeFrom={this.props.timeFrom}
                    timeTo={this.props.timeTo}
                    hasPause={this.props.hasPause}
@@ -131,7 +149,7 @@ let mapStateToProps = (state) => ({
     number: state.pointsReducer.number,
     number_error: state.pointsReducer.number_error,
     todo: state.pointsReducer.todo,
-    file: state.pointsReducer.file,
+    files: state.pointsReducer.files,
     timeFrom: state.pointsReducer.timeFrom,
     timeTo: state.pointsReducer.timeTo,
     hasPause: state.pointsReducer.hasPause,
@@ -143,4 +161,4 @@ let mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps,
-    {setDateFrom, setDateTo, addPoint, showPointInfo, doUpdatePoint, deletePoint, toggleValue, setAddress, setFormState, toggleForm})(RouteContainer);
+    {setDateFrom, setDateTo, addPoint, showPointInfo, doUpdatePoint, deletePoint, toggleValue, setAddress, setNumber, setFormState, toggleForm, addFileThunk})(RouteContainer);

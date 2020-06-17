@@ -87,7 +87,7 @@ export const loadTariffThunk = (date, body_type_id, body_option_id, body_option_
     if (response.status === 200) {
         dispatch(loadTariff(tariff_type_id, response.data.cost, response.data.min_cost, response.data.rate, response.data.min_hours, response.data.hours, response.data.cost_by_hour, response.data.items));
     } else {
-        debugger;
+        console.error("Load Tariff: failed");
     }
 };
 

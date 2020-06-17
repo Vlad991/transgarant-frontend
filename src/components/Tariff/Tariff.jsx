@@ -135,28 +135,17 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff, loadTariff}) => {
                         <div className="chosen__heading">Дополнительные услуги</div>
                         <table className="chosen__table">
                             <tbody>
-                            {selectedTariffObject.items.map((item, index, items) => {
-                                if ((index % 2) === 0) {
-                                    return (
-                                        <tr key={index} className="chosen__row">
-                                            <td className="chosen__col">
-                                                <span className="chosen__name">{item.name}</span>
-                                            </td>
-                                            <td className="chosen__col">
-                                                <span className="chosen__value">{item.cost} р</span>
-                                            </td>
-                                            {items[index + 1] ? <>
-                                                <td className="chosen__col">
-                                                    <span className="chosen__name">{items[index + 1].name}</span>
-                                                </td>
-                                                <td className="chosen__col">
-                                                    <span className="chosen__value">{items[index + 1].cost} р</span>
-                                                </td>
-                                            </> : null}
-                                        </tr>
-                                    );
-                                }
-                                return null;
+                            {selectedTariffObject.items.map((item, index) => {
+                                return (
+                                    <tr key={index} className="chosen__row">
+                                        <td className="chosen__col">
+                                            <span className="chosen__name">{item.name}</span>
+                                        </td>
+                                        <td className="chosen__col">
+                                            <span className="chosen__value">{item.cost} р</span>
+                                        </td>
+                                    </tr>
+                                );
                             })}
                             </tbody>
                         </table>

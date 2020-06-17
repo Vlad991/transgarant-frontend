@@ -33,7 +33,7 @@ class CargoContainer extends React.Component {
         let pallets = [...this.props.pallets];
         let pallet = {
             pallet_type_id: this.props.selected_pallet,
-            quantity: this.props.pallet_quantity,
+            quantity: parseInt(this.props.pallet_quantity),
             size: {
                 length: this.props.pallet_length,
                 width: this.props.pallet_width,
@@ -79,7 +79,7 @@ class CargoContainer extends React.Component {
         let packages = [...this.props.packages];
         let package1 = {
             package_type_id: this.props.selected_package,
-            quantity: this.props.package_quantity,
+            quantity: parseInt(this.props.package_quantity),
             size: {
                 length: this.props.package_length,
                 width: this.props.package_width,

@@ -10,6 +10,7 @@ import cargoReducer from "./cargoReducer";
 import tariffReducer from "./tariffReducer";
 import paymentReducer from "./paymentReducer";
 import socialReducer from "./socialReducer";
+import clientFormReducer from "./clientFormReducer";
 
 
 let reducers = combineReducers({
@@ -22,7 +23,7 @@ let reducers = combineReducers({
     tariffReducer,
     paymentReducer,
     socialReducer,
-    // clientFormReducer
+    clientFormReducer,
     form: formReducer
 });
 

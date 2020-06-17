@@ -158,6 +158,9 @@
   justify-content: center
   align-items: center
 
+.route-point__file-name
+  @include fontSWCL(13px, mormal, #6C6C6C, 15px)
+
 .route__add-button
   margin-top: 16px
   @include tabletSmall
@@ -234,6 +237,8 @@
     overflow: hidden
     position: absolute
     z-index: -1
+  > svg
+    flex-shrink: 0
 
 .add-form__file-text
   margin-left: 20px

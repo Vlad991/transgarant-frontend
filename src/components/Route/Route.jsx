@@ -2,6 +2,7 @@ import React from "react";
 import DatePicker, {registerLocale} from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import {AddressSuggestions} from "react-dadata";
+import InputMask from 'react-input-mask';
 
 const Route = ({
                    dateFrom,
@@ -27,9 +28,11 @@ const Route = ({
                    company,
                    contactName,
                    number,
+                   setNumber,
                    numberError,
                    todo,
-                   file,
+                   files,
+                   addFile,
                    timeFrom,
                    timeTo,
                    hasPause,
@@ -105,14 +108,14 @@ const Route = ({
                             <div className="route-point__contact">{point.company + " " + point.contact_name + " " + point.number}</div>
                             <div className="route-point__footer">
                                 <div className="route-point__text">{point.todo + "\n" + point.comment}</div>
-                                {point.file ?
+                                {point.files.length > 0 ?
                                     <div className="route-point__check-mark">
                                         <svg width="51" height="51" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M28.3348 0.876892V12.0373H39.4952L28.3348 0.876892Z" fill="#BFBFBF"/>
                                             <path d="M25.3451 15.0264V0.000732422H0V49.4044H28.2727C26.9962 48.0791 25.9868 46.5525 25.2713 44.8605C24.4911 43.0151 24.0955 41.058 24.0955 39.0412C24.0955 37.0243 24.4911 35.0673 25.2713 33.2218C26.0246 31.4421 27.1018 29.8438 28.4729 28.4717C29.8451 27.1006 31.4434 26.0234 33.2231 25.2701C35.0685 24.4898 37.0256 24.0942 39.0424 24.0942C39.5217 24.0942 39.998 24.1171 40.4704 24.162V15.0264H25.3451ZM7.45454 14.9935H19.4121V17.9829H7.45454V14.9935ZM19.4121 35.9193H7.45454V32.9299H19.4121V35.9193ZM22.4015 29.9405H7.45454V26.9511H22.4015V29.9405ZM30.0075 23.9617H7.45454V20.9723H30.0075V23.9617Z" fill="#BFBFBF"/>
                                             <path d="M39.0425 27.0839C32.4389 27.0839 27.0849 32.4379 27.0849 39.0414C27.0849 45.645 32.4389 50.999 39.0425 50.999C45.646 50.999 51 45.645 51 39.0414C51 32.4379 45.646 27.0839 39.0425 27.0839ZM37.7779 43.5016L33.53 39.1301L35.6744 37.0465L37.9264 39.3643L42.6317 35.1692L44.6207 37.4002L37.7779 43.5016Z" fill="#FFB700"/>
                                         </svg>
-                                        {point.file}
+                                        {point.files.map(file => <div className="route-point__file-name">{file.name}</div>)}
                                     </div> : null}
                             </div>
                         </div>
@@ -142,7 +145,9 @@ const Route = ({
                                     <input onChange={(e) => setFormState({contact_name: e.target.value})} value={contactName} type="text" className="input-wrap__input" placeholder="Контактное лицо (ФИО)"/>
                                 </label>
                                 <label className={"add-form__input input-wrap" + (numberError ? ' input-wrap_error' : '')}>
-                                    <input onChange={(e) => setFormState({number: e.target.value})} value={number} type="text" className="input-wrap__input" placeholder="Номер телефона"/>
+                                    <InputMask mask="+7 (999) 999 99 99" value={number} onChange={(e) => setNumber(e.target.value)}>
+                                        {(inputProps) => <input {...inputProps} className="input-wrap__input" placeholder="Номер телефона" type="tel"/>}
+                                    </InputMask>
                                 </label>
                                 <label className="add-form__input input-wrap">
                                     <input onChange={(e) => setFormState({todo: e.target.value})} value={todo} type="text" className="input-wrap__input" placeholder="Что нужно сделать по адресу"/>
@@ -158,8 +163,8 @@ const Route = ({
                                             fill="#AFAFAF"/>
                                         <path d="M11.8139 19.8223C11.7139 19.6887 11.5997 19.5926 11.4721 19.5336C11.3445 19.4745 11.21 19.4452 11.0682 19.4452C10.923 19.4452 10.7842 19.4723 10.6527 19.5275C10.5208 19.5827 10.4031 19.6758 10.2992 19.8073C10.1949 19.9392 10.1135 20.1086 10.0548 20.3172C9.99623 20.5258 9.96433 20.7805 9.96045 21.0831C9.96433 21.3779 9.99493 21.6292 10.0518 21.8374C10.1087 22.0456 10.1872 22.2154 10.2876 22.3473C10.388 22.4792 10.5018 22.5749 10.6294 22.6361C10.757 22.6973 10.8915 22.7275 11.0333 22.7275C11.1786 22.7275 11.3169 22.6991 11.4488 22.6422C11.5803 22.5853 11.6984 22.4917 11.8023 22.3624C11.9061 22.2327 11.988 22.0629 12.0467 21.8525C12.1053 21.6422 12.1367 21.3861 12.1411 21.0836C12.1372 20.7887 12.1066 20.5383 12.0497 20.3323C11.9923 20.1258 11.9139 19.956 11.8139 19.8223Z" fill="#AFAFAF"/>
                                     </svg>
-                                    <span className="add-form__file-text">Прикрепить файл</span>
-                                    {/*<input onChange={(e) => setFormState({file: e.target.value})} value={file} type="file" className="input-wrap__input" placeholder="Прикрепить файл"/>*/}
+                                    <span className="add-form__file-text">{files.length > 0 ? files.map(file => file.name + ", ") : 'Прикрепить файл'}</span>
+                                    <input onChange={(e) => addFile(e)} type="file" className="input-wrap__input" placeholder="Прикрепить файл"/>
                                 </label>
                             </div>
                         </div>
@@ -167,10 +172,14 @@ const Route = ({
                             <div className="add-form__heading">Часы работы</div>
                             <div className="add-form__time">
                                 <label className="add-form__time-item input-wrap">
-                                    <input onChange={(e) => setFormState({timeFrom: e.target.value})} value={timeFrom} type="text" className="input-wrap__input" placeholder="c 09.00"/>
+                                    <InputMask mask="с 99:99" value={timeFrom} onChange={(e) => setFormState({timeFrom: e.target.value})}>
+                                        {(inputProps) => <input {...inputProps} type="text" className="input-wrap__input" placeholder="c 09:00"/>}
+                                    </InputMask>
                                 </label>
                                 <label className="add-form__time-item input-wrap">
-                                    <input onChange={(e) => setFormState({timeTo: e.target.value})} value={timeTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
+                                    <InputMask mask="до 99:99" value={timeTo} onChange={(e) => setFormState({timeTo: e.target.value})}>
+                                        {(inputProps) => <input {...inputProps} type="text" className="input-wrap__input" placeholder="до 18:00"/>}
+                                    </InputMask>
                                 </label>
                             </div>
                             <div className="add-form__pause">
@@ -186,13 +195,17 @@ const Route = ({
                             {!hasPause ?
                                 <div className="add-form__time">
                                     <label className="add-form__time-item input-wrap">
-                                        <input onChange={(e) => setFormState({pauseFrom: e.target.value})} value={pauseFrom} type="text" className="input-wrap__input" placeholder="с 09.00"/>
+                                        <InputMask mask="с 99:99" value={pauseFrom} onChange={(e) => setFormState({pauseFrom: e.target.value})}>
+                                            {(inputProps) => <input {...inputProps} type="text" className="input-wrap__input" placeholder="c 09:00"/>}
+                                        </InputMask>
                                     </label>
                                     <label className="add-form__time-item input-wrap">
-                                        <input onChange={(e) => setFormState({pauseTo: e.target.value})} value={pauseTo} type="text" className="input-wrap__input" placeholder="до 18.00"/>
+                                        <InputMask mask="до 99:99" value={pauseTo} onChange={(e) => setFormState({pauseTo: e.target.value})}>
+                                            {(inputProps) => <input {...inputProps} type="text" className="input-wrap__input" placeholder="до 18:00"/>}
+                                        </InputMask>
                                     </label>
                                 </div> : null}
-                            <div onClick={toggleCollapse} className={"add-form__collapse collapse collapse_gray" + (showCollapse ? ' collapse_active' : '')  + (valuesError ? ' collapse_error' : '')}>
+                            <div onClick={toggleCollapse} className={"add-form__collapse collapse collapse_gray" + (showCollapse ? ' collapse_active' : '') + (valuesError ? ' collapse_error' : '')}>
                                 <div className="collapse__selected">Услуги: {values.map(value => value.selected ? value.name + ', ' : '')}</div>
                                 <div onClick={(e) => e.stopPropagation()} className="collapse__items">
                                     {values.map(value => {

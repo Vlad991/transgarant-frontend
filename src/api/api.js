@@ -85,3 +85,12 @@ export const orderAPI = {
             .catch(error => error);
     }
 };
+
+export const fileAPI = {
+    addFile(name, data) {
+        let requestData = {name, data};
+        return instance.post('/order-files', requestData)
+            .then(response => response)
+            .catch(error => error);
+    }
+};

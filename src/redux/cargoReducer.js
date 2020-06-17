@@ -144,6 +144,7 @@ export const addPalletThunk = (name, price, places, pallets, packages, body_opti
         dispatch(setPackedItems(response.data.packed_items));
         dispatch(setCargoSizes(response.data.height, response.data.width));
     } else {
+        console.error("Add Pallet: failed");
     }
 };
 
@@ -155,6 +156,7 @@ export const addPlaceThunk = (name, price, places, pallets, packages, body_optio
         dispatch(setPackedItems(response.data.packed_items));
         dispatch(setCargoSizes(response.data.height, response.data.width));
     } else {
+        console.error("ADd Place: failed");
     }
 };
 
@@ -166,6 +168,7 @@ export const addPackageThunk = (name, price, places, pallets, packages, body_opt
         dispatch(setPackedItems(response.data.packed_items));
         dispatch(setCargoSizes(response.data.height, response.data.width));
     } else {
+        console.error("Add Package: failed");
     }
 };
 
