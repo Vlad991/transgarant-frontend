@@ -90,7 +90,7 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff, loadTariff}) => {
             </div>
             <div className="tariff__info">
                 <div className="tariff__info-heading">Служебная информация</div>
-                <div className="tariff__info-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</div>
+                <div className="tariff__info-text">{selectedTariff ? selectedTariffObject.service_information : ''}</div>
             </div>
             <div className="tariff__chosen">
                 {selectedTariff ?
@@ -122,14 +122,6 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff, loadTariff}) => {
                                     <span className="chosen__name">{selectedTariffObject.hours} | стоимость</span> <span className="chosen__value">{selectedTariffObject.cost} р.с.ндс</span>
                                 </td>
                             </tr>
-                            {/*<tr className="chosen__row">*/}
-                            {/*    <td className="chosen__col">*/}
-                            {/*        <span className="chosen__name">Грузчик 1</span>*/}
-                            {/*    </td>*/}
-                            {/*    <td className="chosen__col">*/}
-                            {/*        <span className="chosen__name">4+1 стоим., часа</span> <span className="chosen__value">35 р</span>*/}
-                            {/*    </td>*/}
-                            {/*</tr>*/}
                             </tbody>
                         </table>
                         <div className="chosen__heading">Дополнительные услуги</div>
@@ -149,33 +141,23 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff, loadTariff}) => {
                             })}
                             </tbody>
                         </table>
-                        {/*<div className="chosen__heading">По маршрту</div>*/}
-                        {/*<table className="chosen__table">*/}
-                        {/*    <tr className="chosen__row">*/}
-                        {/*        <td className="chosen__col">*/}
-                        {/*            <span className="chosen__name">Пропуск ттк</span>*/}
-                        {/*        </td>*/}
-                        {/*        <td className="chosen__col">*/}
-                        {/*            <span className="chosen__value">100р</span>*/}
-                        {/*        </td>*/}
-                        {/*    </tr>*/}
-                        {/*    <tr className="chosen__row">*/}
-                        {/*        <td className="chosen__col">*/}
-                        {/*            <span className="chosen__name">Пробег ТС свыше 100км</span>*/}
-                        {/*        </td>*/}
-                        {/*        <td className="chosen__col">*/}
-                        {/*            <span className="chosen__value">400р</span>*/}
-                        {/*        </td>*/}
-                        {/*    </tr>*/}
-                        {/*    <tr className="chosen__row">*/}
-                        {/*        <td className="chosen__col">*/}
-                        {/*            <span className="chosen__name">пробег за мкад</span>*/}
-                        {/*        </td>*/}
-                        {/*        <td className="chosen__col">*/}
-                        {/*            <span className="chosen__value">200р</span>*/}
-                        {/*        </td>*/}
-                        {/*    </tr>*/}
-                        {/*</table>*/}
+                        {selectedTariffObject.items_by_route ? <>
+                            <div className="chosen__heading">По маршрту</div>
+                            <table className="chosen__table">
+                                {selectedTariffObject.items_by_route.map((item, index) => {
+                                    return (
+                                        <tr key={index} className="chosen__row">
+                                            <td className="chosen__col">
+                                                <span className="chosen__name">{item.name}</span>
+                                            </td>
+                                            <td className="chosen__col">
+                                                <span className="chosen__value">{item.cost} р</span>
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                            </table>
+                        </> : null}
                     </div> : null}
                 <MapContainer/>
             </div>

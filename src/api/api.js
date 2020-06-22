@@ -61,7 +61,7 @@ export const orderAPI = {
             date: date,
             body_type_id: body_type_id,
             body_option_id: body_option_id,
-            body_option_characteristics: body_option_characteristics,
+            //body_option_characteristics: body_option_characteristics,
             additional_requirements: additional_requirements,
             routes: routes,
             cargo: {

@@ -11,6 +11,7 @@ const ADD_PACKAGE = 'ADD-PACKAGE';
 const ADD_PLACE = 'ADD-PLACE';
 const SET_PACKED_ITEMS = 'SET-PACKED-ITEMS';
 const SET_CARGO_SIZES = 'SET-CARGO-SIZES';
+const SET_CARGO_DATA = 'SET-CARGO-DATA';
 
 let initialState = {
     name: '',
@@ -46,7 +47,10 @@ let initialState = {
     selected_package: '',
     packed_items: [],
     cargoHeight: 3.7,
-    cargoWidth: 2.9
+    cargoWidth: 2.9,
+    total_weight: 0,
+    total_volume: 0,
+    total_area: 0
 };
 
 const cargoReducer = (state = initialState, action) => {
@@ -108,6 +112,13 @@ const cargoReducer = (state = initialState, action) => {
                 cargoHeight: action.height,
                 cargoWidth: action.width
             }
+        case SET_CARGO_DATA:
+            return {
+                ...state,
+                total_weight: action.total_weight,
+                total_volume: action.total_volume,
+                total_area: action.total_area
+            }
         default:
             return state;
     }
@@ -123,6 +134,7 @@ export const addPlaces = (places) => ({type: ADD_PLACE, places});
 export const addPackages = (packages) => ({type: ADD_PACKAGE, packages});
 export const setPackedItems = (packed_items) => ({type: SET_PACKED_ITEMS, packed_items});
 export const setCargoSizes = (height, width) => ({type: SET_CARGO_SIZES, height, width});
+export const setCargoData = (total_weight, total_volume, total_area) => ({type: SET_CARGO_DATA, total_weight, total_volume, total_area});
 
 export const setPalletTypesThunk = () => async (dispatch) => {
     let response = await cargoAPI.getPalletTypes();
@@ -143,6 +155,7 @@ export const addPalletThunk = (name, price, places, pallets, packages, body_opti
         dispatch(setCategory(response.data.car_type_id));
         dispatch(setPackedItems(response.data.packed_items));
         dispatch(setCargoSizes(response.data.height, response.data.width));
+        dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
     } else {
         console.error("Add Pallet: failed");
     }
@@ -155,6 +168,7 @@ export const addPlaceThunk = (name, price, places, pallets, packages, body_optio
         dispatch(setCategory(response.data.car_type_id));
         dispatch(setPackedItems(response.data.packed_items));
         dispatch(setCargoSizes(response.data.height, response.data.width));
+        dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
     } else {
         console.error("ADd Place: failed");
     }
@@ -167,6 +181,7 @@ export const addPackageThunk = (name, price, places, pallets, packages, body_opt
         dispatch(setCategory(response.data.car_type_id));
         dispatch(setPackedItems(response.data.packed_items));
         dispatch(setCargoSizes(response.data.height, response.data.width));
+        dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
     } else {
         console.error("Add Package: failed");
     }

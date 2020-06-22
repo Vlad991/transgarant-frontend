@@ -6,10 +6,6 @@ const Cargo = ({
                    setActiveTab,
                    name,
                    price,
-                   quantity,
-                   length,
-                   width,
-                   height,
 
                    palletQuantity,
                    palletLength,
@@ -18,12 +14,14 @@ const Cargo = ({
                    palletWeight,
                    addPallet,
                    palletTypes,
+                   pallets,
 
                    placeLength,
                    placeWidth,
                    placeHeight,
                    placeWeight,
                    addPlace,
+                   places,
 
                    packageQuantity,
                    packageLength,
@@ -32,6 +30,7 @@ const Cargo = ({
                    packageWeight,
                    addPackage,
                    packageTypes,
+                   packages,
 
                    selectedPallet,
                    selectedPackage,
@@ -46,8 +45,23 @@ const Cargo = ({
                    activeBodyOption,
                    packedItems,
                    cargoHeight,
-                   cargoWidth
+                   cargoWidth,
+                   totalWeight,
+                   totalVolume,
+                   totalArea,
+                   showCargo,
+                   showCargoValue
                }) => {
+    let ratio = 348 / (parseFloat(cargoHeight));
+    let cargoAdaptiveWidth = parseFloat(cargoWidth) * ratio + 22 + 'px';
+    let cargoAdaptiveHeight = 370 + 'px';
+    if (showCargoValue) {
+        if (ratio < 80) {
+            ratio = 80;
+        }
+        cargoAdaptiveWidth = parseFloat(cargoWidth) * ratio + 22 + 'px';
+        cargoAdaptiveHeight = parseFloat(cargoHeight) * ratio + 22 + 'px';
+    }
     return (
         <section className="checkout__cargo cargo">
             <div className="checkout__title cargo__heading">Данные о грузе</div>
@@ -55,8 +69,11 @@ const Cargo = ({
                 <div className="cargo__first-col">
                     <div className="cargo__head-block">
                         <div className="cargo__name">{name ? name : 'Наименование груза'} ({price ? price + 'р' : 'Ценность груза'})</div>
-                        <div className="cargo__description">ОБЩИ ВЕС / ОБЪЕМ ГРУЗА (700кг / 5 куб) / Площадь (3м2)</div>
+                        <div className="cargo__description">ОБЩИЙ ВЕС: {totalWeight} кг / ОБЪЕМ ГРУЗА: {totalVolume} куб / ПЛОЩАДЬ: {totalArea} м2</div>
                     </div>
+                    <div className="">{places.map(place => <div>{place.size.length} / {place.size.width} / {place.size.height} / {place.size.weight} / <button type="button">x</button></div>)}</div>
+                    <div className="">{pallets.map(pallet => <div>{pallet.type} / {pallet.quantity} / {pallet.size.length} / {pallet.size.width} / {pallet.size.height} / {pallet.size.weight} / <button type="button">x</button></div>)}</div>
+                    <div className="">{packages.map(packag => <div>{packag.type} / {packag.quantity} / {packag.size.length} / {packag.size.width} / {packag.size.height} / {packag.size.weight} / <button type="button">x</button></div>)}</div>
                     <div className="cargo__charac-heading">Характеристика груза</div>
                     <div className="cargo__characteristic characteristic">
                         <div className="characteristic__tab-links">
@@ -207,7 +224,7 @@ const Cargo = ({
                     {activeTab === 2 ? <button type="button" onClick={addPallet} className="cargo__button button">Добавить</button> : null}
                     {activeTab === 3 ? <button type="button" onClick={addPackage} className="cargo__button button">Добавить</button> : null}
                 </div>
-                <div className="cargo__second-col">
+                <div className="cargo__second-col" onMouseEnter={() => showCargo(true)} onMouseLeave={() => showCargo(false)}>
                     {categoryChanged ?
                         <div className="cargo__info-block">
                             <div style={{textTransform: "uppercase"}}>{categories.map(category => {
@@ -222,15 +239,18 @@ const Cargo = ({
                                 <path d="M15.3644 2.63581C11.8497 -0.87857 6.15097 -0.878962 2.63581 2.63581C-0.878962 6.15058 -0.87857 11.8493 2.63581 15.3644C6.15058 18.8784 11.8493 18.8788 15.3644 15.3644C18.8788 11.8493 18.8784 6.15097 15.3644 2.63581ZM10.1737 12.9133C10.1737 13.5617 9.64814 14.0872 8.99973 14.0872C8.35133 14.0872 7.82579 13.5617 7.82579 12.9133V8.2175C7.82579 7.56909 8.35133 7.04356 8.99973 7.04356C9.64814 7.04356 10.1737 7.56909 10.1737 8.2175V12.9133ZM8.97899 6.21084C8.3028 6.21084 7.85201 5.73188 7.8661 5.1406C7.85201 4.52076 8.3028 4.05628 8.99269 4.05628C9.68296 4.05628 10.1197 4.52116 10.1341 5.1406C10.1338 5.73188 9.68335 6.21084 8.97899 6.21084Z" fill="#ADADAD"/>
                             </svg>
                         </div> : null}
-                    <div className="cargo__sizes">
+                    <div className="cargo__sizes" style={{
+                        width: cargoAdaptiveWidth,
+                        height: cargoAdaptiveHeight
+                    }}>
                         <div className="sizes-block">
                             {packedItems.map(block => {
                                 return (
                                     <div className="cargo__size-block" style={{
-                                        width: parseFloat(block.width) * 100 + 'px',
-                                        height: parseFloat(block.height) * 100 + 'px',
-                                        left: parseFloat(block.x) * 100 + 'px',
-                                        top: parseFloat(block.y) * 100 + 'px'
+                                        width: parseFloat(block.width) * ratio + 'px',
+                                        height: parseFloat(block.height) * ratio + 'px',
+                                        left: parseFloat(block.x) * ratio + 'px',
+                                        top: parseFloat(block.y) * ratio + 'px'
                                     }}>
                                         <div className="size-block">
                                             <div className="size-block__value">{block.width}</div>

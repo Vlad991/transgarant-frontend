@@ -7,7 +7,8 @@ import {setCategory} from "../../redux/categoryReducer";
 class CargoContainer extends React.Component {
     state = {
         activeTab: 1,
-        categoryChanged: false
+        categoryChanged: false,
+        showCargoValue: false
     }
 
     componentDidMount() {
@@ -99,15 +100,17 @@ class CargoContainer extends React.Component {
         );
     }
 
+    showCargo = (value) => {
+        this.setState({
+            showCargoValue: value
+        });
+    }
+
     render() {
         return (
             <Cargo activeTab={this.state.activeTab} setActiveTab={this.setActiveTab}
                    name={this.props.name}
                    price={this.props.price}
-                   quantity={this.props.quantity}
-                   length={this.props.length}
-                   width={this.props.width}
-                   height={this.props.height}
 
                    palletQuantity={this.props.pallet_quantity}
                    palletLength={this.props.pallet_length}
@@ -116,12 +119,14 @@ class CargoContainer extends React.Component {
                    palletWeight={this.props.pallet_weight}
                    addPallet={this.addPallet}
                    palletTypes={this.props.pallet_types}
+                   pallets={this.props.pallets}
 
                    placeLength={this.props.place_length}
                    placeWidth={this.props.place_width}
                    placeHeight={this.props.place_height}
                    placeWeight={this.props.place_weight}
                    addPlace={this.addPlace}
+                   places={this.props.places}
 
                    packageQuantity={this.props.package_quantity}
                    packageLength={this.props.package_length}
@@ -130,6 +135,7 @@ class CargoContainer extends React.Component {
                    packageWeight={this.props.package_weight}
                    addPackage={this.addPackage}
                    packageTypes={this.props.package_types}
+                   packages={this.props.packages}
 
                    selectedPallet={this.props.selected_pallet}
                    selectedPackage={this.props.selected_package}
@@ -146,6 +152,11 @@ class CargoContainer extends React.Component {
                    packedItems={this.props.packed_items}
                    cargoHeight={this.props.cargoHeight}
                    cargoWidth={this.props.cargoWidth}
+                   totalWeight={this.props.total_weight}
+                   totalVolume={this.props.total_volume}
+                   totalArea={this.props.total_area}
+                   showCargo={this.showCargo}
+                   showCargoValue={this.state.showCargoValue}
             />
         );
     };
@@ -193,7 +204,10 @@ let mapStateToProps = (state) => ({
 
     packed_items: state.cargoReducer.packed_items,
     cargoHeight: state.cargoReducer.cargoHeight,
-    cargoWidth: state.cargoReducer.cargoWidth
+    cargoWidth: state.cargoReducer.cargoWidth,
+    total_weight: state.cargoReducer.total_weight,
+    total_volume: state.cargoReducer.total_volume,
+    total_area: state.cargoReducer.total_area,
 });
 
 export default connect(mapStateToProps, 

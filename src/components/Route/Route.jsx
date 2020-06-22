@@ -102,12 +102,13 @@ const Route = ({
                             </div>
                             <div className="route-point__header">
                                 <div className="route-point__name">{point.name}</div>
-                                <div className="route-point__value">{point.values.map(value => value.selected ? value.name + ', ' : '')}</div>
+                                <div className="route-point__value">Услуги: {point.values.map(value => value.selected ? value.name + ', ' : '')}</div>
                             </div>
-                            <div className="route-point__address">{point.address}</div>
+                            <div className="route-point__address">{point.address} ({point.comment})</div>
                             <div className="route-point__contact">{point.company + " " + point.contact_name + " " + point.number}</div>
+                            <div className="route-point__time">Часы работы: {point.timeFrom} - {point.timeTo} {point.hasPause ? '(перерыв: ' + point.pauseFrom + ' - ' + point.pauseTo + ')' : '(без перерыва)'}</div>
                             <div className="route-point__footer">
-                                <div className="route-point__text">{point.todo + "\n" + point.comment}</div>
+                                <div className="route-point__text">{point.todo}</div>
                                 {point.files.length > 0 ?
                                     <div className="route-point__check-mark">
                                         <svg width="51" height="51" viewBox="0 0 51 51" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +116,7 @@ const Route = ({
                                             <path d="M25.3451 15.0264V0.000732422H0V49.4044H28.2727C26.9962 48.0791 25.9868 46.5525 25.2713 44.8605C24.4911 43.0151 24.0955 41.058 24.0955 39.0412C24.0955 37.0243 24.4911 35.0673 25.2713 33.2218C26.0246 31.4421 27.1018 29.8438 28.4729 28.4717C29.8451 27.1006 31.4434 26.0234 33.2231 25.2701C35.0685 24.4898 37.0256 24.0942 39.0424 24.0942C39.5217 24.0942 39.998 24.1171 40.4704 24.162V15.0264H25.3451ZM7.45454 14.9935H19.4121V17.9829H7.45454V14.9935ZM19.4121 35.9193H7.45454V32.9299H19.4121V35.9193ZM22.4015 29.9405H7.45454V26.9511H22.4015V29.9405ZM30.0075 23.9617H7.45454V20.9723H30.0075V23.9617Z" fill="#BFBFBF"/>
                                             <path d="M39.0425 27.0839C32.4389 27.0839 27.0849 32.4379 27.0849 39.0414C27.0849 45.645 32.4389 50.999 39.0425 50.999C45.646 50.999 51 45.645 51 39.0414C51 32.4379 45.646 27.0839 39.0425 27.0839ZM37.7779 43.5016L33.53 39.1301L35.6744 37.0465L37.9264 39.3643L42.6317 35.1692L44.6207 37.4002L37.7779 43.5016Z" fill="#FFB700"/>
                                         </svg>
-                                        {point.files.map(file => <div className="route-point__file-name">{file.name}</div>)}
+                                        {point.files.map(file => <div id={file.id} className="route-point__file-name">{file.name}</div>)}
                                     </div> : null}
                             </div>
                         </div>
@@ -145,7 +146,7 @@ const Route = ({
                                     <input onChange={(e) => setFormState({contact_name: e.target.value})} value={contactName} type="text" className="input-wrap__input" placeholder="Контактное лицо (ФИО)"/>
                                 </label>
                                 <label className={"add-form__input input-wrap" + (numberError ? ' input-wrap_error' : '')}>
-                                    <InputMask mask="+7 (999) 999 99 99" value={number} onChange={(e) => setNumber(e.target.value)}>
+                                    <InputMask mask="+7 ( 999 ) - 999 - 99 - 99" value={number} onChange={(e) => setNumber(e.target.value)}>
                                         {(inputProps) => <input {...inputProps} className="input-wrap__input" placeholder="Номер телефона" type="tel"/>}
                                     </InputMask>
                                 </label>

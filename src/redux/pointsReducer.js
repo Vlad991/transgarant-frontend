@@ -265,7 +265,6 @@ const pointsReducer = (state = initialState, action) => {
         case SET_FILES:
             let files = [...state.files];
             files.push({id: action.id, name: action.name});
-            console.log(files);
             return {
                 ...state,
                 files

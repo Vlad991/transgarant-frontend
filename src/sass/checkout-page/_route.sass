@@ -47,8 +47,6 @@
   @include tabletSmall
     margin-left: 10px
 
-//...
-
 .route__calendar
 
 .route__points
@@ -64,7 +62,7 @@
 
 .route-point
   width: 536px
-  height: 259px
+  min-height: 259px
   padding: 12px 39px 21px 30px
   box-sizing: border-box
   background-color: #fff
@@ -114,7 +112,6 @@
   @include fontSWCL(14px, normal, #636363, 17px)
   display: flex
   align-items: center
-  max-width: 266px
   @include tabletSmall
     margin-top: 10px
   &::before
@@ -122,6 +119,10 @@
     display: inline-block
     height: 20px
     margin-right: 8px
+
+.route-point__time
+  @include fontSWCL(13px, normal, #6C6C6C, 22px)
+  margin-top: 5px
 
 .route-point__contact
   margin-top: 23px
@@ -146,7 +147,7 @@
   border-radius: 0 10px 10px 0
   padding: 9px 15px 12px 31px
   box-sizing: border-box
-  @include fontSWCL(13px, mormal, #6C6C6C, 22px)
+  @include fontSWCL(13px, normal, #6C6C6C, 22px)
   @include tabletSmall
     padding: 9px 10px 10px 20px
     max-width: 210px
