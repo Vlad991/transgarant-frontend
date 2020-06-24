@@ -9,6 +9,12 @@ const instance = axios.create({
     }
 });
 
+export const categoryAPI = {
+    getCategories() {
+        return instance.get('/car-types');
+    }
+};
+
 export const vehicleAPI = {
     getBodyTypes() {
         return instance.get('/body-types');

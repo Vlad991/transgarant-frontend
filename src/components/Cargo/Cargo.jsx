@@ -62,6 +62,7 @@ const Cargo = ({
         cargoAdaptiveWidth = parseFloat(cargoWidth) * ratio + 22 + 'px';
         cargoAdaptiveHeight = parseFloat(cargoHeight) * ratio + 22 + 'px';
     }
+    //debugger;
     return (
         <section className="checkout__cargo cargo">
             <div className="checkout__title cargo__heading">Данные о грузе</div>
@@ -71,9 +72,12 @@ const Cargo = ({
                         <div className="cargo__name">{name ? name : 'Наименование груза'} ({price ? price + 'р' : 'Ценность груза'})</div>
                         <div className="cargo__description">ОБЩИЙ ВЕС: {totalWeight} кг / ОБЪЕМ ГРУЗА: {totalVolume} куб / ПЛОЩАДЬ: {totalArea} м2</div>
                     </div>
+                    Places:
                     <div className="">{places.map(place => <div>{place.size.length} / {place.size.width} / {place.size.height} / {place.size.weight} / <button type="button">x</button></div>)}</div>
-                    <div className="">{pallets.map(pallet => <div>{pallet.type} / {pallet.quantity} / {pallet.size.length} / {pallet.size.width} / {pallet.size.height} / {pallet.size.weight} / <button type="button">x</button></div>)}</div>
-                    <div className="">{packages.map(packag => <div>{packag.type} / {packag.quantity} / {packag.size.length} / {packag.size.width} / {packag.size.height} / {packag.size.weight} / <button type="button">x</button></div>)}</div>
+                    Pallets:
+                    <div className="">{pallets.map(pallet => <div>{palletTypes.find(palletType => palletType.id === pallet.pallet_type_id).name} / {pallet.quantity} / {pallet.size.length} / {pallet.size.width} / {pallet.size.height} / {pallet.size.weight} / <button type="button">x</button></div>)}</div>
+                    Packages:
+                    <div className="">{packages.map(packag => <div>{packageTypes.find(packageType => packageType.id === packag.package_type_id).name} / {packag.quantity} / {packag.size.length} / {packag.size.width} / {packag.size.height} / {packag.size.weight} / <button type="button">x</button></div>)}</div>
                     <div className="cargo__charac-heading">Характеристика груза</div>
                     <div className="cargo__characteristic characteristic">
                         <div className="characteristic__tab-links">

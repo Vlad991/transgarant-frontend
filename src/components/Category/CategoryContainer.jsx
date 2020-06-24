@@ -1,8 +1,12 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Category from "./Category";
-import {setCategory} from "../../redux/categoryReducer";
+import {setCategoriesThunk, setCategory} from "../../redux/categoryReducer";
 class CategoryContainer extends React.Component {
+
+    componentDidMount() {
+        this.props.setCategoriesThunk();
+    }
 
     setCategory = (id) => {
         this.props.setCategory(id);
@@ -22,4 +26,4 @@ let mapStateToProps = (state) => ({
     activeCategory: state.categoryReducer.activeCategory
 });
 
-export default connect(mapStateToProps, {setCategory})(CategoryContainer);
+export default connect(mapStateToProps, {setCategory, setCategoriesThunk})(CategoryContainer);
