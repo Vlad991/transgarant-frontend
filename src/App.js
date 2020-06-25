@@ -13,6 +13,8 @@ import ClientFormContainer from "./components/ClientForm/ClientFormContainer";
 import {connect, Provider} from "react-redux";
 import store from "./redux/store";
 import CargoItemsContainer from "./components/CargoItems/CargoItemsContainer";
+import DocReturnContainer from "./components/DocReturn/DocReturnContainer";
+import SummaryContainer from "./components/Summary/SummaryContainer";
 
 class App extends React.Component {
     render() {
@@ -25,6 +27,8 @@ class App extends React.Component {
                 <CarBodyContainer/>
 
                 <DopContainer/>
+
+                <DocReturnContainer/>
 
                 <RouteContainer/>
 
@@ -39,6 +43,8 @@ class App extends React.Component {
                 <SocialContainer/>
 
                 <ClientFormContainer/>
+
+                <SummaryContainer/>
             </div>
         );
     }

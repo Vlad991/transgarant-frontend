@@ -11,12 +11,14 @@ import tariffReducer from "./tariffReducer";
 import paymentReducer from "./paymentReducer";
 import socialReducer from "./socialReducer";
 import clientFormReducer from "./clientFormReducer";
+import docReturnReducer from "./docReturnReducer";
 
 
 let reducers = combineReducers({
     categoryReducer,
     carBodyReducer,
     dopReducer,
+    docReturnReducer,
     dateReducer,
     pointsReducer,
     cargoReducer,

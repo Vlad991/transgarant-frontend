@@ -1,0 +1,57 @@
+@import "../../sass/settings/color"
+@import "../../sass/tools/mixin"
+@import "../../sass/tools/media"
+
+.checkout__summary
+  position: fixed
+  top: 300px
+  right: 20px
+  z-index: 3
+
+.summary
+  padding: 29px 21px
+  width: 323px
+  border: 1px solid $yellow
+  background-color: #fff
+  border-radius: 10px
+  &:before
+    content: ''
+    display: block
+    width: 20px
+    height: 20px
+    background-color: #fff
+    border-left: 1px solid $yellow
+    border-bottom: 1px solid $yellow
+    border-radius: 0 0 0 5px
+    transform: rotate(45deg)
+    position: absolute
+    top: calc(50% - 10px)
+    left: -11px
+
+.summary__heading
+  display: flex
+  justify-content: space-between
+
+.summary__print
+  display: block
+  @include fontSWCL(13px, normal, $yellow, 16px)
+  cursor: pointer
+
+.summary__save
+  text-decoration: underline
+  @include fontSWCL(13px, normal, #585858, 16px)
+  cursor: pointer
+
+.summary__items
+  margin-top: 26px
+
+.summary__item
+  padding: 20px 0
+  border-bottom: 1px solid #E2E2E2
+
+.summary__item-heading
+  @include fontSWCL(13px, bold, #585858, 16px)
+  text-transform: uppercase
+
+.summary__item-desc
+  @include fontSWCL(13px, normal, #585858, 16px)

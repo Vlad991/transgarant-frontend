@@ -6,8 +6,7 @@ const TOGGLE_ADDITIONAL = 'TOGGLE-ADDITIONAL';
 
 let initialState = {
     active: false,
-    additional_requirements: [],
-    selected_additional_requirements: []
+    additional_requirements: []
 };
 
 const dopReducer = (state = initialState, action) => {
@@ -15,7 +14,10 @@ const dopReducer = (state = initialState, action) => {
         case SET_DOP:
             return {
                 ...state,
-                additional_requirements: action.additional_requirements
+                additional_requirements: action.additional_requirements.map(item => {
+                    item.selected = false;
+                    return item;
+                })
             };
         case DOP_TOGGLE:
             return {
@@ -23,19 +25,24 @@ const dopReducer = (state = initialState, action) => {
                 active: !state.active
             };
         case TOGGLE_ADDITIONAL:
-            let selectedAdditional = [...state.selected_additional_requirements];
-            let additional = state.additional_requirements;
-            let selected = selectedAdditional.find(additional => additional.id === action.id);
-            let selectedNew = additional.find(additional => additional.id === action.id);
-            if (selected) {
-                let index = selectedAdditional.indexOf(selected);
-                selectedAdditional.splice(index, 1)
-            } else {
-                selectedAdditional.push(selectedNew);
-            }
+            let additional = [...state.additional_requirements];
+            let exclude;
+            additional = additional.map(item => {
+                if (item.id === action.id) {
+                    item.selected = !item.selected;
+                    exclude = item.exclude;
+                }
+                return item;
+            });
+            additional = additional.map(item => {
+                if (item.id === exclude) {
+                    item.selected = false;
+                }
+                return item;
+            });
             return {
                 ...state,
-                selected_additional_requirements: selectedAdditional
+                additional_requirements: additional
             };
         default:
             return state;

@@ -12,7 +12,7 @@ class TariffContainer extends React.Component {
                     this.props.active_body_type,
                     this.props.active_body_option,
                     this.props.active_body_option_characteristics_values,
-                    this.props.selected_additional_requirements.map(item => ({id: item.id, value: true})),
+                    this.props.additional_requirements.filter(item => item.selected).map(item => ({id: item.id, value: true})),
                     this.props.points.map((item, index) => ({
                         id: index,
                         adress: item.address,
@@ -77,7 +77,7 @@ let mapStateToProps = (state) => ({
     active_body_type: state.carBodyReducer.active_body_type,
     active_body_option: state.carBodyReducer.active_body_option,
     active_body_option_characteristics_values: state.carBodyReducer.active_body_option_characteristics_values,
-    selected_additional_requirements: state.dopReducer.selected_additional_requirements,
+    additional_requirements: state.dopReducer.additional_requirements,
     points: state.pointsReducer.points,
     name: state.cargoReducer.name,
     price: state.cargoReducer.price,
