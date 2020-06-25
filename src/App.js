@@ -12,6 +12,7 @@ import SocialContainer from "./components/Social/SocialContainer";
 import ClientFormContainer from "./components/ClientForm/ClientFormContainer";
 import {connect, Provider} from "react-redux";
 import store from "./redux/store";
+import CargoItemsContainer from "./components/CargoItems/CargoItemsContainer";
 
 class App extends React.Component {
     render() {
@@ -28,6 +29,8 @@ class App extends React.Component {
                 <RouteContainer/>
 
                 <CargoContainer/>
+
+                <CargoItemsContainer/>
 
                 <TariffContainer/>
 

@@ -16,17 +16,17 @@ export const categoryAPI = {
 };
 
 export const vehicleAPI = {
-    getBodyTypes() {
-        return instance.get('/body-types');
+    getBodyTypes(categoryId) {
+        return instance.get('/body-types' + (categoryId ? '?car_type_id=' + categoryId : ''));
     },
-    getBodyOptions(bodyTypeId) {
-        return instance.get('/body-options?body_type_id=' + bodyTypeId);
+    getBodyOptions(bodyTypeId, categoryId) {
+        return instance.get('/body-options?body_type_id=' + bodyTypeId + (categoryId ? '&car_type_id=' + categoryId : ''));
     },
-    getBodyOptionChs(bodyOptionId, bodyTypeId) {
-        return instance.get('/body-option-characteristics?body_option_id=' + bodyOptionId + '&body_type_id=' + bodyTypeId);
+    getBodyOptionChs(bodyOptionId, bodyTypeId, categoryId) {
+        return instance.get('/body-option-characteristics?body_option_id=' + bodyOptionId + '&body_type_id=' + bodyTypeId + (categoryId ? '&car_type_id=' + categoryId : ''));
     },
-    getBodyOptionChValues(bodyOptionChId) {
-        return instance.get('/body-option-characteristics-values?body_option_characteristics_id=' + bodyOptionChId);
+    getBodyOptionChValues(bodyOptionChId, categoryId) {
+        return instance.get('/body-option-characteristics-values?body_option_characteristics_id=' + bodyOptionChId + (categoryId ? '&car_type_id=' + categoryId : ''));
     }
 };
 

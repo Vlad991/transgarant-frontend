@@ -57,17 +57,18 @@ class MapContainer extends React.Component {
 
     render() {
         return (
-            <div className="tariff__map">
-                <YMaps query={{apikey: 'efe74c2e-a140-45f7-b21e-e7608b626295', load: 'package.full'}}>
-                    <Map state={mapState}
-                         width="100%"
-                         height="90%"
-                         borderRadius="20px"
-                         instanceRef={(ref) =>this.map = ref}
-                         onLoad={(ymaps) => this.onLoad(ymaps)}
-                    />
-                </YMaps>
-            </div>
+            // <div className="tariff__map">
+            //     <YMaps query={{apikey: 'efe74c2e-a140-45f7-b21e-e7608b626295', load: 'package.full'}}>
+            //         <Map state={mapState}
+            //              width="100%"
+            //              height="90%"
+            //              borderRadius="20px"
+            //              instanceRef={(ref) =>this.map = ref}
+            //              onLoad={(ymaps) => this.onLoad(ymaps)}
+            //         />
+            //     </YMaps>
+            // </div>
+            null
         );
     };
 }

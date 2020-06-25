@@ -2,34 +2,7 @@ import React from 'react';
 
 class CollapseContainer extends React.Component {
     state = {
-        elementClass: '',
-        small: true,
-        gray: true,
-        active: false,
-        selected: {},
-        items: []
-    }
-
-    componentDidMount() {
-        this.setState({
-            elementClass: this.props.elementClass,
-            small: this.props.small,
-            gray: this.props.gray,
-            selected: {...this.props.selected},
-            items: [...this.props.items],
-        });
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if ((!prevProps.selected && this.props.selected) || (prevProps.selected && (prevProps.selected.id !== this.props.selected.id)) || (prevProps.items !== this.props.items)) {
-            this.setState({
-                elementClass: this.props.elementClass,
-                small: this.props.small,
-                gray: this.props.gray,
-                selected: {...this.props.selected},
-                items: [...this.props.items],
-            });
-        }
+        active: false
     }
 
     toggle = () => {
@@ -48,11 +21,11 @@ class CollapseContainer extends React.Component {
 
     render() {
         return (
-            <span onClick={(e) => {e.preventDefault(); this.toggle()}} className={this.state.elementClass + " collapse" + (this.state.small ? ' collapse_small' : '') + (this.state.gray ? ' collapse_gray' : '') + (this.state.active ? ' collapse_active' : '')}>
-                <span className="collapse__selected">{this.state.selected.name}</span>
+            <span onClick={(e) => {e.preventDefault(); this.toggle()}} className={this.props.elementClass + " collapse" + (this.props.small ? ' collapse_small' : '') + (this.props.gray ? ' collapse_gray' : '') + (this.state.active ? ' collapse_active' : '')}>
+                <span className="collapse__selected">{this.props.selected ? this.props.selected.name : ''}</span>
                 <span className="collapse__items">
-                    {this.state.items.map(item => {
-                        if (item.id !== this.state.selected.id) {
+                    {this.props.items.map(item => {
+                        if (this.props.selected && (item.id !== this.props.selected.id)) {
                             return <span key={item.id} onClick={(e) => {e.preventDefault(); this.setItem(e, item.id);}} className="collapse__item">{item.name}</span>
                         } else {
                             return null;

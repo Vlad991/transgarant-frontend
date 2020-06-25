@@ -1,0 +1,70 @@
+@import "../../sass/settings/color"
+@import "../../sass/tools/mixin"
+@import "../../sass/tools/media"
+
+.checkout__cargo-items
+  margin-top: 24px
+
+.cargo-items__cargo-item
+  margin-top: 14px
+
+.cargo-item
+
+.cargo-item__heading
+  border: 1px solid #FBFBFB
+  display: flex
+  justify-content: space-between
+  cursor: pointer
+  @include fontSWCL(13px, 600, #000, 16px)
+  &_active
+    border: 1px solid $yellow
+
+.cargo-item__plus
+  position: relative
+  &:before
+    content: ''
+    display: block
+    width: 27px
+    height: 3px
+    background-color: #C4C4C4
+  &:after
+    content: ''
+    display: block
+    width: 27px
+    height: 3px
+    background-color: #C4C4C4
+    transform: rotate(90deg)
+    position: absolute
+    top: 0
+  &_active:after
+    display: none
+
+.cargo-item__body
+  display: none
+  &_active
+    display: block
+
+.cargo-item__body-item
+  display: flex
+  align-items: center
+  height: 55px
+  border-bottom: 1px solid #EEEEEE
+  padding: 0 20px
+
+.cargo-item__body-parameter
+  @include fontSWCL(13px, normal, #636363, 16px)
+  margin-right: 40px
+
+.cargo-item__edit
+  margin-left: auto
+  border: none
+  background: none
+  outline: none
+  cursor: pointer
+
+.cargo-item__remove
+  margin-left: 21px
+  border: none
+  background: none
+  outline: none
+  cursor: pointer

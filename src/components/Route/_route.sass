@@ -107,8 +107,14 @@
     width: 175px
     padding: 0 10px
 
-.route-point__address
+.route-point__address-wrap
   margin-top: 23px
+  display: flex
+  justify-content: space-between
+  align-items: baseline
+
+.route-point__address
+  width: 60%
   @include fontSWCL(14px, normal, #636363, 17px)
   display: flex
   align-items: center
@@ -119,6 +125,13 @@
     display: inline-block
     height: 20px
     margin-right: 8px
+
+.route-point__comment
+  width: 38%
+  @include fontSWCL(14px, normal, #636363, 17px)
+  padding: 12px 15px
+  background-color: #FBFBFB
+  border-radius: 10px
 
 .route-point__time
   @include fontSWCL(13px, normal, #6C6C6C, 22px)

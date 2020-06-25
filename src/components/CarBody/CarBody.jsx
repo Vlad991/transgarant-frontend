@@ -9,8 +9,6 @@ const CarBody = ({
                      activeBodyOption,
                      setBodyOption,
                      bodyOptionCharacteristics,
-                     bodyOptionCharacteristicValues,
-                     activeBodyOptionCharacteristicValues,
                      setBodyOptionChVal,
                      markBodyOptionCh
                  }) => {
@@ -28,52 +26,50 @@ const CarBody = ({
                                 </div>
                             )
                         })}
+                    </div>
+                    <div className="car-body__options">
                         {activeBodyType === 0 ?
                             <CollapseContainer elementClass="car-body__variant-card"
                                                selected={bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption)}
-                                               items={bodyOptions.filter(bodyOption => bodyOption.body_type_id === activeBodyType)}
+                                               items={bodyOptions}
                                                setItem={setBodyOption}/> :
-                            bodyOptions.length > 0 ? <div className="car-body__variant-card collapse collapse_disabled">{bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption).name}</div> : null}
+                            <div className="car-body__variant-card collapse collapse_disabled">{bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption).name}</div>}
                     </div>
                 </div>
                 <div className="car-body__col check-block">
                     {bodyOptionCharacteristics.map(bodyOptionCh => {
-                        if (bodyOptionCh.body_option_id === activeBodyOption) {
-                            if (bodyOptionCh.type !== 'ref') {
-                                return activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) && activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)).value ?
-                                    <label key={bodyOptionCh.id} className="check-block__item check-wrap" onClick={(e) => {
-                                        e.preventDefault();
-                                        markBodyOptionCh(bodyOptionCh.id, false);
-                                    }}>
-                                        {bodyOptionCh.name}
-                                        <input type="checkbox" checked className="check-wrap__input"/>
-                                        <span className="check-wrap__mark"></span>
-                                    </label> :
-                                    <label key={bodyOptionCh.id} className="check-block__item check-wrap" onClick={(e) => {
-                                        e.preventDefault();
-                                        markBodyOptionCh(bodyOptionCh.id, true);
-                                    }}>
-                                        {bodyOptionCh.name}
-                                        <input type="checkbox" className="check-wrap__input"/>
-                                        <span className="check-wrap__mark"></span>
-                                    </label>
-                            } else {
-                                return (
-                                    <label key={bodyOptionCh.id} className="check-block__item check-wrap">
-                                        <CollapseContainer small={true}
-                                                           selected={{
-                                                               name: bodyOptionCh.name + ": " + (activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) ? activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) : {name: ''}).name,
-                                                               id: (activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) ? activeBodyOptionCharacteristicValues.find(bodyOptionChVal => bodyOptionChVal && (bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)) : {}).id
-                                                           }}
-                                                           items={bodyOptionCharacteristicValues.filter(bodyOptionChVal => bodyOptionChVal.body_option_characteristics_id === bodyOptionCh.id)}
-                                                           setItem={(id) => setBodyOptionChVal(bodyOptionCh.id, id)}/>
-                                        <input type="checkbox" className="check-wrap__input"/>
-                                        <span className="check-wrap__mark"></span>
-                                    </label>
-                                )
-                            }
+                        if (bodyOptionCh.type !== 'ref') {
+                            return bodyOptionCh.value ?
+                                <label key={bodyOptionCh.id} className="check-block__item check-wrap" onClick={(e) => {
+                                    e.preventDefault();
+                                    markBodyOptionCh(bodyOptionCh.id, false);
+                                }}>
+                                    {bodyOptionCh.name}
+                                    <input type="checkbox" checked className="check-wrap__input"/>
+                                    <span className="check-wrap__mark"></span>
+                                </label> :
+                                <label key={bodyOptionCh.id} className="check-block__item check-wrap" onClick={(e) => {
+                                    e.preventDefault();
+                                    markBodyOptionCh(bodyOptionCh.id, true);
+                                }}>
+                                    {bodyOptionCh.name}
+                                    <input type="checkbox" className="check-wrap__input"/>
+                                    <span className="check-wrap__mark"></span>
+                                </label>
                         } else {
-                            return null;
+                            return (
+                                <label key={bodyOptionCh.id} className="check-block__item check-wrap">
+                                    <CollapseContainer small={true}
+                                                       selected={{
+                                                           name: bodyOptionCh.name + ": " + (bodyOptionCh.values.find(value => value.selected) ? bodyOptionCh.values.find(value => value.selected).name : ''),
+                                                           id:  + (bodyOptionCh.values.find(value => value.selected) ? bodyOptionCh.values.find(value => value.selected).id : '')
+                                                       }}
+                                                       items={bodyOptionCh.values}
+                                                       setItem={(id) => setBodyOptionChVal(bodyOptionCh.id, id)}/>
+                                    <input type="checkbox" className="check-wrap__input"/>
+                                    <span className="check-wrap__mark"></span>
+                                </label>
+                            )
                         }
                     })}
                 </div>

@@ -104,9 +104,12 @@ const Route = ({
                                 <div className="route-point__name">{point.name}</div>
                                 <div className="route-point__value">Услуги: {point.values.map(value => value.selected ? value.name + ', ' : '')}</div>
                             </div>
-                            <div className="route-point__address">{point.address} ({point.comment})</div>
+                            <div className="route-point__address-wrap">
+                                <div className="route-point__address">{point.address}</div>
+                                <div className="route-point__comment">{point.comment}</div>
+                            </div>
                             <div className="route-point__contact">{point.company + " " + point.contact_name + " " + point.number}</div>
-                            <div className="route-point__time">Часы работы: {point.timeFrom} - {point.timeTo} {point.hasPause ? '(перерыв: ' + point.pauseFrom + ' - ' + point.pauseTo + ')' : '(без перерыва)'}</div>
+                            <div className="route-point__time">Время работы: {point.timeFrom} - {point.timeTo} {point.hasPause ? '(перерыв: ' + point.pauseFrom + ' - ' + point.pauseTo + ')' : '(без перерыва)'}</div>
                             <div className="route-point__footer">
                                 <div className="route-point__text">{point.todo}</div>
                                 {point.files.length > 0 ?

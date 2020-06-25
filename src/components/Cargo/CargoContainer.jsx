@@ -1,12 +1,11 @@
 import React from 'react';
 import Cargo from "./Cargo";
 import {connect} from "react-redux";
-import {addPackageThunk, addPalletThunk, addPlaceThunk, setCargoState, setPackage, setPackageTypesThunk, setPallet, setPalletTypesThunk} from "../../redux/cargoReducer";
+import {addPackageThunk, addPalletThunk, addPlaceThunk, doEditPackageThunk, doEditPalletThunk, doEditPlaceThunk, setActiveTab, setCargoState, setPackage, setPackageTypesThunk, setPallet, setPalletTypesThunk} from "../../redux/cargoReducer";
 import {setCategory} from "../../redux/categoryReducer";
 
 class CargoContainer extends React.Component {
     state = {
-        activeTab: 1,
         categoryChanged: false,
         showCargoValue: false
     }
@@ -25,79 +24,31 @@ class CargoContainer extends React.Component {
     }
 
     setActiveTab = (tabNumber) => {
-        this.setState({
-            activeTab: tabNumber
-        })
+        this.props.setActiveTab(tabNumber);
     }
 
     addPallet = () => {
-        let pallets = [...this.props.pallets];
-        let pallet = {
-            pallet_type_id: this.props.selected_pallet,
-            quantity: parseInt(this.props.pallet_quantity),
-            size: {
-                length: this.props.pallet_length,
-                width: this.props.pallet_width,
-                height: this.props.pallet_height,
-                weight: this.props.pallet_weight
-            }
-        }
-        pallets.push(pallet);
-        this.props.addPalletThunk(
-            this.props.name,
-            this.props.price,
-            this.props.places,
-            pallets,
-            this.props.packages,
-            this.props.active_body_option,
-            this.props.active_body_option_characteristics_values
-        );
+        this.props.addPalletThunk();
+    }
+
+    doEditPallet = () => {
+        this.props.doEditPalletThunk();
     }
     
     addPlace = () => {
-        let places = [...this.props.places];
-        let place = {
-            size: {
-                length: this.props.place_length,
-                width: this.props.place_width,
-                height: this.props.place_height,
-                weight: this.props.place_weight
-            }
-        }
-        places.push(place);
-        this.props.addPlaceThunk(
-            this.props.name,
-            this.props.price,
-            places,
-            this.props.pallets,
-            this.props.packages,
-            this.props.active_body_option,
-            this.props.active_body_option_characteristics_values
-        );
+        this.props.addPlaceThunk();
+    }
+
+    doEditPlace = () => {
+        this.props.doEditPlaceThunk();
     }
     
     addPackage = () => {
-        let packages = [...this.props.packages];
-        let package1 = {
-            package_type_id: this.props.selected_package,
-            quantity: parseInt(this.props.package_quantity),
-            size: {
-                length: this.props.package_length,
-                width: this.props.package_width,
-                height: this.props.package_height,
-                weight: this.props.package_weight
-            }
-        }
-        packages.push(package1);
-        this.props.addPackageThunk(
-            this.props.name,
-            this.props.price,
-            this.props.places,
-            this.props.pallets,
-            packages,
-            this.props.active_body_option,
-            this.props.active_body_option_characteristics_values
-        );
+        this.props.addPackageThunk();
+    }
+
+    doEditPackage = () => {
+        this.props.doEditPackageThunk();
     }
 
     showCargo = (value) => {
@@ -108,7 +59,9 @@ class CargoContainer extends React.Component {
 
     render() {
         return (
-            <Cargo activeTab={this.state.activeTab} setActiveTab={this.setActiveTab}
+            <Cargo activeTab={this.props.activeTab}
+                   editMode={this.props.editMode}
+                   setActiveTab={this.setActiveTab}
                    name={this.props.name}
                    price={this.props.price}
 
@@ -119,14 +72,14 @@ class CargoContainer extends React.Component {
                    palletWeight={this.props.pallet_weight}
                    addPallet={this.addPallet}
                    palletTypes={this.props.pallet_types}
-                   pallets={this.props.pallets}
+                   doEditPallet={this.doEditPallet}
 
                    placeLength={this.props.place_length}
                    placeWidth={this.props.place_width}
                    placeHeight={this.props.place_height}
                    placeWeight={this.props.place_weight}
                    addPlace={this.addPlace}
-                   places={this.props.places}
+                   doEditPlace={this.doEditPlace}
 
                    packageQuantity={this.props.package_quantity}
                    packageLength={this.props.package_length}
@@ -135,7 +88,7 @@ class CargoContainer extends React.Component {
                    packageWeight={this.props.package_weight}
                    addPackage={this.addPackage}
                    packageTypes={this.props.package_types}
-                   packages={this.props.packages}
+                   doEditPackage={this.doEditPackage}
 
                    selectedPallet={this.props.selected_pallet}
                    selectedPackage={this.props.selected_package}
@@ -163,6 +116,8 @@ class CargoContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
+    activeTab: state.cargoReducer.activeTab,
+    editMode: state.cargoReducer.editMode,
     name: state.cargoReducer.name,
     price: state.cargoReducer.price,
     cargo: state.cargoReducer.cargo,
@@ -211,4 +166,4 @@ let mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, 
-    {setPalletTypesThunk, setPackageTypesThunk, setPallet, setPackage, setCargoState, addPalletThunk, addPlaceThunk, addPackageThunk, setCategory})(CargoContainer);
+    {setActiveTab, setPalletTypesThunk, setPackageTypesThunk, setPallet, setPackage, setCargoState, addPalletThunk, doEditPalletThunk, addPlaceThunk, doEditPlaceThunk, addPackageThunk, doEditPackageThunk, setCategory})(CargoContainer);

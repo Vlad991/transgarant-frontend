@@ -3,6 +3,7 @@ import CollapseContainer from "../CollapseContainer";
 
 const Cargo = ({
                    activeTab,
+                   editMode,
                    setActiveTab,
                    name,
                    price,
@@ -14,14 +15,14 @@ const Cargo = ({
                    palletWeight,
                    addPallet,
                    palletTypes,
-                   pallets,
+                   doEditPallet,
 
                    placeLength,
                    placeWidth,
                    placeHeight,
                    placeWeight,
                    addPlace,
-                   places,
+                   doEditPlace,
 
                    packageQuantity,
                    packageLength,
@@ -30,7 +31,7 @@ const Cargo = ({
                    packageWeight,
                    addPackage,
                    packageTypes,
-                   packages,
+                   doEditPackage,
 
                    selectedPallet,
                    selectedPackage,
@@ -62,7 +63,6 @@ const Cargo = ({
         cargoAdaptiveWidth = parseFloat(cargoWidth) * ratio + 22 + 'px';
         cargoAdaptiveHeight = parseFloat(cargoHeight) * ratio + 22 + 'px';
     }
-    //debugger;
     return (
         <section className="checkout__cargo cargo">
             <div className="checkout__title cargo__heading">Данные о грузе</div>
@@ -72,12 +72,6 @@ const Cargo = ({
                         <div className="cargo__name">{name ? name : 'Наименование груза'} ({price ? price + 'р' : 'Ценность груза'})</div>
                         <div className="cargo__description">ОБЩИЙ ВЕС: {totalWeight} кг / ОБЪЕМ ГРУЗА: {totalVolume} куб / ПЛОЩАДЬ: {totalArea} м2</div>
                     </div>
-                    Places:
-                    <div className="">{places.map(place => <div>{place.size.length} / {place.size.width} / {place.size.height} / {place.size.weight} / <button type="button">x</button></div>)}</div>
-                    Pallets:
-                    <div className="">{pallets.map(pallet => <div>{palletTypes.find(palletType => palletType.id === pallet.pallet_type_id).name} / {pallet.quantity} / {pallet.size.length} / {pallet.size.width} / {pallet.size.height} / {pallet.size.weight} / <button type="button">x</button></div>)}</div>
-                    Packages:
-                    <div className="">{packages.map(packag => <div>{packageTypes.find(packageType => packageType.id === packag.package_type_id).name} / {packag.quantity} / {packag.size.length} / {packag.size.width} / {packag.size.height} / {packag.size.weight} / <button type="button">x</button></div>)}</div>
                     <div className="cargo__charac-heading">Характеристика груза</div>
                     <div className="cargo__characteristic characteristic">
                         <div className="characteristic__tab-links">
@@ -224,9 +218,16 @@ const Cargo = ({
                             </div>
                         </div>
                     </div>
-                    {activeTab === 1 ? <button type="button" onClick={addPlace} className="cargo__button button">Добавить</button> : null}
-                    {activeTab === 2 ? <button type="button" onClick={addPallet} className="cargo__button button">Добавить</button> : null}
-                    {activeTab === 3 ? <button type="button" onClick={addPackage} className="cargo__button button">Добавить</button> : null}
+                    {editMode ?
+                        <>
+                            {activeTab === 1 ? <button type="button" onClick={doEditPlace} className="cargo__button button">Обновить</button> : null}
+                            {activeTab === 2 ? <button type="button" onClick={doEditPallet} className="cargo__button button">Обновить</button> : null}
+                            {activeTab === 3 ? <button type="button" onClick={doEditPackage} className="cargo__button button">Обновить</button> : null}
+                        </> : <>
+                            {activeTab === 1 ? <button type="button" onClick={addPlace} className="cargo__button button">Добавить</button> : null}
+                            {activeTab === 2 ? <button type="button" onClick={addPallet} className="cargo__button button">Добавить</button> : null}
+                            {activeTab === 3 ? <button type="button" onClick={addPackage} className="cargo__button button">Добавить</button> : null}
+                        </>}
                 </div>
                 <div className="cargo__second-col" onMouseEnter={() => showCargo(true)} onMouseLeave={() => showCargo(false)}>
                     {categoryChanged ?
@@ -267,7 +268,9 @@ const Cargo = ({
                             })}
                         </div>
                     </div>
-                    <button type="button" className="cargo__button cargo__button_mobile button">Добавить</button>
+                    {editMode ?
+                        <button type="button" className="cargo__button cargo__button_mobile button">Обновить</button> :
+                        <button type="button" className="cargo__button cargo__button_mobile button">Добавить</button>}
                 </div>
             </form>
         </section>
