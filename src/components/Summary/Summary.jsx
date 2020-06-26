@@ -1,6 +1,6 @@
 import React from "react";
 
-const Summary = ({categories, activeCategory, bodyOptionCh, bodyOptions, activeBodyOption, additional, dateFrom, dateTo}) => {
+const Summary = ({categories, activeCategory, bodyOptionCh, bodyOptions, activeBodyOption, additional, dateFrom, dateTo, points}) => {
     return (
         <div className="checkout__summary summary">
             <div className="summary__heading">
@@ -38,6 +38,16 @@ const Summary = ({categories, activeCategory, bodyOptionCh, bodyOptions, activeB
                         &nbsp; до &nbsp;
                         {(((dateTo.getHours()) > 9) ? dateTo.getHours() : '0' + dateTo.getHours()) + ':' + (((dateTo.getMinutes()) > 9) ? dateTo.getMinutes() : '0' + dateTo.getMinutes())}
                     </div>
+                </div>
+                <div className="summary__item">
+                    {points.map(point => {
+                        return (
+                            <>
+                            <div className="summary__item-heading">{point.name} &nbsp; {point.values.map(value => value.selected ? (value.name + ', ') : '')}</div>
+                            <div className="summary__item-desc">[{point.address}, {point.company}, {point.contact_name}, {point.number}]</div>
+                            </>
+                        )
+                    })}
                 </div>
             </div>
         </div>

@@ -47,23 +47,42 @@
 .cargo-item__body-item
   display: flex
   align-items: center
-  height: 55px
+  height: 93px
   border-bottom: 1px solid #EEEEEE
   padding: 0 20px
 
 .cargo-item__body-parameter
-  @include fontSWCL(13px, normal, #636363, 16px)
-  margin-right: 40px
+  margin-right: 20px
+  &_first
+    height: 64px
+    background-color: #FBFBFB
+    border-radius: 10px
+    padding: 20px 19px
+    box-sizing: border-box
+    border: 1px solid #E6E6E6
+    @include fontSWCL(16px, 600, #919191, 20px)
+
+.cargo-item__body-parameter.input-label-wrap
+  .input-label-wrap__input
+    margin-top: 7px
+  .input-label-wrap__label
+    margin-left: 5px
+  .input-wrap
+    width: 85px
+    height: 28px
+    border-radius: 10px
+    padding: 0
+    &__input
+      text-align: center
 
 .cargo-item__edit
   margin-left: auto
-  border: none
-  background: none
-  outline: none
-  cursor: pointer
+  margin-right: 20px
+  height: 30px
+  width: 80px
 
 .cargo-item__remove
-  margin-left: 21px
+  margin-left: auto
   border: none
   background: none
   outline: none

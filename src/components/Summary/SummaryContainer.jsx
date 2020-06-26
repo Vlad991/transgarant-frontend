@@ -12,7 +12,8 @@ class SummaryContainer extends React.Component {
                      activeBodyOption={this.props.active_body_option}
                      additional={this.props.additional_requirements}
                      dateFrom={this.props.dateFrom}
-                     dateTo={this.props.dateTo}/>
+                     dateTo={this.props.dateTo}
+                     points={this.props.points}/>
         );
     };
 }
@@ -25,7 +26,8 @@ let mapStateToProps = (state) => ({
     additional_requirements: state.dopReducer.additional_requirements,
     dateFrom: state.dateReducer.dateFrom,
     dateTo: state.dateReducer.dateTo,
-    body_option_characteristics: state.carBodyReducer.body_option_characteristics
+    body_option_characteristics: state.carBodyReducer.body_option_characteristics,
+    points: state.pointsReducer.points
 });
 
 export default connect(mapStateToProps, {})(SummaryContainer);

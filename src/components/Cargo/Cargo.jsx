@@ -3,7 +3,6 @@ import CollapseContainer from "../CollapseContainer";
 
 const Cargo = ({
                    activeTab,
-                   editMode,
                    setActiveTab,
                    name,
                    price,
@@ -218,16 +217,9 @@ const Cargo = ({
                             </div>
                         </div>
                     </div>
-                    {editMode ?
-                        <>
-                            {activeTab === 1 ? <button type="button" onClick={doEditPlace} className="cargo__button button">Обновить</button> : null}
-                            {activeTab === 2 ? <button type="button" onClick={doEditPallet} className="cargo__button button">Обновить</button> : null}
-                            {activeTab === 3 ? <button type="button" onClick={doEditPackage} className="cargo__button button">Обновить</button> : null}
-                        </> : <>
-                            {activeTab === 1 ? <button type="button" onClick={addPlace} className="cargo__button button">Добавить</button> : null}
-                            {activeTab === 2 ? <button type="button" onClick={addPallet} className="cargo__button button">Добавить</button> : null}
-                            {activeTab === 3 ? <button type="button" onClick={addPackage} className="cargo__button button">Добавить</button> : null}
-                        </>}
+                    {activeTab === 1 ? <button type="button" onClick={addPlace} className="cargo__button button">Добавить</button> : null}
+                    {activeTab === 2 ? <button type="button" onClick={addPallet} className="cargo__button button">Добавить</button> : null}
+                    {activeTab === 3 ? <button type="button" onClick={addPackage} className="cargo__button button">Добавить</button> : null}
                 </div>
                 <div className="cargo__second-col" onMouseEnter={() => showCargo(true)} onMouseLeave={() => showCargo(false)}>
                     {categoryChanged ?
@@ -268,9 +260,9 @@ const Cargo = ({
                             })}
                         </div>
                     </div>
-                    {editMode ?
-                        <button type="button" className="cargo__button cargo__button_mobile button">Обновить</button> :
-                        <button type="button" className="cargo__button cargo__button_mobile button">Добавить</button>}
+                    {activeTab === 1 ? <button type="button" onClick={addPlace} className="cargo__button cargo__button_mobile button">Добавить</button> : null}
+                    {activeTab === 2 ? <button type="button" onClick={addPallet} className="cargo__button cargo__button_mobile button">Добавить</button> : null}
+                    {activeTab === 3 ? <button type="button" onClick={addPackage} className="cargo__button cargo__button_mobile button">Добавить</button> : null}
                 </div>
             </form>
         </section>

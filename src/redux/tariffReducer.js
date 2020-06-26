@@ -92,10 +92,78 @@ const tariffReducer = (state = initialState, action) => {
 export const loadTariff = (id, cost, min_cost, rate, min_hours, hours, cost_by_hour, items, items_by_route, service_information) => ({type: LOAD_TARIFF, id, cost, min_cost, rate, min_hours, hours, cost_by_hour, items, items_by_route, service_information});
 export const setTariff = (selected_tariff) => ({type: SET_TARIFF, selected_tariff});
 
-export const loadTariffThunk = (date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type) => async (dispatch) => {
-    let response = await orderAPI.calc(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type);
+export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
+    let state = getState();
+    let bodyOptionCharacteristics = state.carBodyReducer.body_option_characteristics
+        .filter(item => {
+            if (item.type === 'ref') {
+                let selected = item.values.find(value => value.selected);
+                if (selected)
+                    return true;
+            } else {
+                if (item.value)
+                    return true;
+            }
+            return false;
+        }).map(item => {
+            if (item.type === 'ref') {
+                let selected = item.values.find(value => value.selected);
+                return ({id: item.id, value: selected.id});
+            } else {
+                return ({id: item.id, value: true});
+            }
+        });
+    let additionalRequirements = state.dopReducer.additional_requirements.filter(item => item.selected).map(item => ({id: item.id, value: true}));
+    let points = state.pointsReducer.points.map((item, index) => ({
+        id: index,
+        adress: item.address,
+        adress_comment: item.comment,
+        adress_longitude: item.longitude,
+        adress_latitude: item.latitude,
+        company: item.company,
+        contact_persons: [
+            {
+                full_name: item.name,
+                phone: item.number,
+                phone_ext: item.number,
+                email: null
+            }
+        ],
+        what_to_do: item.todo,
+        working_hours: {
+            time_from: item.timeFrom,
+            time_to: item.timeTo,
+            lunch_from: item.pauseFrom,
+            lunch_to: item.pauseTo,
+            no_lunch: !item.hasPause,
+            max_landing_time: ''
+        },
+        action_documents: (item.files && item.files.length > 0),
+        action_loading: true,
+        action_unloading: false,
+        action_forwarder: false,
+        files_ids: item.files.map(file => file.id)
+    }))
+    let response = await orderAPI.calc(
+        new Date(),
+        state.carBodyReducer.active_body_type,
+        state.carBodyReducer.active_body_option,
+        bodyOptionCharacteristics,
+        additionalRequirements,
+        points,
+        state.cargoReducer.name,
+        state.cargoReducer.price,
+        state.cargoReducer.places,
+        state.cargoReducer.pallets,
+        state.cargoReducer.packages,
+        tariffId,
+        state.clientFormReducer.full_name,
+        state.clientFormReducer.phone,
+        '777',
+        state.clientFormReducer.email,
+        'paymentonaccount');
     if (response.status === 200) {
-        dispatch(loadTariff(tariff_type_id, response.data.cost, response.data.min_cost, response.data.rate, response.data.min_hours, response.data.hours, response.data.cost_by_hour, response.data.items, response.data.items_by_route, response.data.service_information));
+        dispatch(loadTariff(tariffId, response.data.cost, response.data.min_cost, response.data.rate, response.data.min_hours, response.data.hours, response.data.cost_by_hour, response.data.items, response.data.items_by_route, response.data.service_information));
     } else {
         console.error("Load Tariff: failed");
     }

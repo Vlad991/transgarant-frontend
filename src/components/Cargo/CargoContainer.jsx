@@ -60,7 +60,6 @@ class CargoContainer extends React.Component {
     render() {
         return (
             <Cargo activeTab={this.props.activeTab}
-                   editMode={this.props.editMode}
                    setActiveTab={this.setActiveTab}
                    name={this.props.name}
                    price={this.props.price}
@@ -117,7 +116,6 @@ class CargoContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
     activeTab: state.cargoReducer.activeTab,
-    editMode: state.cargoReducer.editMode,
     name: state.cargoReducer.name,
     price: state.cargoReducer.price,
     cargo: state.cargoReducer.cargo,

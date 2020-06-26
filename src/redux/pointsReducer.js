@@ -15,7 +15,44 @@ let initialState = {
     points: [
         {
             name: 'Точка 1',
-            address: 'г Москва, Пушкинская пл, д 2',
+            address: 'г Москва, Пушкинская пл, д 7',
+            comment: 'через арку - на КПП не надо',
+            company: 'В ООО "Salus"',
+            contact_name: 'Васька',
+            number: '+ 7 934 43 59 435',
+            todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
+            files: [{id: '1', name:'file.txt'}],
+            timeFrom: '09.00',
+            timeTo: '18.00',
+            hasPause: true,
+            pauseFrom: '09.00',
+            pauseTo: '18.00',
+            values: [
+                {
+                    id: 1,
+                    name: 'Погр',
+                    selected: true
+                },
+                {
+                    id: 2,
+                    name: 'Разг',
+                    selected: true
+                },
+                {
+                    id: 3,
+                    name: 'Получ док',
+                    selected: false
+                },
+                {
+                    id: 4,
+                    name: 'Встретить экспедитора',
+                    selected: false
+                },
+            ]
+        },
+        {
+            name: 'Точка 1',
+            address: 'г Москва, Пушкинская пл, д 8',
             comment: 'через арку - на КПП не надо',
             company: 'В ООО "Salus"',
             contact_name: 'Васька',
@@ -54,6 +91,8 @@ let initialState = {
     updatePoint: null,
     name: '',
     address: '',
+    address_longitude: null,
+    address_latitude: null,
     address_error: false,
     comment: '',
     company: '',
@@ -108,6 +147,8 @@ const pointsReducer = (state = initialState, action) => {
             let point = {
                 name: action.name,
                 address: state.address,
+                address_longitude: state.address_longitude,
+                address_latitude: state.address_latitude,
                 comment: state.comment,
                 company: state.company,
                 contact_name: state.contact_name,
@@ -173,6 +214,8 @@ const pointsReducer = (state = initialState, action) => {
                 updatePoint: action.index,
                 name: pointToShow.name,
                 address: pointToShow.address,
+                address_longitude: pointToShow.address_longitude,
+                address_latitude: pointToShow.address_latitude,
                 comment: pointToShow.comment,
                 company: pointToShow.company,
                 contact_name: pointToShow.contact_name,
@@ -197,6 +240,8 @@ const pointsReducer = (state = initialState, action) => {
             let pointToUpdate = {
                 name: action.name,
                 address: state.address,
+                address_longitude: state.address_longitude,
+                address_latitude: state.address_latitude,
                 comment: state.comment,
                 company: state.company,
                 contact_name: state.contact_name,
@@ -284,7 +329,9 @@ const pointsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 address_error: false,
-                address: action.value.value
+                address: action.value.value,
+                address_latitude: action.value.latitude,
+                address_longitude: action.value.longitude
             }
         case SET_NUMBER:
             if (action.value) {

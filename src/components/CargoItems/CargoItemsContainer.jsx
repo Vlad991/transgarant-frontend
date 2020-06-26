@@ -1,51 +1,37 @@
 import React from 'react';
 import CargoItems from "./CargoItems";
 import {connect} from "react-redux";
-import {editPackage, editPallet, editPlace, removePackageThunk, removePalletThunk, removePlaceThunk, setActiveTab, setEditMode} from "../../redux/cargoReducer";
+import {editPackage, editPallet, editPlace, removePackageThunk, removePalletThunk, removePlaceThunk, setActiveTab, updateCargoThunk} from "../../redux/cargoReducer";
 
 class CargoItemsContainer extends React.Component {
     state = {
-        placesActive: false,
-        palletsActive: false,
-        packagesActive: false,
+        listActive: false
     }
 
-    togglePlaces = () => {
+    toggleList = () => {
         this.setState({
-            placesActive: !this.state.placesActive
+            listActive: !this.state.listActive
         })
     }
 
-    togglePallets = () => {
-        this.setState({
-            palletsActive: !this.state.palletsActive
-        })
-    }
-
-    togglePackages = () => {
-        this.setState({
-            packagesActive: !this.state.packagesActive
-        })
-    }
-
-    editPlace = (index) => {
-        this.props.editPlace(index);
+    editPlace = (index, object) => {
+        this.props.editPlace(index, object);
     }
 
     removePlace = (index) => {
         this.props.removePlaceThunk(index);
     }
 
-    editPallet = (index) => {
-        this.props.editPallet(index);
+    editPallet = (index, object) => {
+        this.props.editPallet(index, object);
     }
 
     removePallet = (index) => {
         this.props.removePalletThunk(index);
     }
 
-    editPackage = (index) => {
-        this.props.editPackage(index);
+    editPackage = (index, object) => {
+        this.props.editPackage(index, object);
     }
 
     removePackage = (index) => {
@@ -59,18 +45,18 @@ class CargoItemsContainer extends React.Component {
                         packages={this.props.packages}
                         palletTypes={this.props.pallet_types}
                         packageTypes={this.props.package_types}
-                        palletsActive={this.state.palletsActive}
-                        placesActive={this.state.placesActive}
-                        packagesActive={this.state.packagesActive}
-                        togglePlaces={this.togglePlaces}
-                        togglePallets={this.togglePallets}
-                        togglePackages={this.togglePackages}
+                        listActive={this.state.listActive}
+                        toggleList={this.toggleList}
                         editPlace={this.editPlace}
                         removePlace={this.removePlace}
                         editPallet={this.editPallet}
                         removePallet={this.removePallet}
                         editPackage={this.editPackage}
                         removePackage={this.removePackage}
+                        editPlaceBool={this.props.editPlaceBool}
+                        editPalletBool={this.props.editPalletBool}
+                        editPackageBool={this.props.editPackageBool}
+                        updateCargo={this.props.updateCargoThunk}
             />
         );
     };
@@ -82,6 +68,9 @@ let mapStateToProps = (state) => ({
     packages: state.cargoReducer.packages,
     pallet_types: state.cargoReducer.pallet_types,
     package_types: state.cargoReducer.package_types,
+    editPlaceBool: state.cargoReducer.editPlace,
+    editPalletBool: state.cargoReducer.editPallet,
+    editPackageBool: state.cargoReducer.editPackage,
 });
 
-export default connect(mapStateToProps, {setActiveTab, setEditMode, editPlace, removePlaceThunk, editPallet, removePalletThunk, editPackage, removePackageThunk})(CargoItemsContainer);
+export default connect(mapStateToProps, {setActiveTab, editPlace, removePlaceThunk, editPallet, removePalletThunk, editPackage, removePackageThunk, updateCargoThunk})(CargoItemsContainer);
