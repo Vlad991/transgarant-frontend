@@ -11,7 +11,7 @@ const Social = ({selectedPayment, company, setCompany}) => {
                                         containerClassName={"client-form__input client-form__company input-wrap input-wrap_address"}
                                         inputProps={{className: 'input-wrap__input', placeholder: 'ИНН'}}/>
                 </section> : null
-            : <section className="checkout__social social">
+            : <section className="checkout__social social" style={{display: 'none'}}>
                 <div className="social__text">Зарегистрироваться в соц сетях</div>
                 <div className="social__values">
                     <a href="/" className="social__value">

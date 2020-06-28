@@ -58,7 +58,7 @@ let initialState = {
             service_information: ''
         }
     ],
-    selected_tariff: '',
+    selected_tariff: 'bdc31826-7d68-11ea-a9c9-00155d8e4e03',
 };
 
 const tariffReducer = (state = initialState, action) => {
@@ -94,6 +94,12 @@ export const setTariff = (selected_tariff) => ({type: SET_TARIFF, selected_tarif
 
 export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
     let state = getState();
+    let date = new Date();
+    date = date.getFullYear() + '-'
+        + (date.getMonth() > 9 ? date.getMonth() : ('0' + date.getMonth())) + '-'
+        + (date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())) + 'T'
+        + (date.getHours() > 9 ? date.getHours() : ('0' + date.getHours())) + ':'
+        + (date.getMinutes() > 9 ? date.getMinutes() : ('0' + date.getMinutes())) + ':00';
     let bodyOptionCharacteristics = state.carBodyReducer.body_option_characteristics
         .filter(item => {
             if (item.type === 'ref') {
@@ -118,34 +124,34 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
         id: index,
         adress: item.address,
         adress_comment: item.comment,
-        adress_longitude: item.longitude,
-        adress_latitude: item.latitude,
+        adress_longitude: item.address_longitude,
+        adress_latitude: item.address_latitude,
         company: item.company,
         contact_persons: [
             {
-                full_name: item.name,
+                full_name: item.contact_name,
                 phone: item.number,
-                phone_ext: item.number,
+                phone_ext: '777',
                 email: null
             }
         ],
         what_to_do: item.todo,
         working_hours: {
-            time_from: item.timeFrom,
-            time_to: item.timeTo,
-            lunch_from: item.pauseFrom,
-            lunch_to: item.pauseTo,
+            time_from: item.timeFrom + ":00",
+            time_to: item.timeTo + ":00",
+            lunch_from: item.pauseFrom + ":00",
+            lunch_to: item.pauseTo + ":00",
             no_lunch: !item.hasPause,
             max_landing_time: ''
         },
-        action_documents: (item.files && item.files.length > 0),
+        action_documents: false,
         action_loading: true,
         action_unloading: false,
         action_forwarder: false,
         files_ids: item.files.map(file => file.id)
-    }))
+    }));
     let response = await orderAPI.calc(
-        new Date(),
+        date,
         state.carBodyReducer.active_body_type,
         state.carBodyReducer.active_body_option,
         bodyOptionCharacteristics,

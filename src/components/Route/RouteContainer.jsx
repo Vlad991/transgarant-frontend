@@ -42,7 +42,7 @@ class RouteContainer extends React.Component {
     toggleCollapse = () => {
         this.setState({
             showCollapse: !this.state.showCollapse
-        })
+        });
     }
 
     showPointInfo = (index) => {
@@ -99,6 +99,8 @@ class RouteContainer extends React.Component {
                    toggleToPicker={this.toggleToPicker}
 
                    points={this.props.points}
+                   docReturn={this.props.docReturn}
+                   lastPoint={this.props.lastPoint}
                    showForm={this.props.showForm}
                    updatePoint={this.props.updatePoint}
                    doUpdatePoint={this.doUpdatePoint}
@@ -139,6 +141,14 @@ let mapStateToProps = (state) => ({
     dateFrom: state.dateReducer.dateFrom,
     dateTo: state.dateReducer.dateTo,
     points: state.pointsReducer.points,
+    docReturn: state.docReturnReducer.show,
+    lastPoint: {
+        address: state.docReturnReducer.address,
+        address_longitude: state.docReturnReducer.address_longitude,
+        address_latitude: state.docReturnReducer.address_latitude,
+        fullName: state.docReturnReducer.fullName,
+        phone: state.docReturnReducer.phone
+    },
     updatePoint: state.pointsReducer.updatePoint,
     name: state.pointsReducer.name,
     address: state.pointsReducer.address,
@@ -157,7 +167,7 @@ let mapStateToProps = (state) => ({
     pauseTo: state.pointsReducer.pauseTo,
     values: state.pointsReducer.values,
     values_error: state.pointsReducer.values_error,
-    showForm: state.pointsReducer.showForm
+    showForm: state.pointsReducer.showForm,
 });
 
 export default connect(mapStateToProps,

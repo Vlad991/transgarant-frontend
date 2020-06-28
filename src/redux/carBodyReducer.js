@@ -49,13 +49,17 @@ const carBodyReducer = (state = initialState, action) => {
             let refCharacteristics = [...state.body_option_characteristics];
             refCharacteristics = refCharacteristics.map(characteristic => {
                 if (characteristic.id === action.bodyOptionChId) {
-                    characteristic.values.map(value => {
-                        if (value.id === action.optionChValId) {
-                            value.selected = true;
-                        } else {
-                            value.selected = false;
-                        }
-                    });
+                    if (action.optionChValId === 0) {
+                        characteristic.values[0].selected = true;
+                    } else {
+                        characteristic.values.map(value => {
+                            if (value.id === action.optionChValId) {
+                                value.selected = true;
+                            } else {
+                                value.selected = false;
+                            }
+                        });
+                    }
                 }
                 return characteristic;
             })
@@ -118,7 +122,7 @@ export const setBodyOptionChsThunk = (bodyOptionId, bodyTypeId, categoryId) => a
         if (characteristic.type === 'ref') {
             let responseValues = await vehicleAPI.getBodyOptionChValues(characteristic.id, categoryId);
             characteristic.values = responseValues.data;
-            if (characteristic.values.length > 0) characteristic.values[0].selected = true;
+            //if (characteristic.values.length > 0) characteristic.values[0].selected = true;
         } else {
             characteristic.value = false;
         }

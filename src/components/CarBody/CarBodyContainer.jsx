@@ -17,15 +17,6 @@ class CarBodyContainer extends React.Component {
             this.props.setBodyOptionsThunk(this.props.active_body_type, this.props.activeCategory);
             this.props.setBodyOptionChsThunk(this.props.active_body_option, this.props.active_body_type, this.props.activeCategory);
         }
-        // if (prevProps.body_option_characteristics_values !== this.props.body_option_characteristics_values) {
-        //     this.props.body_option_characteristics.forEach(char => {
-        //         if (char.type === 'ref') {
-        //             this.props.setBodyOptionChVal(char.id);
-        //         } else {
-        //             this.props.setBodyOptionChBoolVal(char.id);
-        //         }
-        //     });
-        // }
     }
 
     setActiveBodyType = async (typeId) => {

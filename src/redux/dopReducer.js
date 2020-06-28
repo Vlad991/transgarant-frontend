@@ -35,7 +35,7 @@ const dopReducer = (state = initialState, action) => {
                 return item;
             });
             additional = additional.map(item => {
-                if (item.id === exclude) {
+                if (exclude.indexOf(item.id) !== -1) {
                     item.selected = false;
                 }
                 return item;

@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {Map, YMaps} from "react-yandex-maps";
+import {mapAPI} from "../../api/api";
 
 const mapState = {
     center: [55.751574, 37.573856],
@@ -17,10 +18,24 @@ class MapContainer extends React.Component {
         };
     }
 
+    getMap = async () => {
+        debugger;
+        let response = await mapAPI.getMap();
+        debugger;
+        console.log(response);
+    }
+
+    componentDidMount() {
+        //this.getMap();
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.points !== this.props.points) {
             this.map.geoObjects.removeAll();
-            this.state.ymaps.route(this.props.points.map(pointVal => ({type: 'wayPoint', point: pointVal.address})), {
+            let points = this.props.points.map(pointVal => ({type: 'wayPoint', point: pointVal.address}));
+            if (this.props.lastPointAddress)
+                points.push({type: 'wayPoint', point: this.props.lastPointAddress});
+            this.state.ymaps.route(points, {
                 mapStateAutoApply: true
             }).then((route) => {
                 route.getPaths().options.set({
@@ -73,7 +88,8 @@ class MapContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    points: state.pointsReducer.points
+    points: state.pointsReducer.points,
+    lastPointAddress: state.docReturnReducer.address
 });
 
 export default connect(mapStateToProps, {})(MapContainer);

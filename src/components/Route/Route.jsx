@@ -14,6 +14,8 @@ const Route = ({
                    toggleFromPicker,
                    toggleToPicker,
                    points,
+                   docReturn,
+                   lastPoint,
                    showForm,
                    updatePoint,
                    doUpdatePoint,
@@ -106,7 +108,7 @@ const Route = ({
                             </div>
                             <div className="route-point__address-wrap">
                                 <div className="route-point__address">{point.address}</div>
-                                <div className="route-point__comment">{point.comment}</div>
+                                {point.comment ? <div className="route-point__comment">{point.comment}</div> : null}
                             </div>
                             <div className="route-point__contact">{point.company + " " + point.contact_name + " " + point.number}</div>
                             <div className="route-point__time">Время работы: {point.timeFrom} - {point.timeTo} {point.hasPause ? '(перерыв: ' + point.pauseFrom + ' - ' + point.pauseTo + ')' : '(без перерыва)'}</div>
@@ -125,6 +127,24 @@ const Route = ({
                         </div>
                     )
                 })}
+                {docReturn ? <div className="route__point route-point">
+                    <div className="route-point__cross">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 1.4L12.6 0L7 5.6L1.4 0L0 1.4L5.6 7L0 12.6L1.4 14L7 8.4L12.6 14L14 12.6L8.4 7L14 1.4Z" fill="#A3A3A3"/>
+                        </svg>
+                    </div>
+                    <div className="route-point__header">
+                        <div className="route-point__name">Точка {points.length + 1}</div>
+                        <div className="route-point__value">Услуги: {values[2].name}</div>
+                    </div>
+                    <div className="route-point__address-wrap">
+                        <div className="route-point__address">{lastPoint.address}</div>
+                    </div>
+                    <div className="route-point__contact">{lastPoint.fullName} {lastPoint.phone}</div>
+                    <div className="route-point__footer">
+                        <div className="route-point__text">Возврат документов</div>
+                    </div>
+                </div> : null}
             </div>
             {!showForm ?
                 <div onClick={() => toggleForm(true)} className="route__add-button button-rhomb"><span className="button-rhomb__text">Добавить адрес</span></div> :

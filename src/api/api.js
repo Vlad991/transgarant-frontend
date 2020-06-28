@@ -100,3 +100,9 @@ export const fileAPI = {
             .catch(error => error);
     }
 };
+
+export const mapAPI = {
+    getMap() {
+        return instance.get('http://37.9.7.75/?coords=37.505951,55.706611;37.716064,55.796263&exclude=sk');
+    }
+}

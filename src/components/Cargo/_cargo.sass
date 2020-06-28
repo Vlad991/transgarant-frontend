@@ -38,11 +38,17 @@
     padding: 10px
 
 .cargo__name
-  @include fontSWCL(16px, bold, #7B7B7B, 20px)
+  @include fontSWCL(16px, bold, #1A1A1A, 20px)
 
 .cargo__description
-  @include fontSWCL(13px, normal, #000, 16px)
+  @include fontSWCL(13px, 600, #676767, 16px)
   margin-top: 15px
+  display: flex
+  align-items: center
+  > svg
+    margin-right: 12px
+    &:last-child
+      margin-left: 20px
 
 .cargo__charac-heading
   margin-top: 30px

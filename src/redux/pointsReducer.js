@@ -12,82 +12,7 @@ const SET_FORM_STATE = 'SET-FORM-STATE';
 const TOGGLE_FORM = 'TOGGLE_FORM';
 
 let initialState = {
-    points: [
-        {
-            name: 'Точка 1',
-            address: 'г Москва, Пушкинская пл, д 7',
-            comment: 'через арку - на КПП не надо',
-            company: 'В ООО "Salus"',
-            contact_name: 'Васька',
-            number: '+ 7 934 43 59 435',
-            todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
-            files: [{id: '1', name:'file.txt'}],
-            timeFrom: '09.00',
-            timeTo: '18.00',
-            hasPause: true,
-            pauseFrom: '09.00',
-            pauseTo: '18.00',
-            values: [
-                {
-                    id: 1,
-                    name: 'Погр',
-                    selected: true
-                },
-                {
-                    id: 2,
-                    name: 'Разг',
-                    selected: true
-                },
-                {
-                    id: 3,
-                    name: 'Получ док',
-                    selected: false
-                },
-                {
-                    id: 4,
-                    name: 'Встретить экспедитора',
-                    selected: false
-                },
-            ]
-        },
-        {
-            name: 'Точка 1',
-            address: 'г Москва, Пушкинская пл, д 8',
-            comment: 'через арку - на КПП не надо',
-            company: 'В ООО "Salus"',
-            contact_name: 'Васька',
-            number: '+ 7 934 43 59 435',
-            todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
-            files: [{id: '1', name:'file.txt'}],
-            timeFrom: '09.00',
-            timeTo: '18.00',
-            hasPause: true,
-            pauseFrom: '09.00',
-            pauseTo: '18.00',
-            values: [
-                {
-                    id: 1,
-                    name: 'Погр',
-                    selected: true
-                },
-                {
-                    id: 2,
-                    name: 'Разг',
-                    selected: true
-                },
-                {
-                    id: 3,
-                    name: 'Получ док',
-                    selected: false
-                },
-                {
-                    id: 4,
-                    name: 'Встретить экспедитора',
-                    selected: false
-                },
-            ]
-        }
-    ],
+    points: [],
     updatePoint: null,
     name: '',
     address: '',
@@ -263,6 +188,8 @@ const pointsReducer = (state = initialState, action) => {
                 updatePoint: null,
                 name: '',
                 address: '',
+                address_latitude: null,
+                address_longitude: null,
                 comment: '',
                 company: '',
                 contact_name: '',
@@ -330,8 +257,8 @@ const pointsReducer = (state = initialState, action) => {
                 ...state,
                 address_error: false,
                 address: action.value.value,
-                address_latitude: action.value.latitude,
-                address_longitude: action.value.longitude
+                address_latitude: action.value.data.geo_lat,
+                address_longitude: action.value.data.geo_lon
             }
         case SET_NUMBER:
             if (action.value) {

@@ -66,7 +66,9 @@ const CarBody = ({
                                                        }}
                                                        items={bodyOptionCh.values}
                                                        setItem={(id) => setBodyOptionChVal(bodyOptionCh.id, id)}/>
-                                    <input type="checkbox" className="check-wrap__input"/>
+                                    {bodyOptionCh.values.find(value => value.selected) ?
+                                        <input type="checkbox" checked onChange={() => setBodyOptionChVal(bodyOptionCh.id, null)} className="check-wrap__input"/>:
+                                        <input type="checkbox" onChange={() => setBodyOptionChVal(bodyOptionCh.id, 0)} className="check-wrap__input"/>}
                                     <span className="check-wrap__mark"></span>
                                 </label>
                             )

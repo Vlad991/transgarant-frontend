@@ -1,5 +1,6 @@
 const TOGGLE_RETURN = 'TOGGLE-RETURN';
 const SET_RETURN_NAME = 'SET-RETURN-NAME';
+const SET_RETURN_DATA = 'SET-RETURN-DATA';
 
 let initialState = {
     show: false,
@@ -10,6 +11,8 @@ let initialState = {
         {id: 4, selected: false, name: 'Название 4'},
     ],
     address: '',
+    address_longitude: null,
+    address_latitude: null,
     fullName: '',
     phone: '',
     price: null
@@ -36,6 +39,11 @@ const docReturnReducer = (state = initialState, action) => {
                 ...state,
                 names: names
             };
+        case SET_RETURN_DATA:
+            return {
+                ...state,
+                ...action.object
+            }
         default:
             return state;
     }
@@ -43,5 +51,6 @@ const docReturnReducer = (state = initialState, action) => {
 
 export const toggleReturn = () => ({type: TOGGLE_RETURN});
 export const setName = (id) => ({type: SET_RETURN_NAME, id});
+export const setData = (object) => ({type: SET_RETURN_DATA, object});
 
 export default docReturnReducer;
