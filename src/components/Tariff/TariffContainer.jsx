@@ -13,6 +13,10 @@ class TariffContainer extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.loadTariff(true);
+    }
+
     render() {
         return (
             <Tariff tariffTypes={this.props.tariff_types}

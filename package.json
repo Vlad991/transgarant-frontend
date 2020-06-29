@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mapbox/polyline": "^1.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@turf/turf": "^5.1.6",
     "axios": "^0.19.2",
+    "leaflet": "^1.6.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dadata": "^2.3.3",
@@ -14,6 +17,7 @@
     "react-dom": "^16.13.1",
     "react-input-mask": "^2.0.4",
     "react-intersection-observer": "^8.26.2",
+    "react-leaflet": "^2.7.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
@@ -43,6 +47,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {}
+  }
 }

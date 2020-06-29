@@ -1,6 +1,6 @@
 import React from "react";
-import MapContainer from "../Map/MapContainer";
 import {InView} from "react-intersection-observer";
+import LeafletMap from "../LeafletMap/LeafletMap";
 
 const Tariff = ({tariffTypes, selectedTariff, setTariff, loadTariff}) => {
     let selectedTariffObject;
@@ -159,7 +159,7 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff, loadTariff}) => {
                             </table>
                         </> : null}
                     </div> : null}
-                <MapContainer/>
+                <LeafletMap/>
             </div>
         </InView>
     );
