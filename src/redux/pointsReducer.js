@@ -12,7 +12,86 @@ const SET_FORM_STATE = 'SET-FORM-STATE';
 const TOGGLE_FORM = 'TOGGLE_FORM';
 
 let initialState = {
-    points: [],
+    points: [
+        {
+            name: 'Точка 1',
+            address: 'г Москва, Пушкинская пл, д 2',
+            address_longitude: 37.505951,
+            address_latitude: 55.706611,
+            comment: '',
+            company: 'В ООО "Salus"',
+            contact_name: 'Васька',
+            number: '+ 7 934 43 59 435',
+            todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
+            files: [{id: 1, name: 'file.txt'}],
+            timeFrom: '09.00',
+            timeTo: '18.00',
+            hasPause: true,
+            pauseFrom: '09.00',
+            pauseTo: '18.00',
+            values: [
+                {
+                    id: 1,
+                    name: 'Погр',
+                    selected: false
+                },
+                {
+                    id: 2,
+                    name: 'Разг',
+                    selected: true
+                },
+                {
+                    id: 3,
+                    name: 'Получ док',
+                    selected: false
+                },
+                {
+                    id: 4,
+                    name: 'Встретить экспедитора',
+                    selected: false
+                },
+            ]
+        },
+        {
+            name: 'Точка 2',
+            address: 'г Москва, пр-кт Защитников Москвы',
+            address_longitude: 37.716064,
+            address_latitude: 55.796263,
+            comment: '',
+            company: 'В ООО "Salus"',
+            contact_name: 'Васька',
+            number: '+ 7 934 43 59 435',
+            todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
+            files: [{id: 1, name: 'file.txt'}],
+            timeFrom: '09.00',
+            timeTo: '18.00',
+            hasPause: true,
+            pauseFrom: '09.00',
+            pauseTo: '18.00',
+            values: [
+                {
+                    id: 1,
+                    name: 'Погр',
+                    selected: false
+                },
+                {
+                    id: 2,
+                    name: 'Разг',
+                    selected: true
+                },
+                {
+                    id: 3,
+                    name: 'Получ док',
+                    selected: false
+                },
+                {
+                    id: 4,
+                    name: 'Встретить экспедитора',
+                    selected: false
+                },
+            ]
+        }
+    ],
     updatePoint: null,
     name: '',
     address: '',
@@ -257,8 +336,8 @@ const pointsReducer = (state = initialState, action) => {
                 ...state,
                 address_error: false,
                 address: action.value.value,
-                address_latitude: action.value.data.geo_lat,
-                address_longitude: action.value.data.geo_lon
+                address_latitude: parseFloat(action.value.data.geo_lat),
+                address_longitude: parseFloat(action.value.data.geo_lon)
             }
         case SET_NUMBER:
             if (action.value) {

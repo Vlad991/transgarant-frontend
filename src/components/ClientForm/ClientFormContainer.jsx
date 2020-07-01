@@ -1,7 +1,7 @@
 import React from 'react';
 import ClientForm from "./ClientForm";
 import {connect} from "react-redux";
-import {setEmail, setName, setNumber} from "../../redux/clientFormReducer";
+import {doOrderThunk, setEmail, setName, setNumber} from "../../redux/clientFormReducer";
 
 class ClientFormContainer extends React.Component {
 
@@ -17,6 +17,10 @@ class ClientFormContainer extends React.Component {
         this.props.setEmail(value);
     }
 
+    doOrder = () => {
+        this.props.doOrderThunk();
+    }
+
     render() {
         return (
             <ClientForm clientName={this.props.client_name}
@@ -27,7 +31,10 @@ class ClientFormContainer extends React.Component {
                         emailError={this.props.email_error}
                         setNumber={this.setNumber}
                         setName={this.setName}
-                        setEmail={this.setEmail}/>
+                        setEmail={this.setEmail}
+                        doOrder={this.doOrder}
+                        orderIsProcessed={this.props.orderIsProcessed}
+                        orderId={this.props.orderId}/>
         );
     };
 }
@@ -39,6 +46,8 @@ let mapStateToProps = (state) => ({
     number_error: state.clientFormReducer.number_error,
     client_email: state.clientFormReducer.client_email,
     email_error: state.clientFormReducer.email_error,
+    orderIsProcessed: state.clientFormReducer.orderIsProcessed,
+    orderId: state.clientFormReducer.orderId
 });
 
-export default connect(mapStateToProps, {setName, setNumber, setEmail})(ClientFormContainer);
+export default connect(mapStateToProps, {setName, setNumber, setEmail, doOrderThunk})(ClientFormContainer);

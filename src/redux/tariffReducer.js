@@ -19,6 +19,19 @@ let initialState = {
             service_information: ''
         },
         {
+            id: '2',
+            name: 'Часовая аренда РМ',
+            cost: 0,
+            min_cost: 0,
+            rate: '',
+            min_hours: 0,
+            hours: 0,
+            cost_by_hour: [],
+            items: [],
+            items_by_route: [],
+            service_information: ''
+        },
+        {
             id: 'bdc31824-7d68-11ea-a9c9-00155d8e4e03',
             name: 'Ставка',
             cost: 0,
@@ -144,12 +157,44 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
             no_lunch: !item.hasPause,
             max_landing_time: ''
         },
-        action_documents: false,
-        action_loading: true,
-        action_unloading: false,
-        action_forwarder: false,
+        action_documents: item.values[2].selected,
+        action_loading: item.values[0].selected,
+        action_unloading: item.values[1].selected,
+        action_forwarder: item.values[3].selected,
         files_ids: item.files.map(file => file.id)
     }));
+    if (state.docReturnReducer.show) {
+        points.push({
+            id: points.length + 1,
+            adress: state.docReturnReducer.address,
+            adress_comment: '',
+            adress_longitude: state.docReturnReducer.address_longitude,
+            adress_latitude: state.docReturnReducer.address_latitude,
+            company: '',
+            contact_persons: [
+                {
+                    full_name: state.docReturnReducer.fullName,
+                    phone: state.docReturnReducer.phone,
+                    phone_ext: '777',
+                    email: null
+                }
+            ],
+            what_to_do: 'Возврат документов',
+            working_hours: {
+                time_from: '',
+                time_to: '',
+                lunch_from: '',
+                lunch_to: '',
+                no_lunch: true,
+                max_landing_time: ''
+            },
+            action_documents: true,
+            action_loading: false,
+            action_unloading: false,
+            action_forwarder: false,
+            files_ids: []
+        });
+    }
     let response = await orderAPI.calc(
         date,
         state.carBodyReducer.active_body_type,

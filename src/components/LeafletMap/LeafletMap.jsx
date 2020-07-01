@@ -10,11 +10,23 @@ class LeafletMap extends React.Component {
     constructor(props) {
         super(props);
         this.model = model;
-        const search = "coords=37.505951,55.706611;37.716064,55.796263&exclude=sk";
-        if (search.length) {
-            const params = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
-            this.model.setWaypoints(params.coords, params.exclude);
+        this.loadRoute();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if ((prevProps.points !== this.props.points) || (prevProps.lastPointLatitude !== this.props.lastPointLatitude)) {
+            this.loadRoute();
         }
+    }
+
+    loadRoute = () => {
+        let points = [...this.props.points];
+        points = points.map(point => [point.address_longitude, point.address_latitude]);
+        if (this.props.docReturn) {
+            points.push([this.props.lastPointLongitude, this.props.lastPointLatitude]);
+        }
+        this.model.setWaypoints(points, 'sk');
+        this.forceUpdate();
     }
 
     render() {
@@ -36,6 +48,9 @@ class LeafletMap extends React.Component {
 
         return (
             <div className="tariff__map">
+                <a target="_blank" href={"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address_longitude + ',' + point.address_latitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('') + "&exclude=sk"} className="">
+                    {"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address_longitude + ',' + point.address_latitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('') + "&exclude=sk"}
+                </a>
                 <Map bounds={swap(this.model.bounds)} maxZoom="16">
                     <TileLayer url={TilesUrl}/>
                     {routes}
@@ -48,7 +63,9 @@ class LeafletMap extends React.Component {
 
 let mapStateToProps = (state) => ({
     points: state.pointsReducer.points,
-    lastPointAddress: state.docReturnReducer.address
+    docReturn: state.docReturnReducer.show,
+    lastPointLongitude: state.docReturnReducer.address_longitude,
+    lastPointLatitude: state.docReturnReducer.address_latitude,
 });
 
 export default connect(mapStateToProps, {})(LeafletMap);

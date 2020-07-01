@@ -22,8 +22,7 @@ class MapModel {
 		this.mkadRoutes = {};
 
 		this.exclude = exclude;
-		const points = coords.split(";");
-		this.waypoints = points.map(item => item.split(",").map(num => +num));
+		this.waypoints = coords;
 
 		if (this.waypoints.length <= 1) {
 			return;

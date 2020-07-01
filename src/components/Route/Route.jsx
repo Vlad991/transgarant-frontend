@@ -35,6 +35,7 @@ const Route = ({
                    todo,
                    files,
                    addFile,
+                   beforeTimeValueChange,
                    timeFrom,
                    timeTo,
                    hasPause,
@@ -196,12 +197,12 @@ const Route = ({
                             <div className="add-form__heading">Часы работы</div>
                             <div className="add-form__time">
                                 <label className="add-form__time-item input-wrap">
-                                    <InputMask mask="с 99:99" value={timeFrom} onChange={(e) => setFormState({timeFrom: e.target.value})}>
+                                    <InputMask mask="с 29:59" formatChars={{'2': '[0-2]', '5': '[0-5]', '9': '[0-9]'}} value={timeFrom} befo onChange={(e) => setFormState({timeFrom: e.target.value})}>
                                         {(inputProps) => <input {...inputProps} type="text" className="input-wrap__input" placeholder="c 09:00"/>}
                                     </InputMask>
                                 </label>
                                 <label className="add-form__time-item input-wrap">
-                                    <InputMask mask="до 99:99" value={timeTo} onChange={(e) => setFormState({timeTo: e.target.value})}>
+                                    <InputMask mask="до 29:59" formatChars={{'2': '[0-2]', '5': '[0-5]', '9': '[0-9]'}} value={timeTo} onChange={(e) => setFormState({timeTo: e.target.value})}>
                                         {(inputProps) => <input {...inputProps} type="text" className="input-wrap__input" placeholder="до 18:00"/>}
                                     </InputMask>
                                 </label>
@@ -219,12 +220,12 @@ const Route = ({
                             {!hasPause ?
                                 <div className="add-form__time">
                                     <label className="add-form__time-item input-wrap">
-                                        <InputMask mask="с 99:99" value={pauseFrom} onChange={(e) => setFormState({pauseFrom: e.target.value})}>
+                                        <InputMask mask="с 29:59" formatChars={{'2': '[0-2]', '5': '[0-5]', '9': '[0-9]'}} value={pauseFrom} onChange={(e) => setFormState({pauseFrom: e.target.value})}>
                                             {(inputProps) => <input {...inputProps} type="text" className="input-wrap__input" placeholder="c 09:00"/>}
                                         </InputMask>
                                     </label>
                                     <label className="add-form__time-item input-wrap">
-                                        <InputMask mask="до 99:99" value={pauseTo} onChange={(e) => setFormState({pauseTo: e.target.value})}>
+                                        <InputMask mask="до 29:59" formatChars={{'2': '[0-2]', '5': '[0-5]', '9': '[0-9]'}} value={pauseTo} onChange={(e) => setFormState({pauseTo: e.target.value})}>
                                             {(inputProps) => <input {...inputProps} type="text" className="input-wrap__input" placeholder="до 18:00"/>}
                                         </InputMask>
                                     </label>

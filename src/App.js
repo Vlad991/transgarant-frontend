@@ -40,8 +40,6 @@ class App extends React.Component {
 
                 <PaymentContainer/>
 
-                <SocialContainer/>
-
                 <ClientFormContainer/>
 
                 <SummaryContainer/>

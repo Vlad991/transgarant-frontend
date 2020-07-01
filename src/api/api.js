@@ -89,6 +89,34 @@ export const orderAPI = {
         return instance.post('/calc', data)
             .then(response => response)
             .catch(error => error);
+    },
+    orders(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type) {
+        let data = {
+            date: date,
+            body_type_id: body_type_id,
+            body_option_id: body_option_id,
+            body_option_characteristics: body_option_characteristics,
+            additional_requirements: additional_requirements,
+            routes: routes,
+            cargo: {
+                name: name,
+                price: price,
+                places: places,
+                pallets: pallets,
+                packages: packages
+            },
+            tariff_type_id: tariff_type_id,
+            contacts: {
+                full_name: name,
+                phone: phone,
+                phone_ext: phone_ext,
+                email: email
+            },
+            payment_type: payment_type
+        }
+        return instance.post('/orders', data)
+            .then(response => response)
+            .catch(error => error);
     }
 };
 

@@ -25,7 +25,10 @@ const Summary = ({
                      pallets,
                      clientName,
                      clientNumber,
-                     clientEmail
+                     clientEmail,
+                     scrollToBottom,
+                     selectedPayment,
+                     payments
                  }) => {
     return (
         <div className="checkout__summary summary">
@@ -33,7 +36,7 @@ const Summary = ({
                 <div className="summary__show-button" onClick={toggleSummary}>{showSummary ? 'Скрыть' : 'Показать подробно'}</div>
                 <div className="summary__result-wrap">
                     <div className="summary__result-button">Итого: {tariffTypes.find(tariff => tariff.id === selectedTariff).cost} р.</div>
-                    <div className="summary__checkout-button">Оформить</div>
+                    <div onClick={scrollToBottom} className="summary__checkout-button">Оформить</div>
                 </div>
             </div>
             <div className={"summary__payload" + (showSummary ? " summary__payload_active" : "")}>
@@ -82,8 +85,10 @@ const Summary = ({
                                 </>
                             )
                         })}
-                        <div className="summary__item-heading">Точка {points.length + 1} &nbsp; Получ док</div>
-                        <div className="summary__item-desc">[{lastPoint.address}, {lastPoint.fullName}, {lastPoint.phone}]</div>
+                        {docReturn ? <>
+                            <div className="summary__item-heading">Точка {points.length + 1} &nbsp; Получ док</div>
+                            <div className="summary__item-desc">[{lastPoint.address}, {lastPoint.fullName}, {lastPoint.phone}]</div>
+                        </> : null}
                     </div> : null}
                     <div className="summary__item">
                         <div className="summary__item-heading">{cargoName ? cargoName : 'Груз'}</div>
@@ -113,6 +118,9 @@ const Summary = ({
                                 )
                             })}
                         </div>
+                    </div>
+                    <div className="summary__item">
+                        <div className="summary__item-desc">Оплата: {payments.find((item, index) => (index + 1) === selectedPayment) ? payments.find((item, index) => (index + 1) === selectedPayment).text : ''}</div>
                     </div>
                     <div className="summary__item-desc" style={{marginTop: '15px'}}>
                         {clientName} &nbsp;

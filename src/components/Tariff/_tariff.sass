@@ -22,6 +22,7 @@
 
 .tariff-variant
   display: flex
+  align-items: center
   width: 360px
   min-height: 99px
   box-sizing: border-box
@@ -60,7 +61,7 @@
   display: flex
   justify-content: space-between
   align-items: flex-start
-  margin-top: 10px
+  margin-top: 5px
 
 .tariff-variant__text
   @include fontSWCL(13px, normal, #4F4F4F, 18px)
@@ -91,6 +92,7 @@
   margin-top: 38px
   display: flex
   justify-content: space-between
+  position: relative
   @include tablet
     flex-direction: column
 
@@ -147,15 +149,19 @@
 
 .tariff__map
   width: 47.4%
-  //height: 600px
   min-height: 600px
   overflow: scroll
-  position: relative
+  //position: relative
   border: 1px solid $yellow
   border-radius: 20px
+  margin-top: 30px
+  > a
+    position: absolute
+    z-index: 1001
+    top: -20px
+    overflow: visible
+    color: $yellow
+    text-decoration: underline
   @include tablet
     width: 100%
     max-height: 400px
-
-.ymaps-2-1-76-inner-panes, .ymaps-2-1-76-map
-  border-radius: 20px

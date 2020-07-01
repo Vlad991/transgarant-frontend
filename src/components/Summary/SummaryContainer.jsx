@@ -13,6 +13,14 @@ class SummaryContainer extends React.Component {
         })
     }
 
+    scrollToBottom = () => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+
     render() {
         return (
             <Summary
@@ -40,7 +48,10 @@ class SummaryContainer extends React.Component {
                 places={this.props.places}
                 clientName={this.props.client_name}
                 clientNumber={this.props.client_number}
-                clientEmail={this.props.client_email}/>
+                clientEmail={this.props.client_email}
+                scrollToBottom={this.scrollToBottom}
+                selectedPayment={this.props.selected_payment}
+                payments={this.props.payments}/>
         );
     };
 }
@@ -75,6 +86,8 @@ let mapStateToProps = (state) => ({
     client_name: state.clientFormReducer.client_name,
     client_number: state.clientFormReducer.client_number,
     client_email: state.clientFormReducer.client_email,
+    selected_payment: state.paymentReducer.selected_payment,
+    payments: state.paymentReducer.payments
 });
 
 export default connect(mapStateToProps, {})(SummaryContainer);
