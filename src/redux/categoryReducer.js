@@ -1,4 +1,13 @@
 import {categoryAPI} from "../api/api";
+import cat1 from '../img/category/vc-4-01 2 1.svg';
+import cat1p from '../img/category/vc-4-01 2 2.svg';
+import cat2 from '../img/category/vc-4-01 2 3.svg';
+import cat2p from '../img/category/vc-4-01 2 4.svg';
+import cat3 from '../img/category/vc-4-01 3.svg';
+import cat4 from '../img/category/vc-4-04 3.svg';
+import cat5 from '../img/category/vc-4-04 7.svg';
+import cat6 from '../img/category/vc-4-04 8.svg';
+import cat7 from '../img/category/vc-4-04 1.svg';
 
 const SET_CATEGORY = 'SET-CATEGORY';
 const SET_CATEGORIES = 'SET-CATEGORIES';
@@ -7,47 +16,47 @@ let initialState = {
     categories: [
         {
             id: '52b30be1-49d5-11e7-9696-e41f13c2b942',
-            img: '../img/checkout/category/vc-4-01 2 1.svg',
+            img: cat1,
             name: 'Категория 1',
         },
         {
             id: 'bb0df94d-7dde-11e8-81b0-e41f13c2b942',
-            img: '../img/checkout/category/vc-4-01 2 2.svg',
+            img: cat1p,
             name: 'Категория 1 +',
         },
         {
             id: '52b30bdd-49d5-11e7-9696-e41f13c2b942',
-            img: '../img/checkout/category/vc-4-01 2 3.svg',
+            img: cat2,
             name: 'Категория 2',
         },
         {
             id: '52b30bde-49d5-11e7-9696-e41f13c2b942',
-            img: '../img/checkout/category/vc-4-01 2 4.svg',
+            img: cat2p,
             name: 'Категория 2 +',
         },
         {
             id: '52b30bdc-49d5-11e7-9696-e41f13c2b942',
-            img: '../img/checkout/category/vc-4-01 3.svg',
+            img: cat3,
             name: 'Категория 3',
         },
         {
             id: '52b30bdf-49d5-11e7-9696-e41f13c2b942',
-            img: '../img/checkout/category/vc-4-04 3.svg',
+            img: cat4,
             name: 'Категория 4',
         },
         {
             id: '52b30be0-49d5-11e7-9696-e41f13c2b942',
-            img: '../img/checkout/category/vc-4-04 7.svg',
+            img: cat5,
             name: 'Категория 5',
         },
         {
             id: '52b30be2-49d5-11e7-9696-e41f13c2b942',
-            img: '../img/checkout/category/vc-4-04 8.svg',
+            img: cat6,
             name: 'Категория 6',
         },
         {
             id: '52b30be4-49d5-11e7-9696-e41f13c2b942',
-            img: '../img/checkout/category/vc-4-04 1.svg',
+            img: cat7,
             name: 'Категория 7',
         },
     ],

@@ -9,6 +9,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="f1411ce7-7d5f-4f4b-a4bc-e55f60dd3262" name="tg-group" url="http://u38027.netangels.ru">
+        <fileTransfer rootFolder="/www/wp-content/themes/carpenter-lite" host="u38027.netangels.ru" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

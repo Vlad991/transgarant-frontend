@@ -1,4 +1,6 @@
 import {vehicleAPI} from "../api/api";
+import closedImg from '../img/car-body/vc-4-04 6.svg';
+import openedImg from '../img/car-body/Group.svg';
 
 const SET_BODY_TYPES = 'SET-BODY-TYPES';
 const SET_BODY_OPTIONS = 'SET-BODY-OPTIONS';
@@ -52,7 +54,7 @@ const carBodyReducer = (state = initialState, action) => {
                     if (action.optionChValId === 0) {
                         characteristic.values[0].selected = true;
                     } else {
-                        characteristic.values.map(value => {
+                        characteristic.values.forEach(value => {
                             if (value.id === action.optionChValId) {
                                 value.selected = true;
                             } else {
@@ -98,10 +100,10 @@ export const setBodyTypesThunk = (categoryId) => async (dispatch) => {
     bodyTypes = bodyTypes.map((bodyType, index) => {
         switch (index) {
             case 0:
-                bodyType.img = '../img/car-body/vc-4-04 6.svg';
+                bodyType.img = closedImg;
                 return bodyType;
             case 1:
-                bodyType.img = '../img/car-body/Group.svg';
+                bodyType.img = openedImg;
                 return bodyType;
             default:
                 return bodyType;

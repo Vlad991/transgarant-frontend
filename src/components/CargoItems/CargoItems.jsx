@@ -1,5 +1,4 @@
 import React from "react";
-import CollapseContainer from "../CollapseContainer";
 
 const Cargo = ({
                    pallets,

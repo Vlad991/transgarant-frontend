@@ -77,12 +77,12 @@ const Summary = ({
                         </div>
                     </div>
                     {(points && (points.length > 0)) || (docReturn) ? <div className="summary__item">
-                        {points.map(point => {
+                        {points.map((point, index) => {
                             return (
-                                <>
+                                <React.Fragment key={index}>
                                     <div className="summary__item-heading">{point.name} &nbsp; {point.values.map(value => value.selected ? (value.name + ', ') : '')}</div>
                                     <div className="summary__item-desc">[{point.address}, {point.company}, {point.contact_name}, {point.number}]</div>
-                                </>
+                                </React.Fragment>
                             )
                         })}
                         {docReturn ? <>

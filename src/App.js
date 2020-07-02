@@ -8,7 +8,6 @@ import RouteContainer from "./components/Route/RouteContainer";
 import CargoContainer from "./components/Cargo/CargoContainer";
 import TariffContainer from "./components/Tariff/TariffContainer";
 import PaymentContainer from "./components/Payment/PaymentContainer";
-import SocialContainer from "./components/Social/SocialContainer";
 import ClientFormContainer from "./components/ClientForm/ClientFormContainer";
 import {connect, Provider} from "react-redux";
 import store from "./redux/store";
@@ -55,7 +54,7 @@ const mapStateToProps = (state) => ({
 let AppContainer = connect(mapStateToProps, {})(App);
 
 const CheckoutApp = (props) => {
-    return <BrowserRouter>
+    return <BrowserRouter basename="/oformlenie-zakaza">
         <Provider store={store}>
             <AppContainer/>
         </Provider>

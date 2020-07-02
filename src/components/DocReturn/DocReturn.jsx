@@ -32,7 +32,7 @@ const DocReturn = ({show, toggleReturn, names, setName, address, fullName, phone
                     </InputMask>
                 </label>
                 <label className="doc-return__field doc-return__field_small input-wrap">
-                    <input type="text" className="input-wrap__input" placeholder="Стоимость" value=""/>
+                    <input type="text" className="input-wrap__input" onChange={() => {}} value="" placeholder="Стоимость" />
                 </label>
             </div>
         </section>

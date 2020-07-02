@@ -6,7 +6,6 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff}) => {
     if (selectedTariff) {
         selectedTariffObject = tariffTypes.find(tariff => tariff.id === selectedTariff);
     }
-    console.log(tariffTypes[0].id === selectedTariff);
     return (
         <section className="checkout__tariff tariff">
             <div className="checkout__title tariff__heading">Выбор тарифа и детализация</div>
@@ -23,8 +22,8 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff}) => {
                             <div className="tariff-variant__text">{tariffTypes[0].cost} р</div>
                             <label className="tariff-variant__check check-wrap">
                                 {tariffTypes[0].id === selectedTariff ?
-                                    <input key={1} type="checkbox" checked className="check-wrap__input"/> :
-                                    <input key={2} type="checkbox" className="check-wrap__input"/>}
+                                    <input key={1} type="checkbox" checked onChange={() => {}} className="check-wrap__input"/> :
+                                    <input key={2} type="checkbox" onChange={() => {}} className="check-wrap__input"/>}
                                 <span className="check-wrap__mark"></span>
                             </label>
                         </div>
@@ -40,8 +39,8 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff}) => {
                             <div className="tariff-variant__text">{tariffTypes[1].cost} р</div>
                             <label className="tariff-variant__check check-wrap">
                                 {tariffTypes[1].id === selectedTariff ?
-                                    <input key={1} type="checkbox" checked className="check-wrap__input"/> :
-                                    <input key={2} type="checkbox" className="check-wrap__input"/>}
+                                    <input key={1} type="checkbox" checked onChange={() => {}} className="check-wrap__input"/> :
+                                    <input key={2} type="checkbox" onChange={() => {}} className="check-wrap__input"/>}
                                 <span className="check-wrap__mark"></span>
                             </label>
                         </div>
@@ -59,8 +58,8 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff}) => {
                             <div className="tariff-variant__text">{tariffTypes[2].cost} р</div>
                             <label className="tariff-variant__check check-wrap">
                                 {tariffTypes[2].id === selectedTariff ?
-                                    <input key={1} type="checkbox" name="payment" checked className="check-wrap__input"/> :
-                                    <input key={2} type="checkbox" name="payment" className="check-wrap__input"/>}
+                                    <input key={1} type="checkbox" name="payment" checked onChange={() => {}} className="check-wrap__input"/> :
+                                    <input key={2} type="checkbox" name="payment" onChange={() => {}} className="check-wrap__input"/>}
                                 <span className="check-wrap__mark"></span>
                             </label>
                         </div>
@@ -76,8 +75,8 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff}) => {
                             <div className="tariff-variant__text">{tariffTypes[3].cost} р</div>
                             <label className="tariff-variant__check check-wrap">
                                 {tariffTypes[3].id === selectedTariff ?
-                                    <input key={1} type="checkbox" checked name="payment" className="check-wrap__input"/> :
-                                    <input key={2} type="checkbox" name="payment" className="check-wrap__input"/>}
+                                    <input key={1} type="checkbox" checked onChange={() => {}} name="payment" className="check-wrap__input"/> :
+                                    <input key={2} type="checkbox" onChange={() => {}} name="payment" className="check-wrap__input"/>}
                                 <span className="check-wrap__mark"></span>
                             </label>
                         </div>
@@ -95,8 +94,8 @@ const Tariff = ({tariffTypes, selectedTariff, setTariff}) => {
                             <div className="tariff-variant__text">{tariffTypes[4].cost} р</div>
                             <label className="tariff-variant__check check-wrap">
                                 {tariffTypes[4].id === selectedTariff ?
-                                    <input key={1} type="checkbox" name="payment" checked className="check-wrap__input"/> :
-                                    <input key={2} type="checkbox" name="payment" className="check-wrap__input"/>}
+                                    <input key={1} type="checkbox" name="payment" checked onChange={() => {}} className="check-wrap__input"/> :
+                                    <input key={2} type="checkbox" name="payment" onChange={() => {}} className="check-wrap__input"/>}
                                 <span className="check-wrap__mark"></span>
                             </label>
                         </div>

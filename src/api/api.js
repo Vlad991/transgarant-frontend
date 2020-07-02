@@ -3,7 +3,8 @@ import * as axios from "axios";
 const token = '2ea1d8d4-d8b7-49ff-96f4-7fe4b3d91cbd';
 
 const instance = axios.create({
-    baseURL: 'http://185.47.204.186:44981/API/hs/PublicOrdersAPI',
+    //baseURL: 'http://185.47.204.186:44981/API/hs/PublicOrdersAPI',
+    baseURL: 'https://www.tg-group.ru/wp-json/fz/v1',
     headers: {
         Authorization: `Bearer ${token}`
     }
@@ -17,16 +18,31 @@ export const categoryAPI = {
 
 export const vehicleAPI = {
     getBodyTypes(categoryId) {
-        return instance.get('/body-types' + (categoryId ? '?car_type_id=' + categoryId : ''));
+        return instance.get('/body-types' + (categoryId ? '/' + categoryId : ''));
     },
     getBodyOptions(bodyTypeId, categoryId) {
-        return instance.get('/body-options?body_type_id=' + bodyTypeId + (categoryId ? '&car_type_id=' + categoryId : ''));
+        return instance.get('/body-options/' + bodyTypeId + (categoryId ? '/' + categoryId : ''));
     },
     getBodyOptionChs(bodyOptionId, bodyTypeId, categoryId) {
-        return instance.get('/body-option-characteristics?body_option_id=' + bodyOptionId + '&body_type_id=' + bodyTypeId + (categoryId ? '&car_type_id=' + categoryId : ''));
+        return instance.get('/body-option-characteristics/' + bodyOptionId + '/' + bodyTypeId + (categoryId ? '/' + categoryId : ''));
     },
     getBodyOptionChValues(bodyOptionChId, categoryId) {
-        return instance.get('/body-option-characteristics-values?body_option_characteristics_id=' + bodyOptionChId + (categoryId ? '&car_type_id=' + categoryId : ''));
+        return instance.get('/body-option-characteristics-values/' + bodyOptionChId + (categoryId ? '/' + categoryId : ''));
+    }
+};
+
+export const dopAPI = {
+    getDop() {
+        return instance.get('/additional-requirements');
+    }
+};
+
+export const fileAPI = {
+    addFile(name, data) {
+        let requestData = {name, data};
+        return instance.post('/order-files', requestData)
+            .then(response => response)
+            .catch(error => error);
     }
 };
 
@@ -52,12 +68,6 @@ export const cargoAPI = {
         return instance.post('/pack', data)
             .then(response => response)
             .catch(error => error);
-    }
-};
-
-export const dopAPI = {
-    getDop() {
-        return instance.get('/additional-requirements');
     }
 };
 
@@ -119,18 +129,3 @@ export const orderAPI = {
             .catch(error => error);
     }
 };
-
-export const fileAPI = {
-    addFile(name, data) {
-        let requestData = {name, data};
-        return instance.post('/order-files', requestData)
-            .then(response => response)
-            .catch(error => error);
-    }
-};
-
-export const mapAPI = {
-    getMap() {
-        return instance.get('http://37.9.7.75/?coords=37.505951,55.706611;37.716064,55.796263&exclude=sk');
-    }
-}
