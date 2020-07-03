@@ -5,6 +5,8 @@ import {swap} from './core/utils';
 
 import {TilesUrl} from './config';
 import {connect} from "react-redux";
+import './leaflet.css';
+import './styles.css';
 
 class LeafletMap extends React.Component {
     constructor(props) {

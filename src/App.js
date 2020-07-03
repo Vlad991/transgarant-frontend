@@ -14,11 +14,18 @@ import store from "./redux/store";
 import CargoItemsContainer from "./components/CargoItems/CargoItemsContainer";
 import DocReturnContainer from "./components/DocReturn/DocReturnContainer";
 import SummaryContainer from "./components/Summary/SummaryContainer";
+import {dopToggle} from "./redux/dopReducer";
+import {toggleValuesCollapse} from "./redux/pointsReducer";
 
 class App extends React.Component {
+    closeAllCollapse = () => {
+        this.props.dopToggle(false);
+        this.props.toggleValuesCollapse(false);
+    }
+
     render() {
         return (
-            <div className="checkout">
+            <div className="checkout" onClick={this.closeAllCollapse}>
                 <h1 className="checkout__heading">Оформление заказа</h1>
 
                 <CategoryContainer/>
@@ -47,11 +54,9 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    state: state
-})
+const mapStateToProps = (state) => ({});
 
-let AppContainer = connect(mapStateToProps, {})(App);
+let AppContainer = connect(mapStateToProps, {dopToggle, toggleValuesCollapse})(App);
 
 const CheckoutApp = (props) => {
     return <BrowserRouter basename="/oformlenie-zakaza">

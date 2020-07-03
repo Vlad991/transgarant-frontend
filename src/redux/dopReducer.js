@@ -22,7 +22,7 @@ const dopReducer = (state = initialState, action) => {
         case DOP_TOGGLE:
             return {
                 ...state,
-                active: !state.active
+                active: action.value
             };
         case TOGGLE_ADDITIONAL:
             let additional = [...state.additional_requirements];
@@ -50,7 +50,7 @@ const dopReducer = (state = initialState, action) => {
 };
 
 export const setDop = (additionalRequirements) => ({type: SET_DOP, additional_requirements: additionalRequirements});
-export const dopToggle = () => ({type: DOP_TOGGLE});
+export const dopToggle = (value) => ({type: DOP_TOGGLE, value});
 export const toggleAdditional = (id) => ({type: TOGGLE_ADDITIONAL, id});
 
 export const setDopThunk = () => async (dispatch) => {

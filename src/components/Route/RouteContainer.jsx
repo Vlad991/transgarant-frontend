@@ -2,13 +2,24 @@ import React from 'react';
 import Route from "./Route";
 import {connect} from "react-redux";
 import {setDateFrom, setDateTo} from "../../redux/dateReducer";
-import {addFileThunk, addPoint, deletePoint, doUpdatePoint, setAddress, setFormState, setNumber, showPointInfo, toggleForm, toggleValue} from "../../redux/pointsReducer";
+import {
+    addFileThunk,
+    addPoint,
+    deletePoint,
+    doUpdatePoint,
+    setAddress,
+    setFormState,
+    setNumber,
+    showPointInfo,
+    toggleForm,
+    toggleValue,
+    toggleValuesCollapse
+} from "../../redux/pointsReducer";
 
 class RouteContainer extends React.Component {
     state = {
         showFromPicker: false,
-        showToPicker: false,
-        showCollapse: false
+        showToPicker: false
     }
 
     setDateFrom = (date) => {
@@ -39,10 +50,9 @@ class RouteContainer extends React.Component {
         this.props.addPoint(name);
     }
 
-    toggleCollapse = () => {
-        this.setState({
-            showCollapse: !this.state.showCollapse
-        });
+    toggleCollapse = (e) => {
+        e.stopPropagation();
+        this.props.toggleValuesCollapse(!this.props.showValuesCollapse);
     }
 
     showPointInfo = (index) => {
@@ -129,7 +139,7 @@ class RouteContainer extends React.Component {
                    values={this.props.values}
                    valuesError={this.props.values_error}
                    toggleValue={this.toggleValue}
-                   showCollapse={this.state.showCollapse}
+                   showCollapse={this.props.showValuesCollapse}
                    toggleCollapse={this.toggleCollapse}
                    showPointInfo={this.showPointInfo}
             />
@@ -166,9 +176,10 @@ let mapStateToProps = (state) => ({
     pauseFrom: state.pointsReducer.pauseFrom,
     pauseTo: state.pointsReducer.pauseTo,
     values: state.pointsReducer.values,
+    showValuesCollapse: state.pointsReducer.showValuesCollapse,
     values_error: state.pointsReducer.values_error,
     showForm: state.pointsReducer.showForm,
 });
 
 export default connect(mapStateToProps,
-    {setDateFrom, setDateTo, addPoint, showPointInfo, doUpdatePoint, deletePoint, toggleValue, setAddress, setNumber, setFormState, toggleForm, addFileThunk})(RouteContainer);
+    {setDateFrom, setDateTo, addPoint, showPointInfo, doUpdatePoint, deletePoint, toggleValue, setAddress, setNumber, setFormState, toggleValuesCollapse, toggleForm, addFileThunk})(RouteContainer);

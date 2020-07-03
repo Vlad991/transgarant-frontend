@@ -16,6 +16,13 @@
           </advancedOptions>
         </fileTransfer>
       </webServer>
+      <webServer id="5b8ea3a6-87bd-4a7b-ba5c-349957dd889c" name="citycarrier" url="http://u76198.netangels.ru">
+        <fileTransfer rootFolder="/www/wp-content/themes/dream-spa" host="u76198.netangels.ru" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

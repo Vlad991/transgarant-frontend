@@ -2,7 +2,7 @@
   "name": "transgarant-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://www.tg-group.ru/wp-content/themes/carpenter-lite/forma-zakaza",
+  "homepage": "https://citycarrier.ru/wp-content/themes/dream-spa/forma-zakaza",
   "dependencies": {
     "@mapbox/polyline": "^1.1.0",
     "@testing-library/jest-dom": "^4.2.4",

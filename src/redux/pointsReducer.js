@@ -9,7 +9,8 @@ const SET_ADDRESS = 'SET-ADDRESS';
 const SET_NUMBER = 'SET-NUMBER';
 const SET_FILES = 'SET-FILES';
 const SET_FORM_STATE = 'SET-FORM-STATE';
-const TOGGLE_FORM = 'TOGGLE_FORM';
+const TOGGLE_VALUES_COLLAPSE = 'TOGGLE-VALUES-COLLAPSE';
+const TOGGLE_FORM = 'TOGGLE-FORM';
 
 let initialState = {
     points: [
@@ -132,6 +133,7 @@ let initialState = {
             selected: false
         },
     ],
+    showValuesCollapse: false,
     values_error: false,
     showForm: false
 };
@@ -365,6 +367,11 @@ const pointsReducer = (state = initialState, action) => {
                 ...state,
                 ...action.object
             }
+        case TOGGLE_VALUES_COLLAPSE:
+            return {
+                ...state,
+                showValuesCollapse: action.show
+            }
         case TOGGLE_FORM:
             return {
                 ...state,
@@ -384,6 +391,7 @@ export const setAddress = (value) => ({type: SET_ADDRESS, value});
 export const setNumber = (value) => ({type: SET_NUMBER, value});
 export const addFile = (id, name) => ({type: SET_FILES, id, name});
 export const setFormState = (object) => ({type: SET_FORM_STATE, object});
+export const toggleValuesCollapse = (show) => ({type: TOGGLE_VALUES_COLLAPSE, show});
 export const toggleForm = (show) => ({type: TOGGLE_FORM, show});
 
 export const addFileThunk = (name, data) => async (dispatch) => {

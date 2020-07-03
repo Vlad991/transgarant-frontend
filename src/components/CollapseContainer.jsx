@@ -5,23 +5,25 @@ class CollapseContainer extends React.Component {
         active: false
     }
 
-    toggle = () => {
+    toggle = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         this.setState({
             active: !this.state.active
-        })
+        });
     }
 
-    setItem = (event, id) => {
-        event.stopPropagation();
+    setItem = (e, id) => {
+        e.stopPropagation();
         this.setState({
             active: false
-        })
-        this.props.setItem(id)
+        });
+        this.props.setItem(id);
     }
 
     render() {
         return (
-            <span onClick={(e) => {e.preventDefault(); this.toggle()}} className={this.props.elementClass + " collapse" + (this.props.small ? ' collapse_small' : '') + (this.props.gray ? ' collapse_gray' : '') + (this.state.active ? ' collapse_active' : '')}>
+            <span onClick={(e) => this.toggle(e)} className={this.props.elementClass + " collapse" + (this.props.small ? ' collapse_small' : '') + (this.props.gray ? ' collapse_gray' : '') + (this.state.active ? ' collapse_active' : '')}>
                 <span className="collapse__selected">{this.props.selected ? this.props.selected.name : ''}</span>
                 <span className="collapse__items">
                     {this.props.items.map(item => {
