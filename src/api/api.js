@@ -1,14 +1,7 @@
 import * as axios from "axios";
-
-const token = '2ea1d8d4-d8b7-49ff-96f4-7fe4b3d91cbd';
-
 const instance = axios.create({
-    //baseURL: 'http://185.47.204.186:44981/API/hs/PublicOrdersAPI',
-    //baseURL: 'https://www.tg-group.ru/wp-json/fz/v1',
-    baseURL: 'https://citycarrier.ru//wp-json/fz/v1',
-    headers: {
-        Authorization: `Bearer ${token}`
-    }
+    baseURL: 'https://www.tg-group.ru/wp-json/fz/v1',
+    //baseURL: 'https://citycarrier.ru//wp-json/fz/v1'
 });
 
 export const categoryAPI = {
@@ -128,5 +121,17 @@ export const orderAPI = {
         return instance.post('/orders', data)
             .then(response => response)
             .catch(error => error);
+    }
+};
+
+export const phoneAPI = {
+    sendSms(phone) {
+        let requestData = {phone};
+        return instance.post('/send-sms', requestData)
+            .then(response => response)
+            .catch(error => error);
+    },
+    checkSms(phone, code) {
+        return instance.get('/check-sms/' + phone + '/' + code);
     }
 };

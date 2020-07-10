@@ -93,7 +93,7 @@ const Summary = ({
                     <div className="summary__item">
                         <div className="summary__item-heading">{cargoName ? cargoName : 'Груз'}</div>
                         <div className="summary__item-desc">
-                            {totalWeight} кг, {totalVolume} куб, {totalArea} м2
+                            {totalWeight} кг, {totalVolume} куб, {totalArea} м<sup>2</sup>
                         </div>
                         {places && (places.length > 0) ?
                             <div className="summary__item-desc">Машино место {places.length}</div> : null}

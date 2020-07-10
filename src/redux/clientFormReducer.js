@@ -1,16 +1,21 @@
 import validator from 'validator';
-import {orderAPI} from "../api/api";
+import {orderAPI, phoneAPI} from "../api/api";
 
 const SET_NAME = 'SET-NAME';
 const SET_CLIENT_NUMBER = 'SET-CLIENT-NUMBER';
 const SET_EMAIL = 'SET-EMAIL';
 const SHOW_ORDER_RESULT = 'SHOW-ORDER-RESULT';
+const SET_NUMBER_ENTERED = 'SET-NUMBER-ENTERED';
+const SET_RECAPTCHA_ENTERED = 'SET-RECAPTCHA-ENTERED';
 
 let initialState = {
     client_name: '',
     name_error: false,
     client_number: '',
     number_error: false,
+    number_is_registered: false,
+    number_is_entered: false,
+    recaptcha_is_entered: false,
     client_email: '',
     email_error: false,
     orderIsProcessed: false,
@@ -34,19 +39,11 @@ const clientFormReducer = (state = initialState, action) => {
                 };
             }
         case SET_CLIENT_NUMBER:
-            if (!validator.isEmpty(action.value)) {
-                return {
-                    ...state,
-                    client_number: action.value,
-                    number_error: false
-                };
-            } else {
-                return {
-                    ...state,
-                    client_number: action.value,
-                    number_error: true
-                };
-            }
+            return {
+                ...state,
+                client_number: action.phone,
+                number_error: action.error
+            };
         case SET_EMAIL:
             if (validator.isEmail(action.value)) {
                 return {
@@ -67,15 +64,53 @@ const clientFormReducer = (state = initialState, action) => {
                 orderIsProcessed: action.processed,
                 orderId: action.id
             };
+        case SET_NUMBER_ENTERED:
+            return {
+                ...state,
+                number_is_entered: action.value
+            }
+        case SET_RECAPTCHA_ENTERED:
+            return {
+                ...state,
+                recaptcha_is_entered: action.value
+            }
         default:
             return state;
     }
 };
 
 export const setName = (value) => ({type: SET_NAME, value});
-export const setNumber = (value) => ({type: SET_CLIENT_NUMBER, value});
+export const setNumber = (phone, error) => ({type: SET_CLIENT_NUMBER, phone, error});
 export const setEmail = (value) => ({type: SET_EMAIL, value});
 export const showOrderResult = (id, processed) => ({type: SHOW_ORDER_RESULT, id, processed});
+export const setNumberEntered = (value) => ({type: SET_NUMBER_ENTERED, value});
+export const setRecaptchaEntered = (value) => ({type: SET_RECAPTCHA_ENTERED, value});
+
+export const setNumberThunk = (phone) => async (dispatch, getState) => {
+    if (!validator.isEmpty(phone)) {
+        dispatch(setNumber(phone, false));
+        if (phone.indexOf('_') === -1) {
+            dispatch(setNumberEntered(true));
+            // let response = await phoneAPI.sendSms(phone);
+            // if (response.data.status === 'success') {
+            //     dispatch(sendSms());
+            // }
+        } else {
+            dispatch(setRecaptchaEntered(false));
+            dispatch(setNumberEntered(false));
+        }
+    } else {
+        dispatch(setNumber(phone, true));
+    }
+};
+
+export const setRecaptchaThunk = (value) => async (dispatch, getState) => {
+    if (value !== null) {
+        dispatch(setRecaptchaEntered(true));
+    } else {
+        dispatch(setRecaptchaEntered(false));
+    }
+};
 
 export const doOrderThunk = () => async (dispatch, getState) => {
     let state = getState();

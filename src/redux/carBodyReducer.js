@@ -9,13 +9,16 @@ const SET_ACTIVE_BODY_TYPE = 'SET-ACTIVE-BODY-TYPE';
 const SET_BODY_OPTION = 'SET-BODY-OPTION';
 const SET_BODY_OPTION_CH_VAL = 'SET-BODY-OPTION-CH-VAL';
 const SET_BODY_OPTION_CH_BOOL_VAL = 'CLEAR-BODY-OPTION-CH-BOOL-VAL';
+const TOGGLE_OPTION_COLLAPSE = 'TOGGLE-OPTION-COLLAPSE';
+const TOGGLE_CH_COLLAPSE = 'TOGGLE-CH-COLLAPSE';
 
 let initialState = {
     body_types: [],
     active_body_type: 0,
     body_options: [],
     active_body_option: 'bca0024d-f0f9-11db-9d25-000cf16cef9c',
-    body_option_characteristics: []
+    body_option_characteristics: [],
+    showOptionCollapse: false
 };
 
 const carBodyReducer = (state = initialState, action) => {
@@ -81,6 +84,18 @@ const carBodyReducer = (state = initialState, action) => {
                 ...state,
                 body_option_characteristics: characteristics
             };
+        case TOGGLE_OPTION_COLLAPSE:
+            return {
+                ...state,
+                showOptionCollapse: action.show
+            }
+        case TOGGLE_CH_COLLAPSE:
+            let items = [...state.body_option_characteristics];
+            items.find(item => item.id === action.id).showCollapse = action.show;
+            return {
+                ...state,
+                body_option_characteristics: items
+            }
         default:
             return state;
     }
@@ -93,6 +108,8 @@ export const setActiveBodyType = (typeId) => ({type: SET_ACTIVE_BODY_TYPE, typeI
 export const setBodyOption = (optionId) => ({type: SET_BODY_OPTION, optionId});
 export const setBodyOptionChVal = (bodyOptionChId, optionChValId) => ({type: SET_BODY_OPTION_CH_VAL, bodyOptionChId, optionChValId});
 export const setBodyOptionChBoolVal = (bodyOptionChId, optionChBoolVal) => ({type: SET_BODY_OPTION_CH_BOOL_VAL, bodyOptionChId, optionChBoolVal});
+export const toggleOptionCollapse = (show) => ({type: TOGGLE_OPTION_COLLAPSE, show});
+export const toggleChCollapse = (id, show) => ({type: TOGGLE_CH_COLLAPSE, id, show});
 
 export const setBodyTypesThunk = (categoryId) => async (dispatch) => {
     let response = await vehicleAPI.getBodyTypes(categoryId);

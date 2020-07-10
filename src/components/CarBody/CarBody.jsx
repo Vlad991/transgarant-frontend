@@ -10,11 +10,14 @@ const CarBody = ({
                      setBodyOption,
                      bodyOptionCharacteristics,
                      setBodyOptionChVal,
-                     markBodyOptionCh
+                     markBodyOptionCh,
+                     showOptionCollapse,
+                     toggleOptionCollapse,
+                     toggleChCollapse
                  }) => {
     return (
         <section className="checkout__car-body car-body">
-            <div className="car-body__heading checkout__title">Тип кузова</div>
+            <div className="car-body__heading checkout__title">Выберите тип кузова транспортного средства</div>
             <div className="car-body__cols">
                 <div className="car-body__col">
                     <div className="car-body__variants">
@@ -29,7 +32,9 @@ const CarBody = ({
                     </div>
                     <div className="car-body__options">
                         {activeBodyType === 0 ?
-                            <CollapseContainer elementClass="car-body__variant-card"
+                            <CollapseContainer active={showOptionCollapse}
+                                               toggleCollapse={toggleOptionCollapse}
+                                               elementClass="car-body__variant-card"
                                                selected={bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption)}
                                                items={bodyOptions}
                                                setItem={setBodyOption}/> :
@@ -59,15 +64,17 @@ const CarBody = ({
                         } else {
                             return (
                                 <label key={bodyOptionCh.id} className="check-block__item check-wrap">
-                                    <CollapseContainer small={true}
+                                    <CollapseContainer active={bodyOptionCh.showCollapse}
+                                                       toggleCollapse={(show) => toggleChCollapse(bodyOptionCh.id, show)}
+                                                       small={true}
                                                        selected={{
                                                            name: bodyOptionCh.name + ": " + (bodyOptionCh.values.find(value => value.selected) ? bodyOptionCh.values.find(value => value.selected).name : ''),
-                                                           id:  + (bodyOptionCh.values.find(value => value.selected) ? bodyOptionCh.values.find(value => value.selected).id : '')
+                                                           id: +(bodyOptionCh.values.find(value => value.selected) ? bodyOptionCh.values.find(value => value.selected).id : '')
                                                        }}
                                                        items={bodyOptionCh.values}
                                                        setItem={(id) => setBodyOptionChVal(bodyOptionCh.id, id)}/>
                                     {bodyOptionCh.values.find(value => value.selected) ?
-                                        <input type="checkbox" checked onChange={() => setBodyOptionChVal(bodyOptionCh.id, null)} className="check-wrap__input"/>:
+                                        <input type="checkbox" checked onChange={() => setBodyOptionChVal(bodyOptionCh.id, null)} className="check-wrap__input"/> :
                                         <input type="checkbox" onChange={() => setBodyOptionChVal(bodyOptionCh.id, 0)} className="check-wrap__input"/>}
                                     <span className="check-wrap__mark"></span>
                                 </label>

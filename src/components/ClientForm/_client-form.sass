@@ -12,6 +12,7 @@
   box-sizing: border-box
   display: flex
   justify-content: space-between
+  flex-wrap: wrap
   @include tabletSmall
     flex-direction: column
     padding: 20px
@@ -31,9 +32,6 @@
     height: 40px
     display: flex
     align-items: center
-    //span
-    //  display: flex
-    //  align-items: center
 
 .react-dadata__suggestion-subtitle
   display: flex
@@ -45,3 +43,10 @@
   flex-basis: 23.3%
   @include tabletSmall
     flex-basis: auto
+
+.captcha
+  display: flex
+  width: 100%
+  border-radius: 10px
+  margin-top: 7px
+  padding-left: 248px

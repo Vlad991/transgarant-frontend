@@ -56,12 +56,27 @@
   display: flex
   justify-content: space-between
   @include fontSWCL(16px, bold, #4F4F4F, 20px)
+  > svg
+    flex-shrink: 0
 
 .tariff-variant__description
   display: flex
   justify-content: space-between
   align-items: flex-start
   margin-top: 5px
+
+.tariff__info-icon
+  .info-icon__text
+    left: -140px
+    a
+      text-decoration: underline
+      color: $yellow
+
+.tariff__variant
+  &:last-child
+    .tariff__info-icon
+      .info-icon__text
+        left: -260px
 
 .tariff-variant__text
   @include fontSWCL(13px, normal, #4F4F4F, 18px)

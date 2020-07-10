@@ -3,7 +3,7 @@ import React from "react";
 const Dop = ({active, toggle, additionalRequirements, toggleAdditional}) => {
     return (
         <section className="checkout__dop dop checkout__title">
-            <div className="dop__title">ОБЩИЕ ДОП</div>
+            <div className="dop__title">Выберите дополнительные услуги к заказу</div>
             <div onClick={e => toggle(e)} className={"dop__check-items collapse" + (active ? ' collapse_active' : '')}>
                 <div className="collapse__selected">УСЛУГИ К ЗАЯВКЕ: {additionalRequirements.map(item => (item.selected ? (item.name + ', ') : ''))}</div>
                 <div onClick={(e) => e.stopPropagation()} className="collapse__items">

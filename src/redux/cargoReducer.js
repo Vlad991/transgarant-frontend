@@ -17,6 +17,8 @@ const SET_PACKED_ITEMS = 'SET-PACKED-ITEMS';
 const SET_CARGO_SIZES = 'SET-CARGO-SIZES';
 const SET_CARGO_DATA = 'SET-CARGO-DATA';
 const DISABLE_ITEMS_EDIT_MODE = 'DISABLE-ITEMS-EDIT-MODE';
+const TOGGLE_PALLET_COLLAPSE = 'TOGGLE-PALLET-COLLAPSE';
+const TOGGLE_PACKAGE_COLLAPSE = 'TOGGLE-PACKAGE-COLLAPSE';
 
 let initialState = {
     activeTab: 1,
@@ -59,7 +61,9 @@ let initialState = {
     cargoWidth: 2.9,
     total_weight: 0,
     total_volume: 0,
-    total_area: 0
+    total_area: 0,
+    showPalletCollapse: false,
+    showPackageCollapse: false
 };
 
 const cargoReducer = (state = initialState, action) => {
@@ -195,6 +199,16 @@ const cargoReducer = (state = initialState, action) => {
                 editPlace: null,
                 editPallet: null
             }
+        case TOGGLE_PALLET_COLLAPSE:
+            return {
+                ...state,
+                showPalletCollapse: action.show
+            }
+        case TOGGLE_PACKAGE_COLLAPSE:
+            return {
+                ...state,
+                showPackageCollapse: action.show
+            }
         default:
             return state;
     }
@@ -216,6 +230,8 @@ export const setPackedItems = (packed_items) => ({type: SET_PACKED_ITEMS, packed
 export const setCargoSizes = (height, width) => ({type: SET_CARGO_SIZES, height, width});
 export const setCargoData = (total_weight, total_volume, total_area) => ({type: SET_CARGO_DATA, total_weight, total_volume, total_area});
 export const disableItemsEditMode = ()  => ({type: DISABLE_ITEMS_EDIT_MODE});
+export const togglePalletCollapse = (show) => ({type: TOGGLE_PALLET_COLLAPSE, show});
+export const togglePackageCollapse = (show) => ({type: TOGGLE_PACKAGE_COLLAPSE, show});
 
 export const setPalletTypesThunk = () => async (dispatch) => {
     let response = await cargoAPI.getPalletTypes();

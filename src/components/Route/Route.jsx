@@ -148,7 +148,7 @@ const Route = ({
                 </div> : null}
             </div>
             {!showForm ?
-                <div onClick={() => toggleForm(true)} className="route__add-button button-rhomb"><span className="button-rhomb__text">Добавить адрес</span></div> :
+                <div onClick={() => toggleForm(true)} className="route__add-button button">Добавить адрес</div> :
                 <>
                     <div className="route__add-form add-form">
                         <div className="add-form__col add-form__col_first">
@@ -249,8 +249,8 @@ const Route = ({
                         </div>
                     </div>
                     {updatePoint || (updatePoint === 0) ?
-                        <button onClick={() => doUpdatePoint(updatePoint, "Точка " + (updatePoint + 1))} type="button" className="route__add-button button-rhomb"><span className="button-rhomb__text">Обновить</span></button> :
-                        <button onClick={() => addPoint("Точка " + (points.length + 1))} type="button" className="route__add-button button-rhomb"><span className="button-rhomb__text">Добавить</span></button>}
+                        <button onClick={() => doUpdatePoint(updatePoint, "Точка " + (updatePoint + 1))} type="button" className="route__add-button button">Обновить</button> :
+                        <button onClick={() => addPoint("Точка " + (points.length + 1))} type="button" className="route__add-button button">Добавить</button>}
                 </>}
         </section>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import Cargo from "./Cargo";
 import {connect} from "react-redux";
-import {addPackageThunk, addPalletThunk, addPlaceThunk, doEditPackageThunk, doEditPalletThunk, doEditPlaceThunk, setActiveTab, setCargoState, setPackage, setPackageTypesThunk, setPallet, setPalletTypesThunk} from "../../redux/cargoReducer";
+import {addPackageThunk, addPalletThunk, addPlaceThunk, doEditPackageThunk, doEditPalletThunk, doEditPlaceThunk, setActiveTab, setCargoState, setPackage, setPackageTypesThunk, setPallet, setPalletTypesThunk, togglePackageCollapse, togglePalletCollapse} from "../../redux/cargoReducer";
 import {setCategory} from "../../redux/categoryReducer";
 
 class CargoContainer extends React.Component {
@@ -109,6 +109,10 @@ class CargoContainer extends React.Component {
                    totalArea={this.props.total_area}
                    showCargo={this.showCargo}
                    showCargoValue={this.state.showCargoValue}
+                   showPalletCollapse={this.props.showPalletCollapse}
+                   showPackageCollapse={this.props.showPackageCollapse}
+                   togglePalletCollapse={this.props.togglePalletCollapse}
+                   togglePackageCollapse={this.props.togglePackageCollapse}
             />
         );
     };
@@ -161,7 +165,9 @@ let mapStateToProps = (state) => ({
     total_weight: state.cargoReducer.total_weight,
     total_volume: state.cargoReducer.total_volume,
     total_area: state.cargoReducer.total_area,
+    showPalletCollapse: state.cargoReducer.showPalletCollapse,
+    showPackageCollapse: state.cargoReducer.showPackageCollapse
 });
 
 export default connect(mapStateToProps, 
-    {setActiveTab, setPalletTypesThunk, setPackageTypesThunk, setPallet, setPackage, setCargoState, addPalletThunk, doEditPalletThunk, addPlaceThunk, doEditPlaceThunk, addPackageThunk, doEditPackageThunk, setCategory})(CargoContainer);
+    {setActiveTab, setPalletTypesThunk, setPackageTypesThunk, setPallet, setPackage, setCargoState, addPalletThunk, doEditPalletThunk, addPlaceThunk, doEditPlaceThunk, addPackageThunk, doEditPackageThunk, setCategory, togglePalletCollapse, togglePackageCollapse})(CargoContainer);

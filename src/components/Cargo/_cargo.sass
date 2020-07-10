@@ -47,7 +47,7 @@
   align-items: center
   > svg
     margin-right: 12px
-    &:last-child
+    &:nth-child(2)
       margin-left: 20px
 
 .cargo__charac-heading
@@ -74,6 +74,20 @@
 
 .characteristic__tab-link
   margin-bottom: 12px
+  position: relative
+
+.characteristic__info-icon
+  position: absolute
+  top: calc(50% - 9px)
+  right: 15px
+  .info-icon__text
+    left: -100px
+  path
+    fill: #fff
+
+.characteristic__tab-link:not(.button_active)
+  path
+    fill: $yellow
 
 .characteristic__tab-items
   flex-basis: 66%
@@ -140,7 +154,7 @@
   border-radius: 10px
   border: 1px solid #C1C1C1
   padding: 0 15px
-  div
+  > div
     @include fontSWCL(16px, bold, #7B7B7B, 20px)
     text-transform: capitalize
     margin-right: 14px

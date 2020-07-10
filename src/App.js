@@ -16,17 +16,25 @@ import DocReturnContainer from "./components/DocReturn/DocReturnContainer";
 import SummaryContainer from "./components/Summary/SummaryContainer";
 import {dopToggle} from "./redux/dopReducer";
 import {toggleValuesCollapse} from "./redux/pointsReducer";
+import {toggleChCollapse, toggleOptionCollapse} from "./redux/carBodyReducer";
+import {togglePackageCollapse, togglePalletCollapse} from "./redux/cargoReducer";
 
 class App extends React.Component {
     closeAllCollapse = () => {
         this.props.dopToggle(false);
         this.props.toggleValuesCollapse(false);
+        this.props.toggleOptionCollapse(false);
+        store.getState().carBodyReducer.body_option_characteristics.forEach(item => {
+            this.props.toggleChCollapse(item.id, false);
+        });
+        this.props.togglePalletCollapse(false);
+        this.props.togglePackageCollapse(false);
     }
 
     render() {
         return (
             <div className="checkout" onClick={this.closeAllCollapse}>
-                <h1 className="checkout__heading">Оформление заказа</h1>
+                <h1 className="checkout__heading">РАСЧЕТ СТОИМОСТИ и ОФОРМЛЕНИЕ ЗАКАЗА</h1>
 
                 <CategoryContainer/>
 
@@ -56,10 +64,10 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({});
 
-let AppContainer = connect(mapStateToProps, {dopToggle, toggleValuesCollapse})(App);
+let AppContainer = connect(mapStateToProps, {dopToggle, toggleValuesCollapse, toggleOptionCollapse, toggleChCollapse, togglePalletCollapse, togglePackageCollapse})(App);
 
 const CheckoutApp = (props) => {
-    return <BrowserRouter basename="/oformlenie-zakaza">
+    return <BrowserRouter basename="/">
         <Provider store={store}>
             <AppContainer/>
         </Provider>

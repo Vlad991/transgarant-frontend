@@ -1,7 +1,7 @@
 import React from 'react';
 import CarBody from "./CarBody";
 import {connect} from "react-redux";
-import {setActiveBodyType, setBodyOption, setBodyOptionChBoolVal, setBodyOptionChsThunk, setBodyOptionChVal, setBodyOptionsThunk, setBodyTypesThunk} from "../../redux/carBodyReducer";
+import {setActiveBodyType, setBodyOption, setBodyOptionChBoolVal, setBodyOptionChsThunk, setBodyOptionChVal, setBodyOptionsThunk, setBodyTypesThunk, toggleChCollapse, toggleOptionCollapse} from "../../redux/carBodyReducer";
 
 class CarBodyContainer extends React.Component {
 
@@ -48,7 +48,10 @@ class CarBodyContainer extends React.Component {
                      setBodyOption={this.setBodyOption}
                      bodyOptionCharacteristics={this.props.body_option_characteristics}
                      setBodyOptionChVal={this.setBodyOptionChVal}
-                     markBodyOptionCh={this.markBodyOptionCh}/>
+                     markBodyOptionCh={this.markBodyOptionCh}
+                     showOptionCollapse={this.props.showOptionCollapse}
+                     toggleOptionCollapse={this.props.toggleOptionCollapse}
+                     toggleChCollapse={this.props.toggleChCollapse}/>
         );
     };
 }
@@ -60,7 +63,8 @@ let mapStateToProps = (state) => ({
     body_options: state.carBodyReducer.body_options,
     active_body_option: state.carBodyReducer.active_body_option,
     body_option_characteristics: state.carBodyReducer.body_option_characteristics,
+    showOptionCollapse: state.carBodyReducer.showOptionCollapse
 });
 
 export default connect(mapStateToProps,
-    {setActiveBodyType, setBodyOption, setBodyOptionChVal, setBodyOptionChBoolVal, setBodyTypesThunk, setBodyOptionsThunk, setBodyOptionChsThunk})(CarBodyContainer);
+    {setActiveBodyType, setBodyOption, setBodyOptionChVal, setBodyOptionChBoolVal, setBodyTypesThunk, setBodyOptionsThunk, setBodyOptionChsThunk, toggleOptionCollapse, toggleChCollapse})(CarBodyContainer);

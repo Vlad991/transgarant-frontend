@@ -13,6 +13,10 @@
   align-items: center
   min-height: 64px
 
+sup
+  font-size: xx-small
+  vertical-align: super
+
 .link
   @include fontSWCL(16px, bold, $yellow, 20px)
   text-decoration: underline
@@ -124,6 +128,11 @@
     cursor: auto
     > div
       width: calc(100% + 2px)
+  &_sms
+    justify-content: space-between
+    padding-right: 0
+    input
+      width: 60%
   *
     @include fontSWCL(13px, normal, #636363, 16px)
     cursor: pointer
@@ -198,6 +207,12 @@
   &_inverse#{&}_active
     @include fontSWCL(13px, bold, #fff, 16px)
     background-color: $yellow
+  &_sms
+    width: 88px
+    height: 50px
+    margin-right: 1px
+    &:hover
+      box-shadow: 0 0 10px -1px rgba(0, 0, 0, 0.2)
 
 .button-rhomb
   width: 229px
@@ -221,6 +236,40 @@
   font-style: italic
   transform: skewX(30deg)
 
+.info-icon
+  position: relative
+  cursor: pointer
+  display: flex
+  &:hover
+    .info-icon__text
+      display: block
+    &:after
+      display: block
+      content: ''
+      width: 15px
+      height: 15px
+      background-color: #fff
+      transform: rotate(45deg)
+      position: absolute
+      top: 22px
+      left: 2px
+      z-index: 3
+
+.info-icon__text
+  display: none
+  width: 300px
+  background-color: #fff
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.15)
+  border-radius: 10px
+  position: absolute
+  top: 29px
+  left: -250px
+  z-index: 2
+  padding: 15px
+  box-sizing: border-box
+  @include fontSWCL(12px, normal, #636363, 18px)
+  text-transform: none
+  text-align: left
 
 .react-dadata__suggestions
   position: absolute

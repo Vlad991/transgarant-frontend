@@ -1,7 +1,7 @@
 import React from 'react';
 import ClientForm from "./ClientForm";
 import {connect} from "react-redux";
-import {doOrderThunk, setEmail, setName, setNumber} from "../../redux/clientFormReducer";
+import {doOrderThunk, setEmail, setName, setNumberThunk, setRecaptchaThunk} from "../../redux/clientFormReducer";
 
 class ClientFormContainer extends React.Component {
 
@@ -10,7 +10,8 @@ class ClientFormContainer extends React.Component {
     }
 
     setNumber = (value) => {
-        this.props.setNumber(value);
+        console.log(value);
+        this.props.setNumberThunk(value);
     }
 
     setEmail = (value) => {
@@ -34,7 +35,10 @@ class ClientFormContainer extends React.Component {
                         setEmail={this.setEmail}
                         doOrder={this.doOrder}
                         orderIsProcessed={this.props.orderIsProcessed}
-                        orderId={this.props.orderId}/>
+                        orderId={this.props.orderId}
+                        numberIsEntered={this.props.number_is_entered}
+                        recaptchaIsEntered={this.props.recaptcha_is_entered}
+                        setRecaptcha={this.props.setRecaptchaThunk}/>
         );
     };
 }
@@ -47,7 +51,9 @@ let mapStateToProps = (state) => ({
     client_email: state.clientFormReducer.client_email,
     email_error: state.clientFormReducer.email_error,
     orderIsProcessed: state.clientFormReducer.orderIsProcessed,
-    orderId: state.clientFormReducer.orderId
+    orderId: state.clientFormReducer.orderId,
+    number_is_entered: state.clientFormReducer.number_is_entered,
+    recaptcha_is_entered: state.clientFormReducer.recaptcha_is_entered
 });
 
-export default connect(mapStateToProps, {setName, setNumber, setEmail, doOrderThunk})(ClientFormContainer);
+export default connect(mapStateToProps, {setName, setNumberThunk, setEmail, doOrderThunk, setRecaptchaThunk})(ClientFormContainer);

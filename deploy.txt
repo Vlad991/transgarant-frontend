@@ -1,0 +1,5 @@
+1. set home in package.json
+2. set baseUrl in api.js
+3. set bg-path in 3 lines leaflet.css
+4. set routesEndpoint in config.js
+5. build
