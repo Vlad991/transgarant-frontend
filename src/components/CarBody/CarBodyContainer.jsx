@@ -6,50 +6,38 @@ import {setActiveBodyType, setBodyOption, setBodyOptionChBoolVal, setBodyOptionC
 class CarBodyContainer extends React.Component {
 
     componentDidMount() {
-        this.props.setBodyTypesThunk(this.props.activeCategory);
-        this.props.setBodyOptionsThunk(0, this.props.activeCategory);
-        this.props.setBodyOptionChsThunk(this.props.active_body_option, this.props.active_body_type, this.props.activeCategory);
+        this.props.setBodyTypesThunk(this.props.active_category);
+        this.props.setBodyOptionsThunk(0, this.props.active_category);
+        this.props.setBodyOptionChsThunk(this.props.state.active_body_option, this.props.state.active_body_type, this.props.active_category);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.activeCategory !== this.props.activeCategory) {
-            this.props.setBodyTypesThunk(this.props.activeCategory);
-            this.props.setBodyOptionsThunk(this.props.active_body_type, this.props.activeCategory);
-            this.props.setBodyOptionChsThunk(this.props.active_body_option, this.props.active_body_type, this.props.activeCategory);
+        if (prevProps.active_category !== this.props.active_category) {
+            this.props.setBodyTypesThunk(this.props.active_category);
+            this.props.setBodyOptionsThunk(this.props.state.active_body_type, this.props.active_category);
+            this.props.setBodyOptionChsThunk(this.props.state.active_body_option, this.props.state.active_body_type, this.props.active_category);
         }
     }
 
     setActiveBodyType = async (typeId) => {
-        await this.props.setBodyOptionsThunk(typeId, this.props.activeCategory);
+        await this.props.setBodyOptionsThunk(typeId, this.props.active_category);
         this.props.setActiveBodyType(typeId);
-        this.props.setBodyOptionChsThunk(this.props.active_body_option, typeId, this.props.activeCategory);
+        this.props.setBodyOptionChsThunk(this.props.state.active_body_option, typeId, this.props.active_category);
     }
 
     setBodyOption = (optionId) => {
         this.props.setBodyOption(optionId);
-        this.props.setBodyOptionChsThunk(this.props.active_body_option, optionId, this.props.activeCategory);
-    }
-
-    setBodyOptionChVal = (bodyOptionChId, optionChValId) => {
-        this.props.setBodyOptionChVal(bodyOptionChId, optionChValId);
-    }
-
-    markBodyOptionCh = (bodyOptionChId, value) => {
-        this.props.setBodyOptionChBoolVal(bodyOptionChId, value);
+        this.props.setBodyOptionChsThunk(this.props.state.active_body_option, optionId, this.props.active_category);
     }
 
     render() {
         return (
-            <CarBody bodyTypes={this.props.body_types}
-                     activeBodyType={this.props.active_body_type}
+            <CarBody state={this.props.state}
+
                      setActiveBodyType={this.setActiveBodyType}
-                     bodyOptions={this.props.body_options}
-                     activeBodyOption={this.props.active_body_option}
                      setBodyOption={this.setBodyOption}
-                     bodyOptionCharacteristics={this.props.body_option_characteristics}
-                     setBodyOptionChVal={this.setBodyOptionChVal}
-                     markBodyOptionCh={this.markBodyOptionCh}
-                     showOptionCollapse={this.props.showOptionCollapse}
+                     setBodyOptionChVal={this.props.setBodyOptionChVal}
+                     markBodyOptionCh={this.props.setBodyOptionChBoolVal}
                      toggleOptionCollapse={this.props.toggleOptionCollapse}
                      toggleChCollapse={this.props.toggleChCollapse}/>
         );
@@ -57,13 +45,8 @@ class CarBodyContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    activeCategory: state.categoryReducer.activeCategory,
-    body_types: state.carBodyReducer.body_types,
-    active_body_type: state.carBodyReducer.active_body_type,
-    body_options: state.carBodyReducer.body_options,
-    active_body_option: state.carBodyReducer.active_body_option,
-    body_option_characteristics: state.carBodyReducer.body_option_characteristics,
-    showOptionCollapse: state.carBodyReducer.showOptionCollapse
+    state: state.carBodyReducer,
+    active_category: state.categoryReducer.active_category
 });
 
 export default connect(mapStateToProps,

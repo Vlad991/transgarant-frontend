@@ -1,34 +1,39 @@
 import React from "react";
 
 const Summary = ({
-                     showSummary,
-                     toggleSummary,
                      tariffTypes,
                      selectedTariff,
                      categories,
                      activeCategory,
-                     bodyOptionCh,
                      bodyOptions,
                      activeBodyOption,
                      additional,
                      dateFrom,
                      dateTo,
+                     bodyOptionCh,
                      points,
                      docReturn,
-                     lastPoint,
+                     lastPointAddress,
+                     lastPointAddressLongitude,
+                     lastPointAddressLatitude,
+                     lastPointFullName,
+                     lastPointPhone,
                      cargoName,
                      totalWeight,
                      totalVolume,
                      totalArea,
-                     places,
-                     packages,
                      pallets,
+                     packages,
+                     places,
                      clientName,
                      clientNumber,
                      clientEmail,
-                     scrollToBottom,
                      selectedPayment,
-                     payments
+                     payments,
+
+                     scrollToBottom,
+                     showSummary,
+                     toggleSummary,
                  }) => {
     return (
         <div className="checkout__summary summary">
@@ -87,7 +92,7 @@ const Summary = ({
                         })}
                         {docReturn ? <>
                             <div className="summary__item-heading">Точка {points.length + 1} &nbsp; Получ док</div>
-                            <div className="summary__item-desc">[{lastPoint.address}, {lastPoint.fullName}, {lastPoint.phone}]</div>
+                            <div className="summary__item-desc">[{lastPointAddress}, {lastPointFullName}, {lastPointPhone}]</div>
                         </> : null}
                     </div> : null}
                     <div className="summary__item">

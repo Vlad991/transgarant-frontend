@@ -1,14 +1,14 @@
 import React from "react";
 
-const Category = ({categories, activeCategory, setCategory}) => {
+const Category = ({state, setCategory}) => {
     return (
         <section className="checkout__category category">
             <h2 className="category__heading">Выберите категорию  транспортного средства</h2>
             <div className="category__description">Если Вы не уверены в выборе категории, пропустите данный шаг и заполните данные о грузе. Транспортное средство, подходящее под Ваш груз будет подобрано автоматически.</div>
             <div className="category__items">
-                {categories.map(category => {
+                {state.categories.map(category => {
                     return (
-                        <div key={category.id} className={"category__category-item category-item" + (category.id === activeCategory ? ' category-item_active' : '')}
+                        <div key={category.id} className={"category__category-item category-item" + (category.id === state.active_category ? ' category-item_active' : '')}
                              onClick={() => setCategory(category.id)}>
                             <div className="category-item__heading">{category.name}</div>
                             <div className="category-item__img"><img src={category.img} alt="Category"/></div>

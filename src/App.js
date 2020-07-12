@@ -4,7 +4,6 @@ import {BrowserRouter} from "react-router-dom";
 import CategoryContainer from "./components/Category/CategoryContainer";
 import CarBodyContainer from "./components/CarBody/CarBodyContainer";
 import DopContainer from "./components/Dop/DopContainer";
-import RouteContainer from "./components/Route/RouteContainer";
 import CargoContainer from "./components/Cargo/CargoContainer";
 import TariffContainer from "./components/Tariff/TariffContainer";
 import PaymentContainer from "./components/Payment/PaymentContainer";
@@ -18,15 +17,16 @@ import {dopToggle} from "./redux/dopReducer";
 import {toggleValuesCollapse} from "./redux/pointsReducer";
 import {toggleChCollapse, toggleOptionCollapse} from "./redux/carBodyReducer";
 import {togglePackageCollapse, togglePalletCollapse} from "./redux/cargoReducer";
+import PointsContainer from "./components/Points/PointsContainer";
 
 class App extends React.Component {
     closeAllCollapse = () => {
         this.props.dopToggle(false);
         this.props.toggleValuesCollapse(false);
         this.props.toggleOptionCollapse(false);
-        store.getState().carBodyReducer.body_option_characteristics.forEach(item => {
-            this.props.toggleChCollapse(item.id, false);
-        });
+        // store.getState().carBodyReducer.body_option_characteristics.forEach(item => {
+        //     this.props.toggleChCollapse(item.id, false);
+        // });
         this.props.togglePalletCollapse(false);
         this.props.togglePackageCollapse(false);
     }
@@ -44,7 +44,7 @@ class App extends React.Component {
 
                 <DocReturnContainer/>
 
-                <RouteContainer/>
+                <PointsContainer/>
 
                 <CargoContainer/>
 
@@ -62,7 +62,9 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+
+});
 
 let AppContainer = connect(mapStateToProps, {dopToggle, toggleValuesCollapse, toggleOptionCollapse, toggleChCollapse, togglePalletCollapse, togglePackageCollapse})(App);
 

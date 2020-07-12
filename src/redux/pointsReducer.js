@@ -25,11 +25,11 @@ let initialState = {
         //     number: '+ 7 934 43 59 435',
         //     todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
         //     files: [{id: 1, name: 'file.txt'}],
-        //     timeFrom: '09.00',
-        //     timeTo: '18.00',
-        //     hasPause: true,
-        //     pauseFrom: '09.00',
-        //     pauseTo: '18.00',
+        //     time_from: '09.00',
+        //     time_to: '18.00',
+        //     has_pause: true,
+        //     pause_from: '09.00',
+        //     pause_to: '18.00',
         //     values: [
         //         {
         //             id: 1,
@@ -64,11 +64,11 @@ let initialState = {
         //     number: '+ 7 934 43 59 435',
         //     todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
         //     files: [{id: 1, name: 'file.txt'}],
-        //     timeFrom: '09.00',
-        //     timeTo: '18.00',
-        //     hasPause: true,
-        //     pauseFrom: '09.00',
-        //     pauseTo: '18.00',
+        //     time_from: '09.00',
+        //     time_to: '18.00',
+        //     has_pause: true,
+        //     pause_from: '09.00',
+        //     pause_to: '18.00',
         //     values: [
         //         {
         //             id: 1,
@@ -93,7 +93,7 @@ let initialState = {
         //     ]
         // }
     ],
-    updatePoint: null,
+    update_point: null,
     name: '',
     address: '',
     address_longitude: null,
@@ -106,11 +106,11 @@ let initialState = {
     number_error: false,
     todo: '',
     files: [],
-    timeFrom: '',
-    timeTo: '',
-    hasPause: 0,
-    pauseFrom: '',
-    pauseTo: '',
+    time_from: '',
+    time_to: '',
+    has_pause: 0,
+    pause_from: '',
+    pause_to: '',
     values: [
         {
             id: 1,
@@ -133,9 +133,9 @@ let initialState = {
             selected: false
         },
     ],
-    showValuesCollapse: false,
+    show_values_collapse: false,
     values_error: false,
-    showForm: false
+    show_form: false
 };
 
 const pointsReducer = (state = initialState, action) => {
@@ -147,7 +147,7 @@ const pointsReducer = (state = initialState, action) => {
                     address_error: !state.address,
                     number_error: !state.number,
                     values_error: !(state.values.find(value => value.selected)),
-                    showForm: true
+                    show_form: true
                 };
             }
             let point = {
@@ -161,11 +161,11 @@ const pointsReducer = (state = initialState, action) => {
                 number: state.number,
                 todo: state.todo,
                 files: state.files,
-                timeFrom: state.timeFrom,
-                timeTo: state.timeTo,
-                hasPause: state.hasPause,
-                pauseFrom: state.pauseFrom,
-                pauseTo: state.pauseTo,
+                time_from: state.time_from,
+                time_to: state.time_to,
+                has_pause: state.has_pause,
+                pause_from: state.pause_from,
+                pause_to: state.pause_to,
                 values: [...state.values]
             }
             let points = [...state.points];
@@ -181,11 +181,11 @@ const pointsReducer = (state = initialState, action) => {
                 number: '',
                 todo: '',
                 files: [],
-                timeFrom: '',
-                timeTo: '',
-                hasPause: 0,
-                pauseFrom: '',
-                pauseTo: '',
+                time_from: '',
+                time_to: '',
+                has_pause: 0,
+                pause_from: '',
+                pause_to: '',
                 values: [
                     {
                         id: 1,
@@ -208,7 +208,7 @@ const pointsReducer = (state = initialState, action) => {
                         selected: false
                     },
                 ],
-                showForm: false,
+                show_form: false,
                 address_error: false,
                 number_error: false,
                 values_error: false
@@ -217,7 +217,7 @@ const pointsReducer = (state = initialState, action) => {
             let pointToShow = state.points[action.index];
             return {
                 ...state,
-                updatePoint: action.index,
+                update_point: action.index,
                 name: pointToShow.name,
                 address: pointToShow.address,
                 address_longitude: pointToShow.address_longitude,
@@ -228,19 +228,20 @@ const pointsReducer = (state = initialState, action) => {
                 number: pointToShow.number,
                 todo: pointToShow.todo,
                 files: pointToShow.files,
-                timeFrom: pointToShow.timeFrom,
-                timeTo: pointToShow.timeTo,
-                hasPause: pointToShow.hasPause,
-                pauseFrom: pointToShow.pauseFrom,
-                pauseTo: pointToShow.pauseTo,
-                values: [...pointToShow.values]
+                time_from: pointToShow.time_from,
+                time_to: pointToShow.time_to,
+                has_pause: pointToShow.has_pause,
+                pause_from: pointToShow.pause_from,
+                pause_to: pointToShow.pause_to,
+                values: [...pointToShow.values],
+                show_form: true
             };
         case DO_UPDATE_POINT:
             if (!state.address) {
                 return {
                     ...state,
                     address_error: true,
-                    showForm: true
+                    show_form: true
                 };
             }
             let pointToUpdate = {
@@ -254,11 +255,11 @@ const pointsReducer = (state = initialState, action) => {
                 number: state.number,
                 todo: state.todo,
                 files: state.files,
-                timeFrom: state.timeFrom,
-                timeTo: state.timeTo,
-                hasPause: state.hasPause,
-                pauseFrom: state.pauseFrom,
-                pauseTo: state.pauseTo,
+                time_from: state.time_from,
+                time_to: state.time_to,
+                has_pause: state.has_pause,
+                pause_from: state.pause_from,
+                pause_to: state.pause_to,
                 values: [...state.values]
             }
             let pointsToUpdate = [...state.points];
@@ -266,7 +267,7 @@ const pointsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 points: pointsToUpdate,
-                updatePoint: null,
+                update_point: null,
                 name: '',
                 address: '',
                 address_latitude: null,
@@ -277,11 +278,11 @@ const pointsReducer = (state = initialState, action) => {
                 number: '',
                 todo: '',
                 files: [],
-                timeFrom: '',
-                timeTo: '',
-                hasPause: 0,
-                pauseFrom: '',
-                pauseTo: '',
+                time_from: '',
+                time_to: '',
+                has_pause: 0,
+                pause_from: '',
+                pause_to: '',
                 values: [
                     {
                         id: 1,
@@ -304,7 +305,7 @@ const pointsReducer = (state = initialState, action) => {
                         selected: false
                     },
                 ],
-                showForm: false,
+                show_form: false,
                 address_error: false,
                 number_error: false,
                 values_error: false
@@ -370,12 +371,12 @@ const pointsReducer = (state = initialState, action) => {
         case TOGGLE_VALUES_COLLAPSE:
             return {
                 ...state,
-                showValuesCollapse: action.show
+                show_values_collapse: action.show
             }
         case TOGGLE_FORM:
             return {
                 ...state,
-                showForm: action.show
+                show_form: action.show
             }
         default:
             return state;

@@ -18,7 +18,7 @@ let initialState = {
     body_options: [],
     active_body_option: 'bca0024d-f0f9-11db-9d25-000cf16cef9c',
     body_option_characteristics: [],
-    showOptionCollapse: false
+    show_option_collapse: false
 };
 
 const carBodyReducer = (state = initialState, action) => {
@@ -87,7 +87,7 @@ const carBodyReducer = (state = initialState, action) => {
         case TOGGLE_OPTION_COLLAPSE:
             return {
                 ...state,
-                showOptionCollapse: action.show
+                show_option_collapse: action.show
             }
         case TOGGLE_CH_COLLAPSE:
             let items = [...state.body_option_characteristics];
@@ -141,7 +141,6 @@ export const setBodyOptionChsThunk = (bodyOptionId, bodyTypeId, categoryId) => a
         if (characteristic.type === 'ref') {
             let responseValues = await vehicleAPI.getBodyOptionChValues(characteristic.id, categoryId);
             characteristic.values = responseValues.data;
-            //if (characteristic.values.length > 0) characteristic.values[0].selected = true;
         } else {
             characteristic.value = false;
         }

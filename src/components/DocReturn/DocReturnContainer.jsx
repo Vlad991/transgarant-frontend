@@ -10,36 +10,18 @@ class DocReturnContainer extends React.Component {
         this.props.toggleReturn();
     }
 
-    setName = (id) => {
-        this.props.setName(id);
-    }
-
-    setData = (object) => {
-        this.props.setData(object);
-    }
-
     render() {
         return (
-            <DocReturn show={this.props.show}
+            <DocReturn state={this.props.state}
                        toggleReturn={this.toggleReturn}
-                       names={this.props.names}
-                       address={this.props.address}
-                       fullName={this.props.fullName}
-                       phone={this.props.phone}
-                       setName={this.setName}
-                       setData={this.setData}/>
+                       setName={this.props.setName}
+                       setData={this.props.setData}/>
         );
     };
 }
 
 let mapStateToProps = (state) => ({
-    show: state.docReturnReducer.show,
-    names: state.docReturnReducer.names,
-    address: state.docReturnReducer.address,
-    address_longitude: state.docReturnReducer.address_longitude,
-    address_latitude: state.docReturnReducer.address_latitude,
-    fullName: state.docReturnReducer.fullName,
-    phone: state.docReturnReducer.phone,
+    state: state.docReturnReducer
 });
 
 export default connect(mapStateToProps, {toggleReturn, setName, setData})(DocReturnContainer);

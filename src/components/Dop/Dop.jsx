@@ -1,13 +1,13 @@
 import React from "react";
 
-const Dop = ({active, toggle, additionalRequirements, toggleAdditional}) => {
+const Dop = ({state, toggle, toggleAdditional}) => {
     return (
         <section className="checkout__dop dop checkout__title">
             <div className="dop__title">Выберите дополнительные услуги к заказу</div>
-            <div onClick={e => toggle(e)} className={"dop__check-items collapse" + (active ? ' collapse_active' : '')}>
-                <div className="collapse__selected">УСЛУГИ К ЗАЯВКЕ: {additionalRequirements.map(item => (item.selected ? (item.name + ', ') : ''))}</div>
+            <div onClick={e => toggle(e)} className={"dop__check-items collapse" + (state.active ? ' collapse_active' : '')}>
+                <div className="collapse__selected">УСЛУГИ К ЗАЯВКЕ: {state.additional_requirements.map(item => (item.selected ? (item.name + ', ') : ''))}</div>
                 <div onClick={(e) => e.stopPropagation()} className="collapse__items">
-                    {additionalRequirements.map(item => {
+                    {state.additional_requirements.map(item => {
                         return (
                             <label key={item.id} onClick={(e) => toggleAdditional(e, item.id)} className="dop__check check-wrap">
                                 {item.name}

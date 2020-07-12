@@ -1,7 +1,7 @@
 import React from "react";
 import {PartySuggestions} from "react-dadata";
 
-const Payment = ({selectedPayment, payments, setPayment, company, setCompany}) => {
+const Payment = ({state, setPayment, setCompany}) => {
     return (
         <>
             <section className="checkout__payment checkout__title payment">
@@ -25,7 +25,7 @@ const Payment = ({selectedPayment, payments, setPayment, company, setCompany}) =
                         <div className="info-icon__text">Оплата за заказ производится напрямую водителю наличными денежными средствами. <br/>Закрывающие документы не предоставляются.
                         </div>
                     </div>
-                    {selectedPayment === 2 ?
+                    {state.selected_payment === 2 ?
                         <input type="radio" name="payment" checked className="check-wrap__input"/> :
                         <input type="radio" name="payment" onChange={() => setPayment(2)} className="check-wrap__input"/>}
                     <span className="check-wrap__mark"></span>
@@ -51,16 +51,16 @@ const Payment = ({selectedPayment, payments, setPayment, company, setCompany}) =
                             Для этого при выборе данного способа оплаты необходимо ввести ИНН, заполнить контактные данные и разместить заказ.
                         </div>
                     </div>
-                    {selectedPayment === 3 ?
+                    {state.selected_payment === 3 ?
                         <input type="radio" name="payment" checked className="check-wrap__input"/> :
                         <input type="radio" name="payment" onChange={() => setPayment(3)} className="check-wrap__input"/>}
                     <span className="check-wrap__mark"></span>
                 </label>
             </section>
-            {selectedPayment === 3 ?
+            {state.selected_payment === 3 ?
                 <section className="checkout__social social">
                     <PartySuggestions token="4907ed3e0ba286c611e621c3db1588fe3ce7f53c"
-                                      value={company}
+                                      value={state.company}
                                       onChange={setCompany}
                                       containerClassName={"client-form__input client-form__company input-wrap input-wrap_address"}
                                       inputProps={{className: 'input-wrap__input', placeholder: 'ИНН'}}/>

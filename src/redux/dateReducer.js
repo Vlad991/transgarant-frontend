@@ -2,14 +2,14 @@ const SET_DATE_FROM = 'SET-DATE-FROM';
 const SET_DATE_TO = 'SET-DATE-TO';
 
 let initialState = {
-    dateFrom: new Date(),
-    dateTo: new Date()
+    date_from: new Date(),
+    date_to: new Date()
 };
 
 const dateReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_DATE_FROM:
-            let dateToCopy = state.dateTo;
+            let dateToCopy = state.date_to;
             dateToCopy.setMonth(action.date.getMonth());
             dateToCopy.setFullYear(action.date.getFullYear());
             dateToCopy.setDate(action.date.getDate());
@@ -17,11 +17,11 @@ const dateReducer = (state = initialState, action) => {
             dateToCopy.setMinutes(action.date.getMinutes() + 15);
             return {
                 ...state,
-                dateFrom: action.date,
-                dateTo: dateToCopy
+                date_from: action.date,
+                date_to: dateToCopy
             };
         case SET_DATE_TO:
-            let dateFromCopy = state.dateFrom;
+            let dateFromCopy = state.date_from;
             dateFromCopy.setMonth(action.date.getMonth());
             dateFromCopy.setFullYear(action.date.getFullYear());
             dateFromCopy.setDate(action.date.getDate());
@@ -33,8 +33,8 @@ const dateReducer = (state = initialState, action) => {
             }
             return {
                 ...state,
-                dateTo: action.date,
-                dateFrom: dateFromCopy
+                date_to: action.date,
+                date_from: dateFromCopy
             };
         default:
             return state;

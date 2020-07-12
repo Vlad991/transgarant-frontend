@@ -1,0 +1,68 @@
+import React from 'react';
+import Points from "./Points";
+import {connect} from "react-redux";
+import {addFileThunk, addPoint, deletePoint, doUpdatePoint, setAddress, setFormState, setNumber, showPointInfo, toggleForm, toggleValue, toggleValuesCollapse} from "../../redux/pointsReducer";
+import Summary from "../Summary/Summary";
+
+class PointsContainer extends React.Component {
+
+    toggleCollapse = (e) => {
+        e.stopPropagation();
+        this.props.toggleValuesCollapse(!this.props.state.show_values_collapse);
+    }
+
+    deletePoint = (e, index) => {
+        e.stopPropagation();
+        this.props.deletePoint(index);
+    }
+
+    addFile = (e) => {
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        let name = file.name;
+        let data;
+        reader.onload = e => {
+            data = e.target.result;
+            this.props.addFileThunk(name, data);
+        }
+    }
+
+    render() {
+        return (
+            <Points state={this.props.state}
+                    docReturn={this.props.docReturn}
+                    lastPointAddress={this.props.last_point_address}
+                    lastPointAddressLongitude={this.props.last_point_address_longitude}
+                    lastPointAddressLatitude={this.props.last_point_address_latitude}
+                    lastPointFullName={this.props.last_point_full_name}
+                    lastPointPhone={this.props.last_point_phone}
+
+                    toggleForm={this.props.toggleForm}
+                    doUpdatePoint={this.props.doUpdatePoint}
+                    deletePoint={this.deletePoint}
+                    addPoint={this.props.addPoint}
+                    setFormState={this.props.setFormState}
+                    setAddress={this.props.setAddress}
+                    setNumber={this.props.setNumber}
+                    addFile={this.addFile}
+                    toggleValue={this.props.toggleValue}
+                    toggleCollapse={this.toggleCollapse}
+                    showPointInfo={this.props.showPointInfo}
+            />
+        );
+    };
+}
+
+let mapStateToProps = (state) => ({
+    state: state.pointsReducer,
+    docReturn: state.docReturnReducer.show,
+    last_point_address: state.docReturnReducer.address,
+    last_point_address_longitude: state.docReturnReducer.address_longitude,
+    last_point_address_latitude: state.docReturnReducer.address_latitude,
+    last_point_full_name: state.docReturnReducer.full_name,
+    last_point_phone: state.docReturnReducer.phone,
+});
+
+export default connect(mapStateToProps,
+    {addPoint, showPointInfo, doUpdatePoint, deletePoint, toggleValue, setAddress, setNumber, setFormState, toggleValuesCollapse, toggleForm, addFileThunk})(PointsContainer);

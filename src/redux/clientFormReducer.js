@@ -7,6 +7,9 @@ const SET_EMAIL = 'SET-EMAIL';
 const SHOW_ORDER_RESULT = 'SHOW-ORDER-RESULT';
 const SET_NUMBER_ENTERED = 'SET-NUMBER-ENTERED';
 const SET_RECAPTCHA_ENTERED = 'SET-RECAPTCHA-ENTERED';
+const SET_CODE_SENT = 'SET-CODE-SENT';
+const SET_CODE = 'SET-CODE';
+const VERIFY_CODE = 'VERIFY-CODE';
 
 let initialState = {
     client_name: '',
@@ -16,10 +19,13 @@ let initialState = {
     number_is_registered: false,
     number_is_entered: false,
     recaptcha_is_entered: false,
+    code_is_sent: false,
+    client_number_code: null,
+    code_is_verified: false,
     client_email: '',
     email_error: false,
-    orderIsProcessed: false,
-    orderId: null
+    order_is_processed: false,
+    order_id: null
 };
 
 const clientFormReducer = (state = initialState, action) => {
@@ -61,8 +67,8 @@ const clientFormReducer = (state = initialState, action) => {
         case SHOW_ORDER_RESULT:
             return {
                 ...state,
-                orderIsProcessed: action.processed,
-                orderId: action.id
+                order_is_processed: action.processed,
+                order_id: action.id
             };
         case SET_NUMBER_ENTERED:
             return {
@@ -73,6 +79,22 @@ const clientFormReducer = (state = initialState, action) => {
             return {
                 ...state,
                 recaptcha_is_entered: action.value
+            }
+        case SET_CODE_SENT:
+            return {
+                ...state,
+                code_is_sent: action.value,
+                client_number_code: null
+            }
+        case SET_CODE:
+            return {
+                ...state,
+                client_number_code: action.code
+            }
+        case VERIFY_CODE:
+            return {
+                ...state,
+                code_is_verified: action.value
             }
         default:
             return state;
@@ -85,17 +107,17 @@ export const setEmail = (value) => ({type: SET_EMAIL, value});
 export const showOrderResult = (id, processed) => ({type: SHOW_ORDER_RESULT, id, processed});
 export const setNumberEntered = (value) => ({type: SET_NUMBER_ENTERED, value});
 export const setRecaptchaEntered = (value) => ({type: SET_RECAPTCHA_ENTERED, value});
+export const setCodeSent = (value) => ({type: SET_CODE_SENT, value});
+export const setCode = (code) => ({type: SET_CODE, code});
+export const verifyCode = (value) => ({type: VERIFY_CODE, value});
 
-export const setNumberThunk = (phone) => async (dispatch, getState) => {
+export const setNumberThunk = (phone) => async (dispatch) => {
     if (!validator.isEmpty(phone)) {
-        dispatch(setNumber(phone, false));
         if (phone.indexOf('_') === -1) {
+            dispatch(setNumber(phone, false));
             dispatch(setNumberEntered(true));
-            // let response = await phoneAPI.sendSms(phone);
-            // if (response.data.status === 'success') {
-            //     dispatch(sendSms());
-            // }
         } else {
+            dispatch(setNumber(phone, true));
             dispatch(setRecaptchaEntered(false));
             dispatch(setNumberEntered(false));
         }
@@ -104,11 +126,38 @@ export const setNumberThunk = (phone) => async (dispatch, getState) => {
     }
 };
 
-export const setRecaptchaThunk = (value) => async (dispatch, getState) => {
+export const setRecaptchaThunk = (value) => async (dispatch) => {
     if (value !== null) {
         dispatch(setRecaptchaEntered(true));
     } else {
         dispatch(setRecaptchaEntered(false));
+    }
+};
+
+export const sendCodeThunk = () => async (dispatch, getState) => {
+    let state = getState().clientFormReducer;
+    let response = await phoneAPI.sendSms(state.client_number);
+    if (response.data.status === 'success') {
+        dispatch(setCodeSent(true));
+    } else {
+        dispatch(setCodeSent(false));
+    }
+};
+
+export const setCodeThunk = (code) => async (dispatch, getState) => {
+    let state = getState().clientFormReducer;
+    if (code.indexOf('_') === -1) {
+        dispatch(setCode(code));
+        let phone = state.client_number.replace('+', '')
+            .replace(/ /g, '')
+            .replace('(', '')
+            .replace(')', '');
+        let response = await phoneAPI.checkSms(phone, code.replace(/ /g, ''));
+        if (response.data.valid === true) {
+            dispatch(verifyCode(true));
+        }
+    } else {
+        dispatch(setCode(code));
     }
 };
 

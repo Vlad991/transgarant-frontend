@@ -6,7 +6,11 @@ const Cargo = ({
                    packages,
                    palletTypes,
                    packageTypes,
+                   editPlaceBool,
+                   editPalletBool,
+                   editPackageBool,
                    listActive,
+
                    toggleList,
                    editPlace,
                    removePlace,
@@ -14,10 +18,7 @@ const Cargo = ({
                    removePallet,
                    editPackage,
                    removePackage,
-                   editPlaceBool,
-                   editPalletBool,
-                   editPackageBool,
-                   updateCargo
+                   updateCargo,
                }) => {
     return (
         <section className="checkout__cargo-items cargo-items">

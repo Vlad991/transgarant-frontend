@@ -21,7 +21,7 @@ const TOGGLE_PALLET_COLLAPSE = 'TOGGLE-PALLET-COLLAPSE';
 const TOGGLE_PACKAGE_COLLAPSE = 'TOGGLE-PACKAGE-COLLAPSE';
 
 let initialState = {
-    activeTab: 1,
+    active_tab: 1,
     name: '',
     price: 0,
     quantity: 1,
@@ -34,36 +34,36 @@ let initialState = {
     pallet_width: 1,
     pallet_height: 1,
     pallet_weight: 1,
-    pallet_types: [{name: ''}],
+    pallet_types: [{id: '', name: ''}],
     pallets: [],
-    editPallet: null,
+    edit_pallet: null,
 
     place_length: 1,
     place_width: 1,
     place_height: 1,
     place_weight: 1,
     places: [],
-    editPlace: null,
+    edit_place: null,
 
     package_quantity: 1,
     package_length: 1,
     package_width: 1,
     package_height: 1,
     package_weight: 1,
-    package_types: [{name: ''}],
+    package_types: [{id: '', name: ''}],
     packages: [],
-    editPackage: null,
+    edit_package: null,
 
     selected_pallet: '',
     selected_package: '',
     packed_items: [],
-    cargoHeight: 3.7,
-    cargoWidth: 2.9,
+    cargo_height: 3.7,
+    cargo_width: 2.9,
     total_weight: 0,
     total_volume: 0,
     total_area: 0,
-    showPalletCollapse: false,
-    showPackageCollapse: false
+    show_pallet_collapse: false,
+    show_package_collapse: false
 };
 
 const cargoReducer = (state = initialState, action) => {
@@ -71,7 +71,7 @@ const cargoReducer = (state = initialState, action) => {
         case SET_ACTIVE_TAB:
             return {
                 ...state,
-                activeTab: action.tab
+                active_tab: action.tab
             }
         case SET_PALLET_TYPES:
             return {
@@ -123,7 +123,7 @@ const cargoReducer = (state = initialState, action) => {
                 pallet.quantity = action.object.quantity;
             return {
                 ...state,
-                editPallet: action.index,
+                edit_pallet: action.index,
                 pallets
             }
         case ADD_PLACE:
@@ -145,7 +145,7 @@ const cargoReducer = (state = initialState, action) => {
                 place.size.weight = action.object.size.weight;
             return {
                 ...state,
-                editPlace: action.index,
+                edit_place: action.index,
                 places
             }
         case ADD_PACKAGE:
@@ -171,7 +171,7 @@ const cargoReducer = (state = initialState, action) => {
                 packag.quantity = action.object.quantity;
             return {
                 ...state,
-                editPackage: action.index,
+                edit_package: action.index,
                 packages
             }
         case SET_PACKED_ITEMS:
@@ -182,8 +182,8 @@ const cargoReducer = (state = initialState, action) => {
         case SET_CARGO_SIZES:
             return {
                 ...state,
-                cargoHeight: action.height,
-                cargoWidth: action.width
+                cargo_height: action.height,
+                cargo_width: action.width
             }
         case SET_CARGO_DATA:
             return {
@@ -195,19 +195,19 @@ const cargoReducer = (state = initialState, action) => {
         case DISABLE_ITEMS_EDIT_MODE:
             return {
                 ...state,
-                editPackage: null,
-                editPlace: null,
-                editPallet: null
+                edit_package: null,
+                edit_place: null,
+                edit_pallet: null
             }
         case TOGGLE_PALLET_COLLAPSE:
             return {
                 ...state,
-                showPalletCollapse: action.show
+                show_pallet_collapse: action.show
             }
         case TOGGLE_PACKAGE_COLLAPSE:
             return {
                 ...state,
-                showPackageCollapse: action.show
+                show_package_collapse: action.show
             }
         default:
             return state;
@@ -229,7 +229,7 @@ export const editPackage = (index, object) => ({type: EDIT_PACKAGE, index, objec
 export const setPackedItems = (packed_items) => ({type: SET_PACKED_ITEMS, packed_items});
 export const setCargoSizes = (height, width) => ({type: SET_CARGO_SIZES, height, width});
 export const setCargoData = (total_weight, total_volume, total_area) => ({type: SET_CARGO_DATA, total_weight, total_volume, total_area});
-export const disableItemsEditMode = ()  => ({type: DISABLE_ITEMS_EDIT_MODE});
+export const disableItemsEditMode = () => ({type: DISABLE_ITEMS_EDIT_MODE});
 export const togglePalletCollapse = (show) => ({type: TOGGLE_PALLET_COLLAPSE, show});
 export const togglePackageCollapse = (show) => ({type: TOGGLE_PACKAGE_COLLAPSE, show});
 
@@ -292,25 +292,25 @@ export const removePlaceThunk = (index) => async (dispatch, getState) => {
     }
 };
 
-export const doEditPlaceThunk = () => async (dispatch, getState) => {
-    let state = getState().cargoReducer;
-    let places = [...state.places];
-    let place = places[state.editPlace];
-    place.size.length = state.place_length;
-    place.size.width = state.place_width;
-    place.size.height = state.place_height;
-    place.size.weight = state.place_weight;
-    let response = await cargoAPI.addCargo(state.name, state.price, places, state.pallets, state.packages, state.body_option_id, state.body_option_characteristics);
-    if (response.status === 200) {
-        dispatch(addPlaces(places));
-        dispatch(setCategory(response.data.car_type_id));
-        dispatch(setPackedItems(response.data.packed_items));
-        dispatch(setCargoSizes(response.data.height, response.data.width));
-        dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
-    } else {
-        console.error("Edit Place: failed");
-    }
-};
+// export const doEditPlaceThunk = () => async (dispatch, getState) => {
+//     let state = getState().cargoReducer;
+//     let places = [...state.places];
+//     let place = places[state.edit_place];
+//     place.size.length = state.place_length;
+//     place.size.width = state.place_width;
+//     place.size.height = state.place_height;
+//     place.size.weight = state.place_weight;
+//     let response = await cargoAPI.addCargo(state.name, state.price, places, state.pallets, state.packages, state.body_option_id, state.body_option_characteristics);
+//     if (response.status === 200) {
+//         dispatch(addPlaces(places));
+//         dispatch(setCategory(response.data.car_type_id));
+//         dispatch(setPackedItems(response.data.packed_items));
+//         dispatch(setCargoSizes(response.data.height, response.data.width));
+//         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
+//     } else {
+//         console.error("Edit Place: failed");
+//     }
+// };
 
 export const addPalletThunk = () => async (dispatch, getState) => {
     let state = getState().cargoReducer;
@@ -361,27 +361,27 @@ export const removePalletThunk = (index) => async (dispatch, getState) => {
     }
 };
 
-export const doEditPalletThunk = () => async (dispatch, getState) => {
-    let state = getState().cargoReducer;
-    let pallets = [...state.pallets];
-    let pallet = pallets[state.editPallet];
-    pallet.quantity = state.pallet_quantity;
-    pallet.pallet_type_id = state.selected_pallet;
-    pallet.size.length = state.pallet_length;
-    pallet.size.width = state.pallet_width;
-    pallet.size.height = state.pallet_height;
-    pallet.size.weight = state.pallet_weight;
-    let response = await cargoAPI.addCargo(state.name, state.price, state.places, pallets, state.packages, state.body_option_id, state.body_option_characteristics);
-    if (response.status === 200) {
-        dispatch(addPallets(pallets));
-        dispatch(setCategory(response.data.car_type_id));
-        dispatch(setPackedItems(response.data.packed_items));
-        dispatch(setCargoSizes(response.data.height, response.data.width));
-        dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
-    } else {
-        console.error("Edit Pallet: failed");
-    }
-};
+// export const doEditPalletThunk = () => async (dispatch, getState) => {
+//     let state = getState().cargoReducer;
+//     let pallets = [...state.pallets];
+//     let pallet = pallets[state.edit_pallet];
+//     pallet.quantity = state.pallet_quantity;
+//     pallet.pallet_type_id = state.selected_pallet;
+//     pallet.size.length = state.pallet_length;
+//     pallet.size.width = state.pallet_width;
+//     pallet.size.height = state.pallet_height;
+//     pallet.size.weight = state.pallet_weight;
+//     let response = await cargoAPI.addCargo(state.name, state.price, state.places, pallets, state.packages, state.body_option_id, state.body_option_characteristics);
+//     if (response.status === 200) {
+//         dispatch(addPallets(pallets));
+//         dispatch(setCategory(response.data.car_type_id));
+//         dispatch(setPackedItems(response.data.packed_items));
+//         dispatch(setCargoSizes(response.data.height, response.data.width));
+//         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
+//     } else {
+//         console.error("Edit Pallet: failed");
+//     }
+// };
 
 export const addPackageThunk = () => async (dispatch, getState) => {
     let state = getState().cargoReducer;
@@ -432,27 +432,27 @@ export const removePackageThunk = (index) => async (dispatch, getState) => {
     }
 };
 
-export const doEditPackageThunk = () => async (dispatch, getState) => {
-    let state = getState().cargoReducer;
-    let packages = [...state.packages];
-    let packag = packages[state.editPackage];
-    packag.quantity = state.package_quantity;
-    packag.package_type_id = state.selected_package;
-    packag.size.length = state.package_length;
-    packag.size.width = state.package_width;
-    packag.size.height = state.package_height;
-    packag.size.weight = state.package_weight;
-    let response = await cargoAPI.addCargo(state.name, state.price, state.places, state.pallets, packages, state.body_option_id, state.body_option_characteristics);
-    if (response.status === 200) {
-        dispatch(addPackages(packages));
-        dispatch(setCategory(response.data.car_type_id));
-        dispatch(setPackedItems(response.data.packed_items));
-        dispatch(setCargoSizes(response.data.height, response.data.width));
-        dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
-    } else {
-        console.error("Edit Package: failed");
-    }
-};
+// export const doEditPackageThunk = () => async (dispatch, getState) => {
+//     let state = getState().cargoReducer;
+//     let packages = [...state.packages];
+//     let packag = packages[state.edit_package];
+//     packag.quantity = state.package_quantity;
+//     packag.package_type_id = state.selected_package;
+//     packag.size.length = state.package_length;
+//     packag.size.width = state.package_width;
+//     packag.size.height = state.package_height;
+//     packag.size.weight = state.package_weight;
+//     let response = await cargoAPI.addCargo(state.name, state.price, state.places, state.pallets, packages, state.body_option_id, state.body_option_characteristics);
+//     if (response.status === 200) {
+//         dispatch(addPackages(packages));
+//         dispatch(setCategory(response.data.car_type_id));
+//         dispatch(setPackedItems(response.data.packed_items));
+//         dispatch(setCargoSizes(response.data.height, response.data.width));
+//         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
+//     } else {
+//         console.error("Edit Package: failed");
+//     }
+// };
 
 export const updateCargoThunk = () => async (dispatch, getState) => {
     let state = getState().cargoReducer;

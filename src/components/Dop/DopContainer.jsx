@@ -20,17 +20,15 @@ class DopContainer extends React.Component {
 
     render() {
         return (
-            <Dop active={this.props.active}
+            <Dop state={this.props.state}
                  toggle={this.toggle}
-                 additionalRequirements={this.props.additional_requirements}
                  toggleAdditional={this.toggleAdditional}/>
         );
     };
 }
 
 let mapStateToProps = (state) => ({
-    active: state.dopReducer.active,
-    additional_requirements: state.dopReducer.additional_requirements
+    state: state.dopReducer
 });
 
 export default connect(mapStateToProps, {dopToggle, setDopThunk, toggleAdditional})(DopContainer);

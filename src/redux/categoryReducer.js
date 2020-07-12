@@ -60,7 +60,7 @@ let initialState = {
             name: 'Категория 7',
         },
     ],
-    activeCategory: '52b30be1-49d5-11e7-9696-e41f13c2b942'
+    active_category: '52b30be1-49d5-11e7-9696-e41f13c2b942'
 };
 
 const categoryReducer = (state = initialState, action) => {
@@ -80,7 +80,7 @@ const categoryReducer = (state = initialState, action) => {
         case SET_CATEGORY:
             return {
                 ...state,
-                activeCategory: action.id
+                active_category: action.id
             };
         default:
             return state;

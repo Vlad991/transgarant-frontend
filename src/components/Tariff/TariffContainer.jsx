@@ -6,14 +6,14 @@ import {loadTariffThunk, setTariff} from "../../redux/tariffReducer";
 class TariffContainer extends React.Component {
 
     loadTariff = () => {
-        this.props.tariff_types.forEach(tariff => {
+        this.props.state.tariff_types.forEach(tariff => {
             this.props.loadTariffThunk(tariff.id);
         });
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (
-            (prevProps.activeCategory !== this.props.activeCategory) ||
+            (prevProps.active_category !== this.props.active_category) ||
             (prevProps.active_body_type !== this.props.active_body_type) ||
             (prevProps.active_body_option !== this.props.active_body_option) ||
             (prevProps.body_option_characteristics !== this.props.body_option_characteristics) ||
@@ -21,8 +21,8 @@ class TariffContainer extends React.Component {
             (prevProps.docReturn !== this.props.docReturn) ||
             (prevProps.docReturnNames !== this.props.docReturnNames) ||
             (prevProps.lastPointPrice !== this.props.lastPointPrice) ||
-            (prevProps.dateFrom !== this.props.dateFrom) ||
-            (prevProps.dateTo !== this.props.dateTo) ||
+            (prevProps.date_from !== this.props.date_from) ||
+            (prevProps.date_to !== this.props.date_to) ||
             (prevProps.points !== this.props.points) ||
             (prevProps.places !== this.props.places) ||
             (prevProps.pallets !== this.props.pallets) ||
@@ -33,17 +33,15 @@ class TariffContainer extends React.Component {
 
     render() {
         return (
-            <Tariff tariffTypes={this.props.tariff_types}
-                    selectedTariff={this.props.selected_tariff}
+            <Tariff state={this.props.state}
                     setTariff={this.props.setTariff}/>
         );
     };
 }
 
 let mapStateToProps = (state) => ({
-    tariff_types: state.tariffReducer.tariff_types,
-    selected_tariff: state.tariffReducer.selected_tariff,
-    activeCategory: state.categoryReducer.activeCategory,
+    state: state.tariffReducer,
+    active_category: state.categoryReducer.active_category,
     active_body_type: state.carBodyReducer.active_body_type,
     active_body_option: state.carBodyReducer.active_body_option,
     body_option_characteristics: state.carBodyReducer.body_option_characteristics,
@@ -51,8 +49,8 @@ let mapStateToProps = (state) => ({
     docReturn: state.docReturnReducer.show,
     docReturnNames: state.docReturnReducer.names,
     lastPointPrice: state.docReturnReducer.price,
-    dateFrom: state.dateReducer.dateFrom,
-    dateTo: state.dateReducer.dateTo,
+    date_from: state.dateReducer.date_from,
+    date_to: state.dateReducer.date_to,
     points: state.pointsReducer.points,
     places: state.cargoReducer.places,
     pallets: state.cargoReducer.pallets,

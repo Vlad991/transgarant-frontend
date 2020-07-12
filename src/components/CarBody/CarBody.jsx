@@ -2,18 +2,14 @@ import React from "react";
 import CollapseContainer from "../CollapseContainer";
 
 const CarBody = ({
-                     bodyTypes,
-                     activeBodyType,
+                     state,
+
                      setActiveBodyType,
-                     bodyOptions,
-                     activeBodyOption,
                      setBodyOption,
-                     bodyOptionCharacteristics,
                      setBodyOptionChVal,
                      markBodyOptionCh,
-                     showOptionCollapse,
                      toggleOptionCollapse,
-                     toggleChCollapse
+                     toggleChCollapse,
                  }) => {
     return (
         <section className="checkout__car-body car-body">
@@ -21,9 +17,9 @@ const CarBody = ({
             <div className="car-body__cols">
                 <div className="car-body__col">
                     <div className="car-body__variants">
-                        {bodyTypes.map(bodyType => {
+                        {state.body_types.map(bodyType => {
                             return (
-                                <div key={bodyType.id} className={"car-body__variant-card variant-card" + (bodyType.id === activeBodyType ? ' variant-card_active' : '')} onClick={() => setActiveBodyType(bodyType.id)}>
+                                <div key={bodyType.id} className={"car-body__variant-card variant-card" + (bodyType.id === state.active_body_type ? ' variant-card_active' : '')} onClick={() => setActiveBodyType(bodyType.id)}>
                                     <div className="variant-card__img"><img src={bodyType.img} alt="Car Body"/></div>
                                     <div className="variant-card__title">{bodyType.name}</div>
                                 </div>
@@ -31,18 +27,18 @@ const CarBody = ({
                         })}
                     </div>
                     <div className="car-body__options">
-                        {activeBodyType === 0 ?
-                            <CollapseContainer active={showOptionCollapse}
+                        {state.active_body_type === 0 ?
+                            <CollapseContainer active={state.show_option_collapse}
                                                toggleCollapse={toggleOptionCollapse}
                                                elementClass="car-body__variant-card"
-                                               selected={bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption)}
-                                               items={bodyOptions}
+                                               selected={state.body_options.find(bodyOption => bodyOption.id === state.active_body_option)}
+                                               items={state.body_options}
                                                setItem={setBodyOption}/> :
-                            <div className="car-body__variant-card collapse collapse_disabled">{bodyOptions.find(bodyOption => bodyOption.id === activeBodyOption).name}</div>}
+                            <div className="car-body__variant-card collapse collapse_disabled">{state.body_options.find(bodyOption => bodyOption.id === state.active_body_option).name}</div>}
                     </div>
                 </div>
                 <div className="car-body__col check-block">
-                    {bodyOptionCharacteristics.map(bodyOptionCh => {
+                    {state.body_option_characteristics.map(bodyOptionCh => {
                         if (bodyOptionCh.type !== 'ref') {
                             return bodyOptionCh.value ?
                                 <label key={bodyOptionCh.id} className="check-block__item check-wrap" onClick={(e) => {

@@ -13,7 +13,7 @@ let initialState = {
     address: '',
     address_longitude: null,
     address_latitude: null,
-    fullName: '',
+    full_name: '',
     phone: '',
     price: null
 };
