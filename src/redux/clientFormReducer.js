@@ -4,12 +4,15 @@ import {orderAPI, phoneAPI} from "../api/api";
 const SET_NAME = 'SET-NAME';
 const SET_CLIENT_NUMBER = 'SET-CLIENT-NUMBER';
 const SET_EMAIL = 'SET-EMAIL';
-const SHOW_ORDER_RESULT = 'SHOW-ORDER-RESULT';
 const SET_NUMBER_ENTERED = 'SET-NUMBER-ENTERED';
 const SET_RECAPTCHA_ENTERED = 'SET-RECAPTCHA-ENTERED';
 const SET_CODE_SENT = 'SET-CODE-SENT';
 const SET_CODE = 'SET-CODE';
 const VERIFY_CODE = 'VERIFY-CODE';
+const SHOW_ORDER_RESULT = 'SHOW-ORDER-RESULT';
+const DO_PROCESSING_ORDER = 'DO-PROCESSING-ORDER';
+const SET_AGREE = 'SET-AGREE';
+const ENABLE_ERROR_MODE = 'ENABLE-ERROR-MODE';
 
 let initialState = {
     client_name: '',
@@ -25,7 +28,10 @@ let initialState = {
     client_email: '',
     email_error: false,
     order_is_processed: false,
-    order_id: null
+    order_is_processing: false,
+    order_id: null,
+    agree: false,
+    error_mode: false
 };
 
 const clientFormReducer = (state = initialState, action) => {
@@ -64,12 +70,6 @@ const clientFormReducer = (state = initialState, action) => {
                     email_error: true
                 };
             }
-        case SHOW_ORDER_RESULT:
-            return {
-                ...state,
-                order_is_processed: action.processed,
-                order_id: action.id
-            };
         case SET_NUMBER_ENTERED:
             return {
                 ...state,
@@ -96,6 +96,28 @@ const clientFormReducer = (state = initialState, action) => {
                 ...state,
                 code_is_verified: action.value
             }
+        case SHOW_ORDER_RESULT:
+            return {
+                ...state,
+                order_is_processed: action.processed,
+                order_is_processing: false,
+                order_id: action.id
+            };
+        case DO_PROCESSING_ORDER:
+            return {
+                ...state,
+                order_is_processing: action.processing
+            };
+        case SET_AGREE:
+            return {
+                ...state,
+                agree: action.value
+            }
+        case ENABLE_ERROR_MODE:
+            return {
+                ...state,
+                error_mode: action.value
+            }
         default:
             return state;
     }
@@ -104,12 +126,15 @@ const clientFormReducer = (state = initialState, action) => {
 export const setName = (value) => ({type: SET_NAME, value});
 export const setNumber = (phone, error) => ({type: SET_CLIENT_NUMBER, phone, error});
 export const setEmail = (value) => ({type: SET_EMAIL, value});
-export const showOrderResult = (id, processed) => ({type: SHOW_ORDER_RESULT, id, processed});
 export const setNumberEntered = (value) => ({type: SET_NUMBER_ENTERED, value});
 export const setRecaptchaEntered = (value) => ({type: SET_RECAPTCHA_ENTERED, value});
 export const setCodeSent = (value) => ({type: SET_CODE_SENT, value});
 export const setCode = (code) => ({type: SET_CODE, code});
 export const verifyCode = (value) => ({type: VERIFY_CODE, value});
+export const showOrderResult = (id, processed) => ({type: SHOW_ORDER_RESULT, id, processed});
+export const doProcessingOrder = (processing) => ({type: DO_PROCESSING_ORDER, processing});
+export const setAgree = (value) => ({type: SET_AGREE, value});
+export const enableErrorMode = (value) => ({type: ENABLE_ERROR_MODE, value});
 
 export const setNumberThunk = (phone) => async (dispatch) => {
     if (!validator.isEmpty(phone)) {
@@ -163,118 +188,157 @@ export const setCodeThunk = (code) => async (dispatch, getState) => {
 
 export const doOrderThunk = () => async (dispatch, getState) => {
     let state = getState();
-    let date = new Date();
-    date = date.getFullYear() + '-'
-        + (date.getMonth() > 9 ? date.getMonth() : ('0' + date.getMonth())) + '-'
-        + (date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())) + 'T'
-        + (date.getHours() > 9 ? date.getHours() : ('0' + date.getHours())) + ':'
-        + (date.getMinutes() > 9 ? date.getMinutes() : ('0' + date.getMinutes())) + ':00';
-    let bodyOptionCharacteristics = state.carBodyReducer.body_option_characteristics
-        .filter(item => {
-            if (item.type === 'ref') {
-                let selected = item.values.find(value => value.selected);
-                if (selected)
-                    return true;
-            } else {
-                if (item.value)
-                    return true;
-            }
-            return false;
-        }).map(item => {
-            if (item.type === 'ref') {
-                let selected = item.values.find(value => value.selected);
-                return ({id: item.id, value: selected.id});
-            } else {
-                return ({id: item.id, value: true});
-            }
-        });
-    let additionalRequirements = state.dopReducer.additional_requirements.filter(item => item.selected).map(item => ({id: item.id, value: true}));
-    let points = state.pointsReducer.points.map((item, index) => ({
-        id: index,
-        adress: item.address,
-        adress_comment: item.comment,
-        adress_longitude: item.address_longitude,
-        adress_latitude: item.address_latitude,
-        company: item.company,
-        contact_persons: [
-            {
-                full_name: item.contact_name,
-                phone: item.number,
-                phone_ext: '777',
-                email: null
-            }
-        ],
-        what_to_do: item.todo,
-        working_hours: {
-            time_from: item.timeFrom + ":00",
-            time_to: item.timeTo + ":00",
-            lunch_from: item.pauseFrom + ":00",
-            lunch_to: item.pauseTo + ":00",
-            no_lunch: !item.hasPause,
-            max_landing_time: ''
-        },
-        action_documents: false,
-        action_loading: true,
-        action_unloading: false,
-        action_forwarder: false,
-        files_ids: item.files.map(file => file.id)
-    }));
-    if (state.docReturnReducer.show) {
-        points.push({
-            id: points.length + 1,
-            adress: state.docReturnReducer.address,
-            adress_comment: '',
-            adress_longitude: state.docReturnReducer.address_longitude,
-            adress_latitude: state.docReturnReducer.address_latitude,
-            company: '',
+    dispatch(doProcessingOrder(true));
+    if (validateAllData(state, dispatch)) {
+        let date = new Date();
+        date = date.getFullYear() + '-'
+            + (date.getMonth() > 9 ? date.getMonth() : ('0' + date.getMonth())) + '-'
+            + (date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())) + 'T'
+            + (date.getHours() > 9 ? date.getHours() : ('0' + date.getHours())) + ':'
+            + (date.getMinutes() > 9 ? date.getMinutes() : ('0' + date.getMinutes())) + ':00';
+        let bodyOptionCharacteristics = state.carBodyReducer.body_option_characteristics
+            .filter(item => {
+                if (item.type === 'ref') {
+                    let selected = item.values.find(value => value.selected);
+                    if (selected)
+                        return true;
+                } else {
+                    if (item.value)
+                        return true;
+                }
+                return false;
+            }).map(item => {
+                if (item.type === 'ref') {
+                    let selected = item.values.find(value => value.selected);
+                    return ({id: item.id, value: selected.id});
+                } else {
+                    return ({id: item.id, value: true});
+                }
+            });
+        let additionalRequirements = state.dopReducer.additional_requirements.filter(item => item.selected).map(item => ({id: item.id, value: true}));
+        let points = state.pointsReducer.points.map((item, index) => ({
+            id: index,
+            adress: item.address,
+            adress_comment: item.comment,
+            adress_longitude: item.address_longitude,
+            adress_latitude: item.address_latitude,
+            company: item.company,
             contact_persons: [
                 {
-                    full_name: state.docReturnReducer.fullName,
-                    phone: state.docReturnReducer.phone,
+                    full_name: item.contact_name,
+                    phone: item.number,
                     phone_ext: '777',
                     email: null
                 }
             ],
-            what_to_do: 'Возврат документов',
+            what_to_do: item.todo,
             working_hours: {
-                time_from: '',
-                time_to: '',
-                lunch_from: '',
-                lunch_to: '',
-                no_lunch: true,
+                time_from: item.time_from + ":00",
+                time_to: item.time_to + ":00",
+                lunch_from: item.pause_from + ":00",
+                lunch_to: item.pause_to + ":00",
+                no_lunch: !item.has_pause,
                 max_landing_time: ''
             },
-            action_documents: true,
-            action_loading: false,
-            action_unloading: false,
-            action_forwarder: false,
-            files_ids: []
-        });
-    }
-    let response = await orderAPI.orders(
-        date,
-        state.carBodyReducer.active_body_type,
-        state.carBodyReducer.active_body_option,
-        bodyOptionCharacteristics,
-        additionalRequirements,
-        points,
-        state.cargoReducer.name,
-        state.cargoReducer.price,
-        state.cargoReducer.places,
-        state.cargoReducer.pallets,
-        state.cargoReducer.packages,
-        state.tariffReducer.selected_tariff,
-        state.clientFormReducer.full_name,
-        state.clientFormReducer.phone,
-        '777',
-        state.clientFormReducer.email,
-        state.paymentReducer.payments.find((item, index) => (index + 1) === state.paymentReducer.selected_payment) ?
-            state.paymentReducer.payments.find((item, index) => (index + 1) === state.paymentReducer.selected_payment).data : '');
-    if (response.status === 200) {
-        dispatch(showOrderResult(response.data.id, true));
+            action_documents: item.values[2].selected,
+            action_loading: item.values[0].selected,
+            action_unloading: item.values[1].selected,
+            action_forwarder: item.values[3].selected,
+            files_ids: item.files.map(file => file.id)
+        }));
+        if (state.docReturnReducer.show) {
+            points.push({
+                id: points.length + 1,
+                adress: state.docReturnReducer.address,
+                adress_comment: '',
+                adress_longitude: state.docReturnReducer.address_longitude,
+                adress_latitude: state.docReturnReducer.address_latitude,
+                company: '',
+                contact_persons: [
+                    {
+                        full_name: state.docReturnReducer.full_name,
+                        phone: state.docReturnReducer.phone,
+                        phone_ext: '777',
+                        email: null
+                    }
+                ],
+                what_to_do: 'Возврат документов',
+                working_hours: {
+                    time_from: '',
+                    time_to: '',
+                    lunch_from: '',
+                    lunch_to: '',
+                    no_lunch: true,
+                    max_landing_time: ''
+                },
+                action_documents: true,
+                action_loading: false,
+                action_unloading: false,
+                action_forwarder: false,
+                files_ids: []
+            });
+        }
+        let response = await orderAPI.orders(
+            date,
+            state.carBodyReducer.active_body_type,
+            state.carBodyReducer.active_body_option,
+            bodyOptionCharacteristics,
+            additionalRequirements,
+            points,
+            state.cargoReducer.name,
+            state.cargoReducer.price,
+            state.cargoReducer.places,
+            state.cargoReducer.pallets,
+            state.cargoReducer.packages,
+            state.tariffReducer.selected_tariff,
+            state.clientFormReducer.full_name,
+            state.clientFormReducer.phone,
+            '777',
+            state.clientFormReducer.email,
+            state.paymentReducer.payments.find((item, index) => (index + 1) === state.paymentReducer.selected_payment) ?
+                state.paymentReducer.payments.find((item, index) => (index + 1) === state.paymentReducer.selected_payment).data : '');
+        if (response.status === 200) {
+            dispatch(showOrderResult(response.data.id, true));
+        } else {
+            console.error("Do Order: failed");
+        }
     } else {
-        console.error("Do Order: failed");
+        dispatch(doProcessingOrder(false));
     }
 };
+
+const validateAllData = (state, dispatch) => {
+    let hasErrors = false;
+    if (state.pointsReducer.points.length < 2) {
+        hasErrors = true;
+    }
+    if (state.cargoReducer.packed_items.length === 0) {
+        hasErrors = true;
+    }
+    if (!state.paymentReducer.selected_payment) {
+        hasErrors = true;
+    }
+    if (!state.clientFormReducer.client_name) {
+        hasErrors = true;
+    }
+    if (!state.clientFormReducer.client_number) {
+        hasErrors = true;
+    }
+    if (!state.clientFormReducer.code_is_verified) {
+        hasErrors = true;
+    }
+    if (!state.clientFormReducer.client_email) {
+        hasErrors = true;
+    }
+    if (!state.clientFormReducer.agree) {
+        hasErrors = true;
+    }
+    if (hasErrors) {
+        dispatch(enableErrorMode(true));
+    } else {
+        dispatch(enableErrorMode(false));
+    }
+    return !hasErrors;
+}
 
 export default clientFormReducer;

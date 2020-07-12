@@ -17,6 +17,9 @@ class CarBodyContainer extends React.Component {
             this.props.setBodyOptionsThunk(this.props.state.active_body_type, this.props.active_category);
             this.props.setBodyOptionChsThunk(this.props.state.active_body_option, this.props.state.active_body_type, this.props.active_category);
         }
+        if (prevProps.state.active_body_option !== this.props.state.active_body_option) {
+            this.props.setBodyOptionChsThunk(this.props.state.active_body_option, this.props.state.active_body_type, this.props.active_category);
+        }
     }
 
     setActiveBodyType = async (typeId) => {

@@ -4,6 +4,7 @@
 
 .checkout__title
   @include fontSWCL(18px, bold, #000, 22px)
+  border: 1px solid #FBFBFB
   text-transform: uppercase
   padding: 0 21px
   background-color: #FBFBFB
@@ -12,6 +13,9 @@
   display: flex
   align-items: center
   min-height: 64px
+
+.checkout__has-error
+  border: 1px solid crimson
 
 sup
   font-size: xx-small
@@ -202,7 +206,7 @@ sup
   width: 100%
   box-sizing: border-box
   background-color: $yellow
-  border: 1px solid $yellow
+  border: 2px solid $yellow
   border-radius: 10px
   padding: 0 10px
   display: flex
@@ -225,6 +229,12 @@ sup
     margin-right: 1px
     &:hover
       box-shadow: 0 0 10px -1px rgba(0, 0, 0, 0.2)
+  &_disabled
+    cursor: not-allowed
+    background-color: #fff
+    color: $yellow
+  &_error
+    border: 2px solid crimson
 
 .button-rhomb
   width: 229px

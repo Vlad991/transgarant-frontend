@@ -18,6 +18,7 @@ import {toggleValuesCollapse} from "./redux/pointsReducer";
 import {toggleChCollapse, toggleOptionCollapse} from "./redux/carBodyReducer";
 import {togglePackageCollapse, togglePalletCollapse} from "./redux/cargoReducer";
 import PointsContainer from "./components/Points/PointsContainer";
+import AllertContainer from "./components/Allert/AlertContainer";
 
 class App extends React.Component {
     closeAllCollapse = () => {

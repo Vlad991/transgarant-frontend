@@ -135,7 +135,7 @@ let initialState = {
     ],
     show_values_collapse: false,
     values_error: false,
-    show_form: false
+    show_form: false,
 };
 
 const pointsReducer = (state = initialState, action) => {

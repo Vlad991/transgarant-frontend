@@ -12,10 +12,11 @@ const Date = ({
                   showToPicker,
                   toggleFromPicker,
                   toggleToPicker,
+                  hasError
               }) => {
     registerLocale('ru', ru);
     return (
-        <div className="route__title checkout__title">
+        <div className={"route__title checkout__title" + (hasError ? ' checkout__has-error' : '')}>
             <div className="route__text">Маршрут</div>
             <div className="route__date">
                 <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">

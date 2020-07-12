@@ -23,6 +23,7 @@ const Cargo = ({
                    showPackageCollapse,
                    togglePalletCollapse,
                    togglePackageCollapse,
+                   hasError
                }) => {
     let ratio = 348 / (parseFloat(state.cargo_height));
     let cargoAdaptiveWidth = parseFloat(state.cargo_width) * ratio + 22 + 'px';
@@ -36,7 +37,7 @@ const Cargo = ({
     }
     return (
         <section className="checkout__cargo cargo">
-            <div className="checkout__title cargo__heading">Введите данные о перевозимом грузе</div>
+            <div className={"checkout__title cargo__heading"  + (hasError ? ' checkout__has-error' : '')}>Введите данные о перевозимом грузе</div>
             <form className="cargo__form">
                 <div className="cargo__first-col">
                     <div className="cargo__head-block">

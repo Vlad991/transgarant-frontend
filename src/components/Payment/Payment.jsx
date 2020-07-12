@@ -1,10 +1,10 @@
 import React from "react";
 import {PartySuggestions} from "react-dadata";
 
-const Payment = ({state, setPayment, setCompany}) => {
+const Payment = ({state, setPayment, setCompany, hasError}) => {
     return (
         <>
-            <section className="checkout__payment checkout__title payment">
+            <section className={"checkout__payment checkout__title payment" + (hasError ? ' checkout__has-error' : '')}>
                 <label className="payment__item check-wrap check-wrap_disabled">
                     <span className="payment__check">Онлайн оплата</span>
                     <div className="payment__info info-icon">

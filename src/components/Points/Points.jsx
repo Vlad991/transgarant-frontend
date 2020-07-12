@@ -22,11 +22,12 @@ const Points = ({
                     addFile,
                     toggleValue,
                     toggleCollapse,
-                    showPointInfo
+                    showPointInfo,
+                    hasError
                 }) => {
     return (
         <section className="checkout__route route">
-            <DateContainer/>
+            <DateContainer hasError={hasError}/>
             <div className="route__points">
                 {state.points.map((point, index) => {
                     return (
@@ -81,7 +82,7 @@ const Points = ({
                 </div> : null}
             </div>
             {!state.show_form ?
-                <div onClick={() => toggleForm(true)} className="route__add-button button">Добавить адрес</div> :
+                <div onClick={() => toggleForm(true)} className={"route__add-button button"  + (hasError ? ' button_error' : '')}>Добавить адрес</div> :
                 <>
                     <div className="route__add-form add-form">
                         <div className="add-form__col add-form__col_first">

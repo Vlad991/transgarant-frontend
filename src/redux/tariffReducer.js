@@ -150,11 +150,11 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
         ],
         what_to_do: item.todo,
         working_hours: {
-            time_from: item.timeFrom + ":00",
-            time_to: item.timeTo + ":00",
-            lunch_from: item.pauseFrom + ":00",
-            lunch_to: item.pauseTo + ":00",
-            no_lunch: !item.hasPause,
+            time_from: item.time_from + ":00",
+            time_to: item.time_to + ":00",
+            lunch_from: item.pause_from + ":00",
+            lunch_to: item.pause_to + ":00",
+            no_lunch: !item.has_pause,
             max_landing_time: ''
         },
         action_documents: item.values[2].selected,
@@ -173,7 +173,7 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
             company: '',
             contact_persons: [
                 {
-                    full_name: state.docReturnReducer.fullName,
+                    full_name: state.docReturnReducer.full_name,
                     phone: state.docReturnReducer.phone,
                     phone_ext: '777',
                     email: null

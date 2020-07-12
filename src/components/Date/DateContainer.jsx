@@ -30,6 +30,7 @@ class DateContainer extends React.Component {
                   setDateTo={this.props.setDateTo}
                   toggleFromPicker={this.toggleFromPicker}
                   toggleToPicker={this.toggleToPicker}
+                  hasError={this.props.hasError}
             />
         );
     };
