@@ -1,5 +1,6 @@
 import React from "react";
 import {PartySuggestions} from "react-dadata";
+import {listOfBenefitsForPaymentLink} from "../../deployment";
 
 const Payment = ({state, setPayment, setCompany, hasError}) => {
     return (
@@ -46,7 +47,7 @@ const Payment = ({state, setPayment, setCompany, hasError}) => {
                             - высокая скорость предоставления крупнотоннажного транспорта;<br/>
                             - финансовая ответственность за нарушение качества;<br/>
                             - индивидуальная система лояльности Клиента;<br/>
-                            - полный список преимуществ.<br/>
+                            - <a target="_blank" href={listOfBenefitsForPaymentLink} style={{textDecoration: 'underline'}}>полный список преимуществ.</a><br/><br/>
                             Процедура заключения договора займет не более 30 минут.<br/>
                             Для этого при выборе данного способа оплаты необходимо ввести ИНН, заполнить контактные данные и разместить заказ.
                         </div>

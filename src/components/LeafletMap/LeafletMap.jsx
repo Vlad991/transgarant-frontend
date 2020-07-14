@@ -29,7 +29,6 @@ class LeafletMap extends React.Component {
     }
 
     render() {
-        //debugger;
         const routes = this.props.segments.map((item, i) => <Polyline key={i} positions={swap(item.geometry)} color="#007cbf" weight="2"/>);
         const markers = this.props.waypoints.map((item, i) => {
             const label = String.fromCharCode('A'.charCodeAt(0) + i);

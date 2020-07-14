@@ -107,7 +107,7 @@ export const setTariff = (selected_tariff) => ({type: SET_TARIFF, selected_tarif
 
 export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
     let state = getState();
-    let date = new Date();
+    let date = state.dateReducer.date_from; // todo
     date = date.getFullYear() + '-'
         + (date.getMonth() > 9 ? date.getMonth() : ('0' + date.getMonth())) + '-'
         + (date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())) + 'T'
@@ -203,7 +203,7 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
         additionalRequirements,
         points,
         state.cargoReducer.name,
-        state.cargoReducer.price,
+        parseInt(state.cargoReducer.price),
         state.cargoReducer.places,
         state.cargoReducer.pallets,
         state.cargoReducer.packages,

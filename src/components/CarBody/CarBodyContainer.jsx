@@ -17,9 +17,6 @@ class CarBodyContainer extends React.Component {
             this.props.setBodyOptionsThunk(this.props.state.active_body_type, this.props.active_category);
             this.props.setBodyOptionChsThunk(this.props.state.active_body_option, this.props.state.active_body_type, this.props.active_category);
         }
-        if (prevProps.state.active_body_option !== this.props.state.active_body_option) {
-            this.props.setBodyOptionChsThunk(this.props.state.active_body_option, this.props.state.active_body_type, this.props.active_category);
-        }
     }
 
     setActiveBodyType = async (typeId) => {
@@ -30,7 +27,7 @@ class CarBodyContainer extends React.Component {
 
     setBodyOption = (optionId) => {
         this.props.setBodyOption(optionId);
-        this.props.setBodyOptionChsThunk(this.props.state.active_body_option, optionId, this.props.active_category);
+        this.props.setBodyOptionChsThunk(optionId, this.props.state.active_body_type, this.props.active_category);
     }
 
     render() {

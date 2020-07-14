@@ -1,4 +1,5 @@
 /* required styles */
+@import "../../deployment.css";
 
 .leaflet-pane,
 .leaflet-tile,
@@ -421,13 +422,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 
 .leaflet-control-layers-toggle {
-    background-image: url(/images/layers.png);
+    background-image: var(--layers-url);
     width: 36px;
     height: 36px;
 }
 
 .leaflet-retina .leaflet-control-layers-toggle {
-    background-image: url(/images/layers-2x.png);
+    background-image: var(--layers-2x-url);
     background-size: 26px 26px;
 }
 
@@ -476,7 +477,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 /* Default icon URLs */
 .leaflet-default-icon-path {
-    background-image: url(/images/marker-icon.png);
+    background-image: var(--marker-icon-url);
 }
 
 

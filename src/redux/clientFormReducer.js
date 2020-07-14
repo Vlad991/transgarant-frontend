@@ -137,10 +137,24 @@ export const setAgree = (value) => ({type: SET_AGREE, value});
 export const enableErrorMode = (value) => ({type: ENABLE_ERROR_MODE, value});
 
 export const setNumberThunk = (phone) => async (dispatch) => {
-    if (!validator.isEmpty(phone)) {
+    let cleanPhone = phone.replace('+', '')
+        .replace(/ /g, '')
+        .replace('(', '')
+        .replace('_', '')
+        .replace(')', '');
+    if (!validator.isEmpty(cleanPhone)) {
         if (phone.indexOf('_') === -1) {
-            dispatch(setNumber(phone, false));
-            dispatch(setNumberEntered(true));
+            let response = await phoneAPI.checkPhone(cleanPhone);
+            if (response.data.exist) {
+                dispatch(setNumber(phone, false));
+                dispatch(setNumberEntered(true));
+                dispatch(setRecaptchaEntered(true));
+                dispatch(setCodeSent(true));
+                dispatch(verifyCode(true));
+            } else {
+                dispatch(setNumber(phone, false));
+                dispatch(setNumberEntered(true));
+            }
         } else {
             dispatch(setNumber(phone, true));
             dispatch(setRecaptchaEntered(false));
@@ -161,7 +175,11 @@ export const setRecaptchaThunk = (value) => async (dispatch) => {
 
 export const sendCodeThunk = () => async (dispatch, getState) => {
     let state = getState().clientFormReducer;
-    let response = await phoneAPI.sendSms(state.client_number);
+    let phone = state.client_number.replace('+', '')
+        .replace(/ /g, '')
+        .replace('(', '')
+        .replace(')', '');
+    let response = await phoneAPI.sendSms(phone);
     if (response.data.status === 'success') {
         dispatch(setCodeSent(true));
     } else {
@@ -190,7 +208,7 @@ export const doOrderThunk = () => async (dispatch, getState) => {
     let state = getState();
     dispatch(doProcessingOrder(true));
     if (validateAllData(state, dispatch)) {
-        let date = new Date();
+        let date = state.dateReducer.date_from;
         date = date.getFullYear() + '-'
             + (date.getMonth() > 9 ? date.getMonth() : ('0' + date.getMonth())) + '-'
             + (date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())) + 'T'
@@ -286,7 +304,7 @@ export const doOrderThunk = () => async (dispatch, getState) => {
             additionalRequirements,
             points,
             state.cargoReducer.name,
-            state.cargoReducer.price,
+            parseInt(state.cargoReducer.price),
             state.cargoReducer.places,
             state.cargoReducer.pallets,
             state.cargoReducer.packages,

@@ -1,7 +1,8 @@
 import * as axios from "axios";
+import {apiBaseUrl} from "../deployment";
+
 const instance = axios.create({
-    baseURL: 'https://www.tg-group.ru/wp-json/fz/v1',
-    //baseURL: 'https://citycarrier.ru//wp-json/fz/v1'
+    baseURL: apiBaseUrl,
 });
 
 export const categoryAPI = {
@@ -83,7 +84,7 @@ export const orderAPI = {
             },
             tariff_type_id: tariff_type_id,
             contacts: {
-                full_name: name,
+                full_name: full_name,
                 phone: phone,
                 phone_ext: phone_ext,
                 email: email
@@ -111,7 +112,7 @@ export const orderAPI = {
             },
             tariff_type_id: tariff_type_id,
             contacts: {
-                full_name: name,
+                full_name: full_name,
                 phone: phone,
                 phone_ext: phone_ext,
                 email: email
@@ -133,5 +134,11 @@ export const phoneAPI = {
     },
     checkSms(phone, code) {
         return instance.get('/check-sms/' + phone + '/' + code);
+    },
+    checkTinPhone(phone, tin) {
+        return instance.get('/check-tin-phone/' + phone + '/' + tin);
+    },
+    checkPhone(phone) {
+        return instance.get('/check-tin-phone/' + phone);
     }
 };

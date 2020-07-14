@@ -19,8 +19,6 @@ const Cargo = ({
                    setPackage,
                    setCargoState,
                    showCargo,
-                   showPalletCollapse,
-                   showPackageCollapse,
                    togglePalletCollapse,
                    togglePackageCollapse,
                    hasError
@@ -129,7 +127,7 @@ const Cargo = ({
                             </div>
                             <div className={"characteristic__tab-item" + (state.active_tab === 2 ? ' characteristic__tab-item_active' : '')}>
                                 <div className="characteristic__line">
-                                    <CollapseContainer active={showPalletCollapse}
+                                    <CollapseContainer active={state.show_pallet_collapse}
                                                        toggleCollapse={togglePalletCollapse}
                                                        elementClass="characteristic__currency"
                                                        selected={state.pallet_types.find(palletType => palletType.id === state.selected_pallet)}
@@ -185,7 +183,7 @@ const Cargo = ({
                             </div>
                             <div className={"characteristic__tab-item" + (state.active_tab === 3 ? ' characteristic__tab-item_active' : '')}>
                                 <div className="characteristic__line">
-                                    <CollapseContainer active={showPackageCollapse}
+                                    <CollapseContainer active={state.show_package_collapse}
                                                        toggleCollapse={togglePackageCollapse}
                                                        elementClass="characteristic__currency"
                                                        selected={state.package_types.find(packageType => packageType.id === state.selected_package)}

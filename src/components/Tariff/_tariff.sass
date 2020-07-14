@@ -31,8 +31,18 @@
   border-radius: 10px
   padding: 15px 15px 18px 21px
   cursor: pointer
+  transition: all .2s ease-in-out 0s
   @include mobile
     width: 100%
+  .tariff-variant__item
+    &:nth-child(2)
+      transition: all .2s ease-in-out 0s
+    .tariff-variant__heading
+      transition: all .2s ease-in-out 0s
+      svg path
+        transition: all .2s ease-in-out 0s
+    .tariff-variant__text, .tariff-variant__bold
+      transition: all .2s ease-in-out 0s
   &_active
     background-color: $yellow
     .tariff-variant__item

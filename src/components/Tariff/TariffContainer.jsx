@@ -4,11 +4,24 @@ import {connect} from "react-redux";
 import {loadTariffThunk, setTariff} from "../../redux/tariffReducer";
 
 class TariffContainer extends React.Component {
+    state = {
+        isShown: false
+    }
+
+    setView = (value) => {
+        this.setState({
+            isShown: value
+        })
+    }
 
     loadTariff = () => {
+        this.props.loadTariffThunk(this.props.state.selected_tariff);
+    }
+
+    loadAllTariffs = () => {
         this.props.state.tariff_types.forEach(tariff => {
             this.props.loadTariffThunk(tariff.id);
-        });
+        })
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -26,15 +39,19 @@ class TariffContainer extends React.Component {
             (prevProps.points !== this.props.points) ||
             (prevProps.places !== this.props.places) ||
             (prevProps.pallets !== this.props.pallets) ||
-            (prevProps.packages !== this.props.packages)) {
-            this.loadTariff();
+            (prevProps.packages !== this.props.packages) ||
+            (prevState.isShown !== this.state.isShown)) {
+            if (this.state.isShown) {
+                this.loadAllTariffs();
+            } else {
+                this.loadTariff();
+            }
         }
     }
 
     render() {
         return (
-            <Tariff state={this.props.state}
-                    setTariff={this.props.setTariff}/>
+            <Tariff state={this.props.state} setTariff={this.props.setTariff} setView={this.setView}/>
         );
     };
 }

@@ -36,6 +36,7 @@ sup
   border-radius: 10px
   position: relative
   cursor: pointer
+  transition: all .2s ease-in-out 0s
   &::after
     content: url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.20792 9.23216L0.328385 2.3524C-0.109463 1.91477 -0.109463 1.20521 0.328385 0.767791C0.765842 0.330332 1.47536 0.330332 1.91278 0.767791L8.00011 6.85532L14.0872 0.767968C14.5249 0.330509 15.2343 0.330509 15.6718 0.767968C16.1094 1.20543 16.1094 1.91494 15.6718 2.35258L8.79214 9.23234C8.5733 9.45107 8.2868 9.56031 8.00015 9.56031C7.71336 9.56031 7.42665 9.45085 7.20792 9.23216Z' fill='%23FFB700'/%3E%3C/svg%3E%0A")
     display: flex
@@ -44,6 +45,7 @@ sup
     position: absolute
     top: 24px
     right: 17px
+    transition: all .2s ease-in-out 0s
   &_small
     padding: 5px 30px 5px 15px
     &::after
@@ -68,7 +70,9 @@ sup
     &::after
       transform: rotate(180deg)
     .collapse__items
-      display: block
+      visibility: visible
+      opacity: 1
+      max-height: 5000px
     .collapse__item
       margin-top: 5px
   &_disabled
@@ -82,7 +86,7 @@ sup
   @include fontSWCL(13px, normal, #000, 16px)
 
 .collapse__items
-  display: none
+  display: block
   margin-top: 10px
   position: absolute
   border: 1px solid $yellow
@@ -94,12 +98,16 @@ sup
   border-radius: 0 0 10px 10px
   padding: 0 50px 19px 26px
   box-sizing: border-box
+  transition: all .2s ease-in-out 0s
+  visibility: hidden
+  opacity: 0
+  max-height: 0
 
 .collapse__item
   display: block
   @include fontSWCL(13px, normal, #000, 35px)
-  margin-top: 20px
-
+  //margin-top: 20px
+  transition: all .2s ease-in-out 0s
 
 .input-label-wrap
 
@@ -143,6 +151,7 @@ sup
       text-align: center
   &_verified
     position: relative
+    border-color: $yellow
     &::after
       content: url("data:image/svg+xml,%3Csvg width='13' height='11' viewBox='0 0 13 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.15 6C0.05 5.9 0 5.75 0 5.65C0 5.55 0.05 5.4 0.15 5.3L0.85 4.6C1.05 4.4 1.35 4.4 1.55 4.6L1.6 4.65L4.35 7.6C4.45 7.7 4.6 7.7 4.7 7.6L11.4 0.65H11.45C11.65 0.45 11.95 0.45 12.15 0.65L12.85 1.35C13.05 1.55 13.05 1.85 12.85 2.05L4.85 10.35C4.75 10.45 4.65 10.5 4.5 10.5C4.35 10.5 4.25 10.45 4.15 10.35L0.25 6.15L0.15 6Z' fill='%23FFB700'/%3E%3C/svg%3E%0A")
       display: flex
@@ -219,7 +228,8 @@ sup
     height: 46px
   &_inverse
     background-color: transparent
-    @include fontSWCL(13px, normal, #000, 16px)
+    @include fontSWCL(13px, bold, #2E2E2ED6, 16px)
+    transition: all .2s ease-in-out 0s
   &_inverse#{&}_active
     @include fontSWCL(13px, bold, #fff, 16px)
     background-color: $yellow

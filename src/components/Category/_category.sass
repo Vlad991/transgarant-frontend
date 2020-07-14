@@ -38,7 +38,7 @@
   align-items: center
   flex-direction: column
   cursor: pointer
-  &_active::after
+  &::after
     display: flex
     justify-content: center
     align-items: center
@@ -50,6 +50,12 @@
     bottom: -1px
     right: -1px
     border-radius: 5px 0 9px
+    transition: all .2s ease-in-out 0s
+    visibility: hidden
+    opacity: 0
+  &_active::after
+    visibility: visible
+    opacity: 1
   &:nth-child(1)
     .category-info
       right: auto

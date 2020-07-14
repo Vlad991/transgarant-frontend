@@ -10,7 +10,7 @@ class DopContainer extends React.Component {
 
     toggle = (e) => {
         e.stopPropagation();
-        this.props.dopToggle(!this.props.active);
+        this.props.dopToggle(!this.props.state.active);
     }
 
     toggleAdditional = (e, id) => {

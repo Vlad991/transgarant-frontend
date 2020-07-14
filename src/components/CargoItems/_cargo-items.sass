@@ -16,7 +16,9 @@
   justify-content: space-between
   cursor: pointer
   @include fontSWCL(13px, 600, #000, 16px)
+  transition: all .5s ease-in-out 0.3s
   &_active
+    transition: all .5s ease-in-out 0s
     border: 1px solid $yellow
 
 .cargo-item__plus
@@ -30,19 +32,29 @@
   &:after
     content: ''
     display: block
+    visibility: visible
     width: 27px
     height: 3px
     background-color: #C4C4C4
     transform: rotate(90deg)
     position: absolute
     top: 0
+    transition: all .5s ease-in-out 0.3s
   &_active:after
-    display: none
+    visibility: hidden
+    transform: rotate(0deg)
+    transition: all .5s ease-in-out 0s
 
 .cargo-item__body
-  display: none
+  visibility: hidden
+  opacity: 0
+  max-height: 0
+  transition: all .5s ease-in-out 0s
   &_active
-    display: block
+    transition: all .5s ease-in-out 0s
+    opacity: 1
+    visibility: visible
+    max-height: 2000px
 
 .cargo-item__body-item
   display: flex

@@ -51,8 +51,6 @@ class CargoContainer extends React.Component {
                        setPackage={this.props.setPackage}
                        setCargoState={this.props.setCargoState}
                        showCargo={this.showCargo}
-                       showPalletCollapse={this.props.showPalletCollapse}
-                       showPackageCollapse={this.props.showPackageCollapse}
                        togglePalletCollapse={this.props.togglePalletCollapse}
                        togglePackageCollapse={this.props.togglePackageCollapse}
                        hasError={hasError}

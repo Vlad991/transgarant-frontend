@@ -40,7 +40,7 @@ const Date = ({
                     inline
                 />
                 <div className="calendar__footer">
-                    <button onClick={() => setDateFrom(new Date())} className="calendar__clear calendar__button button">Сбросить</button>
+                    <button onClick={() => setDateFrom(new window.Date())} className="calendar__clear calendar__button button">Сбросить</button>
                     <button onClick={toggleFromPicker} className="calendar__save calendar__button button">Сохранить</button>
                 </div>
             </div>
@@ -54,7 +54,7 @@ const Date = ({
                     inline
                 />
                 <div className="calendar__footer">
-                    <button onClick={() => setDateTo(new Date())} className="calendar__clear calendar__button button">Сбросить</button>
+                    <button onClick={() => setDateTo(new window.Date())} className="calendar__clear calendar__button button">Сбросить</button>
                     <button onClick={toggleToPicker} className="calendar__save calendar__button button">Сохранить</button>
                 </div>
             </div>
