@@ -5,7 +5,7 @@ import InputMask from "react-input-mask";
 
 const DocReturn = ({state, toggleReturn, toggleNames, setName, setData}) => {
     return (
-        <section className="checkout__doc-return doc-return checkout__title">
+        <section className="checkout__doc-return doc-return checkout__title" style={{display: 'none'}}>
             <label onClick={toggleReturn} className="doc-return__heading check-wrap">
                 Возврат документов
                 {state.show ?

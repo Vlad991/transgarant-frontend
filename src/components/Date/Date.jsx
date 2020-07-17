@@ -1,8 +1,6 @@
 import React from "react";
 import DatePicker, {registerLocale} from "react-datepicker";
 import ru from "date-fns/locale/ru";
-import {AddressSuggestions} from "react-dadata";
-import InputMask from 'react-input-mask';
 
 const Date = ({
                   state,

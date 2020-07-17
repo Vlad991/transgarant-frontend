@@ -2,7 +2,6 @@ import React from 'react';
 import Points from "./Points";
 import {connect} from "react-redux";
 import {addFileThunk, addPoint, deletePoint, doUpdatePoint, setAddress, setFormState, setNumber, showPointInfo, toggleForm, toggleValue, toggleValuesCollapse} from "../../redux/pointsReducer";
-import Summary from "../Summary/Summary";
 import AlertContainer from "../Allert/AlertContainer";
 
 class PointsContainer extends React.Component {
@@ -29,6 +28,14 @@ class PointsContainer extends React.Component {
         }
     }
 
+    addressRenderOption = (value) => {
+        if (value.data.street) {
+            return (
+                <span>{value.value}</span>
+            )
+        }
+    }
+
     render() {
         let hasError = this.props.error_mode && (this.props.state.points.length < 2);
         return (
@@ -47,6 +54,7 @@ class PointsContainer extends React.Component {
                         addPoint={this.props.addPoint}
                         setFormState={this.props.setFormState}
                         setAddress={this.props.setAddress}
+                        addressRenderOption={this.addressRenderOption}
                         setNumber={this.props.setNumber}
                         addFile={this.addFile}
                         toggleValue={this.props.toggleValue}

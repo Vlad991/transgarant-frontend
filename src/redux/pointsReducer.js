@@ -95,9 +95,16 @@ let initialState = {
     ],
     update_point: null,
     name: '',
-    address: '',
-    address_longitude: null,
-    address_latitude: null,
+    address: {
+        region_type: '',
+        region: '',
+        street_type: '',
+        street: '',
+        house: '',
+        longitude: null,
+        latitude: null,
+        string: ''
+    },
     address_error: false,
     comment: '',
     company: '',
@@ -141,10 +148,10 @@ let initialState = {
 const pointsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POINT:
-            if (!state.address || !state.number || (!state.values.find(value => value.selected))) {
+            if (!state.address.region || !state.address.street || !state.address.house || !state.number || (!state.values.find(value => value.selected))) {
                 return {
                     ...state,
-                    address_error: !state.address,
+                    address_error: (!state.address.region || !state.address.street || !state.address.house),
                     number_error: !state.number,
                     values_error: !(state.values.find(value => value.selected)),
                     show_form: true
@@ -153,8 +160,6 @@ const pointsReducer = (state = initialState, action) => {
             let point = {
                 name: action.name,
                 address: state.address,
-                address_longitude: state.address_longitude,
-                address_latitude: state.address_latitude,
                 comment: state.comment,
                 company: state.company,
                 contact_name: state.contact_name,
@@ -174,7 +179,16 @@ const pointsReducer = (state = initialState, action) => {
                 ...state,
                 points: points,
                 name: '',
-                address: '',
+                address: {
+                    region_type: '',
+                    region: '',
+                    street_type: '',
+                    street: '',
+                    house: '',
+                    longitude: null,
+                    latitude: null,
+                    string: ''
+                },
                 comment: '',
                 company: '',
                 contact_name: '',
@@ -220,8 +234,6 @@ const pointsReducer = (state = initialState, action) => {
                 update_point: action.index,
                 name: pointToShow.name,
                 address: pointToShow.address,
-                address_longitude: pointToShow.address_longitude,
-                address_latitude: pointToShow.address_latitude,
                 comment: pointToShow.comment,
                 company: pointToShow.company,
                 contact_name: pointToShow.contact_name,
@@ -237,18 +249,18 @@ const pointsReducer = (state = initialState, action) => {
                 show_form: true
             };
         case DO_UPDATE_POINT:
-            if (!state.address) {
+            if (!state.address.region || !state.address.street || !state.address.house || !state.number || (!state.values.find(value => value.selected))) {
                 return {
                     ...state,
-                    address_error: true,
+                    address_error: (!state.address.region || !state.address.street || !state.address.house),
+                    number_error: !state.number,
+                    values_error: !(state.values.find(value => value.selected)),
                     show_form: true
                 };
             }
             let pointToUpdate = {
                 name: action.name,
                 address: state.address,
-                address_longitude: state.address_longitude,
-                address_latitude: state.address_latitude,
                 comment: state.comment,
                 company: state.company,
                 contact_name: state.contact_name,
@@ -269,9 +281,16 @@ const pointsReducer = (state = initialState, action) => {
                 points: pointsToUpdate,
                 update_point: null,
                 name: '',
-                address: '',
-                address_latitude: null,
-                address_longitude: null,
+                address: {
+                    region_type: '',
+                    region: '',
+                    street_type: '',
+                    street: '',
+                    house: '',
+                    longitude: null,
+                    latitude: null,
+                    string: ''
+                },
                 comment: '',
                 company: '',
                 contact_name: '',
@@ -335,12 +354,21 @@ const pointsReducer = (state = initialState, action) => {
                 };
             }
         case SET_ADDRESS:
+            let data = action.value.data;
+            console.log(action.value);
             return {
                 ...state,
                 address_error: false,
-                address: action.value.value,
-                address_latitude: parseFloat(action.value.data.geo_lat),
-                address_longitude: parseFloat(action.value.data.geo_lon)
+                address: {
+                    region_type: data.region_type,
+                    region: data.region,
+                    street_type: data.street_type,
+                    street: data.street,
+                    house: data.house,
+                    longitude: data.geo_lat,
+                    latitude: data.geo_lon,
+                    string: action.value.value
+                },
             }
         case SET_NUMBER:
             if (action.value) {

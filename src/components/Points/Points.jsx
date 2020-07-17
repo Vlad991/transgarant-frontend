@@ -2,6 +2,7 @@ import React from "react";
 import {AddressSuggestions} from "react-dadata";
 import InputMask from 'react-input-mask';
 import DateContainer from "../Date/DateContainer";
+import AlertContainer from "../Allert/AlertContainer";
 
 const Points = ({
                     state,
@@ -18,6 +19,7 @@ const Points = ({
                     addPoint,
                     setFormState,
                     setAddress,
+                    addressRenderOption,
                     setNumber,
                     addFile,
                     toggleValue,
@@ -28,6 +30,9 @@ const Points = ({
     return (
         <section className="checkout__route route">
             <DateContainer hasError={hasError}/>
+            {state.address_error ? <AlertContainer index={1} text="Ошибка: адрес указан не полностью (укажите дом)"/> : null}
+            {state.number_error ? <AlertContainer index={2} text="Ошибка: не указан номер телефона"/> : null}
+            {state.values_error ? <AlertContainer index={3} text="Ошибка: не выбрана услуга"/> : null}
             <div className="route__points">
                 {state.points.map((point, index) => {
                     return (
@@ -42,7 +47,7 @@ const Points = ({
                                 <div className="route-point__value">Услуги: {point.values.map(value => value.selected ? value.name + ', ' : '')}</div>
                             </div>
                             <div className="route-point__address-wrap">
-                                <div className="route-point__address">{point.address}</div>
+                                <div className="route-point__address">{point.address.string}</div>
                                 {point.comment ? <div className="route-point__comment">{point.comment}</div> : null}
                             </div>
                             <div className="route-point__contact">{point.company + " " + point.contact_name + " " + point.number}</div>
@@ -82,16 +87,19 @@ const Points = ({
                 </div> : null}
             </div>
             {!state.show_form ?
-                <div onClick={() => toggleForm(true)} className={"route__add-button button"  + (hasError ? ' button_error' : '')}>Добавить адрес</div> :
+                <div onClick={() => toggleForm(true)} className={"route__add-button button" + (hasError ? ' button_error' : '')}>Добавить адрес</div> :
                 <>
                     <div className="route__add-form add-form">
                         <div className="add-form__col add-form__col_first">
                             <div className="add-form__heading">Точка {state.update_point || (state.update_point === 0) ? state.update_point + 1 : state.points.length + 1}</div>
-                            <div className="add-form__address-text">{state.address}</div>
+                            <div className="add-form__address-text">{state.address.string}</div>
                             <AddressSuggestions token="4907ed3e0ba286c611e621c3db1588fe3ce7f53c"
-                                                value={state.address}
+                                                value={state.address.string}
                                                 onChange={setAddress}
+                                                renderOption={addressRenderOption}
                                                 containerClassName={"add-form__address input-wrap input-wrap_address" + (state.address_error ? ' input-wrap_error' : '')}
+                                                filterLocations={[{region: 'Москва'}, {region: 'Московская'}]}
+                                                count={10}
                                                 inputProps={{className: 'input-wrap__input', placeholder: 'Адрес'}}/>
                             <div className="add-form__inputs">
                                 <label className="add-form__input input-wrap">
@@ -169,7 +177,7 @@ const Points = ({
                                 <div onClick={(e) => e.stopPropagation()} className="collapse__items">
                                     {state.values.map(value => {
                                         return (
-                                            <label className="collapse__item check-wrap">
+                                            <label key={value.id} className="collapse__item check-wrap">
                                                 {value.name}
                                                 {value.selected ?
                                                     <input onChange={() => toggleValue(value.id)} type="checkbox" checked className="check-wrap__input"/> :

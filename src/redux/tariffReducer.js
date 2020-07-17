@@ -135,10 +135,10 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
     let additionalRequirements = state.dopReducer.additional_requirements.filter(item => item.selected).map(item => ({id: item.id, value: true}));
     let points = state.pointsReducer.points.map((item, index) => ({
         id: index,
-        adress: item.address,
+        adress: item.address.string,
         adress_comment: item.comment,
-        adress_longitude: item.address_longitude,
-        adress_latitude: item.address_latitude,
+        adress_longitude: item.address.longitude,
+        adress_latitude: item.address.latitude,
         company: item.company,
         contact_persons: [
             {
@@ -150,10 +150,10 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
         ],
         what_to_do: item.todo,
         working_hours: {
-            time_from: item.time_from + ":00",
-            time_to: item.time_to + ":00",
-            lunch_from: item.pause_from + ":00",
-            lunch_to: item.pause_to + ":00",
+            time_from: item.time_from.replace('.', ':').replace('с ', '') + ":00",
+            time_to: item.time_to.replace('.', ':').replace('до ', '') + ":00",
+            lunch_from: item.pause_from.replace('.', ':').replace('с ', '') + ":00",
+            lunch_to: item.pause_to.replace('.', ':').replace('до ', '') + ":00",
             no_lunch: !item.has_pause,
             max_landing_time: ''
         },
@@ -166,10 +166,10 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
     if (state.docReturnReducer.show) {
         points.push({
             id: points.length + 1,
-            adress: state.docReturnReducer.address,
+            adress: state.docReturnReducer.address.string,
             adress_comment: '',
-            adress_longitude: state.docReturnReducer.address_longitude,
-            adress_latitude: state.docReturnReducer.address_latitude,
+            adress_longitude: state.docReturnReducer.address.longitude,
+            adress_latitude: state.docReturnReducer.address.latitude,
             company: '',
             contact_persons: [
                 {

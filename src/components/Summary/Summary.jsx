@@ -86,7 +86,7 @@ const Summary = ({
                             return (
                                 <React.Fragment key={index}>
                                     <div className="summary__item-heading">{point.name} &nbsp; {point.values.map(value => value.selected ? (value.name + ', ') : '')}</div>
-                                    <div className="summary__item-desc">[{point.address}, {point.company}, {point.contact_name}, {point.number}]</div>
+                                    <div className="summary__item-desc">[{point.address.string}, {point.company}, {point.contact_name}, {point.number}]</div>
                                 </React.Fragment>
                             )
                         })}
