@@ -1,4 +1,5 @@
 import {fileAPI} from "../api/api";
+import {addressAPI} from "../api/dadata-api";
 
 const ADD_POINT = 'ADD-POINT';
 const SHOW_POINT_INFO = 'SHOW-POINT-INFO';
@@ -11,6 +12,7 @@ const SET_FILES = 'SET-FILES';
 const SET_FORM_STATE = 'SET-FORM-STATE';
 const TOGGLE_VALUES_COLLAPSE = 'TOGGLE-VALUES-COLLAPSE';
 const TOGGLE_FORM = 'TOGGLE-FORM';
+const TOGGLE_ADDRESS_MAP = 'TOGGLE-ADDRESS-MAP'
 
 let initialState = {
     points: [
@@ -106,6 +108,7 @@ let initialState = {
         string: ''
     },
     address_error: false,
+    show_map: false,
     comment: '',
     company: '',
     contact_name: '',
@@ -355,7 +358,6 @@ const pointsReducer = (state = initialState, action) => {
             }
         case SET_ADDRESS:
             let data = action.value.data;
-            console.log(action.value);
             return {
                 ...state,
                 address_error: false,
@@ -406,6 +408,11 @@ const pointsReducer = (state = initialState, action) => {
                 ...state,
                 show_form: action.show
             }
+        case TOGGLE_ADDRESS_MAP:
+            return {
+                ...state,
+                show_map: action.show
+            }
         default:
             return state;
     }
@@ -422,10 +429,20 @@ export const addFile = (id, name) => ({type: SET_FILES, id, name});
 export const setFormState = (object) => ({type: SET_FORM_STATE, object});
 export const toggleValuesCollapse = (show) => ({type: TOGGLE_VALUES_COLLAPSE, show});
 export const toggleForm = (show) => ({type: TOGGLE_FORM, show});
+export const toggleAddressMap = (show) => ({type: TOGGLE_ADDRESS_MAP, show});
 
 export const addFileThunk = (name, data) => async (dispatch) => {
     let response = await fileAPI.addFile(name, data);
     dispatch(addFile(response.data.id, name));
+};
+
+export const setAddressFromMapThunk = (coords) => async (dispatch) => {
+    let response = await addressAPI.getAddressByCoords(coords[0], coords[1]);
+    if (response.data.suggestions[0]) {
+        dispatch(setAddress(response.data.suggestions[0]));
+    } else {
+        dispatch(setAddress({data: {region_type: '', region: '', street_type: '', street: '', house: '', geo_lat: null, geo_lon: null}, value: ''}));
+    }
 };
 
 export default pointsReducer;

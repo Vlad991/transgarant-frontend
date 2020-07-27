@@ -1,6 +1,7 @@
 import React from "react";
 import {PartySuggestions} from "react-dadata";
 import {listOfBenefitsForPaymentLink} from "../../deployment";
+import {token} from "../../api/dadata-api";
 
 const Payment = ({state, setPayment, setCompany, hasError}) => {
     return (
@@ -60,7 +61,7 @@ const Payment = ({state, setPayment, setCompany, hasError}) => {
             </section>
             {state.selected_payment === 3 ?
                 <section className="checkout__social social">
-                    <PartySuggestions token="4907ed3e0ba286c611e621c3db1588fe3ce7f53c"
+                    <PartySuggestions token={token}
                                       value={state.company}
                                       onChange={setCompany}
                                       containerClassName={"client-form__input client-form__company input-wrap input-wrap_address"}

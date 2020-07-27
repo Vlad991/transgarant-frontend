@@ -36,25 +36,18 @@ class LeafletMap extends React.Component {
         });
 
         if (this.props.mkadRoutes.start) {
-            routes.unshift(<Polyline key="s" positions={swap(this.props.mkadRoutes.start.geometry)} color="#dd6116"
-                                     weight="2"/>);
-            markers.unshift(<Marker key="s" position={swap(this.props.mkadRoutes.start.geometry[0])}><Tooltip
-                permanent={true}>МКАД старт</Tooltip></Marker>);
+            routes.unshift(<Polyline key="s" positions={swap(this.props.mkadRoutes.start.geometry)} color="#dd6116" weight="2"/>);
+            markers.unshift(<Marker key="s" position={swap(this.props.mkadRoutes.start.geometry[0])}><Tooltip permanent={true}>МКАД старт</Tooltip></Marker>);
         }
 
         if (this.props.mkadRoutes.end) {
-            routes.push(<Polyline key="e" positions={swap(this.props.mkadRoutes.end.geometry)} color="#dd6116"
-                                  weight="2"/>);
-            markers.push(<Marker key="e"
-                                 position={swap(this.props.mkadRoutes.end.geometry[this.props.mkadRoutes.end.geometry.length - 1])}><Tooltip
-                permanent={true}>МКАД финиш</Tooltip></Marker>);
+            routes.push(<Polyline key="e" positions={swap(this.props.mkadRoutes.end.geometry)} color="#dd6116" weight="2"/>);
+            markers.push(<Marker key="e" position={swap(this.props.mkadRoutes.end.geometry[this.props.mkadRoutes.end.geometry.length - 1])}><Tooltip permanent={true}>МКАД финиш</Tooltip></Marker>);
         }
 
         return (
             <div className="tariff__map">
-                <a target="_blank" rel="noopener noreferrer"
-                   href={"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.longitude + ',' + point.address.latitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('') + "&exclude=sk"}
-                   className="">
+                <a target="_blank" rel="noopener noreferrer" href={"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.longitude + ',' + point.address.latitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('') + "&exclude=sk"} className="">
                     {"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.longitude + ',' + point.address.latitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('') + "&exclude=sk"}
                 </a>
                 <Map bounds={swap(this.props.bounds)} maxZoom="16">

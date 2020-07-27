@@ -2,6 +2,7 @@ import React from "react";
 import CollapseContainer from "../CollapseContainer";
 import {AddressSuggestions} from "react-dadata";
 import InputMask from "react-input-mask";
+import {token} from "../../api/dadata-api";
 
 const DocReturn = ({state, toggleReturn, toggleNames, setName, setData}) => {
     return (
@@ -20,7 +21,7 @@ const DocReturn = ({state, toggleReturn, toggleNames, setName, setData}) => {
                                    selected={state.names.find(name => name.selected)}
                                    items={state.names}
                                    setItem={setName}/>
-                <AddressSuggestions token="4907ed3e0ba286c611e621c3db1588fe3ce7f53c"
+                <AddressSuggestions token={token}
                                     value={state.address}
                                     onChange={(value) => setData({address: value.value, address_latitude: value.data.geo_lat, address_longitude: value.data.geo_lon})}
                                     containerClassName={"doc-return__field input-wrap input-wrap_address"}

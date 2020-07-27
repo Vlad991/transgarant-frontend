@@ -1,7 +1,7 @@
 import React from 'react';
 import Points from "./Points";
 import {connect} from "react-redux";
-import {addFileThunk, addPoint, deletePoint, doUpdatePoint, setAddress, setFormState, setNumber, showPointInfo, toggleForm, toggleValue, toggleValuesCollapse} from "../../redux/pointsReducer";
+import {addFileThunk, addPoint, deletePoint, doUpdatePoint, setAddress, setFormState, setNumber, showPointInfo, toggleAddressMap, toggleForm, toggleValue, toggleValuesCollapse} from "../../redux/pointsReducer";
 import AlertContainer from "../Allert/AlertContainer";
 
 class PointsContainer extends React.Component {
@@ -49,6 +49,7 @@ class PointsContainer extends React.Component {
                         lastPointPhone={this.props.last_point_phone}
 
                         toggleForm={this.props.toggleForm}
+                        toggleAddressMap={this.props.toggleAddressMap}
                         doUpdatePoint={this.props.doUpdatePoint}
                         deletePoint={this.deletePoint}
                         addPoint={this.props.addPoint}
@@ -80,4 +81,4 @@ let mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps,
-    {addPoint, showPointInfo, doUpdatePoint, deletePoint, toggleValue, setAddress, setNumber, setFormState, toggleValuesCollapse, toggleForm, addFileThunk})(PointsContainer);
+    {addPoint, showPointInfo, doUpdatePoint, deletePoint, toggleValue, setAddress, setNumber, setFormState, toggleValuesCollapse, toggleForm, addFileThunk, toggleAddressMap})(PointsContainer);
