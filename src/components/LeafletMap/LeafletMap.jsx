@@ -1,11 +1,11 @@
 import React from 'react';
 import {Map, TileLayer, Polyline, Marker, Tooltip} from 'react-leaflet';
-import {swap} from '../../redux/map/core/utils';
-import {TilesUrl} from '../../redux/map/config';
+import {swap} from '../../redux/leaflet/core/utils';
+import {TilesUrl} from '../../redux/leaflet/config';
 import {connect} from "react-redux";
 import './leaflet.css';
 import './styles.css';
-import {setWaypointsThunk} from "../../redux/map/mapReducer";
+import {setWaypointsThunk} from "../../redux/leaflet/leafletMapReducer";
 
 class LeafletMap extends React.Component {
     componentDidMount() {
@@ -46,16 +46,16 @@ class LeafletMap extends React.Component {
         }
 
         return (
-            <div className="tariff__map">
-                <a target="_blank" rel="noopener noreferrer" href={"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.latitude + ',' + point.address.longitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('')} className="">
-                    {"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.latitude + ',' + point.address.longitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('')}
-                </a>
+            <>
                 <Map bounds={swap(this.props.bounds)} maxZoom="16">
                     <TileLayer url={TilesUrl}/>
                     {routes}
                     {markers}
                 </Map>
-            </div>
+                <a target="_blank" rel="noopener noreferrer" href={"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.latitude + ',' + point.address.longitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('')} className="">
+                    {"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.latitude + ',' + point.address.longitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('')}
+                </a>
+            </>
         );
     }
 }

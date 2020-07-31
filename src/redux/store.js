@@ -12,7 +12,7 @@ import paymentReducer from "./paymentReducer";
 import socialReducer from "./socialReducer";
 import clientFormReducer from "./clientFormReducer";
 import docReturnReducer from "./docReturnReducer";
-import mapReducer from "./map/mapReducer";
+import leafletMapReducer from "./leaflet/leafletMapReducer";
 
 
 let reducers = combineReducers({
@@ -27,7 +27,7 @@ let reducers = combineReducers({
     paymentReducer,
     socialReducer,
     clientFormReducer,
-    mapReducer,
+    mapReducer: leafletMapReducer,
     form: formReducer
 });
 

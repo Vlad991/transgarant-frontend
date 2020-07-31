@@ -1,7 +1,7 @@
 import React from 'react';
 import Tariff from "./Tariff";
 import {connect} from "react-redux";
-import {loadTariffThunk, setTariff} from "../../redux/tariffReducer";
+import {loadTariffThunk, setMapType, setTariff} from "../../redux/tariffReducer";
 
 class TariffContainer extends React.Component {
     state = {
@@ -15,13 +15,13 @@ class TariffContainer extends React.Component {
     }
 
     loadTariff = () => {
-        this.props.loadTariffThunk(this.props.state.selected_tariff);
+        // this.props.loadTariffThunk(this.props.state.selected_tariff); // todo
     }
 
     loadAllTariffs = () => {
         this.props.state.tariff_types.forEach(tariff => {
-            this.props.loadTariffThunk(tariff.id);
-        })
+            // this.props.loadTariffThunk(tariff.id); // todo
+        });
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -51,7 +51,7 @@ class TariffContainer extends React.Component {
 
     render() {
         return (
-            <Tariff state={this.props.state} setTariff={this.props.setTariff} setView={this.setView}/>
+            <Tariff state={this.props.state} setTariff={this.props.setTariff} setView={this.setView} setMapType={this.props.setMapType}/>
         );
     };
 }
@@ -74,4 +74,4 @@ let mapStateToProps = (state) => ({
     packages: state.cargoReducer.packages,
 });
 
-export default connect(mapStateToProps, {setTariff, loadTariffThunk})(TariffContainer);
+export default connect(mapStateToProps, {setTariff, loadTariffThunk, setMapType})(TariffContainer);

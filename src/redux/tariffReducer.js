@@ -2,6 +2,7 @@ import {orderAPI} from "../api/api";
 
 const SET_TARIFF = 'SET-TARIFF';
 const LOAD_TARIFF = 'LOAD-TARIFF';
+const SET_MAP_TYPE = 'SET-MAP-TYPE';
 
 let initialState = {
     tariff_types: [
@@ -72,6 +73,7 @@ let initialState = {
         }
     ],
     selected_tariff: 'bdc31826-7d68-11ea-a9c9-00155d8e4e03',
+    yandex_map: true
 };
 
 const tariffReducer = (state = initialState, action) => {
@@ -97,6 +99,11 @@ const tariffReducer = (state = initialState, action) => {
                 ...state,
                 selected_tariff: action.selected_tariff
             }
+        case SET_MAP_TYPE:
+            return {
+                ...state,
+                yandex_map: action.isYandex
+            }
         default:
             return state;
     }
@@ -104,6 +111,7 @@ const tariffReducer = (state = initialState, action) => {
 
 export const loadTariff = (id, cost, min_cost, rate, min_hours, hours, cost_by_hour, items, items_by_route, service_information) => ({type: LOAD_TARIFF, id, cost, min_cost, rate, min_hours, hours, cost_by_hour, items, items_by_route, service_information});
 export const setTariff = (selected_tariff) => ({type: SET_TARIFF, selected_tariff});
+export const setMapType = (isYandex) => ({type: SET_MAP_TYPE, isYandex});
 
 export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
     let state = getState();

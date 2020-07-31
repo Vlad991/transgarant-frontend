@@ -18,7 +18,7 @@ let initialState = {
     exclude: ''
 };
 
-const mapReducer = (state = initialState, action) => {
+const leafletMapReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_MAP_STATE:
             return {
@@ -78,4 +78,4 @@ const isInMkad = (waypoint, mkad, poly) => {
     return booleanContains(poly, point(waypoint));
 }
 
-export default mapReducer;
+export default leafletMapReducer;

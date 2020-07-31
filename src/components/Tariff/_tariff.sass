@@ -34,29 +34,39 @@
   transition: all .2s ease-in-out 0s
   @include mobile
     width: 100%
+
   .tariff-variant__item
     &:nth-child(2)
       transition: all .2s ease-in-out 0s
+
     .tariff-variant__heading
       transition: all .2s ease-in-out 0s
+
       svg path
         transition: all .2s ease-in-out 0s
+
     .tariff-variant__text, .tariff-variant__bold
       transition: all .2s ease-in-out 0s
+
   &_active
     background-color: $yellow
+
     .tariff-variant__item
       &:nth-child(2)
         border-color: #fff
+
     .tariff-variant__heading
       color: #fff
+
       svg path
         fill: #fff
+
     .tariff-variant__text, .tariff-variant__bold
       color: #fff
 
 .tariff-variant__item
   flex-basis: 100%
+
   &:nth-child(2)
     border-left: 1px solid #DDDDDD
     padding-left: 30px
@@ -66,6 +76,7 @@
   display: flex
   justify-content: space-between
   @include fontSWCL(16px, bold, #4F4F4F, 20px)
+
   > svg
     flex-shrink: 0
 
@@ -78,6 +89,7 @@
 .tariff__info-icon
   .info-icon__text
     left: -140px
+
     a
       text-decoration: underline
       color: $yellow
@@ -104,6 +116,7 @@
   @include fontSWCL(13px, normal, #000, 18px)
   display: flex
   align-items: center
+
   &:before
     display: flex
     content: url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.3644 2.63581C11.8497 -0.87857 6.15097 -0.878962 2.63581 2.63581C-0.878962 6.15058 -0.87857 11.8493 2.63581 15.3644C6.15058 18.8784 11.8493 18.8788 15.3644 15.3644C18.8788 11.8493 18.8784 6.15097 15.3644 2.63581ZM10.1737 12.9133C10.1737 13.5617 9.64814 14.0872 8.99973 14.0872C8.35133 14.0872 7.82579 13.5617 7.82579 12.9133V8.2175C7.82579 7.56909 8.35133 7.04356 8.99973 7.04356C9.64814 7.04356 10.1737 7.56909 10.1737 8.2175V12.9133ZM8.97899 6.21084C8.3028 6.21084 7.85201 5.73188 7.8661 5.1406C7.85201 4.52076 8.3028 4.05628 8.99269 4.05628C9.68296 4.05628 10.1197 4.52116 10.1341 5.1406C10.1338 5.73188 9.68335 6.21084 8.97899 6.21084Z' fill='%23ADADAD'/%3E%3C/svg%3E%0A")
@@ -148,6 +161,7 @@
     justify-content: space-between
     flex-wrap: wrap
     height: auto
+
   &:nth-child(2n+1)
     background: #FBFBFB
     border-radius: 10px
@@ -161,8 +175,9 @@
   flex-basis: 100%
   @include mobile
     flex-basis: auto
+
   &:nth-child(2n)
-    //text-align: right
+//text-align: right
 
 .chosen__name
   @include fontSWCL(13px, normal, #000, 15px)
@@ -172,21 +187,77 @@
   @include fontSWCL(13px, bold, #000, 15px)
   margin-left: 8px
 
-.tariff__map
+.tariff__map-tabs
+
+.map-tabs
   width: 47.4%
+
+.map-tabs__heading
+  display: flex
+  align-items: center
+
+.map-tabs__text
+  @include fontSWCL(16px, 500, #000, 16px)
+
+.map-tabs__links
+  display: flex
+  margin-left: 20px
+
+.map-tabs__link
+  height: 30px
+  width: 100px
+  box-sizing: border-box
+  border-radius: 5px
+  padding: 5px
+  display: flex
+  justify-content: center
+  align-items: center
+  background-color: #fff
+  border: 2px solid $yellow
+  @include fontSWCL(14px, bold, $yellow, 16px)
+  margin-right: 10px
+  cursor: pointer
+  transition: all 0.2s ease-in-out
+
+  &_active
+    background-color: $yellow
+    color: #fff
+
+.map-tabs__body
+  position: relative
+
+.map-tabs__item
+  visibility: hidden
+  opacity: 0
+  width: 100%
+  position: absolute
+  top: -20px
+  transition: all 0.2s ease-in-out
+
+  &_active
+    visibility: visible
+    opacity: 1
+    position: static
+
+.tariff__map
   min-height: 600px
   overflow: scroll
-  //position: relative
   border: 1px solid $yellow
   border-radius: 20px
-  margin-top: 30px
+  margin: 20px 0
+
+  > div.leaflet-container
+    height: 600px
+
   > a
+    display: none
     position: absolute
     z-index: 1001
-    top: -20px
+    bottom: -15px
     overflow: visible
     color: $yellow
     text-decoration: underline
+
   @include tablet
     width: 100%
     max-height: 400px
