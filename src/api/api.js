@@ -67,7 +67,7 @@ export const cargoAPI = {
 };
 
 export const orderAPI = {
-    calc(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type) {
+    calc(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type, car_type_id) {
         let data = {
             date: date,
             body_type_id: body_type_id,
@@ -91,11 +91,14 @@ export const orderAPI = {
             },
             payment_type: payment_type
         }
-        return instance.post('/calc', data)
+        if (places.length === 0 && pallets.length === 0 && packages.length === 0) {
+            data.car_type_id = car_type_id;
+        }
+        return instance.post('/calc', data, {timeout: 5000000})
             .then(response => response)
             .catch(error => error);
     },
-    orders(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type) {
+    orders(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type, car_type_id) {
         let data = {
             date: date,
             body_type_id: body_type_id,
@@ -118,6 +121,9 @@ export const orderAPI = {
                 email: email
             },
             payment_type: payment_type
+        }
+        if (places.length === 0 && pallets.length === 0 && packages.length === 0) {
+            data.car_type_id = car_type_id;
         }
         return instance.post('/orders', data)
             .then(response => response)

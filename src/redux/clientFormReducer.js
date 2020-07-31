@@ -210,7 +210,7 @@ export const doOrderThunk = () => async (dispatch, getState) => {
     if (validateAllData(state, dispatch)) {
         let date = state.dateReducer.date_from;
         date = date.getFullYear() + '-'
-            + (date.getMonth() > 9 ? date.getMonth() : ('0' + date.getMonth())) + '-'
+            + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '-'
             + (date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())) + 'T'
             + (date.getHours() > 9 ? date.getHours() : ('0' + date.getHours())) + ':'
             + (date.getMinutes() > 9 ? date.getMinutes() : ('0' + date.getMinutes())) + ':00';
@@ -314,7 +314,8 @@ export const doOrderThunk = () => async (dispatch, getState) => {
             '777',
             state.clientFormReducer.email,
             state.paymentReducer.payments.find((item, index) => (index + 1) === state.paymentReducer.selected_payment) ?
-                state.paymentReducer.payments.find((item, index) => (index + 1) === state.paymentReducer.selected_payment).data : '');
+                state.paymentReducer.payments.find((item, index) => (index + 1) === state.paymentReducer.selected_payment).data : '',
+            state.categoryReducer.active_category);
         if (response.status === 200) {
             dispatch(showOrderResult(response.data.id, true));
         } else {

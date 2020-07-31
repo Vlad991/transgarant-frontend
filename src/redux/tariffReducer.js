@@ -19,7 +19,7 @@ let initialState = {
             service_information: ''
         },
         {
-            id: '2',
+            id: 'bdc31826-7d68-11ea-a9c9-00155d8e4e03', // todo
             name: 'Часовая аренда РМ',
             cost: 0,
             min_cost: 0,
@@ -107,9 +107,9 @@ export const setTariff = (selected_tariff) => ({type: SET_TARIFF, selected_tarif
 
 export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
     let state = getState();
-    let date = state.dateReducer.date_from; // todo
+    let date = state.dateReducer.date_from;
     date = date.getFullYear() + '-'
-        + (date.getMonth() > 9 ? date.getMonth() : ('0' + date.getMonth())) + '-'
+        + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '-'
         + (date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())) + 'T'
         + (date.getHours() > 9 ? date.getHours() : ('0' + date.getHours())) + ':'
         + (date.getMinutes() > 9 ? date.getMinutes() : ('0' + date.getMinutes())) + ':00';
@@ -212,8 +212,9 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
         state.clientFormReducer.phone,
         '777',
         state.clientFormReducer.email,
-        'paymentonaccount');
-    if (response.status === 200) {
+        'paymentonaccount',
+        state.categoryReducer.active_category);
+    if (response.status === 200 && response.data) {
         dispatch(loadTariff(tariffId, response.data.cost, response.data.min_cost, response.data.rate, response.data.min_hours, response.data.hours, response.data.cost_by_hour, response.data.items, response.data.items_by_route, response.data.service_information));
     } else {
         console.error("Load Tariff: failed");

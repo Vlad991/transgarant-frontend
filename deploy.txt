@@ -1,4 +1,4 @@
 1. set home in package.json
-5. edit deployment.js file
-5. edit deployment.css file
-5. build
+2. edit deployment.js file
+3. edit deployment.css file
+4. build

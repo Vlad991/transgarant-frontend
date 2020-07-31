@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {Map, Placemark, YMaps} from "react-yandex-maps";
+import {Map, YMaps} from "react-yandex-maps";
 import {setAddressFromMapThunk, toggleAddressMap} from "../../redux/pointsReducer";
 
 let mapState = {
-    center: [55.751574, 37.573856],
-    zoom: 11,
+    center: [55.754638, 37.621633],
+    zoom: 12,
     controls: []
 }
 
@@ -21,7 +21,6 @@ class YMap extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.address !== this.props.address) {
-            mapState.zoom = 13;
             let coords = [parseFloat(this.props.address.longitude), parseFloat(this.props.address.latitude)];
             this.getAddress(coords, this.state.myPlacemark, this.state.ymaps);
         }
@@ -34,6 +33,9 @@ class YMap extends React.Component {
         myPlacemark.events.add('dragend', function () {
             thisObj.getAddress(myPlacemark.geometry.getCoordinates(), myPlacemark, ymaps);
             thisObj.props.setAddressFromMapThunk(myPlacemark.geometry.getCoordinates());
+        });
+        myPlacemark.events.add('click', function (e) {
+            e.preventDefault();
         });
         this.setState({myPlacemark, ymaps});
         this.map.geoObjects.add(myPlacemark);

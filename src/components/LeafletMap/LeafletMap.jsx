@@ -20,11 +20,11 @@ class LeafletMap extends React.Component {
 
     loadRoute = () => {
         let points = [...this.props.points];
-        points = points.map(point => [point.address.longitude, point.address.latitude]);
+        points = points.map(point => [point.address.latitude, point.address.longitude]);
         if (this.props.docReturn) {
             points.push([this.props.lastPointLongitude, this.props.lastPointLatitude]);
         }
-        this.props.setWaypointsThunk(points, 'sk');
+        this.props.setWaypointsThunk(points, '');
         this.forceUpdate();
     }
 
@@ -47,8 +47,8 @@ class LeafletMap extends React.Component {
 
         return (
             <div className="tariff__map">
-                <a target="_blank" rel="noopener noreferrer" href={"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.longitude + ',' + point.address.latitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('') + "&exclude=sk"} className="">
-                    {"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.longitude + ',' + point.address.latitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('') + "&exclude=sk"}
+                <a target="_blank" rel="noopener noreferrer" href={"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.latitude + ',' + point.address.longitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('')} className="">
+                    {"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.latitude + ',' + point.address.longitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('')}
                 </a>
                 <Map bounds={swap(this.props.bounds)} maxZoom="16">
                     <TileLayer url={TilesUrl}/>
