@@ -15,12 +15,12 @@ class TariffContainer extends React.Component {
     }
 
     loadTariff = () => {
-        // this.props.loadTariffThunk(this.props.state.selected_tariff); // todo
+        this.props.loadTariffThunk(this.props.state.selected_tariff);
     }
 
     loadAllTariffs = () => {
         this.props.state.tariff_types.forEach(tariff => {
-            // this.props.loadTariffThunk(tariff.id); // todo
+            this.props.loadTariffThunk(tariff.id);
         });
     }
 
@@ -43,8 +43,8 @@ class TariffContainer extends React.Component {
             (prevState.isShown !== this.state.isShown)) {
             if (this.state.isShown) {
                 this.loadAllTariffs();
-            } else {
-                this.loadTariff();
+            // } else {
+            //     this.loadTariff();
             }
         }
     }

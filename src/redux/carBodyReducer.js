@@ -11,6 +11,9 @@ const SET_BODY_OPTION_CH_VAL = 'SET-BODY-OPTION-CH-VAL';
 const SET_BODY_OPTION_CH_BOOL_VAL = 'CLEAR-BODY-OPTION-CH-BOOL-VAL';
 const TOGGLE_OPTION_COLLAPSE = 'TOGGLE-OPTION-COLLAPSE';
 const TOGGLE_CH_COLLAPSE = 'TOGGLE-CH-COLLAPSE';
+const SET_BODY_TYPES_LOADING = 'SET-BODY-TYPES-LOADING';
+const SET_BODY_OPTIONS_LOADING = 'SET-BODY-OPTIONS-LOADING';
+const SET_CHARACTERISTICS_LOADING = 'SET-CHARACTERISTICS-LOADING';
 
 let initialState = {
     body_types: [],
@@ -18,7 +21,10 @@ let initialState = {
     body_options: [],
     active_body_option: 'bca0024d-f0f9-11db-9d25-000cf16cef9c',
     body_option_characteristics: [],
-    show_option_collapse: false
+    show_option_collapse: false,
+    body_types_loading: false,
+    body_options_loading: false,
+    characteristics_loading: false,
 };
 
 const carBodyReducer = (state = initialState, action) => {
@@ -96,6 +102,21 @@ const carBodyReducer = (state = initialState, action) => {
                 ...state,
                 body_option_characteristics: items
             }
+        case SET_BODY_TYPES_LOADING:
+            return {
+                ...state,
+                body_types_loading: action.value
+            }
+        case SET_BODY_OPTIONS_LOADING:
+            return {
+                ...state,
+                body_options_loading: action.value
+            }
+        case SET_CHARACTERISTICS_LOADING:
+            return {
+                ...state,
+                characteristics_loading: action.value
+            }
         default:
             return state;
     }
@@ -110,8 +131,12 @@ export const setBodyOptionChVal = (bodyOptionChId, optionChValId) => ({type: SET
 export const setBodyOptionChBoolVal = (bodyOptionChId, optionChBoolVal) => ({type: SET_BODY_OPTION_CH_BOOL_VAL, bodyOptionChId, optionChBoolVal});
 export const toggleOptionCollapse = (show) => ({type: TOGGLE_OPTION_COLLAPSE, show});
 export const toggleChCollapse = (id, show) => ({type: TOGGLE_CH_COLLAPSE, id, show});
+export const setBodyTypesLoading = (value) => ({type: SET_BODY_TYPES_LOADING, value});
+export const setBodyOptionsLoading = (value) => ({type: SET_BODY_OPTIONS_LOADING, value});
+export const setCharacteristicsLoading = (value) => ({type: SET_CHARACTERISTICS_LOADING, value});
 
 export const setBodyTypesThunk = (categoryId) => async (dispatch) => {
+    dispatch(setBodyTypesLoading(true));
     let response = await vehicleAPI.getBodyTypes(categoryId);
     let bodyTypes = response.data;
     bodyTypes = bodyTypes.map((bodyType, index) => {
@@ -127,14 +152,18 @@ export const setBodyTypesThunk = (categoryId) => async (dispatch) => {
         }
     });
     dispatch(setBodyTypes(bodyTypes));
+    dispatch(setBodyTypesLoading(false));
 };
 
 export const setBodyOptionsThunk = (bodyTypeId, categoryId) => async (dispatch) => {
+    dispatch(setBodyOptionsLoading(true));
     let response = await vehicleAPI.getBodyOptions(bodyTypeId, categoryId);
     dispatch(setBodyOptions(response.data));
+    dispatch(setBodyOptionsLoading(false));
 };
 
 export const setBodyOptionChsThunk = (bodyOptionId, bodyTypeId, categoryId) => async (dispatch) => {
+    dispatch(setCharacteristicsLoading(true));
     let response = await vehicleAPI.getBodyOptionChs(bodyOptionId, bodyTypeId, categoryId);
     let characteristics = [];
     for (let characteristic of response.data) {
@@ -147,6 +176,7 @@ export const setBodyOptionChsThunk = (bodyOptionId, bodyTypeId, categoryId) => a
         characteristics.push(characteristic);
     }
     dispatch(setBodyOptionChs(characteristics));
+    dispatch(setCharacteristicsLoading(false));
 };
 
 export default carBodyReducer;

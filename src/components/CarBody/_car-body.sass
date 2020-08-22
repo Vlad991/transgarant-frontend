@@ -29,6 +29,9 @@
   flex-wrap: wrap
   @include tabletSmall
     justify-content: space-evenly
+  &--loading
+    justify-content: center
+    height: 146px
 
 .car-body__options
   margin-top: 28px
@@ -41,6 +44,7 @@
 .car-body__variant-card.collapse
   width: 257px
   text-transform: uppercase
+
   .collapse__selected, .collapse__item
     text-transform: uppercase
 
@@ -59,6 +63,7 @@
   position: relative
   cursor: pointer
   transition: all .2s ease-in-out 0s
+
   &::after
     display: flex
     justify-content: center
@@ -74,8 +79,10 @@
     transition: all .2s ease-in-out 0s
     visibility: hidden
     opacity: 0
+
   &_active
     border: 1px solid $yellow
+
     &::after
       visibility: visible
       opacity: 1
@@ -108,15 +115,24 @@
   @include tabletSmall
     margin-left: 0
 
+  &--loading
+    display: flex
+    justify-content: center
+    align-items: center
+
 .check-block__item
   flex-basis: 47.6%
   margin-top: 16px
+
   &:first-child, &:nth-child(2)
     margin-top: 0
+
   &:nth-child(2)
     @include mobile
       margin-top: 16px
+
   @include tablet
     min-width: 240px
+
   .collapse
     width: 100%

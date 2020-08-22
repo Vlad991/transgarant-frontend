@@ -3,6 +3,7 @@ import {orderAPI} from "../api/api";
 const SET_TARIFF = 'SET-TARIFF';
 const LOAD_TARIFF = 'LOAD-TARIFF';
 const SET_MAP_TYPE = 'SET-MAP-TYPE';
+const SET_TARIFF_LOADING = 'SET-TARIFF-LOADING';
 
 let initialState = {
     tariff_types: [
@@ -17,10 +18,12 @@ let initialState = {
             cost_by_hour: [],
             items: [],
             items_by_route: [],
-            service_information: ''
+            service_information: '',
+            text: '<a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/1qm0OF9PcSZZcGHvP0e_hkHf7NqI9VGN67PbCKFohpgg/edit">Условия работы и договор >></a>',
+            tariff_loading: false
         },
         {
-            id: 'bdc31826-7d68-11ea-a9c9-00155d8e4e03', // todo
+            id: 'aa6d8cc0-e0f1-11ea-8dfb-000c298a28ba',
             name: 'Часовая аренда РМ',
             cost: 0,
             min_cost: 0,
@@ -30,7 +33,9 @@ let initialState = {
             cost_by_hour: [],
             items: [],
             items_by_route: [],
-            service_information: ''
+            service_information: '',
+            text: 'Скидка с 13:00 до 17:00*<br/>*время предоставления скидки может изменяться<br/><a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/1qm0OF9PcSZZcGHvP0e_hkHf7NqI9VGN67PbCKFohpgg/edit">Условия работы и договор >></a>',
+            tariff_loading: false
         },
         {
             id: 'bdc31824-7d68-11ea-a9c9-00155d8e4e03',
@@ -43,7 +48,9 @@ let initialState = {
             cost_by_hour: 0,
             items: [],
             items_by_route: [],
-            service_information: ''
+            service_information: '',
+            text: '<a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/19kwRryD9MBkDZmNNklgo2eQHKL2Lj8HGUB5JMnXkY7U/edit">Условия работы и договор >></a>',
+            tariff_loading: false
         },
         {
             id: 'bdc31825-7d68-11ea-a9c9-00155d8e4e03',
@@ -56,7 +63,9 @@ let initialState = {
             cost_by_hour: 0,
             items: [],
             items_by_route: [],
-            service_information: ''
+            service_information: '',
+            text: 'Скидка с 13:00 до 17:00*<br/>*время предоставления скидки может изменяться<br/>Условия работы и договор >><br/><a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/19kwRryD9MBkDZmNNklgo2eQHKL2Lj8HGUB5JMnXkY7U/edit">Условия работы и договор >></a>',
+            tariff_loading: false
         },
         {
             id: 'bdc31823-7d68-11ea-a9c9-00155d8e4e03',
@@ -69,7 +78,24 @@ let initialState = {
             cost_by_hour: 0,
             items: [],
             items_by_route: [],
-            service_information: ''
+            service_information: '',
+            text: 'Перевозка выполняется в конкретный день в течение предлагаемого промежутка времени.<br/>*время выполнения заказа нефиксированное<br/><a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/19kwRryD9MBkDZmNNklgo2eQHKL2Lj8HGUB5JMnXkY7U/edit">Условия работы и договор >></a>',
+            tariff_loading: false
+        },
+        {
+            id: 'aa6d8cc1-e0f1-11ea-8dfb-000c298a28ba',
+            name: 'Доставка РМ',
+            cost: 0,
+            min_cost: 0,
+            rate: '',
+            min_hours: 0,
+            hours: 0,
+            cost_by_hour: 0,
+            items: [],
+            items_by_route: [],
+            service_information: '',
+            text: 'Перевозка выполняется в конкретный день в течение предлагаемого промежутка времени.<br/>*время выполнения заказа нефиксированное<br/><a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/19kwRryD9MBkDZmNNklgo2eQHKL2Lj8HGUB5JMnXkY7U/edit">Условия работы и договор >></a>',
+            tariff_loading: false
         }
     ],
     selected_tariff: 'bdc31826-7d68-11ea-a9c9-00155d8e4e03',
@@ -99,6 +125,11 @@ const tariffReducer = (state = initialState, action) => {
                 ...state,
                 selected_tariff: action.selected_tariff
             }
+        case SET_TARIFF_LOADING:
+            state.tariff_types.find(tariff => tariff.id === action.id).tariff_loading = action.value;
+            return {
+                ...state
+            }
         case SET_MAP_TYPE:
             return {
                 ...state,
@@ -112,15 +143,19 @@ const tariffReducer = (state = initialState, action) => {
 export const loadTariff = (id, cost, min_cost, rate, min_hours, hours, cost_by_hour, items, items_by_route, service_information) => ({type: LOAD_TARIFF, id, cost, min_cost, rate, min_hours, hours, cost_by_hour, items, items_by_route, service_information});
 export const setTariff = (selected_tariff) => ({type: SET_TARIFF, selected_tariff});
 export const setMapType = (isYandex) => ({type: SET_MAP_TYPE, isYandex});
+export const setTariffLoading = (id, value) => ({type: SET_TARIFF_LOADING, id, value});
 
 export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
     let state = getState();
     let date = state.dateReducer.date_from;
+    let dateTo = state.dateReducer.date_to;
     date = date.getFullYear() + '-'
         + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '-'
         + (date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())) + 'T'
         + (date.getHours() > 9 ? date.getHours() : ('0' + date.getHours())) + ':'
-        + (date.getMinutes() > 9 ? date.getMinutes() : ('0' + date.getMinutes())) + ':00';
+        + (date.getMinutes() > 9 ? date.getMinutes() : ('0' + date.getMinutes())) + ':00' + 'T'
+        + (dateTo.getHours() > 9 ? dateTo.getHours() : ('0' + dateTo.getHours())) + ':'
+        + (dateTo.getMinutes() > 9 ? dateTo.getMinutes() : ('0' + dateTo.getMinutes())) + ':00';
     let bodyOptionCharacteristics = state.carBodyReducer.body_option_characteristics
         .filter(item => {
             if (item.type === 'ref') {
@@ -203,6 +238,7 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
             files_ids: []
         });
     }
+    dispatch(setTariffLoading(tariffId, true));
     let response = await orderAPI.calc(
         date,
         state.carBodyReducer.active_body_type,
@@ -224,6 +260,7 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
         state.categoryReducer.active_category);
     if (response.status === 200 && response.data) {
         dispatch(loadTariff(tariffId, response.data.cost, response.data.min_cost, response.data.rate, response.data.min_hours, response.data.hours, response.data.cost_by_hour, response.data.items, response.data.items_by_route, response.data.service_information));
+        dispatch(setTariffLoading(tariffId, false));
     } else {
         console.error("Load Tariff: failed");
     }

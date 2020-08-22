@@ -150,6 +150,11 @@
   @include tablet
     margin-bottom: 15px
     margin-top: 15px
+  &--loading
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    padding-left: 40px
 
 .chosen__row
   display: flex
@@ -241,19 +246,19 @@
 
 .tariff__map
   min-height: 600px
-  overflow: scroll
   border: 1px solid $yellow
   border-radius: 20px
   margin: 20px 0
 
   > div.leaflet-container
     height: 600px
+    border-radius: 20px
 
   > a
-    display: none
+    display: block
     position: absolute
     z-index: 1001
-    bottom: -15px
+    top: calc(100% + 5px)
     overflow: visible
     color: $yellow
     text-decoration: underline
@@ -261,3 +266,17 @@
   @include tablet
     width: 100%
     max-height: 400px
+
+.yandex-map
+  width: 100%
+  height: 600px
+  border-radius: 20px
+
+  > ymaps
+    border-radius: 20px
+
+    > ymaps
+      border-radius: 20px
+
+      > ymaps
+        border-radius: 20px

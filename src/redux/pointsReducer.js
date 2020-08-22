@@ -206,17 +206,17 @@ const pointsReducer = (state = initialState, action) => {
                 values: [
                     {
                         id: 1,
-                        name: 'Погр',
+                        name: 'Погрузка',
                         selected: false
                     },
                     {
                         id: 2,
-                        name: 'Разг',
+                        name: 'Разгрузка',
                         selected: false
                     },
                     {
                         id: 3,
-                        name: 'Получ док',
+                        name: 'Получить/сдать документы',
                         selected: false
                     },
                     {
@@ -308,17 +308,17 @@ const pointsReducer = (state = initialState, action) => {
                 values: [
                     {
                         id: 1,
-                        name: 'Погр',
+                        name: 'Погрузка',
                         selected: false
                     },
                     {
                         id: 2,
-                        name: 'Разг',
+                        name: 'Разгрузка',
                         selected: false
                     },
                     {
                         id: 3,
-                        name: 'Получ док',
+                        name: 'Получить/сдать документы',
                         selected: false
                     },
                     {

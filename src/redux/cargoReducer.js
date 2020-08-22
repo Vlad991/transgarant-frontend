@@ -19,6 +19,7 @@ const SET_CARGO_DATA = 'SET-CARGO-DATA';
 const DISABLE_ITEMS_EDIT_MODE = 'DISABLE-ITEMS-EDIT-MODE';
 const TOGGLE_PALLET_COLLAPSE = 'TOGGLE-PALLET-COLLAPSE';
 const TOGGLE_PACKAGE_COLLAPSE = 'TOGGLE-PACKAGE-COLLAPSE';
+const SET_CARGO_LOADING = 'SET-CARGO-LOADING';
 
 let initialState = {
     active_tab: 1,
@@ -63,7 +64,8 @@ let initialState = {
     total_volume: 0,
     total_area: 0,
     show_pallet_collapse: false,
-    show_package_collapse: false
+    show_package_collapse: false,
+    cargo_loading: false
 };
 
 const cargoReducer = (state = initialState, action) => {
@@ -209,6 +211,11 @@ const cargoReducer = (state = initialState, action) => {
                 ...state,
                 show_package_collapse: action.show
             }
+        case SET_CARGO_LOADING:
+            return {
+                ...state,
+                cargo_loading: action.value
+            }
         default:
             return state;
     }
@@ -232,6 +239,7 @@ export const setCargoData = (total_weight, total_volume, total_area) => ({type: 
 export const disableItemsEditMode = () => ({type: DISABLE_ITEMS_EDIT_MODE});
 export const togglePalletCollapse = (show) => ({type: TOGGLE_PALLET_COLLAPSE, show});
 export const togglePackageCollapse = (show) => ({type: TOGGLE_PACKAGE_COLLAPSE, show});
+export const setCargoLoading = (value) => ({type: SET_CARGO_LOADING, value});
 
 export const setPalletTypesThunk = () => async (dispatch) => {
     let response = await cargoAPI.getPalletTypes();
@@ -257,6 +265,7 @@ export const addPlaceThunk = () => async (dispatch, getState) => {
         }
     }
     places.push(place);
+    dispatch(setCargoLoading(true));
     let response = await cargoAPI.addCargo(state.name, state.price, places, state.pallets, state.packages, state.body_option_id, state.body_option_characteristics);
     if (response.status === 200) {
         dispatch(addPlaces(places));
@@ -264,6 +273,7 @@ export const addPlaceThunk = () => async (dispatch, getState) => {
         dispatch(setPackedItems(response.data.packed_items));
         dispatch(setCargoSizes(response.data.height, response.data.width));
         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
+        dispatch(setCargoLoading(false));
     } else {
         console.error("Add Place: failed");
     }
@@ -274,6 +284,7 @@ export const removePlaceThunk = (index) => async (dispatch, getState) => {
     let places = [...state.places];
     places.splice(index, 1);
     if (places.length > 0 || state.pallets.length > 0 || state.packages.length > 0) {
+        dispatch(setCargoLoading(true));
         let response = await cargoAPI.addCargo(state.name, state.price, places, state.pallets, state.packages, state.body_option_id, state.body_option_characteristics);
         if (response.status === 200) {
             dispatch(addPlaces(places));
@@ -281,6 +292,7 @@ export const removePlaceThunk = (index) => async (dispatch, getState) => {
             dispatch(setPackedItems(response.data.packed_items));
             dispatch(setCargoSizes(response.data.height, response.data.width));
             dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
+            dispatch(setCargoLoading(false));
         } else {
             console.error("Add Place: failed");
         }
@@ -306,6 +318,7 @@ export const addPalletThunk = () => async (dispatch, getState) => {
         }
     }
     pallets.push(pallet);
+    dispatch(setCargoLoading(true));
     let response = await cargoAPI.addCargo(state.name, state.price, state.places, pallets, state.packages, state.body_option_id, state.body_option_characteristics);
     if (response.status === 200) {
         dispatch(addPallets(pallets));
@@ -313,6 +326,7 @@ export const addPalletThunk = () => async (dispatch, getState) => {
         dispatch(setPackedItems(response.data.packed_items));
         dispatch(setCargoSizes(response.data.height, response.data.width));
         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
+        dispatch(setCargoLoading(false));
     } else {
         console.error("Add Pallet: failed");
     }
@@ -323,6 +337,7 @@ export const removePalletThunk = (index) => async (dispatch, getState) => {
     let pallets = [...state.pallets];
     pallets.splice(index, 1);
     if (state.places.length > 0 || pallets.length > 0 || state.packages.length > 0) {
+        dispatch(setCargoLoading(true));
         let response = await cargoAPI.addCargo(state.name, state.price, state.places, pallets, state.packages, state.body_option_id, state.body_option_characteristics);
         if (response.status === 200) {
             dispatch(addPallets(pallets));
@@ -330,6 +345,7 @@ export const removePalletThunk = (index) => async (dispatch, getState) => {
             dispatch(setPackedItems(response.data.packed_items));
             dispatch(setCargoSizes(response.data.height, response.data.width));
             dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
+            dispatch(setCargoLoading(false));
         } else {
             console.error("Remove Pallet: failed");
         }
@@ -355,6 +371,7 @@ export const addPackageThunk = () => async (dispatch, getState) => {
         }
     }
     packages.push(packag);
+    dispatch(setCargoLoading(true));
     let response = await cargoAPI.addCargo(state.name, state.price, state.places, state.pallets, packages, state.body_option_id, state.body_option_characteristics);
     if (response.status === 200) {
         dispatch(addPackages(packages));
@@ -362,6 +379,7 @@ export const addPackageThunk = () => async (dispatch, getState) => {
         dispatch(setPackedItems(response.data.packed_items));
         dispatch(setCargoSizes(response.data.height, response.data.width));
         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
+        dispatch(setCargoLoading(false));
     } else {
         console.error("Add Package: failed");
     }
@@ -372,6 +390,7 @@ export const removePackageThunk = (index) => async (dispatch, getState) => {
     let packages = [...state.packages];
     packages.splice(index, 1);
     if (state.places.length > 0 || state.pallets.length > 0 || packages.length > 0) {
+        dispatch(setCargoLoading(true));
         let response = await cargoAPI.addCargo(state.name, state.price, state.places, state.pallets, packages, state.body_option_id, state.body_option_characteristics);
         if (response.status === 200) {
             dispatch(addPackages(packages));
@@ -379,6 +398,7 @@ export const removePackageThunk = (index) => async (dispatch, getState) => {
             dispatch(setPackedItems(response.data.packed_items));
             dispatch(setCargoSizes(response.data.height, response.data.width));
             dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
+            dispatch(setCargoLoading(false));
         } else {
             console.error("Remove Package: failed");
         }
@@ -390,30 +410,9 @@ export const removePackageThunk = (index) => async (dispatch, getState) => {
     }
 };
 
-// export const doEditPackageThunk = () => async (dispatch, getState) => {
-//     let state = getState().cargoReducer;
-//     let packages = [...state.packages];
-//     let packag = packages[state.edit_package];
-//     packag.quantity = state.package_quantity;
-//     packag.package_type_id = state.selected_package;
-//     packag.size.length = state.package_length;
-//     packag.size.width = state.package_width;
-//     packag.size.height = state.package_height;
-//     packag.size.weight = state.package_weight;
-//     let response = await cargoAPI.addCargo(state.name, state.price, state.places, state.pallets, packages, state.body_option_id, state.body_option_characteristics);
-//     if (response.status === 200) {
-//         dispatch(addPackages(packages));
-//         dispatch(setCategory(response.data.car_type_id));
-//         dispatch(setPackedItems(response.data.packed_items));
-//         dispatch(setCargoSizes(response.data.height, response.data.width));
-//         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
-//     } else {
-//         console.error("Edit Package: failed");
-//     }
-// };
-
 export const updateCargoThunk = () => async (dispatch, getState) => {
     let state = getState().cargoReducer;
+    dispatch(setCargoLoading(true));
     let response = await cargoAPI.addCargo(state.name, state.price, state.places, state.pallets, state.packages, state.body_option_id, state.body_option_characteristics);
     if (response.status === 200) {
         dispatch(disableItemsEditMode());
@@ -421,6 +420,7 @@ export const updateCargoThunk = () => async (dispatch, getState) => {
         dispatch(setPackedItems(response.data.packed_items));
         dispatch(setCargoSizes(response.data.height, response.data.width));
         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
+        dispatch(setCargoLoading(false));
     } else {
         console.error("Update Cargo: failed");
     }

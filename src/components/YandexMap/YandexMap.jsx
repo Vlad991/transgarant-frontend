@@ -53,12 +53,9 @@ class YandexMap extends React.Component {
         return (
             <YMaps query={{apikey: 'efe74c2e-a140-45f7-b21e-e7608b626295', load: 'package.full'}}>
                 <Map state={mapState}
-                     width="100%"
-                     height="600px"
-                     borderRadius="20px"
+                     className="yandex-map"
                      instanceRef={(ref) => this.map = ref}
-                     onLoad={(ymaps) => this.onLoad(ymaps)}
-                />
+                     onLoad={(ymaps) => this.onLoad(ymaps)}/>
             </YMaps>
         );
     };

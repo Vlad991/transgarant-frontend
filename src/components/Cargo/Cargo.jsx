@@ -1,5 +1,6 @@
 import React from "react";
 import CollapseContainer from "../CollapseContainer";
+import Loader from "react-loader-spinner";
 
 const Cargo = ({
                    state,
@@ -260,29 +261,31 @@ const Cargo = ({
                                 </div>
                             </div>
                         </div> : null}
-                    <div className="cargo__sizes" style={{
+                    <div className={"cargo__sizes" + (state.cargo_loading ? " cargo__sizes--loading" : "")} style={{
                         width: cargoAdaptiveWidth,
                         height: cargoAdaptiveHeight
                     }}>
-                        <div className="sizes-block">
-                            {state.packed_items.map(block => {
-                                return (
-                                    <div className="cargo__size-block" style={{
-                                        width: parseFloat(block.width) * ratio + 'px',
-                                        height: parseFloat(block.height) * ratio + 'px',
-                                        left: parseFloat(block.x) * ratio + 'px',
-                                        top: parseFloat(block.y) * ratio + 'px'
-                                    }}>
-                                        <div className="size-block">
-                                            <div className="size-block__value">{block.width}</div>
-                                            <div className="size-block__value">{block.height}</div>
-                                            <div className="size-block__value">{block.width}</div>
-                                            <div className="size-block__value">{block.height}</div>
+                        {state.cargo_loading ?
+                            <Loader type="Puff" color="#FFB700" height={80} width={80}/>
+                            : <div className="sizes-block">
+                                {state.packed_items.map(block => {
+                                    return (
+                                        <div className="cargo__size-block" style={{
+                                            width: parseFloat(block.width) * ratio + 'px',
+                                            height: parseFloat(block.height) * ratio + 'px',
+                                            left: parseFloat(block.x) * ratio + 'px',
+                                            top: parseFloat(block.y) * ratio + 'px'
+                                        }}>
+                                            <div className="size-block">
+                                                <div className="size-block__value">{block.width}</div>
+                                                <div className="size-block__value">{block.height}</div>
+                                                <div className="size-block__value">{block.width}</div>
+                                                <div className="size-block__value">{block.height}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
+                                    )
+                                })}
+                            </div>}
                     </div>
                     {state.active_tab === 1 ? <button type="button" onClick={addPlace} className="cargo__button cargo__button_mobile button">Добавить</button> : null}
                     {state.active_tab === 2 ? <button type="button" onClick={addPallet} className="cargo__button cargo__button_mobile button">Добавить</button> : null}
