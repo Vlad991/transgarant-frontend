@@ -22,26 +22,25 @@ button, input
   &:focus
     outline: none
 
-.checkout
-  width: 1160px
+.checkout-wrap
+  //background-color: rgba(0, 0, 0, 0.4)
+  width: 95%
   margin: 0 auto
+  max-width: 1160px
+  box-sizing: border-box
+  @media screen and (min-width: 480px)
+    margin: 0 20px
+    width: auto
+  @media screen and (min-width: 1200px)
+    margin: 0 auto
+
+
+.checkout
   background-color: rgba(255,255,255, 0.6)
   padding: 0.01% 24px
   box-sizing: border-box
-  @media screen and (max-width: 479px)
-    width: 95%
-    margin: 0 auto
-    padding: 50px 0
-  @media screen and (max-width: 719px) and (min-width: 480px)
-    width: auto
-    margin: 0 20px
-    padding: 50px 0
-  @media screen and (min-width: 720px) and (max-width: 999px)
-    width: auto
-    margin: 0 20px
-    padding: 50px 0
-  @media screen and (min-width: 981px) and (max-width: 1159px)
-    width: 95%
+  @include tabletSmall
+    padding: 0.01% 15px
 
 .checkout__heading
   margin-top: 28px
@@ -49,6 +48,14 @@ button, input
   text-transform: uppercase
   border-bottom: 2px solid $yellow
   padding-bottom: 11px
+  @include tabletSmall
+    margin-top: 24px
+    font-size: 22px
+    line-height: 27px
+  @include mobile
+    margin-top: 18px
+    font-size: 14px
+    line-height: 17px
 
 //......................................Elements.............................................
 

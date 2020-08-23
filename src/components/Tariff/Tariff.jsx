@@ -11,7 +11,7 @@ const Tariff = ({state, setTariff, setView, setMapType}) => {
         selectedTariffObject = state.tariff_types.find(tariff => tariff.id === state.selected_tariff);
     }
     return (
-        <InView as="section" className="checkout__tariff tariff" onChange={(inView, entry) => setView(inView)}>
+        <section className="checkout__tariff tariff">
             <div className="checkout__title tariff__heading">ВЫБОР ТАРИФА И ДЕТАЛИЗАЦИЯ ЗАКАЗА</div>
             <div className="tariff__variants">
                 {state.tariff_types.map((tariff, index, tariffs) => {
@@ -83,12 +83,12 @@ const Tariff = ({state, setTariff, setView, setMapType}) => {
                 <div className="tariff__info-heading">Служебная информация</div>
                 <div className="tariff__info-text">{state.selected_tariff ? selectedTariffObject.service_information : ''}</div>
             </div>
-            <div className="tariff__chosen">
+            <InView as="div" className="tariff__chosen" onChange={(inView, entry) => setView(inView)}>
                 {state.selected_tariff ?
                     <div className="tariff__chosen-info">
                         <div className="chosen__heading">{selectedTariffObject.name}</div>
                         {selectedTariffObject.tariff_loading ?
-                            <div className="chosen__table chosen__table--loading"><Loader  type="Puff" color="#ADADAD" height={80} width={80}/></div>
+                            <div className="chosen__table chosen__table--loading"><Loader type="Puff" color="#ADADAD" height={80} width={80}/></div>
                             : <table className="chosen__table">
                                 <tbody>
                                 <tr className="chosen__row">
@@ -117,29 +117,31 @@ const Tariff = ({state, setTariff, setView, setMapType}) => {
                                 </tr>
                                 </tbody>
                             </table>}
-                        <div className="chosen__heading">Дополнительные услуги</div>
-                        {selectedTariffObject.tariff_loading ?
-                            <div className="chosen__table chosen__table--loading"><Loader  type="Puff" color="#ADADAD" height={80} width={80}/></div>
-                            : <table className="chosen__table">
-                                <tbody>
-                                {selectedTariffObject.items.map((item, index) => {
-                                    return (
-                                        <tr key={index} className="chosen__row">
-                                            <td className="chosen__col">
-                                                <span className="chosen__name">{item.name}</span>
-                                            </td>
-                                            <td className="chosen__col">
-                                                <span className="chosen__value">{item.cost} р</span>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                                </tbody>
-                            </table>}
-                        {selectedTariffObject.items_by_route ? <>
+                        {(selectedTariffObject.items && selectedTariffObject.items.length > 0) ? <>
+                            <div className="chosen__heading">Дополнительные услуги</div>
+                            {selectedTariffObject.tariff_loading ?
+                                <div className="chosen__table chosen__table--loading"><Loader type="Puff" color="#ADADAD" height={80} width={80}/></div>
+                                : <table className="chosen__table">
+                                    <tbody>
+                                    {selectedTariffObject.items.map((item, index) => {
+                                        return (
+                                            <tr key={index} className="chosen__row">
+                                                <td className="chosen__col">
+                                                    <span className="chosen__name">{item.name}</span>
+                                                </td>
+                                                <td className="chosen__col">
+                                                    <span className="chosen__value">{item.cost} р</span>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                    </tbody>
+                                </table>}
+                        </> : null}
+                        {(selectedTariffObject.items_by_route && selectedTariffObject.items_by_route.length > 0) ? <>
                             <div className="chosen__heading">По маршрту</div>
                             {selectedTariffObject.tariff_loading ?
-                                <div className="chosen__table chosen__table--loading"><Loader  type="Puff" color="#ADADAD" height={80} width={80}/></div>
+                                <div className="chosen__table chosen__table--loading"><Loader type="Puff" color="#ADADAD" height={80} width={80}/></div>
                                 : <table className="chosen__table">
                                     {selectedTariffObject.items_by_route.map((item, index) => {
                                         return (
@@ -169,8 +171,8 @@ const Tariff = ({state, setTariff, setView, setMapType}) => {
                         <div className={"map-tabs__item tariff__map" + (!state.yandex_map ? " map-tabs__item_active" : "")}><LeafletMap/></div>
                     </div>
                 </div>
-            </div>
-        </InView>
+            </InView>
+        </section>
     );
 }
 

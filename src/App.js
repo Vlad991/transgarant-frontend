@@ -33,30 +33,32 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="checkout" onClick={this.closeAllCollapse}>
-                <h1 className="checkout__heading">РАСЧЕТ СТОИМОСТИ и ОФОРМЛЕНИЕ ЗАКАЗА</h1>
+            <div className="checkout-wrap">
+                <div className="checkout" onClick={this.closeAllCollapse}>
+                    <h1 className="checkout__heading">РАСЧЕТ СТОИМОСТИ и ОФОРМЛЕНИЕ ЗАКАЗА</h1>
 
-                <CategoryContainer/>
+                    <CategoryContainer/>
 
-                <CarBodyContainer/>
+                    <CarBodyContainer/>
 
-                <DopContainer/>
+                    <DopContainer/>
 
-                <DocReturnContainer/>
+                    <DocReturnContainer/>
 
-                <PointsContainer/>
+                    <PointsContainer/>
 
-                <CargoContainer/>
+                    <CargoContainer/>
 
-                <CargoItemsContainer/>
+                    <CargoItemsContainer/>
 
-                <TariffContainer/>
+                    <TariffContainer/>
 
-                <PaymentContainer/>
+                    <PaymentContainer/>
 
-                <ClientFormContainer/>
+                    <ClientFormContainer/>
 
-                <SummaryContainer/>
+                    <SummaryContainer/>
+                </div>
             </div>
         );
     }

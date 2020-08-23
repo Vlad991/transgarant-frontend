@@ -7,28 +7,40 @@ const instance = axios.create({
 
 export const categoryAPI = {
     getCategories() {
-        return instance.get('/car-types');
+        return instance.get('/car-types')
+            .then(response => response)
+            .catch(error => error);
     }
 };
 
 export const vehicleAPI = {
     getBodyTypes(categoryId) {
-        return instance.get('/body-types' + (categoryId ? '/' + categoryId : ''));
+        return instance.get('/body-types' + (categoryId ? '/' + categoryId : ''))
+            .then(response => response)
+            .catch(error => error);
     },
     getBodyOptions(bodyTypeId, categoryId) {
-        return instance.get('/body-options/' + bodyTypeId + (categoryId ? '/' + categoryId : ''));
+        return instance.get('/body-options/' + bodyTypeId + (categoryId ? '/' + categoryId : ''))
+            .then(response => response)
+            .catch(error => error);
     },
     getBodyOptionChs(bodyOptionId, bodyTypeId, categoryId) {
-        return instance.get('/body-option-characteristics/' + bodyOptionId + '/' + bodyTypeId + (categoryId ? '/' + categoryId : ''));
+        return instance.get('/body-option-characteristics/' + bodyOptionId + '/' + bodyTypeId + (categoryId ? '/' + categoryId : ''))
+            .then(response => response)
+            .catch(error => error);
     },
     getBodyOptionChValues(bodyOptionChId, categoryId) {
-        return instance.get('/body-option-characteristics-values/' + bodyOptionChId + (categoryId ? '/' + categoryId : ''));
+        return instance.get('/body-option-characteristics-values/' + bodyOptionChId + (categoryId ? '/' + categoryId : ''))
+            .then(response => response)
+            .catch(error => error);
     }
 };
 
 export const dopAPI = {
     getDop() {
-        return instance.get('/additional-requirements');
+        return instance.get('/additional-requirements')
+            .then(response => response)
+            .catch(error => error);
     }
 };
 
@@ -43,10 +55,14 @@ export const fileAPI = {
 
 export const cargoAPI = {
     getPalletTypes() {
-        return instance.get('/pallet-types');
+        return instance.get('/pallet-types')
+            .then(response => response)
+            .catch(error => error);
     },
     getPackageTypes() {
-        return instance.get('/package-types');
+        return instance.get('/package-types')
+            .then(response => response)
+            .catch(error => error);
     },
     addCargo(name, price, places, pallets, packages, body_option_id, body_option_characteristics) {
         let data = {
@@ -60,7 +76,7 @@ export const cargoAPI = {
             body_option_id,
             body_option_characteristics,
         }
-        return instance.post('/pack', data)
+        return instance.post('/pack', data, {timeout: 10000})
             .then(response => response)
             .catch(error => error);
     }
@@ -139,12 +155,18 @@ export const phoneAPI = {
             .catch(error => error);
     },
     checkSms(phone, code) {
-        return instance.get('/check-sms/' + phone + '/' + code);
+        return instance.get('/check-sms/' + phone + '/' + code)
+            .then(response => response)
+            .catch(error => error);
     },
     checkTinPhone(phone, tin) {
-        return instance.get('/check-tin-phone/' + phone + '/' + tin);
+        return instance.get('/check-tin-phone/' + phone + '/' + tin)
+            .then(response => response)
+            .catch(error => error);
     },
     checkPhone(phone) {
-        return instance.get('/check-tin-phone/' + phone);
+        return instance.get('/check-tin-phone/' + phone)
+            .then(response => response)
+            .catch(error => error);
     }
 };

@@ -243,14 +243,18 @@ export const setCargoLoading = (value) => ({type: SET_CARGO_LOADING, value});
 
 export const setPalletTypesThunk = () => async (dispatch) => {
     let response = await cargoAPI.getPalletTypes();
-    dispatch(setPalletTypes(response.data));
-    dispatch(setPallet(response.data[0].id));
+    if (response.status === 200 && response.data) {
+        dispatch(setPalletTypes(response.data));
+        dispatch(setPallet(response.data[0].id));
+    }
 };
 
 export const setPackageTypesThunk = () => async (dispatch) => {
     let response = await cargoAPI.getPackageTypes();
-    dispatch(setPackageTypes(response.data));
-    dispatch(setPackage(response.data[0].id));
+    if (response.status === 200 && response.data) {
+        dispatch(setPackageTypes(response.data));
+        dispatch(setPackage(response.data[0].id));
+    }
 };
 
 export const addPlaceThunk = () => async (dispatch, getState) => {
@@ -276,6 +280,7 @@ export const addPlaceThunk = () => async (dispatch, getState) => {
         dispatch(setCargoLoading(false));
     } else {
         console.error("Add Place: failed");
+        dispatch(setCargoLoading(false));
     }
 };
 
@@ -295,6 +300,7 @@ export const removePlaceThunk = (index) => async (dispatch, getState) => {
             dispatch(setCargoLoading(false));
         } else {
             console.error("Add Place: failed");
+            dispatch(setCargoLoading(false));
         }
     } else {
         dispatch(addPlaces(places));
@@ -329,6 +335,7 @@ export const addPalletThunk = () => async (dispatch, getState) => {
         dispatch(setCargoLoading(false));
     } else {
         console.error("Add Pallet: failed");
+        dispatch(setCargoLoading(false));
     }
 };
 
@@ -348,6 +355,7 @@ export const removePalletThunk = (index) => async (dispatch, getState) => {
             dispatch(setCargoLoading(false));
         } else {
             console.error("Remove Pallet: failed");
+            dispatch(setCargoLoading(false));
         }
     } else {
         dispatch(addPallets(pallets));
@@ -382,6 +390,7 @@ export const addPackageThunk = () => async (dispatch, getState) => {
         dispatch(setCargoLoading(false));
     } else {
         console.error("Add Package: failed");
+        dispatch(setCargoLoading(false));
     }
 };
 
@@ -401,6 +410,7 @@ export const removePackageThunk = (index) => async (dispatch, getState) => {
             dispatch(setCargoLoading(false));
         } else {
             console.error("Remove Package: failed");
+            dispatch(setCargoLoading(false));
         }
     } else {
         dispatch(addPackages(packages));
@@ -423,6 +433,7 @@ export const updateCargoThunk = () => async (dispatch, getState) => {
         dispatch(setCargoLoading(false));
     } else {
         console.error("Update Cargo: failed");
+        dispatch(setCargoLoading(false));
     }
 };
 

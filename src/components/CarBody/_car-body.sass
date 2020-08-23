@@ -8,6 +8,8 @@
 
 .car-body__heading
   margin-top: 40px
+  @include tabletSmall
+    margin-top: 20px
 
 .car-body__cols
   margin-top: 30px
@@ -16,34 +18,55 @@
   align-items: flex-start
   @include tabletSmall
     flex-direction: column
+    margin-top: 20px
 
 .car-body__col
   width: 49%
-  @include tablet
-    width: auto
+  @include tabletSmall
+    width: 100%
+    &:first-child
+      //margin-bottom: 30px
 
 
 .car-body__variants
   display: flex
   justify-content: space-between
   flex-wrap: wrap
+  @media screen and (max-width: 1177px)
+    justify-content: space-evenly
   @include tabletSmall
     justify-content: space-evenly
+
   &--loading
     justify-content: center
+    align-items: center
     height: 146px
 
 .car-body__options
   margin-top: 28px
+  @media screen and (max-width: 1177px)
+    margin-top: 0
+    display: flex
+    justify-content: center
 
 .car-body__variant-card
   margin-bottom: 28px
   margin-right: 10px
-  z-index: 4
+  z-index: 5
+  @include mobile
+    margin-right: 0
+    margin-bottom: 15px
 
 .car-body__variant-card.collapse
   width: 257px
   text-transform: uppercase
+  @include mobile
+    width: 220px
+    padding: 14px 50px 14px 20px
+
+  &.collapse--loading
+    padding-top: 2px
+    padding-bottom: 2px
 
   .collapse__selected, .collapse__item
     text-transform: uppercase
@@ -63,6 +86,11 @@
   position: relative
   cursor: pointer
   transition: all .2s ease-in-out 0s
+  @include mobile
+    width: 220px
+    height: 100px
+    padding: 0
+    justify-content: center
 
   &::after
     display: flex
@@ -93,13 +121,10 @@
 .variant-card__title
   margin-top: 14px
   @include fontSWCL(16px, bold, #555, 20px)
-
-.car-body__collapse
-
-.car-body__col
-  @include tabletSmall
-    &:first-child
-      margin-bottom: 30px
+  @include mobile
+    font-size: 12px
+    line-height: 15px
+    margin-top: 5px
 
 .check-block
   padding: 23px 25px
@@ -109,7 +134,7 @@
   display: flex
   flex-wrap: wrap
   align-items: center
-  z-index: 2
+  z-index: 4
   @include tablet
     margin-left: 30px
   @include tabletSmall
@@ -124,15 +149,22 @@
   flex-basis: 47.6%
   margin-top: 16px
 
+  @include tablet
+    min-width: 240px
+
+  @include mobile
+    margin-top: 10px
+
   &:first-child, &:nth-child(2)
     margin-top: 0
 
   &:nth-child(2)
-    @include mobile
+    @include tablet
       margin-top: 16px
-
-  @include tablet
-    min-width: 240px
+    @include tabletSmall
+      margin-top: 0
+    @media screen and (max-width: 599px)
+      margin-top: 16px
 
   .collapse
     width: 100%

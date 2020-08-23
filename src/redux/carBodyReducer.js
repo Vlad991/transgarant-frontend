@@ -1,6 +1,7 @@
 import {vehicleAPI} from "../api/api";
 import closedImg from '../img/car-body/vc-4-04 6.svg';
 import openedImg from '../img/car-body/Group.svg';
+import {loadTariff, setTariffLoading} from "./tariffReducer";
 
 const SET_BODY_TYPES = 'SET-BODY-TYPES';
 const SET_BODY_OPTIONS = 'SET-BODY-OPTIONS';
@@ -138,45 +139,57 @@ export const setCharacteristicsLoading = (value) => ({type: SET_CHARACTERISTICS_
 export const setBodyTypesThunk = (categoryId) => async (dispatch) => {
     dispatch(setBodyTypesLoading(true));
     let response = await vehicleAPI.getBodyTypes(categoryId);
-    let bodyTypes = response.data;
-    bodyTypes = bodyTypes.map((bodyType, index) => {
-        switch (index) {
-            case 0:
-                bodyType.img = closedImg;
-                return bodyType;
-            case 1:
-                bodyType.img = openedImg;
-                return bodyType;
-            default:
-                return bodyType;
-        }
-    });
-    dispatch(setBodyTypes(bodyTypes));
-    dispatch(setBodyTypesLoading(false));
+    if (response.status === 200 && response.data) {
+        let bodyTypes = response.data;
+        bodyTypes = bodyTypes.map((bodyType, index) => {
+            switch (index) {
+                case 0:
+                    bodyType.img = closedImg;
+                    return bodyType;
+                case 1:
+                    bodyType.img = openedImg;
+                    return bodyType;
+                default:
+                    return bodyType;
+            }
+        });
+        dispatch(setBodyTypes(bodyTypes));
+        dispatch(setBodyTypesLoading(false));
+    } else {
+        console.error("Load Body Types: failed");
+    }
 };
 
 export const setBodyOptionsThunk = (bodyTypeId, categoryId) => async (dispatch) => {
     dispatch(setBodyOptionsLoading(true));
     let response = await vehicleAPI.getBodyOptions(bodyTypeId, categoryId);
-    dispatch(setBodyOptions(response.data));
-    dispatch(setBodyOptionsLoading(false));
+    if (response.status === 200 && response.data) {
+        dispatch(setBodyOptions(response.data));
+        dispatch(setBodyOptionsLoading(false));
+    } else {
+        console.error("Load Body Options: failed");
+    }
 };
 
 export const setBodyOptionChsThunk = (bodyOptionId, bodyTypeId, categoryId) => async (dispatch) => {
     dispatch(setCharacteristicsLoading(true));
     let response = await vehicleAPI.getBodyOptionChs(bodyOptionId, bodyTypeId, categoryId);
-    let characteristics = [];
-    for (let characteristic of response.data) {
-        if (characteristic.type === 'ref') {
-            let responseValues = await vehicleAPI.getBodyOptionChValues(characteristic.id, categoryId);
-            characteristic.values = responseValues.data;
-        } else {
-            characteristic.value = false;
+    if (response.status === 200 && response.data) {
+        let characteristics = [];
+        for (let characteristic of response.data) {
+            if (characteristic.type === 'ref') {
+                let responseValues = await vehicleAPI.getBodyOptionChValues(characteristic.id, categoryId);
+                characteristic.values = responseValues.data;
+            } else {
+                characteristic.value = false;
+            }
+            characteristics.push(characteristic);
         }
-        characteristics.push(characteristic);
+        dispatch(setBodyOptionChs(characteristics));
+        dispatch(setCharacteristicsLoading(false));
+    } else {
+        console.error("Load Body Option Characteristics: failed");
     }
-    dispatch(setBodyOptionChs(characteristics));
-    dispatch(setCharacteristicsLoading(false));
 };
 
 export default carBodyReducer;
