@@ -17,18 +17,21 @@
   cursor: pointer
   @include fontSWCL(13px, 600, #000, 16px)
   transition: all .5s ease-in-out 0.3s
+
   &_active
     transition: all .5s ease-in-out 0s
     border: 1px solid $yellow
 
 .cargo-item__plus
   position: relative
+
   &:before
     content: ''
     display: block
     width: 27px
     height: 3px
     background-color: #C4C4C4
+
   &:after
     content: ''
     display: block
@@ -40,6 +43,7 @@
     position: absolute
     top: 0
     transition: all .5s ease-in-out 0.3s
+
   &_active:after
     visibility: hidden
     transform: rotate(0deg)
@@ -50,6 +54,7 @@
   opacity: 0
   max-height: 0
   transition: all .5s ease-in-out 0s
+
   &_active
     transition: all .5s ease-in-out 0s
     opacity: 1
@@ -62,9 +67,21 @@
   height: 93px
   border-bottom: 1px solid #EEEEEE
   padding: 0 20px
+  @include tabletSmall
+    flex-wrap: wrap
+    justify-content: space-between
+    align-items: center
+    height: auto
+    padding: 10px 30px 10px 10px
+    position: relative
 
 .cargo-item__body-parameter
   margin-right: 20px
+  @include tabletSmall
+    width: calc(25% - 5px)
+    margin-top: 5px
+    margin-right: 0
+
   &_first
     height: 64px
     background-color: #FBFBFB
@@ -73,17 +90,43 @@
     box-sizing: border-box
     border: 1px solid #E6E6E6
     @include fontSWCL(16px, 600, #919191, 20px)
+    @include tabletSmall
+      width: auto
+      flex-basis: 100%
+      height: 35px
+      padding: 10px
+      justify-content: center
+      display: flex
+      align-items: center
+      font-size: 14px
+      line-height: 16px
+      margin: 0
 
 .cargo-item__body-parameter.input-label-wrap
   .input-label-wrap__input
     margin-top: 7px
+    @include tabletSmall
+      margin-top: 5px
+
   .input-label-wrap__label
     margin-left: 5px
+    @include tabletSmall
+      flex-basis: 14px
+    @include mobile
+      font-size: 10px
+      line-height: 12px
+      flex-basis: 22px
+      display: flex
+      align-items: center
+
   .input-wrap
     width: 85px
     height: 28px
     border-radius: 10px
     padding: 0
+    @include tablet
+      width: 100%
+
     &__input
       text-align: center
 
@@ -99,3 +142,8 @@
   background: none
   outline: none
   cursor: pointer
+  @include tabletSmall
+    position: absolute
+    top: 18px
+    right: 5px
+    padding: 0

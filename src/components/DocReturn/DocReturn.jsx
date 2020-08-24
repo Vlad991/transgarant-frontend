@@ -10,8 +10,8 @@ const DocReturn = ({state, toggleReturn, toggleNames, setName, setData}) => {
             <label onClick={toggleReturn} className="doc-return__heading check-wrap">
                 Возврат документов
                 {state.show ?
-                    <input type="checkbox" checked className="check-wrap__input"/> :
-                    <input type="checkbox" className="check-wrap__input"/>}
+                    <input type="checkbox" checked={true} onChange={() => {}}  className="check-wrap__input"/> :
+                    <input type="checkbox" checked={false} onChange={() => {}}  className="check-wrap__input"/>}
                 <span className="check-wrap__mark"></span>
             </label>
             <div className={"doc-return__body" + (state.show ? " doc-return__body_active" : "")}>

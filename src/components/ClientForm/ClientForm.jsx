@@ -64,8 +64,8 @@ const ClientForm = ({
                 }}>
                     <span>Я принииаю <a onClick={e => e.stopPropagation()} target="_blank" href="/terms-of-use" className="client-form__agree-link">пользовательское соглашение</a> и <a target="_blank" onClick={e => e.stopPropagation()} href="/privacy-policy" className="client-form__agree-link">политику конфиденциальности</a></span>
                     {state.agree ?
-                        <input type="checkbox" checked className="check-wrap__input"/> :
-                        <input type="checkbox" className="check-wrap__input"/>}
+                        <input type="checkbox" checked={true} onChange={() => {}} className="check-wrap__input"/> :
+                        <input type="checkbox" checked={false} onChange={() => {}} className="check-wrap__input"/>}
                     <span className="check-wrap__mark"></span>
                 </label>
             </section>

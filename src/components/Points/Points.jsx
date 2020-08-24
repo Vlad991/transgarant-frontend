@@ -191,8 +191,8 @@ const Points = ({
                                             <label key={value.id} className="collapse__item check-wrap">
                                                 {value.name}
                                                 {value.selected ?
-                                                    <input onChange={() => toggleValue(value.id)} type="checkbox" checked className="check-wrap__input"/> :
-                                                    <input onChange={() => toggleValue(value.id)} type="checkbox" className="check-wrap__input"/>}
+                                                    <input onChange={() => toggleValue(value.id)} type="checkbox" checked={true} className="check-wrap__input"/> :
+                                                    <input onChange={() => toggleValue(value.id)} type="checkbox" checked={false} className="check-wrap__input"/>}
                                                 <span className="check-wrap__mark"></span>
                                             </label>
                                         );

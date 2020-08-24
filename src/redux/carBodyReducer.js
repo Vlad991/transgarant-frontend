@@ -1,7 +1,6 @@
 import {vehicleAPI} from "../api/api";
 import closedImg from '../img/car-body/vc-4-04 6.svg';
 import openedImg from '../img/car-body/Group.svg';
-import {loadTariff, setTariffLoading} from "./tariffReducer";
 
 const SET_BODY_TYPES = 'SET-BODY-TYPES';
 const SET_BODY_OPTIONS = 'SET-BODY-OPTIONS';

@@ -3,10 +3,25 @@
 @import "../../sass/tools/media"
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap')
 
-.route__calendar
+.route__calendars
   position: absolute
   z-index: 2
   top: 80px
+  display: flex
+  @include tablet
+    flex-direction: column
+  @include tabletSmall
+    left: -15px
+  @include mobile
+    left: auto
+
+  > div:first-child
+    margin-right: 20px
+    @include tablet
+      margin-right: 0
+      margin-bottom: 20px
+
+.route__calendar
   display: none
   &_active
     display: block

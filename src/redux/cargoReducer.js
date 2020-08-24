@@ -24,7 +24,7 @@ const SET_CARGO_LOADING = 'SET-CARGO-LOADING';
 let initialState = {
     active_tab: 1,
     name: '',
-    price: 0,
+    price: null,
     quantity: 1,
     length: 1.2,
     width: 0.8,

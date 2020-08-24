@@ -53,7 +53,7 @@ const CarBody = ({
                                         markBodyOptionCh(bodyOptionCh.id, false);
                                     }}>
                                         {bodyOptionCh.name}
-                                        <input type="checkbox" checked className="check-wrap__input"/>
+                                        <input type="checkbox" checked={true} onChange={() => {}} className="check-wrap__input"/>
                                         <span className="check-wrap__mark"></span>
                                     </label> :
                                     <label key={bodyOptionCh.id} className="check-block__item check-wrap" onClick={(e) => {
@@ -61,7 +61,7 @@ const CarBody = ({
                                         markBodyOptionCh(bodyOptionCh.id, true);
                                     }}>
                                         {bodyOptionCh.name}
-                                        <input type="checkbox" className="check-wrap__input"/>
+                                        <input type="checkbox" checked={false} onChange={() => {}}  className="check-wrap__input"/>
                                         <span className="check-wrap__mark"></span>
                                     </label>
                             } else {
@@ -77,8 +77,8 @@ const CarBody = ({
                                                            items={bodyOptionCh.values}
                                                            setItem={(id) => setBodyOptionChVal(bodyOptionCh.id, id)}/>
                                         {bodyOptionCh.values.find(value => value.selected) ?
-                                            <input type="checkbox" checked onChange={() => setBodyOptionChVal(bodyOptionCh.id, null)} className="check-wrap__input"/> :
-                                            <input type="checkbox" onChange={() => setBodyOptionChVal(bodyOptionCh.id, 0)} className="check-wrap__input"/>}
+                                            <input type="checkbox" checked={true} onChange={() => setBodyOptionChVal(bodyOptionCh.id, null)} className="check-wrap__input"/> :
+                                            <input type="checkbox" checked={false} onChange={() => setBodyOptionChVal(bodyOptionCh.id, 0)} className="check-wrap__input"/>}
                                         <span className="check-wrap__mark"></span>
                                     </label>
                                 )

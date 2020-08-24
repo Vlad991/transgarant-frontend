@@ -12,8 +12,8 @@ const Dop = ({state, toggle, toggleAdditional}) => {
                             <label key={item.id} onClick={(e) => toggleAdditional(e, item.id)} className="dop__check check-wrap">
                                 {item.name}
                                 {item.selected ?
-                                    <input type="checkbox" checked className="check-wrap__input"/>:
-                                    <input type="checkbox" className="check-wrap__input"/>}
+                                    <input type="checkbox" checked={true} onChange={() => {}} className="check-wrap__input"/>:
+                                    <input type="checkbox" checked={false} onChange={() => {}} className="check-wrap__input"/>}
                                 <span className="check-wrap__mark"></span>
                             </label>
                         )

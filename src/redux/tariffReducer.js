@@ -153,7 +153,7 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
         + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '-'
         + (date.getDate() > 9 ? date.getDate() : ('0' + date.getDate())) + 'T'
         + (date.getHours() > 9 ? date.getHours() : ('0' + date.getHours())) + ':'
-        + (date.getMinutes() > 9 ? date.getMinutes() : ('0' + date.getMinutes())) + ':00' + 'T'
+        + (date.getMinutes() > 9 ? date.getMinutes() : ('0' + date.getMinutes())) + ':00T'
         + (dateTo.getHours() > 9 ? dateTo.getHours() : ('0' + dateTo.getHours())) + ':'
         + (dateTo.getMinutes() > 9 ? dateTo.getMinutes() : ('0' + dateTo.getMinutes())) + ':00';
     let bodyOptionCharacteristics = state.carBodyReducer.body_option_characteristics

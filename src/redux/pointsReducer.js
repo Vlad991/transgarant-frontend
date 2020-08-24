@@ -16,84 +16,108 @@ const TOGGLE_ADDRESS_MAP = 'TOGGLE-ADDRESS-MAP'
 
 let initialState = {
     points: [
-        // {
-        //     name: 'Точка 1',
-        //     address: 'г Москва, Пушкинская пл, д 2',
-        //     address_longitude: 37.505951,
-        //     address_latitude: 55.706611,
-        //     comment: '',
-        //     company: 'В ООО "Salus"',
-        //     contact_name: 'Васька',
-        //     number: '+ 7 934 43 59 435',
-        //     todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
-        //     files: [{id: 1, name: 'file.txt'}],
-        //     time_from: '09.00',
-        //     time_to: '18.00',
-        //     has_pause: true,
-        //     pause_from: '09.00',
-        //     pause_to: '18.00',
-        //     values: [
-        //         {
-        //             id: 1,
-        //             name: 'Погр',
-        //             selected: false
-        //         },
-        //         {
-        //             id: 2,
-        //             name: 'Разг',
-        //             selected: true
-        //         },
-        //         {
-        //             id: 3,
-        //             name: 'Получ док',
-        //             selected: false
-        //         },
-        //         {
-        //             id: 4,
-        //             name: 'Встретить экспедитора',
-        //             selected: false
-        //         },
-        //     ]
-        // },
-        // {
-        //     name: 'Точка 2',
-        //     address: 'г Москва, пр-кт Защитников Москвы',
-        //     address_longitude: 37.716064,
-        //     address_latitude: 55.796263,
-        //     comment: '',
-        //     company: 'В ООО "Salus"',
-        //     contact_name: 'Васька',
-        //     number: '+ 7 934 43 59 435',
-        //     todo: 'Принять гурз для того то от такой то компании сказать что по счету такому то',
-        //     files: [{id: 1, name: 'file.txt'}],
-        //     time_from: '09.00',
-        //     time_to: '18.00',
-        //     has_pause: true,
-        //     pause_from: '09.00',
-        //     pause_to: '18.00',
-        //     values: [
-        //         {
-        //             id: 1,
-        //             name: 'Погр',
-        //             selected: false
-        //         },
-        //         {
-        //             id: 2,
-        //             name: 'Разг',
-        //             selected: true
-        //         },
-        //         {
-        //             id: 3,
-        //             name: 'Получ док',
-        //             selected: false
-        //         },
-        //         {
-        //             id: 4,
-        //             name: 'Встретить экспедитора',
-        //             selected: false
-        //         },
-        //     ]
-        // }
+        {
+            name: "Точка 1",
+            address: {
+                region_type: "г",
+                region: "Москва",
+                street_type: "б-р",
+                street: "Гоголевский",
+                house: "31",
+                longitude: 55.750465,
+                latitude: 37.599598,
+                string: "г Москва, Гоголевский б-р, д 31 стр 2"
+            },
+            comment: "Мой очень очень длинный длинный комментарий",
+            company: "В ООО \"Salus\"",
+            contact_name: "Кузьма Владислав Владимирович",
+            number: "+7 ( 123 ) - 412 - 34 - 12",
+            todo: "Принять гурз для того то от такой то компании сказать что по счету такому то",
+            files: [
+                {
+                    id: "45c4da15-65a7-48e8-9366-4fabfa31",
+                    name: "preloader.svg"
+                }
+            ],
+            time_from: "с 09:00",
+            time_to: "до 18:00",
+            has_pause: 0,
+            pause_from: "с 14:00",
+            pause_to: "до 15:00",
+            values: [
+                {
+                    id: 1,
+                    name: "Погрузка",
+                    selected: true
+                },
+                {
+                    id: 2,
+                    name: "Разгрузка",
+                    selected: true
+                },
+                {
+                    id: 3,
+                    name: "Получить/сдать документы",
+                    selected: true
+                },
+                {
+                    id: 4,
+                    name: "Встретить экспедитора",
+                    selected: true
+                }
+            ]
+        },
+        {
+            name: "Точка 2",
+            address: {
+                region_type: "обл",
+                region: "Московская",
+                street_type: "ул",
+                street: "Дзержинского",
+                house: "11",
+                longitude: 55.752496,
+                latitude: 37.858483,
+                string: "Московская обл, г Реутов, ул Дзержинского, д 11"
+            },
+            comment: "Мой комментарий",
+            company: "В ООО \"Salus\"",
+            contact_name: "Кузьма Владислав Владимирович",
+            number: "+7 ( 123 ) - 412 - 34 - 12",
+            todo: "Принять гурз для того то от такой то компании сказать что по счету такому то",
+            files: [
+                {
+                    id: "45c4da15-65a7-48e8-9366-4fabfa31",
+                    name: "preloader.svg"
+                }
+            ],
+            time_from: "с 09:00",
+            time_to: "до 18:00",
+            has_pause: 0,
+            pause_from: "с 14:00",
+            pause_to: "до 15:00",
+            values: [
+                {
+                    id: 1,
+                    name: "Погрузка",
+                    selected: true
+                },
+                {
+                    id: 2,
+                    name: "Разгрузка",
+                    selected: false
+                },
+                {
+                    id: 3,
+                    name: "Получить/сдать документы",
+                    selected: false
+                },
+                {
+                    id: 4,
+                    name: "Встретить экспедитора",
+                    selected: false
+                }
+            ]
+        }
     ],
     update_point: null,
     name: '',
@@ -178,6 +202,7 @@ const pointsReducer = (state = initialState, action) => {
             }
             let points = [...state.points];
             points.push(point);
+            console.log(point);
             return {
                 ...state,
                 points: points,

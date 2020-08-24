@@ -37,9 +37,9 @@ const Tariff = ({state, setTariff, setView, setMapType}) => {
                                                 <div className="tariff-variant__text">{tariff.cost} р</div>
                                                 <label className="tariff-variant__check check-wrap">
                                                     {tariff.id === state.selected_tariff ?
-                                                        <input key={1} type="checkbox" checked onChange={() => {
+                                                        <input key={1} type="checkbox" checked={true} onChange={() => {
                                                         }} className="check-wrap__input"/> :
-                                                        <input key={2} type="checkbox" onChange={() => {
+                                                        <input key={2} type="checkbox" checked={false} onChange={() => {
                                                         }} className="check-wrap__input"/>}
                                                     <span className="check-wrap__mark"></span>
                                                 </label>
@@ -65,9 +65,9 @@ const Tariff = ({state, setTariff, setView, setMapType}) => {
                                                 <div className="tariff-variant__text">{tariffs[index + 1].cost} р</div>
                                                 <label className="tariff-variant__check check-wrap">
                                                     {tariffs[index + 1].id === state.selected_tariff ?
-                                                        <input key={1} type="checkbox" checked onChange={() => {
+                                                        <input key={1} type="checkbox" checked={true} onChange={() => {
                                                         }} className="check-wrap__input"/> :
-                                                        <input key={2} type="checkbox" onChange={() => {
+                                                        <input key={2} type="checkbox" checked={false} onChange={() => {
                                                         }} className="check-wrap__input"/>}
                                                     <span className="check-wrap__mark"></span>
                                                 </label>
@@ -77,11 +77,12 @@ const Tariff = ({state, setTariff, setView, setMapType}) => {
                             </div>
                         );
                     }
+                    return null;
                 })}
             </div>
             <div className="tariff__info">
                 <div className="tariff__info-heading">Служебная информация</div>
-                <div className="tariff__info-text">{state.selected_tariff ? selectedTariffObject.service_information : ''}</div>
+                <div className="tariff__info-text">{(state.selected_tariff && selectedTariffObject.service_information) ? selectedTariffObject.service_information : 'Подгрузка тарифов может занять несколько минут, пожалуйста подождите...'}</div>
             </div>
             <InView as="div" className="tariff__chosen" onChange={(inView, entry) => setView(inView)}>
                 {state.selected_tariff ?
