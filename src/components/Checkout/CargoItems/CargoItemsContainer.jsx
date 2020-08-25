@@ -1,7 +1,7 @@
 import React from 'react';
 import CargoItems from "./CargoItems";
 import {connect} from "react-redux";
-import {editPackage, editPallet, editPlace, removePackageThunk, removePalletThunk, removePlaceThunk, setActiveTab, updateCargoThunk} from "../../../redux/cargoReducer";
+import {editPackage, editPallet, editPlace, removePackageThunk, removePalletThunk, removePlaceThunk, setActiveTab, updateCargoThunk} from "../../../redux/checkout/cargoReducer";
 
 class CargoItemsContainer extends React.Component {
     state = {

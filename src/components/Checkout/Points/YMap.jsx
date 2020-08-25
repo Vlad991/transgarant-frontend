@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {Map, YMaps} from "react-yandex-maps";
-import {setAddressFromMapThunk, toggleAddressMap} from "../../../redux/pointsReducer";
+import {setAddressFromMapThunk, toggleAddressMap} from "../../../redux/checkout/pointsReducer";
 
 let mapState = {
     center: [55.754638, 37.621633],

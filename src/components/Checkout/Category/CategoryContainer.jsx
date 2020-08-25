@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Category from "./Category";
-import {setCategoriesThunk, setCategory} from "../../../redux/categoryReducer";
+import {setCategoriesThunk, setCategory} from "../../../redux/checkout/categoryReducer";
 
 class CategoryContainer extends React.Component {
 

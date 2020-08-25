@@ -1,7 +1,7 @@
 import React from 'react';
 import CarBody from "./CarBody";
 import {connect} from "react-redux";
-import {setActiveBodyType, setBodyOption, setBodyOptionChBoolVal, setBodyOptionChsThunk, setBodyOptionChVal, setBodyOptionsThunk, setBodyTypesThunk, toggleChCollapse, toggleOptionCollapse} from "../../../redux/carBodyReducer";
+import {setActiveBodyType, setBodyOption, setBodyOptionChBoolVal, setBodyOptionChsThunk, setBodyOptionChVal, setBodyOptionsThunk, setBodyTypesThunk, toggleChCollapse, toggleOptionCollapse} from "../../../redux/checkout/carBodyReducer";
 
 class CarBodyContainer extends React.Component {
 

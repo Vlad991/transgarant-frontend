@@ -1,8 +1,8 @@
 import React from 'react';
 import Cargo from "./Cargo";
 import {connect} from "react-redux";
-import {addPackageThunk, addPalletThunk, addPlaceThunk, setActiveTab, setCargoState, setPackage, setPackageTypesThunk, setPallet, setPalletTypesThunk, togglePackageCollapse, togglePalletCollapse} from "../../../redux/cargoReducer";
-import {setCategory} from "../../../redux/categoryReducer";
+import {addPackageThunk, addPalletThunk, addPlaceThunk, setActiveTab, setCargoState, setPackage, setPackageTypesThunk, setPallet, setPalletTypesThunk, togglePackageCollapse, togglePalletCollapse} from "../../../redux/checkout/cargoReducer";
+import {setCategory} from "../../../redux/checkout/categoryReducer";
 import AlertContainer from "../Allert/AlertContainer";
 
 class CargoContainer extends React.Component {

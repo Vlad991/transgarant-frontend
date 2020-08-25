@@ -1,7 +1,7 @@
 import React from 'react';
 import Dop from "./Dop";
 import {connect} from "react-redux";
-import {dopToggle, setDopThunk, toggleAdditional} from "../../../redux/dopReducer";
+import {dopToggle, setDopThunk, toggleAdditional} from "../../../redux/checkout/dopReducer";
 
 class DopContainer extends React.Component {
     componentDidMount() {

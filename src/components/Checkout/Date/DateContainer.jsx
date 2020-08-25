@@ -1,7 +1,7 @@
 import React from 'react';
 import Date from "./Date";
 import {connect} from "react-redux";
-import {setDateFrom, setDateTo} from "../../../redux/dateReducer";
+import {setDateFrom, setDateTo} from "../../../redux/checkout/dateReducer";
 
 class DateContainer extends React.Component {
     state = {

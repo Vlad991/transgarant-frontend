@@ -2,7 +2,7 @@
 @import "../tools/mixin"
 @import "../tools/media"
 
-.checkout__title
+.registration__title
   @include fontSWCL(18px, bold, #000, 22px)
   border: 1px solid #FBFBFB
   text-transform: uppercase
@@ -22,5 +22,37 @@
     font-size: 14px
     line-height: 17px
 
-.checkout__has-error
+.registration__has-error
   border: 1px solid crimson
+
+.registration
+  .input-wrap
+    height: 47px
+
+    &--get-code
+
+.form-block
+  display: block
+  padding: 23px 30px 30px
+  background-color: #FBFBFB
+  border-radius: 10px
+  box-sizing: border-box
+
+.form-block__heading
+  @include fontSWCL(16px, bold, #000, 20px)
+  margin: 0
+
+.form-block__fields
+  margin-top: 23px
+
+.form-block__fields-line
+  display: flex
+  justify-content: space-between
+  margin-top: 11px
+  &:first-child
+    margin-top: 0
+
+.form-block__field
+  width: calc(100% / 4 - 30px * 3 / 4)
+
+

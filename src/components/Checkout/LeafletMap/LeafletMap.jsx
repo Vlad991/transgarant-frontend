@@ -1,11 +1,11 @@
 import React from 'react';
 import {Map, TileLayer, Polyline, Marker, Tooltip} from 'react-leaflet';
-import {swap} from '../../../redux/leaflet/core/utils';
-import {TilesUrl} from '../../../redux/leaflet/config';
+import {swap} from '../../../redux/checkout/leaflet/core/utils';
+import {TilesUrl} from '../../../redux/checkout/leaflet/config';
 import {connect} from "react-redux";
 import './leaflet.css';
 import './styles.css';
-import {setWaypointsThunk} from "../../../redux/leaflet/leafletMapReducer";
+import {setWaypointsThunk} from "../../../redux/checkout/leaflet/leafletMapReducer";
 
 class LeafletMap extends React.Component {
     componentDidMount() {

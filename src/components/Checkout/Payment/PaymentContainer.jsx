@@ -1,7 +1,7 @@
 import React from 'react';
 import Payment from "./Payment";
 import {connect} from "react-redux";
-import {setCompany, setPayment} from "../../../redux/paymentReducer";
+import {setCompany, setPayment} from "../../../redux/checkout/paymentReducer";
 import AlertContainer from "../Allert/AlertContainer";
 
 class PaymentContainer extends React.Component {

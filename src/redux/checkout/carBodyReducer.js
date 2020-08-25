@@ -1,6 +1,6 @@
-import {vehicleAPI} from "../api/api";
-import closedImg from '../img/car-body/vc-4-04 6.svg';
-import openedImg from '../img/car-body/Group.svg';
+import {vehicleAPI} from "../../api/checkout-api";
+import closedImg from '../../img/car-body/vc-4-04 6.svg';
+import openedImg from '../../img/car-body/Group.svg';
 
 const SET_BODY_TYPES = 'SET-BODY-TYPES';
 const SET_BODY_OPTIONS = 'SET-BODY-OPTIONS';

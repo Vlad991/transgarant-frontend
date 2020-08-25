@@ -1,5 +1,5 @@
 import validator from 'validator';
-import {orderAPI, phoneAPI} from "../api/api";
+import {orderAPI, phoneAPI} from "../../api/checkout-api";
 
 const SET_NAME = 'SET-NAME';
 const SET_CLIENT_NUMBER = 'SET-CLIENT-NUMBER';

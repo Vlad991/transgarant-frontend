@@ -1,13 +1,13 @@
-import {categoryAPI} from "../api/api";
-import cat1 from '../img/category/vc-4-01 2 1.svg';
-import cat1p from '../img/category/vc-4-01 2 2.svg';
-import cat2 from '../img/category/vc-4-01 2 3.svg';
-import cat2p from '../img/category/vc-4-01 2 4.svg';
-import cat3 from '../img/category/vc-4-01 3.svg';
-import cat4 from '../img/category/vc-4-04 3.svg';
-import cat5 from '../img/category/vc-4-04 7.svg';
-import cat6 from '../img/category/vc-4-04 8.svg';
-import cat7 from '../img/category/vc-4-04 1.svg';
+import {categoryAPI} from "../../api/checkout-api";
+import cat1 from '../../img/category/vc-4-01 2 1.svg';
+import cat1p from '../../img/category/vc-4-01 2 2.svg';
+import cat2 from '../../img/category/vc-4-01 2 3.svg';
+import cat2p from '../../img/category/vc-4-01 2 4.svg';
+import cat3 from '../../img/category/vc-4-01 3.svg';
+import cat4 from '../../img/category/vc-4-04 3.svg';
+import cat5 from '../../img/category/vc-4-04 7.svg';
+import cat6 from '../../img/category/vc-4-04 8.svg';
+import cat7 from '../../img/category/vc-4-04 1.svg';
 
 const SET_CATEGORY = 'SET-CATEGORY';
 const SET_CATEGORIES = 'SET-CATEGORIES';

@@ -1,21 +1,24 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunkMiddleware from "redux-thunk";
-import categoryReducer from "./categoryReducer";
-import carBodyReducer from "./carBodyReducer";
-import dopReducer from "./dopReducer";
-import dateReducer from "./dateReducer";
-import pointsReducer from "./pointsReducer";
-import { reducer as formReducer } from 'redux-form';
-import cargoReducer from "./cargoReducer";
-import tariffReducer from "./tariffReducer";
-import paymentReducer from "./paymentReducer";
-import socialReducer from "./socialReducer";
-import clientFormReducer from "./clientFormReducer";
-import docReturnReducer from "./docReturnReducer";
-import leafletMapReducer from "./leaflet/leafletMapReducer";
+import categoryReducer from "./checkout/categoryReducer";
+import carBodyReducer from "./checkout/carBodyReducer";
+import dopReducer from "./checkout/dopReducer";
+import dateReducer from "./checkout/dateReducer";
+import pointsReducer from "./checkout/pointsReducer";
+import cargoReducer from "./checkout/cargoReducer";
+import tariffReducer from "./checkout/tariffReducer";
+import paymentReducer from "./checkout/paymentReducer";
+import socialReducer from "./checkout/socialReducer";
+import clientFormReducer from "./checkout/clientFormReducer";
+import docReturnReducer from "./checkout/docReturnReducer";
+import leafletMapReducer from "./checkout/leaflet/leafletMapReducer";
+import numberReducer from "./registration/numberReducer";
+import carHolderReducer from "./registration/carHolderReducer";
+import individualEntrepreneurReducer from "./registration/individualEntrepreneurReducer";
 
 
 let reducers = combineReducers({
+    // checkout
     categoryReducer,
     carBodyReducer,
     dopReducer,
@@ -28,7 +31,11 @@ let reducers = combineReducers({
     socialReducer,
     clientFormReducer,
     mapReducer: leafletMapReducer,
-    form: formReducer
+
+    //registration
+    numberReducer,
+    carHolderReducer,
+    individualEntrepreneurReducer,
 });
 
 const composeEnhancers = compose;

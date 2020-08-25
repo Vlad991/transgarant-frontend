@@ -1,7 +1,7 @@
 import React from 'react';
 import DocReturn from "./DocReturn";
 import {connect} from "react-redux";
-import {toggleReturn, setName, setData, toggleNamesCollapse} from "../../../redux/docReturnReducer";
+import {toggleReturn, setName, setData, toggleNamesCollapse} from "../../../redux/checkout/docReturnReducer";
 
 class DocReturnContainer extends React.Component {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Points from "./Points";
 import {connect} from "react-redux";
-import {addFileThunk, addPoint, deletePoint, doUpdatePoint, setAddress, setFormState, setNumber, showPointInfo, toggleAddressMap, toggleForm, toggleValue, toggleValuesCollapse} from "../../../redux/pointsReducer";
+import {addFileThunk, addPoint, deletePoint, doUpdatePoint, setAddress, setFormState, setNumber, showPointInfo, toggleAddressMap, toggleForm, toggleValue, toggleValuesCollapse} from "../../../redux/checkout/pointsReducer";
 import AlertContainer from "../Allert/AlertContainer";
 
 class PointsContainer extends React.Component {

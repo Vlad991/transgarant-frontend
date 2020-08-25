@@ -1,5 +1,5 @@
-import {fileAPI} from "../api/api";
-import {addressAPI} from "../api/dadata-api";
+import {fileAPI} from "../../api/checkout-api";
+import {addressAPI} from "../../api/dadata-api";
 
 const ADD_POINT = 'ADD-POINT';
 const SHOW_POINT_INFO = 'SHOW-POINT-INFO';

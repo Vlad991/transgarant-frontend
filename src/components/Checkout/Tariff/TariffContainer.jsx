@@ -1,7 +1,7 @@
 import React from 'react';
 import Tariff from "./Tariff";
 import {connect} from "react-redux";
-import {loadTariffThunk, setMapType, setTariff} from "../../../redux/tariffReducer";
+import {loadTariffThunk, setMapType, setTariff} from "../../../redux/checkout/tariffReducer";
 
 class TariffContainer extends React.Component {
     state = {

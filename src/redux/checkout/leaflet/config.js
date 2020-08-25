@@ -1,4 +1,4 @@
-import {RoutesEndpointForMapLink} from "../../deployment";
+import {RoutesEndpointForMapLink} from "../../../deployment";
 
 // export const RoutesEndpoint = "http://37.9.7.75:5000";
 export const RoutesEndpoint = RoutesEndpointForMapLink;

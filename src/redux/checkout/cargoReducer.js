@@ -1,4 +1,4 @@
-import {cargoAPI} from "../api/api";
+import {cargoAPI} from "../../api/checkout-api";
 import {setCategory} from "./categoryReducer";
 
 const SET_ACTIVE_TAB = 'SET-ACTIVE-TAB';

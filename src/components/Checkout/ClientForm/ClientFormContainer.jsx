@@ -1,7 +1,7 @@
 import React from 'react';
 import ClientForm from "./ClientForm";
 import {connect} from "react-redux";
-import {doOrderThunk, sendCodeThunk, setAgree, setCodeThunk, setEmail, setName, setNumberThunk, setRecaptchaThunk} from "../../../redux/clientFormReducer";
+import {doOrderThunk, sendCodeThunk, setAgree, setCodeThunk, setEmail, setName, setNumberThunk, setRecaptchaThunk} from "../../../redux/checkout/clientFormReducer";
 import AlertContainer from "../Allert/AlertContainer";
 
 class ClientFormContainer extends React.Component {

@@ -1,4 +1,4 @@
-import {dopAPI} from "../api/api";
+import {dopAPI} from "../../api/checkout-api";
 
 const SET_DOP = 'SET-DOP';
 const DOP_TOGGLE = 'DOP-TOGGLE';

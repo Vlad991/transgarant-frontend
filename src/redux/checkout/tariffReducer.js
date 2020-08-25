@@ -1,4 +1,4 @@
-import {orderAPI} from "../api/api";
+import {orderAPI} from "../../api/checkout-api";
 
 const SET_TARIFF = 'SET-TARIFF';
 const LOAD_TARIFF = 'LOAD-TARIFF';

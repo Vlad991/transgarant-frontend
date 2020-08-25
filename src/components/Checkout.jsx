@@ -11,10 +11,10 @@ import TariffContainer from "./Checkout/Tariff/TariffContainer";
 import PaymentContainer from "./Checkout/Payment/PaymentContainer";
 import ClientFormContainer from "./Checkout/ClientForm/ClientFormContainer";
 import SummaryContainer from "./Checkout/Summary/SummaryContainer";
-import {dopToggle} from "../redux/dopReducer";
-import {toggleValuesCollapse} from "../redux/pointsReducer";
-import {toggleChCollapse, toggleOptionCollapse} from "../redux/carBodyReducer";
-import {togglePackageCollapse, togglePalletCollapse} from "../redux/cargoReducer";
+import {dopToggle} from "../redux/checkout/dopReducer";
+import {toggleValuesCollapse} from "../redux/checkout/pointsReducer";
+import {toggleChCollapse, toggleOptionCollapse} from "../redux/checkout/carBodyReducer";
+import {togglePackageCollapse, togglePalletCollapse} from "../redux/checkout/cargoReducer";
 
 class Checkout extends React.Component {
     closeAllCollapse = () => {
