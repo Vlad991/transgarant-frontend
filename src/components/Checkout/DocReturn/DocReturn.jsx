@@ -1,5 +1,5 @@
 import React from "react";
-import CollapseContainer from "../../elements/CollapseContainer";
+import CollapseContainer from "../../Elements/CollapseContainer";
 import {AddressSuggestions} from "react-dadata";
 import InputMask from "react-input-mask";
 import {token} from "../../../api/dadata-api";

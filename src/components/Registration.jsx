@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import NumberContainer from "./Registration/Number/NumberContainer";
 import CarHolderContainer from "./Registration/CarHolder/CarHolderContainer";
 import IndividualEntrepreneurContainer from "./Registration/IndividualEntrepreneur/IndividualEntrepreneurContainer";
+import DriverData from "./Registration/DriverData/DriverData";
+import DriverPassportContainer from "./Registration/DriverPassport/DriverPassportContainer";
 
 class Registration extends React.Component {
     render() {
@@ -13,6 +15,8 @@ class Registration extends React.Component {
                     <>
                         <CarHolderContainer/>
                         <IndividualEntrepreneurContainer/>
+                        <DriverData/>
+                        <DriverPassportContainer/>
                     </>
                     : <NumberContainer/>}
             </div>

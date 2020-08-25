@@ -3,10 +3,10 @@
 @import "../tools/media"
 
 .registration__title
-  @include fontSWCL(18px, bold, #000, 22px)
+  @include fontSWCL(22px, bold, #000, 27px)
   border: 1px solid #FBFBFB
   text-transform: uppercase
-  padding: 0 21px
+  padding: 0 30px
   background-color: #FBFBFB
   border-radius: 10px
   box-sizing: border-box
@@ -47,12 +47,18 @@
 
 .form-block__fields-line
   display: flex
-  justify-content: space-between
+  //justify-content: space-between
   margin-top: 11px
+
   &:first-child
     margin-top: 0
 
 .form-block__field
   width: calc(100% / 4 - 30px * 3 / 4)
+  display: flex
+  margin-right: 30px
+
+  &:last-child
+    margin-right: 0
 
 

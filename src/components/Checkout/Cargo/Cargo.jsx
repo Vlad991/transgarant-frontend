@@ -1,5 +1,5 @@
 import React from "react";
-import CollapseContainer from "../../elements/CollapseContainer";
+import CollapseContainer from "../../Elements/CollapseContainer";
 import Loader from "react-loader-spinner";
 
 const Cargo = ({

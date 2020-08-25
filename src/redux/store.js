@@ -15,6 +15,7 @@ import leafletMapReducer from "./checkout/leaflet/leafletMapReducer";
 import numberReducer from "./registration/numberReducer";
 import carHolderReducer from "./registration/carHolderReducer";
 import individualEntrepreneurReducer from "./registration/individualEntrepreneurReducer";
+import driverDataReducer from "./registration/driverDataReducer";
 
 
 let reducers = combineReducers({
@@ -32,10 +33,11 @@ let reducers = combineReducers({
     clientFormReducer,
     mapReducer: leafletMapReducer,
 
-    //registration
+    // registration
     numberReducer,
     carHolderReducer,
     individualEntrepreneurReducer,
+    driverDataReducer,
 });
 
 const composeEnhancers = compose;
