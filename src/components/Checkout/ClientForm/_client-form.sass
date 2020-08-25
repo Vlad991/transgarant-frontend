@@ -1,0 +1,60 @@
+@import "../../../sass/settings/color"
+@import "../../../sass/tools/mixin"
+@import "../../../sass/tools/media"
+
+.checkout__client-form
+  margin-top: 33px
+
+.client-form
+  padding: 30px 9px 30px 30px
+  background-color: #FBFBFB
+  box-sizing: border-box
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  @include tabletSmall
+    flex-direction: column
+    padding: 20px
+
+.client-form__input
+  flex-basis: 23.3%
+  @include tabletSmall
+    flex-basis: auto
+    margin-bottom: 10px
+
+.client-form__company
+  position: relative
+  flex-basis: 100%
+
+.react-dadata__suggestion
+  div
+    height: 40px
+    display: flex
+    align-items: center
+
+.react-dadata__suggestion-subtitle
+  display: flex
+
+.react-dadata__suggestion-subtitle-item
+  margin-left: 5px
+
+.client-form__button
+  flex-basis: 23.3%
+  @include tabletSmall
+    flex-basis: auto
+
+.captcha
+  display: flex
+  width: 100%
+  border-radius: 10px
+  margin-top: 7px
+  padding-left: 248px
+
+.client-form__agree
+  margin-bottom: 114px
+  margin-top: 15px
+  padding-left: 30px
+  padding-right: 30px
+  text-transform: none
+  &-link
+    text-decoration: underline

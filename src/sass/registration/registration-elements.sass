@@ -1,0 +1,26 @@
+@import "../settings/color"
+@import "../tools/mixin"
+@import "../tools/media"
+
+.checkout__title
+  @include fontSWCL(18px, bold, #000, 22px)
+  border: 1px solid #FBFBFB
+  text-transform: uppercase
+  padding: 0 21px
+  background-color: #FBFBFB
+  border-radius: 10px
+  box-sizing: border-box
+  display: flex
+  align-items: center
+  min-height: 64px
+  @include tabletSmall
+    font-size: 16px
+    line-height: 18px
+    min-height: 50px
+    padding: 0 15px
+  @include mobile
+    font-size: 14px
+    line-height: 17px
+
+.checkout__has-error
+  border: 1px solid crimson

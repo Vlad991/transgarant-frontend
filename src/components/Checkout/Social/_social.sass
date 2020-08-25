@@ -1,0 +1,50 @@
+@import "../../../sass/settings/color"
+@import "../../../sass/tools/mixin"
+@import "../../../sass/tools/media"
+
+.checkout__social
+  margin-top: 29px
+
+.social
+  height: 74px
+  border-radius: 10px
+  background-color: #FBFBFB
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 0 30px
+  border: 1px solid #D3D3D3
+  box-sizing: border-box
+  @include tabletSmall
+    flex-direction: column
+    justify-content: flex-start
+    padding: 10px 30px
+    height: auto
+
+.social__text
+  @include fontSWCL(16px, normal, #000, 20px)
+
+.social__values
+  display: flex
+  @include tabletSmall
+    margin-top: 20px
+    width: 100%
+    justify-content: space-between
+
+.social__value
+  margin-left: 12px
+  width: 46px
+  height: 44px
+  background-color: #E9E9E9
+  border-radius: 10px
+  box-sizing: border-box
+  display: flex
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  @include tabletSmall
+    margin-left: 0
+  &:hover
+    background-color: $yellow
+    svg path
+      fill: #fff

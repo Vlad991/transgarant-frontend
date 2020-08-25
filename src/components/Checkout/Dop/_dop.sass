@@ -1,0 +1,72 @@
+@import "../../../sass/settings/color"
+@import "../../../sass/tools/mixin"
+@import "../../../sass/tools/media"
+
+.checkout__dop
+  margin-top: 18px
+
+.dop
+  justify-content: space-between
+  position: relative
+  z-index: 3
+  padding: 10px 21px
+  @include tabletSmall
+    flex-direction: column
+    justify-content: flex-start
+    padding: 15px 10px
+
+.dop__title
+  @include fontSWCL(16px, bold, #000, 20px)
+  text-transform: uppercase
+  @include tabletSmall
+    font-size: 14px
+    line-height: 16px
+  @include mobile
+    font-size: 12px
+    line-height: 15px
+
+.dop__check-items
+  width: 50%
+  padding-top: 15px
+  padding-bottom: 15px
+  @include tablet
+    margin-left: 20px
+  @include tabletSmall
+    width: 100%
+    margin-top: 15px
+    margin-left: 0
+  &::after
+    top: 19px
+  .collapse__selected
+    text-transform: capitalize
+  .collapse__items
+    width: 724px
+    right: -1px
+    left: auto
+    top: 100%
+    display: flex
+    flex-wrap: wrap
+    padding: 23px 23px 0
+    border-top: 1px solid $yellow
+    border-radius: 10px 0 10px 10px
+    z-index: -1
+    margin-top: 0
+    @include tablet
+      padding: 15px 15px 0
+      width: 600px
+    @include tabletSmall
+      width: calc(100% + 2px)
+      border-top: none
+      border-radius: 0 0 10px 10px
+      flex-direction: column
+      top: auto
+      bottom: -175px
+
+.dop__check
+  min-width: 33%
+  margin-bottom: 19px
+  text-transform: none
+  @include tablet
+    margin-bottom: 15px
+  @include tabletSmall
+    margin-bottom: 10px

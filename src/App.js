@@ -1,74 +1,27 @@
 import React from 'react';
-import './sass/checkout.sass';
-import {BrowserRouter} from "react-router-dom";
-import CategoryContainer from "./components/Category/CategoryContainer";
-import CarBodyContainer from "./components/CarBody/CarBodyContainer";
-import DopContainer from "./components/Dop/DopContainer";
-import CargoContainer from "./components/Cargo/CargoContainer";
-import TariffContainer from "./components/Tariff/TariffContainer";
-import PaymentContainer from "./components/Payment/PaymentContainer";
-import ClientFormContainer from "./components/ClientForm/ClientFormContainer";
+import './sass/common.sass';
+import './sass/checkout/checkout.sass';
+import './sass/registration/registration.sass';
+import {BrowserRouter, Route} from "react-router-dom";
 import {connect, Provider} from "react-redux";
 import store from "./redux/store";
-import CargoItemsContainer from "./components/CargoItems/CargoItemsContainer";
-import DocReturnContainer from "./components/DocReturn/DocReturnContainer";
-import SummaryContainer from "./components/Summary/SummaryContainer";
-import {dopToggle} from "./redux/dopReducer";
-import {toggleValuesCollapse} from "./redux/pointsReducer";
-import {toggleChCollapse, toggleOptionCollapse} from "./redux/carBodyReducer";
-import {togglePackageCollapse, togglePalletCollapse} from "./redux/cargoReducer";
-import PointsContainer from "./components/Points/PointsContainer";
+import Checkout from "./components/Checkout";
+import Registration from "./components/Registration";
 
 class App extends React.Component {
-    closeAllCollapse = () => {
-        this.props.dopToggle(false);
-        this.props.toggleValuesCollapse(false);
-        this.props.toggleOptionCollapse(false);
-        // store.getState().carBodyReducer.body_option_characteristics.forEach(item => {
-        //     this.props.toggleChCollapse(item.id, false);
-        // });
-        this.props.togglePalletCollapse(false);
-        this.props.togglePackageCollapse(false);
-    }
-
     render() {
         return (
-            <div className="checkout-wrap">
-                <div className="checkout" onClick={this.closeAllCollapse}>
-                    <h1 className="checkout__heading">РАСЧЕТ СТОИМОСТИ и ОФОРМЛЕНИЕ ЗАКАЗА</h1>
-
-                    <CategoryContainer/>
-
-                    <CarBodyContainer/>
-
-                    <DopContainer/>
-
-                    <DocReturnContainer/>
-
-                    <PointsContainer/>
-
-                    <CargoContainer/>
-
-                    <CargoItemsContainer/>
-
-                    <TariffContainer/>
-
-                    <PaymentContainer/>
-
-                    <ClientFormContainer/>
-
-                    <SummaryContainer/>
-                </div>
+            <div className="container-wrap">
+                <Route path='/checkout' render={() => <Checkout/>}/>
+                <Route path='/registration' render={() => <Registration/>}/>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({});
 
-});
-
-let AppContainer = connect(mapStateToProps, {dopToggle, toggleValuesCollapse, toggleOptionCollapse, toggleChCollapse, togglePalletCollapse, togglePackageCollapse})(App);
+let AppContainer = connect(mapStateToProps, {})(App);
 
 const CheckoutApp = (props) => {
     return <BrowserRouter basename="/">
