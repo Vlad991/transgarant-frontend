@@ -40,6 +40,16 @@
   transition: all .2s ease-in-out 0s
   @include mobile
     width: 100%
+    padding: 10px 15px
+
+  &:last-child
+    .tariff-variant__item:last-child
+      .tariff__info-icon
+        .info-icon__text
+          @include tablet
+            left: -140px
+          @include tabletSmall
+            left: -240px
 
   .tariff-variant__item
     &:nth-child(2)
@@ -77,11 +87,20 @@
     border-left: 1px solid #DDDDDD
     padding-left: 30px
     margin-left: 15px
+    @include mobile
+      padding-left: 15px
+
+    .info-icon__text
+      @include tabletSmall
+        left: -240px
 
 .tariff-variant__heading
   display: flex
   justify-content: space-between
   @include fontSWCL(16px, bold, #4F4F4F, 20px)
+  @include mobile
+    font-size: 14px
+    line-height: 16px
 
   > svg
     flex-shrink: 0
@@ -99,13 +118,6 @@
     a
       text-decoration: underline
       color: $yellow
-
-.tariff__variant
-  &:last-child
-    .tariff__info-icon
-      .info-icon__text
-        @include tablet
-          left: -140px
 
 .tariff-variant__text
   @include fontSWCL(13px, normal, #4F4F4F, 18px)
@@ -132,6 +144,9 @@
 .tariff__info-text
   margin-top: 11px
   @include fontSWCL(13px, normal, #6C6C6C, 26px)
+  @include mobile
+    line-height: 16px
+    margin-top: 10px
 
 .tariff__chosen
   margin-top: 38px
@@ -140,6 +155,8 @@
   position: relative
   @include tablet
     flex-direction: column
+  @include mobile
+    margin-top: 20px
 
 .tariff__chosen-info
   width: 49%
@@ -157,6 +174,7 @@
   @include tablet
     margin-bottom: 15px
     margin-top: 15px
+
   &--loading
     display: flex
     justify-content: flex-start
@@ -169,10 +187,10 @@
   padding: 0 15px
   box-sizing: border-box
   @include mobile
-    //flex-direction: column
     justify-content: space-between
     flex-wrap: wrap
     height: auto
+    padding: 5px 15px
 
   &:nth-child(2n+1)
     background: #FBFBFB
@@ -194,10 +212,16 @@
 .chosen__name
   @include fontSWCL(13px, normal, #000, 15px)
   display: block
+  @include mobile
+    font-size: 12px
+    line-height: 14px
 
 .chosen__value
   @include fontSWCL(13px, bold, #000, 15px)
   margin-left: 8px
+  @include mobile
+    font-size: 12px
+    line-height: 14px
 
 .tariff__map-tabs
 
@@ -212,10 +236,15 @@
 
 .map-tabs__text
   @include fontSWCL(16px, 500, #000, 16px)
+  @include mobile
+    font-size: 14px
+    line-height: 16px
 
 .map-tabs__links
   display: flex
   margin-left: 20px
+  @include mobile
+    margin-left: 10px
 
 .map-tabs__link
   height: 30px
@@ -232,6 +261,8 @@
   margin-right: 10px
   cursor: pointer
   transition: all 0.2s ease-in-out
+  @include mobile
+    width: 80px
 
   &_active
     background-color: $yellow
@@ -253,15 +284,26 @@
     opacity: 1
     position: static
 
+  &--loader
+    display: flex
+    justify-content: center
+    align-items: center
+
 .tariff__map
   min-height: 600px
   border: 1px solid $yellow
   border-radius: 20px
   margin: 20px 0
+  @include desktopSmall
+    width: 100%
+    min-height: 400px
+    height: 400px
 
   > div.leaflet-container
     height: 600px
     border-radius: 20px
+    @include desktopSmall
+      height: 400px
 
   > a
     display: block
@@ -271,15 +313,16 @@
     overflow: visible
     color: $yellow
     text-decoration: underline
-
-  @include tablet
-    width: 100%
-    max-height: 400px
+    @include mobile
+      font-size: 14px
+      line-height: 16px
 
 .yandex-map
   width: 100%
   height: 600px
   border-radius: 20px
+  @include desktopSmall
+    height: 400px
 
   > ymaps
     border-radius: 20px

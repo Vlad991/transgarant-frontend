@@ -16,6 +16,7 @@ import numberReducer from "./registration/numberReducer";
 import carHolderReducer from "./registration/carHolderReducer";
 import individualEntrepreneurReducer from "./registration/individualEntrepreneurReducer";
 import driverDataReducer from "./registration/driverDataReducer";
+import carsReducer from "./registration/carsReducer";
 
 
 let reducers = combineReducers({
@@ -38,6 +39,7 @@ let reducers = combineReducers({
     carHolderReducer,
     individualEntrepreneurReducer,
     driverDataReducer,
+    carsReducer
 });
 
 const composeEnhancers = compose;

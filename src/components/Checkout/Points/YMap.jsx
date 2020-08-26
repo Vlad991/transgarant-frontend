@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Map, YMaps} from "react-yandex-maps";
 import {setAddressFromMapThunk, toggleAddressMap} from "../../../redux/checkout/pointsReducer";
+import Loader from "react-loader-spinner";
 
 let mapState = {
     center: [55.754638, 37.621633],
@@ -68,14 +69,16 @@ class YMap extends React.Component {
     render() {
         return (
             <div className={"route__map" + (this.props.show_map ? ' route__map_show' : '')}>
-                <YMaps query={{apikey: 'efe74c2e-a140-45f7-b21e-e7608b626295', load: 'package.full'}}>
-                    <Map state={mapState}
-                         className="address-map"
-                         instanceRef={(ref) => this.map = ref}
-                         onLoad={(ymaps) => this.onLoad(ymaps)}>
-                        <button className="button address-map__button" onClick={() => this.props.toggleAddressMap(false)}>OK</button>
-                    </Map>
-                </YMaps>
+                {this.props.show_map ?
+                    <YMaps query={{apikey: 'efe74c2e-a140-45f7-b21e-e7608b626295', load: 'package.full'}}>
+                        <Map state={mapState}
+                             className="address-map"
+                             instanceRef={(ref) => this.map = ref}
+                             onLoad={(ymaps) => this.onLoad(ymaps)}>
+                            <button className="button address-map__button" onClick={() => this.props.toggleAddressMap(false)}>OK</button>
+                        </Map>
+                    </YMaps> :
+                    <Loader type="Puff" color="#FFB700" height={60} width={60}/>}
             </div>
         );
     };

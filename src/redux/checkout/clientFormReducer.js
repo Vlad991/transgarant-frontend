@@ -6,6 +6,7 @@ const SET_CLIENT_NUMBER = 'SET-CLIENT-NUMBER';
 const SET_EMAIL = 'SET-EMAIL';
 const SET_NUMBER_ENTERED = 'SET-NUMBER-ENTERED';
 const SET_RECAPTCHA_ENTERED = 'SET-RECAPTCHA-ENTERED';
+const SET_CODE_SENT_CLICKED = 'SET-CODE-SENT-CLICKED';
 const SET_CODE_SENT = 'SET-CODE-SENT';
 const SET_CODE = 'SET-CODE';
 const VERIFY_CODE = 'VERIFY-CODE';
@@ -22,6 +23,7 @@ let initialState = {
     number_is_registered: false,
     number_is_entered: false,
     recaptcha_is_entered: false,
+    code_sent_clicked: false,
     code_is_sent: false,
     client_number_code: null,
     code_is_verified: false,
@@ -80,6 +82,11 @@ const clientFormReducer = (state = initialState, action) => {
                 ...state,
                 recaptcha_is_entered: action.value
             }
+        case SET_CODE_SENT_CLICKED:
+            return {
+                ...state,
+                code_sent_clicked: action.value
+            }
         case SET_CODE_SENT:
             return {
                 ...state,
@@ -128,6 +135,7 @@ export const setNumber = (phone, error) => ({type: SET_CLIENT_NUMBER, phone, err
 export const setEmail = (value) => ({type: SET_EMAIL, value});
 export const setNumberEntered = (value) => ({type: SET_NUMBER_ENTERED, value});
 export const setRecaptchaEntered = (value) => ({type: SET_RECAPTCHA_ENTERED, value});
+export const setCodeSentClicked = (value) => ({type: SET_CODE_SENT_CLICKED, value});
 export const setCodeSent = (value) => ({type: SET_CODE_SENT, value});
 export const setCode = (code) => ({type: SET_CODE, code});
 export const verifyCode = (value) => ({type: VERIFY_CODE, value});
@@ -145,6 +153,11 @@ export const setNumberThunk = (phone) => async (dispatch) => {
     if (!validator.isEmpty(cleanPhone)) {
         if (phone.indexOf('_') === -1) {
             let response = await phoneAPI.checkPhone(cleanPhone);
+            if (response.status === 200 && response.data) {
+
+            } else {
+                console.warn('Check Phone: failed');
+            }
             if (response.data.exist) {
                 dispatch(setNumber(phone, false));
                 dispatch(setNumberEntered(true));
@@ -179,17 +192,23 @@ export const sendCodeThunk = () => async (dispatch, getState) => {
         .replace(/ /g, '')
         .replace('(', '')
         .replace(')', '');
-    let response = await phoneAPI.sendSms(phone);
-    if (response.data.status === 'success') {
-        dispatch(setCodeSent(true));
-    } else {
-        dispatch(setCodeSent(false));
+    if (!state.code_sent_clicked) {
+        dispatch(setCodeSentClicked(true));
+        let response = await phoneAPI.sendSms(phone);
+        if (response.data.status === 'success') {
+            dispatch(setCodeSent(true));
+        } else {
+            dispatch(setCodeSent(false));
+            dispatch(setCodeSent(false));
+            dispatch(setCodeSent(false));
+        }
+        dispatch(setCodeSentClicked(false));
     }
 };
 
 export const setCodeThunk = (code) => async (dispatch, getState) => {
     let state = getState().clientFormReducer;
-    if (code.indexOf('_') === -1) {
+    if (code && (code.indexOf('_') === -1)) {
         dispatch(setCode(code));
         let phone = state.client_number.replace('+', '')
             .replace(/ /g, '')
@@ -322,7 +341,7 @@ export const doOrderThunk = () => async (dispatch, getState) => {
         if (response.status === 200) {
             dispatch(showOrderResult(response.data.id, true));
         } else {
-            console.error("Do Order: failed");
+            console.warn("Do Order: failed");
         }
     } else {
         dispatch(doProcessingOrder(false));

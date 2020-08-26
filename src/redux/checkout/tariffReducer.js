@@ -1,4 +1,5 @@
 import {orderAPI} from "../../api/checkout-api";
+import * as axios from "axios";
 
 const SET_TARIFF = 'SET-TARIFF';
 const LOAD_TARIFF = 'LOAD-TARIFF';
@@ -20,7 +21,8 @@ let initialState = {
             items_by_route: [],
             service_information: '',
             text: '<a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/1qm0OF9PcSZZcGHvP0e_hkHf7NqI9VGN67PbCKFohpgg/edit">Условия работы и договор >></a>',
-            tariff_loading: false
+            tariff_loading: false,
+            cancelSource: null
         },
         {
             id: 'aa6d8cc0-e0f1-11ea-8dfb-000c298a28ba',
@@ -35,7 +37,8 @@ let initialState = {
             items_by_route: [],
             service_information: '',
             text: 'Скидка с 13:00 до 17:00*<br/>*время предоставления скидки может изменяться<br/><a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/1qm0OF9PcSZZcGHvP0e_hkHf7NqI9VGN67PbCKFohpgg/edit">Условия работы и договор >></a>',
-            tariff_loading: false
+            tariff_loading: false,
+            cancelSource: null
         },
         {
             id: 'bdc31824-7d68-11ea-a9c9-00155d8e4e03',
@@ -50,7 +53,8 @@ let initialState = {
             items_by_route: [],
             service_information: '',
             text: '<a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/19kwRryD9MBkDZmNNklgo2eQHKL2Lj8HGUB5JMnXkY7U/edit">Условия работы и договор >></a>',
-            tariff_loading: false
+            tariff_loading: false,
+            cancelSource: null
         },
         {
             id: 'bdc31825-7d68-11ea-a9c9-00155d8e4e03',
@@ -65,7 +69,8 @@ let initialState = {
             items_by_route: [],
             service_information: '',
             text: 'Скидка с 13:00 до 17:00*<br/>*время предоставления скидки может изменяться<br/>Условия работы и договор >><br/><a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/19kwRryD9MBkDZmNNklgo2eQHKL2Lj8HGUB5JMnXkY7U/edit">Условия работы и договор >></a>',
-            tariff_loading: false
+            tariff_loading: false,
+            cancelSource: null
         },
         {
             id: 'bdc31823-7d68-11ea-a9c9-00155d8e4e03',
@@ -80,7 +85,8 @@ let initialState = {
             items_by_route: [],
             service_information: '',
             text: 'Перевозка выполняется в конкретный день в течение предлагаемого промежутка времени.<br/>*время выполнения заказа нефиксированное<br/><a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/19kwRryD9MBkDZmNNklgo2eQHKL2Lj8HGUB5JMnXkY7U/edit">Условия работы и договор >></a>',
-            tariff_loading: false
+            tariff_loading: false,
+            cancelSource: null
         },
         {
             id: 'aa6d8cc1-e0f1-11ea-8dfb-000c298a28ba',
@@ -95,7 +101,8 @@ let initialState = {
             items_by_route: [],
             service_information: '',
             text: 'Перевозка выполняется в конкретный день в течение предлагаемого промежутка времени.<br/>*время выполнения заказа нефиксированное<br/><a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/19kwRryD9MBkDZmNNklgo2eQHKL2Lj8HGUB5JMnXkY7U/edit">Условия работы и договор >></a>',
-            tariff_loading: false
+            tariff_loading: false,
+            cancelSource: null
         }
     ],
     selected_tariff: 'bdc31826-7d68-11ea-a9c9-00155d8e4e03',
@@ -238,6 +245,11 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
             files_ids: []
         });
     }
+    let foundCancelSource = state.tariffReducer.tariff_types.find(tariff => tariff.id === tariffId).cancelSource;
+    if (foundCancelSource) {
+        foundCancelSource.cancel('Canceled calc method');
+    }
+    const cancelToken = axios.CancelToken.source().token;
     dispatch(setTariffLoading(tariffId, true));
     let response = await orderAPI.calc(
         date,
@@ -257,12 +269,13 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
         '777',
         state.clientFormReducer.email,
         'paymentonaccount',
-        state.categoryReducer.active_category);
+        state.categoryReducer.active_category,
+        cancelToken);
     if (response.status === 200 && response.data) {
         dispatch(loadTariff(tariffId, response.data.cost, response.data.min_cost, response.data.rate, response.data.min_hours, response.data.hours, response.data.cost_by_hour, response.data.items, response.data.items_by_route, response.data.service_information));
         dispatch(setTariffLoading(tariffId, false));
     } else {
-        console.error("Load Tariff: failed");
+        console.warn("Load Tariff: failed");
     }
 };
 

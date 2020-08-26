@@ -24,7 +24,7 @@ const SET_CARGO_LOADING = 'SET-CARGO-LOADING';
 let initialState = {
     active_tab: 1,
     name: '',
-    price: null,
+    price: '',
     quantity: 1,
     length: 1.2,
     width: 0.8,
@@ -279,7 +279,7 @@ export const addPlaceThunk = () => async (dispatch, getState) => {
         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
         dispatch(setCargoLoading(false));
     } else {
-        console.error("Add Place: failed");
+        console.warn("Add Place: failed");
         dispatch(setCargoLoading(false));
     }
 };
@@ -299,7 +299,7 @@ export const removePlaceThunk = (index) => async (dispatch, getState) => {
             dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
             dispatch(setCargoLoading(false));
         } else {
-            console.error("Add Place: failed");
+            console.warn("Add Place: failed");
             dispatch(setCargoLoading(false));
         }
     } else {
@@ -334,7 +334,7 @@ export const addPalletThunk = () => async (dispatch, getState) => {
         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
         dispatch(setCargoLoading(false));
     } else {
-        console.error("Add Pallet: failed");
+        console.warn("Add Pallet: failed");
         dispatch(setCargoLoading(false));
     }
 };
@@ -354,7 +354,7 @@ export const removePalletThunk = (index) => async (dispatch, getState) => {
             dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
             dispatch(setCargoLoading(false));
         } else {
-            console.error("Remove Pallet: failed");
+            console.warn("Remove Pallet: failed");
             dispatch(setCargoLoading(false));
         }
     } else {
@@ -389,7 +389,7 @@ export const addPackageThunk = () => async (dispatch, getState) => {
         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
         dispatch(setCargoLoading(false));
     } else {
-        console.error("Add Package: failed");
+        console.warn("Add Package: failed");
         dispatch(setCargoLoading(false));
     }
 };
@@ -409,7 +409,7 @@ export const removePackageThunk = (index) => async (dispatch, getState) => {
             dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
             dispatch(setCargoLoading(false));
         } else {
-            console.error("Remove Package: failed");
+            console.warn("Remove Package: failed");
             dispatch(setCargoLoading(false));
         }
     } else {
@@ -432,7 +432,7 @@ export const updateCargoThunk = () => async (dispatch, getState) => {
         dispatch(setCargoData(response.data.total_weight, response.data.total_volume, response.data.total_area));
         dispatch(setCargoLoading(false));
     } else {
-        console.error("Update Cargo: failed");
+        console.warn("Update Cargo: failed");
         dispatch(setCargoLoading(false));
     }
 };

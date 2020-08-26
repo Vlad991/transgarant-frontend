@@ -1,6 +1,7 @@
 import React from "react";
 import InputMask from "react-input-mask";
 import ReCAPTCHA from "react-google-recaptcha";
+import Loader from "react-loader-spinner";
 
 const ClientForm = ({
                         state,
@@ -25,7 +26,7 @@ const ClientForm = ({
                     <input type="text" value={state.client_name} onChange={e => setName(e.target.value)} className="input-wrap__input" placeholder="ФИО"/>
                 </label>
                 {(state.code_is_sent && !state.code_is_verified) ?
-                    <label key="code" className={"client-form__input input-wrap input-wrap_code"}>
+                    <label key="code" className={"client-form__input input-wrap input-wrap_code"+ (hasCodeError ? ' input-wrap_error' : '')}>
                         <InputMask mask="9 9 9 9" value={state.client_number_code} onChange={e => setCode(e.target.value)}>
                             {(inputProps) => <input {...inputProps} className="input-wrap__input" placeholder="SMS - код" type="text"/>}
                         </InputMask>
@@ -35,7 +36,7 @@ const ClientForm = ({
                             {(inputProps) => <input {...inputProps} className="input-wrap__input" placeholder="Мобильный телефон" type="tel"/>}
                         </InputMask>
                         {(state.number_is_entered && state.recaptcha_is_entered && !state.code_is_verified) ?
-                            <button onClick={sendCode} className="button button_sms">Получить код</button> : null}
+                            <button onClick={sendCode} className="button button_sms">{state.code_sent_clicked ? <Loader type="Puff" color="#FFF" height={30} width={30}/> : 'Получить код'}</button> : null}
                     </label>}
                 <label className={"client-form__input input-wrap" + (state.email_error || hasEmailError ? ' input-wrap_error' : '')}>
                     <input type="text" value={state.client_email} onChange={e => setEmail(e.target.value)} className="input-wrap__input" placeholder="Ваша почта"/>

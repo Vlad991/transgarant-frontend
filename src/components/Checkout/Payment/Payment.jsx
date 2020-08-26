@@ -28,8 +28,8 @@ const Payment = ({state, setPayment, setCompany, hasError}) => {
                         </div>
                     </div>
                     {state.selected_payment === 2 ?
-                        <input type="radio" name="payment" checked className="check-wrap__input"/> :
-                        <input type="radio" name="payment" onChange={() => setPayment(2)} className="check-wrap__input"/>}
+                        <input type="radio" name="payment" checked={true} className="check-wrap__input"/> :
+                        <input type="radio" name="payment" checked={false} onChange={() => setPayment(2)} className="check-wrap__input"/>}
                     <span className="check-wrap__mark"></span>
                 </label>
                 <label className="payment__item check-wrap">
@@ -54,8 +54,8 @@ const Payment = ({state, setPayment, setCompany, hasError}) => {
                         </div>
                     </div>
                     {state.selected_payment === 3 ?
-                        <input type="radio" name="payment" checked className="check-wrap__input"/> :
-                        <input type="radio" name="payment" onChange={() => setPayment(3)} className="check-wrap__input"/>}
+                        <input type="radio" name="payment" checked={true} className="check-wrap__input"/> :
+                        <input type="radio" name="payment" checked={false} onChange={() => setPayment(3)} className="check-wrap__input"/>}
                     <span className="check-wrap__mark"></span>
                 </label>
             </section>
@@ -64,6 +64,7 @@ const Payment = ({state, setPayment, setCompany, hasError}) => {
                     <PartySuggestions token={token}
                                       value={state.company}
                                       onChange={setCompany}
+                                      count={5}
                                       containerClassName={"client-form__input client-form__company input-wrap input-wrap_address"}
                                       inputProps={{className: 'input-wrap__input', placeholder: 'ИНН'}}/>
                 </section> : null}

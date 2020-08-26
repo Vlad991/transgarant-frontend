@@ -155,7 +155,7 @@ export const setBodyTypesThunk = (categoryId) => async (dispatch) => {
         dispatch(setBodyTypes(bodyTypes));
         dispatch(setBodyTypesLoading(false));
     } else {
-        console.error("Load Body Types: failed");
+        console.warn("Load Body Types: failed");
     }
 };
 
@@ -166,7 +166,7 @@ export const setBodyOptionsThunk = (bodyTypeId, categoryId) => async (dispatch) 
         dispatch(setBodyOptions(response.data));
         dispatch(setBodyOptionsLoading(false));
     } else {
-        console.error("Load Body Options: failed");
+        console.warn("Load Body Options: failed");
     }
 };
 
@@ -187,7 +187,7 @@ export const setBodyOptionChsThunk = (bodyOptionId, bodyTypeId, categoryId) => a
         dispatch(setBodyOptionChs(characteristics));
         dispatch(setCharacteristicsLoading(false));
     } else {
-        console.error("Load Body Option Characteristics: failed");
+        console.warn("Load Body Option Characteristics: failed");
     }
 };
 

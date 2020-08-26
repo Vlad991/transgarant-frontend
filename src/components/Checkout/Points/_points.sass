@@ -368,23 +368,22 @@
   opacity: 0
   height: 0
 
+  &::after
+    display: flex
+    content: url("data:image/svg+xml,%3Csvg width='40' height='34' viewBox='0 0 40 34' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.866 1.5C20.6874 1.1906 20.3573 1 20 1C19.6427 1 19.3126 1.1906 19.134 1.5L1.81347 31.5C1.63483 31.8094 1.63483 32.1906 1.81347 32.5C1.9921 32.8094 2.32223 33 2.67949 33H37.3205C37.6778 33 38.0079 32.8094 38.1865 32.5C38.3652 32.1906 38.3652 31.8094 38.1865 31.5L20.866 1.5Z' fill='white' stroke='%23FFB700' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E%0A")
+    position: absolute
+    top: -15px
+    left: 100px
+    width: 20px
+    height: 20px
+    z-index: -1
+
   &_show
     visibility: visible
     opacity: 1
     height: auto
-
-  &::after
-    display: block
-    content: ''
-    width: 30px
-    height: 30px
-    transform: rotate(45deg)
+    min-height: 350px
     background-color: #fff
-    border: 2px solid $yellow
-    position: absolute
-    top: -7px
-    left: 100px
-    z-index: -1
 
 .address-map
   width: 100%

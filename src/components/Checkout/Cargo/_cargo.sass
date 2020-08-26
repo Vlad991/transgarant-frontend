@@ -157,6 +157,8 @@
   transition: all .2s ease-in-out 0s
   position: absolute
   top: 0
+  @include mobile
+    width: 100%
 
   &_active
     visibility: visible
@@ -170,6 +172,14 @@
     margin-bottom: 10px
   @include mobile
     flex-direction: column
+
+  &:last-child
+    @include mobile
+      flex-direction: row
+      flex-wrap: wrap
+      justify-content: space-between
+      .characteristic__input
+        width: calc(100% / 2 - 10px)
 
 .characteristic__currency
   flex-basis: 143px

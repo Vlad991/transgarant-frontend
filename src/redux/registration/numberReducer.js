@@ -31,7 +31,7 @@ export const setPhoneNumberThunk = (value) => async (dispatch) => {
     // if (response.status === 200 && response.data) {
     //     dispatch(setCategories(response.data));
     // } else {
-    //     console.error("Load Categories: failed");
+    //     console.warn("Load Categories: failed");
     // }
 };
 

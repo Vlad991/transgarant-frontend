@@ -1,5 +1,8 @@
 import * as axios from "axios";
+import axiosRetry from 'axios-retry';
 import {apiBaseUrl} from "../deployment";
+
+axiosRetry(axios, {retries: 50});
 
 const instance = axios.create({
     baseURL: apiBaseUrl,
@@ -83,7 +86,7 @@ export const cargoAPI = {
 };
 
 export const orderAPI = {
-    calc(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type, car_type_id) {
+    calc(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type, car_type_id, cancelToken) {
         let data = {
             date: date,
             body_type_id: body_type_id,
@@ -110,9 +113,14 @@ export const orderAPI = {
         if (places.length === 0 && pallets.length === 0 && packages.length === 0) {
             data.car_type_id = car_type_id;
         }
-        return instance.post('/calc', data, {timeout: 5000000})
+        return instance.post('/calc', data, {timeout: 50000000, cancelToken})
             .then(response => response)
-            .catch(error => error);
+            .catch(error => {
+                if (axios.isCancel(error)) {
+                    console.log(error.message);
+                }
+                return error;
+            });
     },
     orders(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type, car_type_id) {
         let data = {

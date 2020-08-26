@@ -6,37 +6,63 @@
   margin-top: 30px
   @include tablet
     margin-top: 20px
+  @include mobile
+    margin-top: 40px
 
 .payment
   display: flex
   justify-content: space-between
-  @include tabletSmall
+  @include tablet
     flex-direction: column
     align-items: flex-start
     padding: 20px 20px 0
+  @include mobile
+    padding: 15px 15px 0
 
 .payment__check
   @include fontSWCL(16px, normal, #000, 20px)
   text-transform: none
+  @include mobile
+    font-size: 14px
+    line-height: 16px
 
 
 .check-wrap_disabled
   .payment__check
     color: rgba(0, 0, 0, 0.3)
     cursor: not-allowed
+
   svg
     cursor: not-allowed
 
 .payment__item
-  @include tabletSmall
+  @include tablet
     margin-bottom: 20px
+  @include mobile
+    margin-bottom: 15px
 
 .payment__info
   margin-left: 10px
+
   .info-icon__text
     left: -140px
+    @include mobile
+      padding: 10px
+      font-size: 11px
+      line-height: 13px
+
   &_big
+    display: flex
+
+    &.info-icon::after
+        z-index: 1003
+
     .info-icon__text
       width: 500px
       left: -440px
       z-index: 1002
+      @include tablet
+        left: -200px
+      @include mobile
+        width: 300px
+        left: -140px

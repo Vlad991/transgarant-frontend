@@ -1,3 +1,12 @@
+@import "../sass/settings/color"
+@import "../sass/tools/mixin"
+@import "../sass/tools/media"
+
+.start-loader
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 600px
 
 sup
   font-size: xx-small
@@ -292,6 +301,16 @@ sup
     width: 88px
     height: 50px
     margin-right: 1px
+    @media screen and (max-width: 1160px)
+      width: 70px
+      font-size: 12px
+      line-height: 14px
+    @include tablet
+      width: 88px
+      font-size: 13px
+      line-height: 16px
+    @include tabletSmall
+      height: 43px
 
     &:hover
       box-shadow: 0 0 10px -1px rgba(0, 0, 0, 0.2)

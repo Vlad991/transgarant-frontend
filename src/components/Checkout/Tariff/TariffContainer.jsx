@@ -5,14 +5,29 @@ import {loadTariffThunk, setMapType, setTariff} from "../../../redux/checkout/ta
 
 class TariffContainer extends React.Component {
     state = {
-        isShown: false
+        isShown: false,
+        yandexMapIsShown: false,
+        osrmMapIsShown: false
     }
 
     setView = (value) => {
         this.setState({
             isShown: value
-        })
+        });
     }
+
+    setYandexMapView = (value) => {
+        this.setState({
+            yandexMapIsShown: value
+        });
+    }
+
+    setOsrmMapView = (value) => {
+        this.setState({
+            osrmMapIsShown: value
+        });
+    }
+
 
     loadTariff = () => {
         this.props.loadTariffThunk(this.props.state.selected_tariff);
@@ -43,15 +58,21 @@ class TariffContainer extends React.Component {
             (prevState.isShown !== this.state.isShown)) {
             if (this.state.isShown) {
                 this.loadAllTariffs();
-            // } else {
-            //     this.loadTariff();
             }
         }
     }
 
     render() {
         return (
-            <Tariff state={this.props.state} setTariff={this.props.setTariff} setView={this.setView} setMapType={this.props.setMapType}/>
+            <Tariff state={this.props.state}
+                    yandexMapIsShown={this.state.yandexMapIsShown}
+                    osrmMapIsShown={this.state.osrmMapIsShown}
+
+                    setTariff={this.props.setTariff}
+                    setView={this.setView}
+                    setYandexMapView={this.setYandexMapView}
+                    setOsrmMapView={this.setOsrmMapView}
+                    setMapType={this.props.setMapType}/>
         );
     };
 }

@@ -9,6 +9,6 @@ export const apiBaseUrl = 'https://www.tg-group.ru/wp-json/fz/v1';
 //export const apiBaseUrl = 'https://www.tg-group.ru/wp-json/fz/v1';
 
 //................................https://citycarrier.ru..........................
-//export const listOfBenefitsForPaymentLink = "https://docs.google.com/document/d/1xJzi4BdMNCnsRJFYfzSIHOfgAlAynkV8ul-MgYUT0_4/edit?usp=sharing";
-//export const RoutesEndpointForMapLink = "https://citycarrier.ru/wp-json/fz/v1";
-//export const apiBaseUrl = 'https://citycarrier.ru//wp-json/fz/v1';
+// export const listOfBenefitsForPaymentLink = "https://docs.google.com/document/d/1xJzi4BdMNCnsRJFYfzSIHOfgAlAynkV8ul-MgYUT0_4/edit?usp=sharing";
+// export const RoutesEndpointForMapLink = "https://citycarrier.ru/wp-json/fz/v1";
+// export const apiBaseUrl = 'https://citycarrier.ru//wp-json/fz/v1';

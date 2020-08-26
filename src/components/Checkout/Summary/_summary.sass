@@ -7,6 +7,9 @@
   bottom: 10px
   right: 20px
   z-index: 1001
+  @include mobile
+    bottom: 0
+    right: 0
 
 .summary
   width: 326px
@@ -14,6 +17,8 @@
   background-color: #fff
   box-sizing: border-box
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1)
+  @include mobile
+    width: 100%
 
 .summary__wrap-heading
   border-top: 1px solid $yellow
@@ -26,6 +31,8 @@
   box-sizing: border-box
   cursor: pointer
   @include fontSWCL(12px, bold, #2E2E2E, 15px)
+  @include mobile
+    display: none
 
 .summary__result-wrap
   display: flex

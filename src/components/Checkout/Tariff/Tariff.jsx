@@ -5,13 +5,23 @@ import YandexMap from "../YandexMap/YandexMap";
 import ReactHtmlParser from 'react-html-parser';
 import Loader from 'react-loader-spinner';
 
-const Tariff = ({state, setTariff, setView, setMapType}) => {
+const Tariff = ({
+                    state,
+                    yandexMapIsShown,
+                    osrmMapIsShown,
+
+                    setTariff,
+                    setView,
+                    setYandexMapView,
+                    setOsrmMapView,
+                    setMapType
+                }) => {
     let selectedTariffObject;
     if (state.selected_tariff) {
         selectedTariffObject = state.tariff_types.find(tariff => tariff.id === state.selected_tariff);
     }
     return (
-        <section className="checkout__tariff tariff">
+        <InView as="section" className="checkout__tariff tariff" onChange={(inView, entry) => setView(inView)}>
             <div className="checkout__title tariff__heading">ВЫБОР ТАРИФА И ДЕТАЛИЗАЦИЯ ЗАКАЗА</div>
             <div className="tariff__variants">
                 {state.tariff_types.map((tariff, index, tariffs) => {
@@ -84,7 +94,7 @@ const Tariff = ({state, setTariff, setView, setMapType}) => {
                 <div className="tariff__info-heading">Служебная информация</div>
                 <div className="tariff__info-text">{(state.selected_tariff && selectedTariffObject.service_information) ? selectedTariffObject.service_information : 'Подгрузка тарифов может занять несколько минут, пожалуйста подождите...'}</div>
             </div>
-            <InView as="div" className="tariff__chosen" onChange={(inView, entry) => setView(inView)}>
+            <div className="tariff__chosen">
                 {state.selected_tariff ?
                     <div className="tariff__chosen-info">
                         <div className="chosen__heading">{selectedTariffObject.name}</div>
@@ -168,12 +178,20 @@ const Tariff = ({state, setTariff, setView, setMapType}) => {
                         </div>
                     </div>
                     <div className="map-tabs__body">
-                        <div className={"map-tabs__item tariff__map" + (state.yandex_map ? " map-tabs__item_active" : "")}><YandexMap/></div>
-                        <div className={"map-tabs__item tariff__map" + (!state.yandex_map ? " map-tabs__item_active" : "")}><LeafletMap/></div>
+                        <InView as="div" className={"map-tabs__item tariff__map" + (state.yandex_map ? " map-tabs__item_active" : "") + (osrmMapIsShown ? " map-tabs__item--loader" : "")} onChange={(inView, entry) => setYandexMapView(inView)}>
+                            {osrmMapIsShown && state.yandex_map ?
+                                <YandexMap/>
+                                : <Loader type="Puff" color="#FFB700" height={120} width={120}/>}
+                        </InView>
+                        <InView as="div" className={"map-tabs__item tariff__map" + (!state.yandex_map ? " map-tabs__item_active" : "") + (yandexMapIsShown ? " map-tabs__item--loader" : "")} onChange={(inView, entry) => setOsrmMapView(inView)}>
+                            {yandexMapIsShown && !state.yandex_map ?
+                                <LeafletMap/>
+                                : <Loader type="Puff" color="#FFB700" height={120} width={120}/>}
+                        </InView>
                     </div>
                 </div>
-            </InView>
-        </section>
+            </div>
+        </InView>
     );
 }
 

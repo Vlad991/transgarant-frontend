@@ -1,20 +1,21 @@
 import React from 'react';
 import {connect} from "react-redux";
-import CategoryContainer from "./Checkout/Category/CategoryContainer";
-import CarBodyContainer from "./Checkout/CarBody/CarBodyContainer";
-import DopContainer from "./Checkout/Dop/DopContainer";
-import DocReturnContainer from "./Checkout/DocReturn/DocReturnContainer";
-import PointsContainer from "./Checkout/Points/PointsContainer";
-import CargoContainer from "./Checkout/Cargo/CargoContainer";
-import CargoItemsContainer from "./Checkout/CargoItems/CargoItemsContainer";
-import TariffContainer from "./Checkout/Tariff/TariffContainer";
-import PaymentContainer from "./Checkout/Payment/PaymentContainer";
-import ClientFormContainer from "./Checkout/ClientForm/ClientFormContainer";
-import SummaryContainer from "./Checkout/Summary/SummaryContainer";
 import {dopToggle} from "../redux/checkout/dopReducer";
 import {toggleValuesCollapse} from "../redux/checkout/pointsReducer";
 import {toggleChCollapse, toggleOptionCollapse} from "../redux/checkout/carBodyReducer";
 import {togglePackageCollapse, togglePalletCollapse} from "../redux/checkout/cargoReducer";
+import Loader from "react-loader-spinner";
+const CategoryContainer = React.lazy(() => import('./Checkout/Category/CategoryContainer'));
+const CarBodyContainer = React.lazy(() => import('./Checkout/CarBody/CarBodyContainer'));
+const DopContainer = React.lazy(() => import('./Checkout/Dop/DopContainer'));
+const DocReturnContainer = React.lazy(() => import('./Checkout/DocReturn/DocReturnContainer'));
+const PointsContainer = React.lazy(() => import('./Checkout/Points/PointsContainer'));
+const CargoContainer = React.lazy(() => import('./Checkout/Cargo/CargoContainer'));
+const CargoItemsContainer = React.lazy(() => import('./Checkout/CargoItems/CargoItemsContainer'));
+const TariffContainer = React.lazy(() => import('./Checkout/Tariff/TariffContainer'));
+const PaymentContainer = React.lazy(() => import('./Checkout/Payment/PaymentContainer'));
+const ClientFormContainer = React.lazy(() => import('./Checkout/ClientForm/ClientFormContainer'));
+const SummaryContainer = React.lazy(() => import('./Checkout/Summary/SummaryContainer'));
 
 class Checkout extends React.Component {
     closeAllCollapse = () => {
@@ -30,27 +31,29 @@ class Checkout extends React.Component {
             <div className="checkout" onClick={this.closeAllCollapse}>
                 <h1 className="checkout__heading">РАСЧЕТ СТОИМОСТИ и ОФОРМЛЕНИЕ ЗАКАЗА</h1>
 
-                <CategoryContainer/>
+                <React.Suspense fallback={<div className="start-loader"><Loader type="Puff" color="#FFB700" height={60} width={60}/></div>}>
+                    <CategoryContainer/>
 
-                <CarBodyContainer/>
+                    <CarBodyContainer/>
 
-                <DopContainer/>
+                    <DopContainer/>
 
-                <DocReturnContainer/>
+                    <DocReturnContainer/>
 
-                <PointsContainer/>
+                    <PointsContainer/>
 
-                <CargoContainer/>
+                    <CargoContainer/>
 
-                <CargoItemsContainer/>
+                    <CargoItemsContainer/>
 
-                <TariffContainer/>
+                    <TariffContainer/>
 
-                <PaymentContainer/>
+                    <PaymentContainer/>
 
-                <ClientFormContainer/>
+                    <ClientFormContainer/>
 
-                <SummaryContainer/>
+                    <SummaryContainer/>
+                </React.Suspense>
             </div>
         );
     };

@@ -268,9 +268,9 @@ const Cargo = ({
                         {state.cargo_loading ?
                             <Loader type="Puff" color="#FFB700" height={80} width={80}/>
                             : <div className="sizes-block">
-                                {state.packed_items.map(block => {
+                                {state.packed_items.map((block, index) => {
                                     return (
-                                        <div className="cargo__size-block" style={{
+                                        <div key={index} className="cargo__size-block" style={{
                                             width: parseFloat(block.width) * ratio + 'px',
                                             height: parseFloat(block.height) * ratio + 'px',
                                             left: parseFloat(block.x) * ratio + 'px',
