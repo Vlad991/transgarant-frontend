@@ -1,4 +1,5 @@
 const SET_NEW_CAR_DATA = 'SET-NEW-CAR-DATA';
+const SET_CAPACITY_TYPE = 'SET-CAPACITY_TYPE';
 
 let initialState = {
     cars: [
@@ -26,23 +27,23 @@ let initialState = {
     capacity_types: [
         {
             id: 0,
-            value: 100
+            name: 100
         },
         {
             id: 1,
-            value: 200
+            name: 200
         },
         {
             id: 2,
-            value: 300
+            name: 300
         },
         {
             id: 3,
-            value: 400
+            name: '40023 098034 305980 3098094 0958720 39875098 127'
         },
         {
             id: 4,
-            value: 500
+            name: 500
         },
     ],
     selected_capacity_id: null,
@@ -85,11 +86,17 @@ const carsReducer = (state = initialState, action) => {
                 ...state,
                 ...action.data
             }
+        case SET_CAPACITY_TYPE:
+            return {
+                ...state,
+                selected_capacity_id: action.id
+            }
         default:
             return state;
     }
 };
 
 export const setNewCarData = (data) => ({type: SET_NEW_CAR_DATA, data});
+export const setCapacityType = (id) => ({type: SET_CAPACITY_TYPE, id});
 
 export default carsReducer;

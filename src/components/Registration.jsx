@@ -6,6 +6,7 @@ import IndividualEntrepreneurContainer from "./Registration/IndividualEntreprene
 import DriverData from "./Registration/DriverData/DriverData";
 import DriverPassportContainer from "./Registration/DriverPassport/DriverPassportContainer";
 import CarsContainer from "./Registration/Cars/CarsContainer";
+import AddCarFormContainer from "./Registration/AddCarForm/AddCarFormContainer";
 
 class Registration extends React.Component {
     render() {
@@ -19,6 +20,7 @@ class Registration extends React.Component {
                         <DriverData/>
                         <DriverPassportContainer/>
                         <CarsContainer/>
+                        <AddCarFormContainer/>
                     </>
                     : <NumberContainer/>}
             </div>

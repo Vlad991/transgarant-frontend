@@ -41,22 +41,105 @@
 .form-block__heading
   @include fontSWCL(16px, bold, #000, 20px)
   margin: 0
+  text-transform: uppercase
 
 .form-block__fields
   margin-top: 23px
 
 .form-block__fields-line
   display: flex
-  //justify-content: space-between
+  align-items: center
   margin-top: 11px
 
   &:first-child
     margin-top: 0
 
 .form-block__field
-  width: calc(100% / 4 - 30px * 3 / 4)
-  display: flex
+  flex: 1 1
   margin-right: 30px
 
   &:last-child
     margin-right: 0
+
+  &--3
+    width: calc(100% / 3 - 30px * 2 / 3)
+
+.select
+  display: block
+  padding: 14.5px 50px 14.5px 20px
+  background: #fff
+  border: 1px solid #C5C5C5
+  box-sizing: border-box
+  border-radius: 10px
+  position: relative
+  z-index: 5
+  cursor: pointer
+  transition: all .2s ease-in-out 0s
+
+  &::after
+    content: url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.20792 8.79246L0.328385 1.9127C-0.109463 1.47507 -0.109463 0.765517 0.328385 0.328093C0.765842 -0.109365 1.47536 -0.109365 1.91278 0.328093L8.00011 6.41562L14.0872 0.328271C14.5249 -0.109188 15.2343 -0.109188 15.6718 0.328271C16.1094 0.76573 16.1094 1.47525 15.6718 1.91288L8.79214 8.79264C8.5733 9.01137 8.2868 9.12061 8.00015 9.12061C7.71336 9.12061 7.42665 9.01116 7.20792 8.79246Z' fill='%23FFB700'/%3E%3C/svg%3E%0A")
+    display: flex
+    height: 10px
+    align-items: center
+    position: absolute
+    top: 20px
+    right: 20px
+    transition: all .2s ease-in-out
+
+  &--active
+    border: 1px solid #fff
+    border-radius: 10px 10px 0 0
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15)
+
+    &::after
+      transform: rotate(180deg)
+
+    .select__selected
+      color: #000
+
+    .select__items
+      visibility: visible
+      opacity: 1
+      max-height: 5000px
+
+  &--error
+    border-color: crimson
+
+  &--loading
+    padding-top: 9px
+    padding-bottom: 5px
+    display: flex
+    justify-content: center
+    align-items: center
+
+.select__selected
+  display: block
+  @include fontSWCL(13px, normal, #666, 16px)
+
+.select__items
+  display: block
+  position: absolute
+  width: calc(100% + 2px)
+  left: -1px
+  margin-top: 15px
+  z-index: 40
+  background-color: #fff
+  box-shadow: 0 20px 20px 4px rgba(0, 0, 0, 0.15)
+  border-radius: 0 0 10px 10px
+  padding: 0 0 10px
+  box-sizing: border-box
+  transition: all .2s ease-in-out
+  visibility: hidden
+  opacity: 0
+  max-height: 0
+
+.select__item
+  display: block
+  @include fontSWCL(13px, normal, #000, 16px)
+  transition: all .2s ease-in-out
+  padding: 12px 20px
+
+  &:hover
+    background-color: $yellow
+    color: #fff
+    font-weight: bold
