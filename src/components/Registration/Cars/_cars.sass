@@ -2,6 +2,66 @@
 @import "../../../sass/tools/mixin"
 @import "../../../sass/tools/media"
 
-.registration__passport
-  margin-top: 48px
+.registration__cars
+  margin-top: 34px
+
+.cars
+  display: flex
+  justify-content: space-between
+
+.cars__item
+  width: calc(50% - 20px)
+
+.car-card
+  padding: 23px 50px 27px 29px
+  box-sizing: border-box
+  background-color: #FBFBFB
+  border-radius: 10px
+  position: relative
+
+.car-card__cross
+  position: absolute
+  display: flex
+  top: 16px
+  right: 20px
+  cursor: pointer
+
+.car-card__heading
+  @include fontSWCL(16px, bold, $yellow, 20px)
+  text-transform: capitalize
+  margin-bottom: 21px
+
+.car-card__row
+  display: flex
+  align-items: center
+  margin-bottom: 7px
+
+.car-card__item
+  flex-basis: 45%
+  margin-bottom: 7px
+
+.car-card__item-name
+  @include fontSWCL(13px, bold, #666, 16px)
+
+.car-card__item-value
+  @include fontSWCL(13px, normal, #666, 16px)
+
+  &--address
+    display: flex
+    align-items: center
+    margin-top: 3px
+
+    &::before
+      content: url("data:image/svg+xml,%3Csvg width='16' height='20' viewBox='0 0 16 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.9535 2.05161C11.6305 0.728674 9.87147 0 8.00066 0C6.12948 0 4.3708 0.728674 3.04787 2.05161C0.599596 4.49952 0.295342 9.10532 2.38896 11.8958L8.00066 20L13.604 11.9072C15.706 9.10532 15.4017 4.49952 12.9535 2.05161ZM8.06531 9.4965C6.65581 9.4965 5.50856 8.34925 5.50856 6.93975C5.50856 5.53025 6.65581 4.383 8.06531 4.383C9.47481 4.383 10.6221 5.53025 10.6221 6.93975C10.6221 8.34925 9.47481 9.4965 8.06531 9.4965Z' fill='%23FFB700'/%3E%3C/svg%3E%0A")
+      display: flex
+      margin-right: 8px
+
+.car-card__place-item
+  margin-top: 12px
+
+.car-card__file
+  position: absolute
+  bottom: 25px
+  right: 50px
+
 

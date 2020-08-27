@@ -214,6 +214,24 @@ sup
     @include fontSWCL(13px, normal, #636363, 16px)
     cursor: pointer
 
+  &--file
+    width: 134px
+    height: 47px
+    border: 1px solid #C5C5C5
+    border-radius: 10px
+    box-sizing: border-box
+    background-color: #EAEAEA
+    @include fontSWCL(13px, normal, #666, 16px)
+    text-decoration: 1px underline #666
+    text-align: center
+    padding: 0
+    display: flex
+    justify-content: center
+    align-items: center
+
+    .input-wrap__input
+      display: none
+
 .input-wrap__input
   border: none
   padding: 0
@@ -322,6 +340,12 @@ sup
 
   &_error
     border: 2px solid crimson
+
+  &--inverse
+    border: 1px solid $yellow
+    height: 45px
+    background-color: #fff
+    color: $yellow
 
 .button-rhomb
   width: 229px

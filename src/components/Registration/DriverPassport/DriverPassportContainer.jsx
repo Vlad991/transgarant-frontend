@@ -12,7 +12,7 @@ class DriverPassportContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    state: state.individualEntrepreneurReducer
+    state: state.driverPassportReducer
 });
 
 export default connect(mapStateToProps, {setPassportData})(DriverPassportContainer);

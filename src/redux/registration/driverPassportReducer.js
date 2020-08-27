@@ -1,22 +1,23 @@
 const SET_PASSPORT_DATA = 'SET-PASSPORT-DATA';
 
 let initialState = {
-    passport_name: null,
-    passport_birthday: null,
-    passport_number: null,
-    passport_series: null,
-    passport_issued_by: null,
-    passport_department: null,
-    passport_issued_date: null,
-    passport_registration: null,
-    passport_address: null,
-    passport_reversal_photo: null,
-    passport_registration_photo: null,
+    passport_name: '',
+    passport_birthday: '',
+    passport_number: '',
+    passport_series: '',
+    passport_issued_by: '',
+    passport_department: '',
+    passport_issued_date: '',
+    passport_registration: '',
+    passport_address: '',
+    passport_reversal_photo: '',
+    passport_registration_photo: '',
 };
 
 const driverPassportReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_PASSPORT_DATA:
+            console.log(action.data);
             return {
                 ...state,
                 ...action.data

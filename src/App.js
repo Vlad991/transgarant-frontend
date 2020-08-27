@@ -12,6 +12,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="container-wrap">
+                <Route exact path='/' render={() => <Checkout/>}/>
                 <Route path='/checkout' render={() => <Checkout/>}/>
                 <Route path='/registration' render={() => <Registration/>}/>
             </div>
@@ -24,7 +25,7 @@ const mapStateToProps = (state) => ({});
 let AppContainer = connect(mapStateToProps, {})(App);
 
 const CheckoutApp = (props) => {
-    return <BrowserRouter basename="/">
+    return <BrowserRouter>
         <Provider store={store}>
             <AppContainer/>
         </Provider>

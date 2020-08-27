@@ -17,6 +17,7 @@ import carHolderReducer from "./registration/carHolderReducer";
 import individualEntrepreneurReducer from "./registration/individualEntrepreneurReducer";
 import driverDataReducer from "./registration/driverDataReducer";
 import carsReducer from "./registration/carsReducer";
+import driverPassportReducer from "./registration/driverPassportReducer";
 
 
 let reducers = combineReducers({
@@ -39,6 +40,7 @@ let reducers = combineReducers({
     carHolderReducer,
     individualEntrepreneurReducer,
     driverDataReducer,
+    driverPassportReducer,
     carsReducer
 });
 
