@@ -76,8 +76,46 @@ let initialState = {
         },
     ],
     selected_pass_type_id: null,
-    driver_loader: true,
-    ramp: 120,
+    gidrobort_types: [
+        {
+            id: 0,
+            name: 400
+        },
+        {
+            id: 1,
+            name: 600
+        },
+        {
+            id: 3,
+            name: 800
+        },
+        {
+            id: 4,
+            name: 1000
+        },
+    ],
+    selected_gidrobort_id: null,
+    ramp_types: [
+        {
+            id: 0,
+            name: 90
+        },
+        {
+            id: 1,
+            name: 100
+        },
+        {
+            id: 3,
+            name: 110
+        },
+        {
+            id: 4,
+            name: 120
+        },
+    ],
+    selected_ramp_id: null,
+    agree_help: false,
+    driver_loader: false,
     garage_address: {
         region_type: "г",
         region: "Москва",

@@ -1,6 +1,7 @@
 import React from "react";
 import SelectContainer from "../../Elements/SelectContainer";
 import {Field, reduxForm} from "redux-form";
+import AddressFieldContainer from "../../Elements/AddressFieldContainer";
 
 const AddCarForm = ({state, setNewCarData,}) => {
     return (
@@ -37,20 +38,49 @@ const AddCar = ({state, handleChange}) => {
                                          selected={state.pass_types.find(item => item.id === input.value)}
                                          items={state.pass_types}
                                          setItem={input.onChange}/>}/>
-                    <Field name="selected_pass_type_id" value={state.selected_pass_type_id} component={({input, meta}) =>
-                        <SelectContainer placeholder="Пропуск"
+                    <Field name="selected_gidrobort_id" value={state.selected_gidrobort_id} component={({input, meta}) =>
+                        <SelectContainer placeholder="Гидроборт"
                                          name={input.name}
                                          elementClass="form-block__field car-form__select"
-                                         selected={state.pass_types.find(item => item.id === input.value)}
-                                         items={state.pass_types}
+                                         selected={state.gidrobort_types.find(item => item.id === input.value)}
+                                         items={state.gidrobort_types}
                                          setItem={input.onChange}/>}/>
-                    <Field name="selected_pass_type_id" value={state.selected_pass_type_id} component={({input, meta}) =>
-                        <SelectContainer placeholder="Пропуск"
+                    <Field name="selected_ramp_id" value={state.selected_ramp_id} component={({input, meta}) =>
+                        <SelectContainer placeholder="Под пандус"
                                          name={input.name}
                                          elementClass="form-block__field car-form__select"
-                                         selected={state.pass_types.find(item => item.id === input.value)}
-                                         items={state.pass_types}
+                                         selected={state.ramp_types.find(item => item.id === input.value)}
+                                         items={state.ramp_types}
                                          setItem={input.onChange}/>}/>
+                </div>
+                <div className="form-block__fields-line car-form__fields-line">
+                    <div className="form-block__field car-form__check-wrap">
+                        <div className="car-form__check-title">Согласны ли вы оказывать помощь в погрузке разгрузки</div>
+                        <label className="car-form__check check-wrap">
+                            Да
+                            <Field component="input" name="agree_help" checked={state.agree_help} value={true} normalize={value => value == 'true'} type="radio" className="check-wrap__input"/>
+                            <span className="check-wrap__mark"></span>
+                        </label>
+                        <label className="car-form__check check-wrap">
+                            Нет
+                            <Field component="input" name="agree_help" checked={!state.agree_help} value={false} normalize={value => value == 'true'} type="radio" className="check-wrap__input"/>
+                            <span className="check-wrap__mark"></span>
+                        </label>
+                    </div>
+                    <div className="form-block__field car-form__check-wrap">
+                        <div className="car-form__check-title">Водитель-грузчик(оплачиваеться)</div>
+                        <label className="car-form__check check-wrap">
+                            Да
+                            <Field component="input" name="driver_loader" checked={state.driver_loader} value={true} normalize={value => value == 'true'} type="radio" className="check-wrap__input"/>
+                            <span className="check-wrap__mark"></span>
+                        </label>
+                        <label className="car-form__check check-wrap">
+                            Нет
+                            <Field component="input" name="driver_loader" checked={!state.driver_loader} value={false} normalize={value => value == 'true'} type="radio" className="check-wrap__input"/>
+                            <span className="check-wrap__mark"></span>
+                        </label>
+                    </div>
+                    <AddressFieldContainer name="garage_address" value={state.garage_address} placeholder="Место гаража" count={5} elementClass="form-block__field input-wrap input-wrap_address"/>
                 </div>
                 <div className="form-block__fields-line car-form__fields-line">
                     <label className="form-block__field input-wrap input-wrap--file">

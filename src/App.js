@@ -11,11 +11,12 @@ import Registration from "./components/Registration";
 class App extends React.Component {
     render() {
         return (
-            <div className="container-wrap">
+            <>
                 <Route exact path='/' render={() => <Checkout/>}/>
                 <Route path='/checkout' render={() => <Checkout/>}/>
                 <Route path='/registration' render={() => <Registration/>}/>
-            </div>
+            </>
+            // <Checkout/>
         );
     }
 }

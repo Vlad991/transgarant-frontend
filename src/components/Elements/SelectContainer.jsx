@@ -1,5 +1,4 @@
 import React from 'react';
-import {Field} from "formik";
 
 class SelectContainer extends React.Component {
     constructor(props) {
