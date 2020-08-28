@@ -1,8 +1,12 @@
 import React from 'react';
+import {Field} from "formik";
 
 class SelectContainer extends React.Component {
-    state = {
-        active: false
+    constructor(props) {
+        super(props)
+        this.state = {
+            active: false
+        }
     }
 
     toggle = (e) => {
@@ -18,7 +22,9 @@ class SelectContainer extends React.Component {
         this.setState({
             active: false
         });
-        this.props.setItem(id);
+        e.target.value = id;
+        e.target.name = this.props.name;
+        this.props.setItem(e);
     }
 
     render() {

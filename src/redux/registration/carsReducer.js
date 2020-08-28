@@ -1,5 +1,4 @@
 const SET_NEW_CAR_DATA = 'SET-NEW-CAR-DATA';
-const SET_CAPACITY_TYPE = 'SET-CAPACITY_TYPE';
 
 let initialState = {
     cars: [
@@ -46,22 +45,37 @@ let initialState = {
             name: 500
         },
     ],
-    selected_capacity_id: null,
+    selected_capacity_id: '',
     body_types: [
         {
             id: 0,
-            value: 'Рефрижератор'
+            name: 'Рефрижератор'
         },
         {
             id: 1,
-            value: 'Тент'
+            name: 'Тент'
         },
         {
             id: 3,
-            value: 'Фургон'
+            name: 'Фургон'
         },
     ],
     selected_body_type_id: null,
+    pass_types: [
+        {
+            id: 0,
+            name: 'ТТК'
+        },
+        {
+            id: 1,
+            name: 'МКАД'
+        },
+        {
+            id: 3,
+            name: 'СК'
+        },
+    ],
+    selected_pass_type_id: null,
     driver_loader: true,
     ramp: 120,
     garage_address: {
@@ -82,14 +96,10 @@ let initialState = {
 const carsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_NEW_CAR_DATA:
+            console.log(action.data);
             return {
                 ...state,
                 ...action.data
-            }
-        case SET_CAPACITY_TYPE:
-            return {
-                ...state,
-                selected_capacity_id: action.id
             }
         default:
             return state;
@@ -97,6 +107,5 @@ const carsReducer = (state = initialState, action) => {
 };
 
 export const setNewCarData = (data) => ({type: SET_NEW_CAR_DATA, data});
-export const setCapacityType = (id) => ({type: SET_CAPACITY_TYPE, id});
 
 export default carsReducer;

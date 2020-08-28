@@ -18,6 +18,7 @@ import individualEntrepreneurReducer from "./registration/individualEntrepreneur
 import driverDataReducer from "./registration/driverDataReducer";
 import carsReducer from "./registration/carsReducer";
 import driverPassportReducer from "./registration/driverPassportReducer";
+import {reducer as formReducer} from 'redux-form'
 
 
 let reducers = combineReducers({
@@ -41,7 +42,10 @@ let reducers = combineReducers({
     individualEntrepreneurReducer,
     driverDataReducer,
     driverPassportReducer,
-    carsReducer
+    carsReducer,
+
+    // Redux-Form
+    form: formReducer
 });
 
 const composeEnhancers = compose;
