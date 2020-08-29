@@ -1,11 +1,32 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
+import Webcam from "react-webcam";
 
-const DriverPassport = ({state, setPassportData}) => {
+const DriverPassport = ({state, showCamera, setPassportData, getControlPhoto, toggleCamera}) => {
+    let webcamRef = React.createRef();
+
+    const videoConstraints = {
+        facingMode: "user"
+    };
+
     return (
         <>
             <DriverPassportReduxForm state={state} onChange={setPassportData}/>
-            <button className="passport__photo-btn button button--inverse">Фото контроль</button>
+            <div className={"passport__photo-control" + (showCamera ? " passport__photo-control--active" : "")}>
+                {showCamera ?
+                    <div className="photo-control">
+                        <Webcam
+                            className="photo-control__video"
+                            audio={false}
+                            ref={webcamRef}
+                            mirrored={true}
+                            screenshotQuality={1}
+                            screenshotFormat="image/jpeg"
+                            videoConstraints={videoConstraints}/>
+                    </div> : null}
+            </div>
+            <button className="passport__photo-btn button button--inverse" onClick={() => toggleCamera(!showCamera)}>{state.passport_photo_control ? state.passport_photo_control.name + '.jpg' : 'Фото контроль'}</button>
+            {showCamera ? <button className="passport__photo-btn button button--inverse" onClick={() => getControlPhoto(webcamRef)}>Сделать фото</button> : null}
         </>
     );
 }

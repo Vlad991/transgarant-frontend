@@ -1,8 +1,8 @@
 import React from "react";
 import SelectContainer from "../../Elements/SelectContainer";
 import {Field, reduxForm} from "redux-form";
-import AddressFieldContainer from "../../Elements/AddressFieldContainer";
 import FileFieldContainer from "../../Elements/FileFieldContainer";
+import DateFieldContainer from "../../Elements/DateFieldContainer";
 
 const DriverLicense = ({state, setDriverLicenseData}) => {
     return (
@@ -27,11 +27,11 @@ const DriverLicenseForm = ({state, handleChange}) => {
                             <Field component="input" className="input-wrap__input" name="license_series" value={state.license_series} type="text" placeholder="0000000"/>
                         </label>
                     </div>
-                    <label className="form-block__field input-wrap">
-                        <Field component="input" className="input-wrap__input" name="license_issue_date" value={state.license_issue_date} type="text" placeholder="Дата выдачи"/>
+                    <label className="form-block__field input-wrap input-wrap--date">
+                        <Field component={DateFieldContainer} name="license_issue_date" value={state.license_issue_date} type="text" placeholder="Дата выдачи"/>
                     </label>
-                    <label className="form-block__field input-wrap">
-                        <Field component="input" className="input-wrap__input" name="license_validity_date" value={state.license_validity_date} type="text" placeholder="Срок действия"/>
+                    <label className="form-block__field input-wrap input-wrap--date">
+                        <Field component={DateFieldContainer} className="input-wrap__input" name="license_validity_date" value={state.license_validity_date} type="text" placeholder="Срок действия"/>
                     </label>
                 </div>
                 <div className="form-block__fields-line passport__fields-line">
