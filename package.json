@@ -1,6 +1,5 @@
 {
   "name": "transgarant-frontend",
-  "homepage": "https://www.tg-group.ru/wp-content/themes/carpenter-lite/forma-zakaza",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

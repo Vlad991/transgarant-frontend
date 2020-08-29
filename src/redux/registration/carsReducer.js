@@ -126,9 +126,9 @@ let initialState = {
         latitude: 37.599598,
         string: "г. Москва ул. Пушкинская оф. 2 "
     },
-    photo_inside: true,
-    photo_in_front: true,
-    photo_side: true
+    photo_inside: null,
+    photo_in_front: null,
+    photo_side: null
 };
 
 const carsReducer = (state = initialState, action) => {

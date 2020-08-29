@@ -104,7 +104,6 @@ const Points = ({
                                                 filterLocations={[{region: 'Москва'}, {region: 'Московская'}]}
                                                 count={10}
                                                 inputProps={{className: 'input-wrap__input', placeholder: 'Адрес'}}>
-                                {/* todo Piter, other cities */}
                                 <svg className="input-wrap__map-icon" onClick={() => toggleAddressMap(true)} fill="#63636387" height="35" viewBox="0 0 128 128" width="35" xmlns="http://www.w3.org/2000/svg">
                                     <g>
                                         <path d="m78.777 37.021a14.777 14.777 0 1 0 -14.777 14.779 14.795 14.795 0 0 0 14.777-14.779zm-26.054 0a11.277 11.277 0 1 1 11.277 11.279 11.29 11.29 0 0 1 -11.277-11.279z"/>

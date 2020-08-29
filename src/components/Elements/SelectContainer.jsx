@@ -29,7 +29,7 @@ class SelectContainer extends React.Component {
     render() {
         return (
             <span onClick={(e) => this.toggle(e)} className={this.props.elementClass + " select" + (this.state.active ? ' select--active' : '')}>
-                <span className="select__selected">{this.props.selected ? this.props.placeholder + ': ' + this.props.selected.name : this.props.placeholder}</span>
+                <span className="select__selected">{this.props.selected ? (this.props.hidePlaceholder ? this.props.selected.name : (this.props.placeholder + ': ' + this.props.selected.name)) : this.props.placeholder}</span>
                 <span className="select__items">
                     {this.props.items.map(item => {
                         return <span key={item.id} onClick={(e) => {

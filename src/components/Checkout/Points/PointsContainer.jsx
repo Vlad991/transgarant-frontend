@@ -5,7 +5,6 @@ import {addFileThunk, addPoint, deletePoint, doUpdatePoint, setAddress, setFormS
 import AlertContainer from "../Allert/AlertContainer";
 
 class PointsContainer extends React.Component {
-
     toggleCollapse = (e) => {
         e.stopPropagation();
         this.props.toggleValuesCollapse(!this.props.state.show_values_collapse);

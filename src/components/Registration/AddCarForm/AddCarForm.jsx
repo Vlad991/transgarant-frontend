@@ -2,6 +2,7 @@ import React from "react";
 import SelectContainer from "../../Elements/SelectContainer";
 import {Field, reduxForm} from "redux-form";
 import AddressFieldContainer from "../../Elements/AddressFieldContainer";
+import FileFieldContainer from "../../Elements/FileFieldContainer";
 
 const AddCarForm = ({state, setNewCarData,}) => {
     return (
@@ -80,20 +81,26 @@ const AddCar = ({state, handleChange}) => {
                             <span className="check-wrap__mark"></span>
                         </label>
                     </div>
-                    <AddressFieldContainer name="garage_address" value={state.garage_address} placeholder="Место гаража" count={5} elementClass="form-block__field input-wrap input-wrap_address"/>
+                    <Field component={AddressFieldContainer}
+                           name="garage_address"
+                           value={state.garage_address}
+                           initialValue={state.garage_address.string}
+                           placeholder="Место гаража"
+                           count={5}
+                           elementClass="form-block__field input-wrap input-wrap_address"/>
                 </div>
                 <div className="form-block__fields-line car-form__fields-line">
                     <label className="form-block__field input-wrap input-wrap--file">
-                        Фото кузова внутри
-                        <Field component="input" className="input-wrap__input" name="photo_inside" value={state.photo_inside} type="file"/>
+                        {state.photo_inside ? state.photo_inside.name : 'Фото кузова внутри'}
+                        <Field component={FileFieldContainer} name="photo_inside"/>
                     </label>
                     <label className="form-block__field input-wrap input-wrap--file">
-                        Фото кузова внутри
-                        <Field component="input" className="input-wrap__input" name="photo_inside" value={state.photo_inside} type="file"/>
+                        {state.photo_in_front ? state.photo_in_front.name : 'Фото ТС перед'}
+                        <Field component={FileFieldContainer} name="photo_in_front"/>
                     </label>
                     <label className="form-block__field input-wrap input-wrap--file">
-                        Фото кузова внутри
-                        <Field component="input" className="input-wrap__input" name="photo_inside" value={state.photo_inside} type="file"/>
+                        {state.photo_side ? state.photo_side.name : 'Фото машины бок'}
+                        <Field component={FileFieldContainer} name="photo_side"/>
                     </label>
                 </div>
             </div>

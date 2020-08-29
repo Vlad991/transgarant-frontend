@@ -1,13 +1,13 @@
 :root {
     /*.....................................localhost.................................*/
-    /*--marker-icon-url: url(/images/marker-icon.png);*/
-    /*--layers-url: url(/images/layers.png);*/
-    /*--layers-2x-url: url(/images/layers-2x.png);*/
+    --marker-icon-url: url(/images/marker-icon.png);
+    --layers-url: url(/images/layers.png);
+    --layers-2x-url: url(/images/layers-2x.png);
 
     /*................................https://www.tg-group.ru.........................*/
-    --marker-icon-url: url(/wp-content/themes/carpenter-lite/forma-zakaza/images/marker-icon.png);
-    --layers-url: url(/wp-content/themes/carpenter-lite/forma-zakaza/images/layers.png);
-    --layers-2x-url: url(/wp-content/themes/carpenter-lite/forma-zakaza/images/layers-2x.png);
+    /*--marker-icon-url: url(/wp-content/themes/carpenter-lite/forma-zakaza/images/marker-icon.png);*/
+    /*--layers-url: url(/wp-content/themes/carpenter-lite/forma-zakaza/images/layers.png);*/
+    /*--layers-2x-url: url(/wp-content/themes/carpenter-lite/forma-zakaza/images/layers-2x.png);*/
 
     /*................................https://citycarrier.ru..........................*/
     /*--marker-icon-url: url(/wp-content/themes/dream-spa/forma-zakaza/images/marker-icon.png);*/
