@@ -1,6 +1,7 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import Webcam from "react-webcam";
+import FileFieldContainer from "../../Elements/FileFieldContainer";
 
 const DriverPassport = ({state, showCamera, setPassportData, getControlPhoto, toggleCamera}) => {
     let webcamRef = React.createRef();
@@ -72,11 +73,11 @@ const DriverPassportForm = ({state, handleChange}) => {
                 <div className="form-block__fields-line passport__photo-line">
                     <label className="form-block__field input-wrap input-wrap--file">
                         Фото разворота
-                        <Field component="input" className="input-wrap__input" name="passport_reversal_photo" value={state.passport_reversal_photo} type="file"/>
+                        <Field component={FileFieldContainer} name="passport_reversal_photo"/>
                     </label>
                     <label className="form-block__field input-wrap input-wrap--file">
                         Фото прописки
-                        <Field component="input" className="input-wrap__input" name="passport_registration_photo" value={state.passport_registration_photo} type="file"/>
+                        <Field component={FileFieldContainer} name="passport_registration_photo"/>
                     </label>
                 </div>
             </div>

@@ -3,12 +3,12 @@ import {connect} from "react-redux";
 import NumberContainer from "./Registration/Number/NumberContainer";
 import CarHolderContainer from "./Registration/CarHolder/CarHolderContainer";
 import IndividualEntrepreneurContainer from "./Registration/IndividualEntrepreneur/IndividualEntrepreneurContainer";
-import DriverData from "./Registration/DriverData/DriverData";
 import DriverPassportContainer from "./Registration/DriverPassport/DriverPassportContainer";
 import CarsContainer from "./Registration/Cars/CarsContainer";
 import AddCarFormContainer from "./Registration/AddCarForm/AddCarFormContainer";
 import DriverDataContainer from "./Registration/DriverData/DriverDataContainer";
 import DriverLicenseContainer from "./Registration/DriverLicense/DriverLicenseContainer";
+import RecommendContactsContainer from "./Registration/RecommendContacts/RecommendContactsContainer";
 
 class Registration extends React.Component {
     render() {
@@ -18,12 +18,26 @@ class Registration extends React.Component {
                 {this.props.phone_is_verified ?
                     <>
                         <CarHolderContainer/>
-                        <IndividualEntrepreneurContainer/>
-                        <DriverDataContainer/>
-                        <DriverPassportContainer/>
-                        <DriverLicenseContainer/>
-                        <CarsContainer/>
-                        <AddCarFormContainer/>
+                        {this.props.car_holder_type === 0 ?
+                            <>
+                                <DriverDataContainer/>
+                                <DriverPassportContainer/>
+                                <DriverLicenseContainer/>
+                                <CarsContainer/>
+                                <AddCarFormContainer/>
+                                <DriverPassportContainer/>
+                                <DriverLicenseContainer/>
+                                <RecommendContactsContainer/>
+                            </> :
+                            <>
+                                <IndividualEntrepreneurContainer/>
+                                <DriverDataContainer/>
+                                <DriverPassportContainer/>
+                                <DriverLicenseContainer/>
+                                <CarsContainer/>
+                                <AddCarFormContainer/>
+                                <RecommendContactsContainer/>
+                            </>}
                     </>
                     : <NumberContainer/>}
             </div>
@@ -32,7 +46,8 @@ class Registration extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    phone_is_verified: state.numberReducer.phone_is_verified
+    phone_is_verified: state.numberReducer.phone_is_verified,
+    car_holder_type: state.carHolderReducer.holder_type
 });
 
 export default connect(mapStateToProps, {})(Registration);

@@ -128,7 +128,22 @@ let initialState = {
     },
     photo_inside: null,
     photo_in_front: null,
-    photo_side: null
+    photo_side: null,
+
+    certificate_national_number: null,
+    certificate_vin: null,
+    certificate_brand: null,
+    certificate_model: null,
+    certificate_car_type: null,
+    certificate_car_category: null,
+    certificate_car_issue_date: null,
+    certificate_ecology_class: null,
+    certificate_ptc_series: null,
+    certificate_ptc_number: null,
+    certificate_ctc_series: null,
+    certificate_ctc_number: null,
+    certificate_photo_1: null,
+    certificate_photo_2: null,
 };
 
 const carsReducer = (state = initialState, action) => {

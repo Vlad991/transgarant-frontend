@@ -3,10 +3,14 @@ import SelectContainer from "../../Elements/SelectContainer";
 import {Field, reduxForm} from "redux-form";
 import AddressFieldContainer from "../../Elements/AddressFieldContainer";
 import FileFieldContainer from "../../Elements/FileFieldContainer";
+import DateFieldContainer from "../../Elements/DateFieldContainer";
 
 const AddCarForm = ({state, setNewCarData,}) => {
     return (
-        <AddCarReduxForm state={state} onChange={setNewCarData}/>
+        <>
+            <AddCarReduxForm state={state} onChange={setNewCarData}/>
+            <AddCarCertificateReduxForm state={state} onChange={setNewCarData}/>
+        </>
     );
 }
 
@@ -108,6 +112,67 @@ const AddCar = ({state, handleChange}) => {
     );
 }
 
-const AddCarReduxForm = reduxForm({form: 'driver-data'})(AddCar);
+const AddCarCertificateForm = ({state, handleChange}) => {
+    return (
+        <form onChange={handleChange} className="registration__car-certificate car-certificate form-block">
+            <h3 className="form-block__heading">Свидетельство о регистрации ТС</h3>
+            <div className="form-block__fields">
+                <div className="form-block__fields-line car-certificate__fields-line">
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_national_number" value={state.certificate_national_number} type="text" placeholder="Регистрационный государственный номер"/>
+                    </label>
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_vin" value={state.certificate_vin} type="text" placeholder="Индетефикационный номер VIN"/>
+                    </label>
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_brand" value={state.certificate_brand} type="text" placeholder="Марка транспортного средства"/>
+                    </label>
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_model" value={state.certificate_model} type="text" placeholder="Модель транспортного средства"/>
+                    </label>
+                </div>
+                <div className="form-block__fields-line car-certificate__fields-line">
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_car_type" value={state.certificate_car_type} type="text" placeholder="Тип транспортного средства"/>
+                    </label>
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_car_category" value={state.certificate_car_category} type="text" placeholder="Категория транспортного средства"/>
+                    </label>
+                    <label className="form-block__field input-wrap input-wrap--date">
+                        <Field component={DateFieldContainer} name="certificate_car_issue_date" value={state.certificate_car_issue_date} type="text" placeholder="Год выпуска"/>
+                    </label>
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_ecology_class" value={state.certificate_ecology_class} type="text" placeholder="Экологический класс"/>
+                    </label>
+                </div>
+                <div className="form-block__fields-line car-certificate__six-line">
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_ptc_series" value={state.certificate_ptc_series} type="text" placeholder="Серия ПТС"/>
+                    </label>
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_ptc_number" value={state.certificate_ptc_number} type="text" placeholder="Номер ПТС"/>
+                    </label>
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_ctc_series" value={state.certificate_ctc_series} type="text" placeholder="Серия СТС"/>
+                    </label>
+                    <label className="form-block__field input-wrap">
+                        <Field component="input" className="input-wrap__input" name="certificate_ctc_number" value={state.certificate_ctc_number} type="text" placeholder="Номер СТС"/>
+                    </label>
+                    <label className="form-block__field input-wrap input-wrap--file">
+                        {state.certificate_photo_1 ? state.certificate_photo_1.name : 'Фото 1'}
+                        <Field component={FileFieldContainer} name="certificate_photo_1"/>
+                    </label>
+                    <label className="form-block__field input-wrap input-wrap--file">
+                        {state.certificate_photo_2 ? state.certificate_photo_2.name : 'Фото 2'}
+                        <Field component={FileFieldContainer} name="certificate_photo_2"/>
+                    </label>
+                </div>
+            </div>
+        </form>
+    );
+}
+
+const AddCarReduxForm = reduxForm({form: 'car-data'})(AddCar);
+const AddCarCertificateReduxForm = reduxForm({form: 'car-certificate-data'})(AddCarCertificateForm);
 
 export default AddCarForm;
