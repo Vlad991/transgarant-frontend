@@ -1,6 +1,15 @@
 import React from "react";
+import {token} from "../../../api/dadata-api";
+import {PartySuggestions} from "react-dadata";
 
-const CarHolder = ({state, setHolderType}) => {
+const CarHolder = ({
+                       state,
+                       setHolderType,
+                       setInn,
+                       setInnIe,
+                       setInnSam,
+                       checkInnThunk
+                   }) => {
     return (
         <section className="registration__car-holder car-holder">
             <div className="car-holder__tabs">
@@ -9,15 +18,21 @@ const CarHolder = ({state, setHolderType}) => {
             </div>
             <div className="car-holder__inputs">
                 {state.holder_type === 0 ?
-                    <label className="car-holder__input input-wrap">
-                        <input type="text" className="input-wrap__input" placeholder="ИНН" value=""/>
-                    </label>
+                    <PartySuggestions token={token}
+                                      value={state.inn}
+                                      onChange={setInn}
+                                      count={5}
+                                      containerClassName={"car-holder__input input-wrap input-wrap_address"}
+                                      inputProps={{className: 'input-wrap__input', placeholder: 'ИНН'}}/>
                     : <>
-                        <label className="car-holder__input input-wrap">
-                            <input type="text" className="input-wrap__input" placeholder="ИНН ИП" value=""/>
-                        </label>
-                        <label className="car-holder__input input-wrap">
-                            <input type="text" className="input-wrap__input" placeholder="ИНН САМ" value=""/>
+                        <PartySuggestions token={token}
+                                          value={state.inn_ie}
+                                          onChange={setInnIe}
+                                          count={5}
+                                          containerClassName={"car-holder__input input-wrap input-wrap_address"}
+                                          inputProps={{className: 'input-wrap__input', placeholder: 'ИНН ИП'}}/>
+                        <label key="sam" className="car-holder__input input-wrap">
+                            <input type="text" value={state.inn_sam} onChange={e => setInnSam(e.target.value)} onBlur={checkInnThunk} className="input-wrap__input" placeholder="ИНН САМ"/>
                         </label>
                     </>}
             </div>

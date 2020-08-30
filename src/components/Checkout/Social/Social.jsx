@@ -1,5 +1,4 @@
 import React from "react";
-import {PartySuggestions} from "react-dadata";
 
 const Social = ({selectedPayment, company, setCompany}) => {
     return (

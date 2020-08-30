@@ -7,7 +7,6 @@ class RecommendContactsContainer extends React.Component {
     render() {
         return (
             <RecommendContacts state={this.props.state}
-                               setRecommendContactsData={this.props.setRecommendContactsData}
                                addRecommendContact={this.props.addRecommendContact}/>
         );
     };

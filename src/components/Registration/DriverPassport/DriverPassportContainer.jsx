@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import DriverPassport from "./DriverPassport";
-import {setControlPhoto, setPassportData} from "../../../redux/registration/driverPassportReducer";
+import {setControlPhoto} from "../../../redux/registration/driverPassportReducer";
 
 class DriverPassportContainer extends React.Component {
     state = {
@@ -28,7 +28,6 @@ class DriverPassportContainer extends React.Component {
                             showCamera={this.state.showCamera}
 
                             toggleCamera={this.toggleCamera}
-                            setPassportData={this.props.setPassportData}
                             getControlPhoto={this.getControlPhoto}/>
         );
     };
@@ -38,4 +37,4 @@ let mapStateToProps = (state) => ({
     state: state.driverPassportReducer
 });
 
-export default connect(mapStateToProps, {setPassportData, setControlPhoto})(DriverPassportContainer);
+export default connect(mapStateToProps, {setControlPhoto})(DriverPassportContainer);

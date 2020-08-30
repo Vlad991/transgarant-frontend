@@ -5,7 +5,7 @@ import CarHolderContainer from "./Registration/CarHolder/CarHolderContainer";
 import IndividualEntrepreneurContainer from "./Registration/IndividualEntrepreneur/IndividualEntrepreneurContainer";
 import DriverPassportContainer from "./Registration/DriverPassport/DriverPassportContainer";
 import CarsContainer from "./Registration/Cars/CarsContainer";
-import AddCarFormContainer from "./Registration/AddCarForm/AddCarFormContainer";
+import AddCarFormContainer from "./Registration/AddCar/AddCarContainer";
 import DriverDataContainer from "./Registration/DriverData/DriverDataContainer";
 import DriverLicenseContainer from "./Registration/DriverLicense/DriverLicenseContainer";
 import RecommendContactsContainer from "./Registration/RecommendContacts/RecommendContactsContainer";
@@ -20,7 +20,7 @@ class Registration extends React.Component {
                         <CarHolderContainer/>
                         {this.props.car_holder_type === 0 ?
                             <>
-                                <DriverDataContainer/>
+                                <DriverDataContainer title="Регистрация владельца"/>
                                 <DriverPassportContainer/>
                                 <DriverLicenseContainer/>
                                 <CarsContainer/>
@@ -31,7 +31,7 @@ class Registration extends React.Component {
                             </> :
                             <>
                                 <IndividualEntrepreneurContainer/>
-                                <DriverDataContainer/>
+                                <DriverDataContainer title="Регистрация водителя"/>
                                 <DriverPassportContainer/>
                                 <DriverLicenseContainer/>
                                 <CarsContainer/>

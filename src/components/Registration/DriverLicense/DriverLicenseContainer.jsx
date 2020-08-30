@@ -6,8 +6,7 @@ import {setDriverLicenseData} from "../../../redux/registration/driverLicenseRed
 class DriverLicenseContainer extends React.Component {
     render() {
         return (
-            <DriverLicense state={this.props.state}
-                           setDriverLicenseData={this.props.setDriverLicenseData}/>
+            <DriverLicense state={this.props.state}/>
         );
     };
 }
@@ -16,4 +15,4 @@ let mapStateToProps = (state) => ({
     state: state.driverLicenseReducer
 });
 
-export default connect(mapStateToProps, {setDriverLicenseData})(DriverLicenseContainer);
+export default connect(mapStateToProps, {})(DriverLicenseContainer);
