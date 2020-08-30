@@ -6,7 +6,18 @@ const instance = axios.create({
 });
 
 export const numberAPI = {
-    checkPhone(phone) {
-        return null;
+    sendSms(phone) {
+        return new Promise(resolve => {
+            window.setTimeout(() => {
+                resolve({status: 200, data: {}});
+            }, 1000);
+        });
+    },
+    verifyPhone(phone, code) {
+        return new Promise(resolve => {
+            window.setTimeout(() => {
+                resolve({status: 200, data: {valid: true}});
+            }, 1000);
+        });
     }
 };

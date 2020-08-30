@@ -152,21 +152,19 @@ export const setNumberThunk = (phone) => async (dispatch) => {
         .replace(')', '');
     if (!validator.isEmpty(cleanPhone)) {
         if (phone.indexOf('_') === -1) {
+            dispatch(setNumber(phone, false));
             let response = await phoneAPI.checkPhone(cleanPhone);
             if (response.status === 200 && response.data) {
-
+                if (response.data.exist) {
+                    dispatch(setNumberEntered(true));
+                    dispatch(setRecaptchaEntered(true));
+                    dispatch(setCodeSent(true));
+                    dispatch(verifyCode(true));
+                } else {
+                    dispatch(setNumberEntered(true));
+                }
             } else {
                 console.warn('Check Phone: failed');
-            }
-            if (response.data.exist) {
-                dispatch(setNumber(phone, false));
-                dispatch(setNumberEntered(true));
-                dispatch(setRecaptchaEntered(true));
-                dispatch(setCodeSent(true));
-                dispatch(verifyCode(true));
-            } else {
-                dispatch(setNumber(phone, false));
-                dispatch(setNumberEntered(true));
             }
         } else {
             dispatch(setNumber(phone, true));
