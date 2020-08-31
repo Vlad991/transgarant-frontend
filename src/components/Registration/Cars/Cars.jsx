@@ -1,25 +1,25 @@
 import React from "react";
 
-const Cars = ({state, setNewCarData}) => {
+const Cars = ({state, toggleUpdateCar}) => {
     return (
         <div className="registration__cars cars">
-            {state.cars.map(car => {
+            {state.cars.map((car, index) => {
                 return (
-                    <div className="cars__item car-card">
+                    <div key={index} onClick={() => toggleUpdateCar(index)} className="cars__item car-card">
                         <div className="car-card__cross">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 1.4L12.6 0L7 5.6L1.4 0L0 1.4L5.6 7L0 12.6L1.4 14L7 8.4L12.6 14L14 12.6L8.4 7L14 1.4Z" fill="#A3A3A3"/>
                             </svg>
                         </div>
-                        <h4 className="car-card__heading">{car.model}</h4>
+                        <h4 className="car-card__heading">{car.certificate_brand} {car.certificate_model}</h4>
                         <div className="car-card__row">
                             <div className="car-card__item">
                                 <div className="car-card__item-name">Грузоподьемность</div>
-                                <div className="car-card__item-value">до {car.capacity} кг</div>
+                                <div className="car-card__item-value">до {state.capacity_types.find(capacity => capacity.id === car.selected_capacity_id).name} кг</div>
                             </div>
                             <div className="car-card__item">
                                 <div className="car-card__item-name">Вид кузова</div>
-                                <div className="car-card__item-value">{car.body_type}</div>
+                                <div className="car-card__item-value">{state.body_types.find(body => body.id === car.selected_body_type_id).name}</div>
                             </div>
                         </div>
                         <div className="car-card__row">
@@ -29,7 +29,7 @@ const Cars = ({state, setNewCarData}) => {
                             </div>
                             <div className="car-card__item">
                                 <div className="car-card__item-name">Под пандус</div>
-                                <div className="car-card__item-value">{car.ramp} см</div>
+                                <div className="car-card__item-value">{state.ramp_types.find(ramp => ramp.id === car.selected_ramp_id).name} см</div>
                             </div>
                         </div>
                         <div className="car-card__place-item">

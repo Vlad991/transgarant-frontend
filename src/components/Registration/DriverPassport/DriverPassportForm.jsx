@@ -7,7 +7,7 @@ import DateField from "../../Elements/DateField";
 import FileField from "../../Elements/FileField";
 import {compose} from "redux";
 
-const DriverPassportForm = ({state, handleChange, setRegistrationEqualsAddress}) => {
+const DriverPassportForm = ({registration_equals_address, handleChange, load, setRegistrationEqualsAddress}) => {
     return (
         <form onChange={handleChange} className="registration__passport passport form-block">
             <h3 className="form-block__heading">Паспорт</h3>
@@ -27,7 +27,10 @@ const DriverPassportForm = ({state, handleChange, setRegistrationEqualsAddress})
                     <TextField className="form-block__field" name="passport_registration" placeholder="Данные прописки"/>
                     <TextField className="form-block__field input-wrap--check-inside" name="passport_address" placeholder="Адрес проживание">
                         <label className="check-wrap">
-                            <input type="checkbox" checked={state.registration_equals_address} onChange={e => setRegistrationEqualsAddress(!state.registration_equals_address)} className="check-wrap__input"/>
+                            <input type="checkbox" checked={registration_equals_address} onChange={e => {
+                                setRegistrationEqualsAddress(!registration_equals_address);
+                                load({registration_equals_address: !registration_equals_address});
+                            }} className="check-wrap__input"/>
                             <span className="check-wrap__mark"></span>
                         </label>
                     </TextField>
@@ -42,10 +45,10 @@ const DriverPassportForm = ({state, handleChange, setRegistrationEqualsAddress})
 }
 
 let mapStateToProps = (state) => ({
-    state: state.driverPassportReducer,
+    registration_equals_address: state.driverPassportReducer.registration_equals_address,
     initialValues: state.driverPassportReducer
 });
 
 export default compose(
-    connect(mapStateToProps, {onChange: setPassportData, setRegistrationEqualsAddress}),
-    reduxForm({form: 'driver-passport', enableReinitialize: true}))(DriverPassportForm);
+    connect(mapStateToProps, {onChange: setPassportData, load: setPassportData, setRegistrationEqualsAddress}),
+    reduxForm({form: 'driver-passport', enableReinitialize: false}))(DriverPassportForm);

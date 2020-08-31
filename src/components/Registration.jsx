@@ -33,8 +33,8 @@ class Registration extends React.Component {
                                 <IndividualEntrepreneurContainer/>
                                 <DriverDataContainer title="Регистрация водителя"/>
                                 <DriverPassportContainer/>
-                                <DriverLicenseContainer/>
                                 <CarsContainer/>
+                                <DriverLicenseContainer/>
                                 <AddCarFormContainer/>
                                 <RecommendContactsContainer/>
                             </>}

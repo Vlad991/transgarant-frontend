@@ -27,7 +27,6 @@ const driverPassportReducer = (state = initialState, action) => {
                 ...action.data
             }
         case SET_CONTROL_PHOTO:
-            console.log(action.file);
             return {
                 ...state,
                 passport_photo_control: action.file

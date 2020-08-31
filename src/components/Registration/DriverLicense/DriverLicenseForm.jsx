@@ -42,4 +42,4 @@ let mapStateToProps = (state) => ({
 
 export default compose(
     connect(mapStateToProps, {onChange: setDriverLicenseData}),
-    reduxForm({form: 'driver-license', enableReinitialize: true}))(DriverLicenseForm);
+    reduxForm({form: 'driver-license', enableReinitialize: false}))(DriverLicenseForm);

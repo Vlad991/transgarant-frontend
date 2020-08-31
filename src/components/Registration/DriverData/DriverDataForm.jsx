@@ -28,4 +28,4 @@ let mapStateToProps = (state) => ({
 
 export default compose(
     connect(mapStateToProps, {onChange: setDriverData}),
-    reduxForm({form: 'driver-data', enableReinitialize: true}))(DriverDataForm);
+    reduxForm({form: 'driver-data', enableReinitialize: false}))(DriverDataForm);

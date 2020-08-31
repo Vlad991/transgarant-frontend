@@ -18,7 +18,6 @@ let initialState = {
 const driverLicenseReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_DRIVER_LICENSE_DATA:
-            console.log(action.data);
             return {
                 ...state,
                 ...action.data

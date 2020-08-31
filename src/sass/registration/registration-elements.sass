@@ -44,6 +44,11 @@
   background-color: #FBFBFB
   border-radius: 10px
   box-sizing: border-box
+  position: relative
+
+  @for $i from 1 to 21
+    &:nth-child(#{$i})
+      z-index: 20 - $i
 
 .form-block__heading
   @include fontSWCL(16px, bold, #000, 20px)
@@ -57,9 +62,14 @@
   display: flex
   align-items: center
   margin-top: 12px
+  position: relative
 
   &:first-child
     margin-top: 0
+
+  @for $i from 1 to 11
+    &:nth-child(#{$i})
+      z-index: 10 - $i
 
 .form-block__field
   flex: 1 1

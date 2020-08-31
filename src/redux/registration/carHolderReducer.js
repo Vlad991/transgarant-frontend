@@ -32,7 +32,6 @@ const carHolderReducer = (state = initialState, action) => {
                 inn_ie: action.value.value
             }
         case SET_INN_SAM:
-            console.log(action.value);
             return {
                 ...state,
                 inn_sam: action.value
