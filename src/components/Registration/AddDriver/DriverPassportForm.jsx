@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {setPassportData, setRegistrationEqualsAddress} from "../../../redux/registration/driverPassportReducer";
-import TextField from "../../Elements/TextField";
 import {reduxForm} from "redux-form";
-import DateField from "../../Elements/DateField";
-import FileField from "../../Elements/FileField";
 import {compose} from "redux";
+import FileField from "../../Elements/FileField";
+import TextField from "../../Elements/TextField";
+import DateField from "../../Elements/DateField";
+import {setNewDriverData} from "../../../redux/registration/driversReducer";
 
-const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress}) => {
+const DriverPassportForm = ({state, handleSubmit}) => {
     return (
         <form onSubmit={handleSubmit} className="registration__passport passport form-block">
             <h3 className="form-block__heading">Паспорт</h3>
@@ -28,7 +28,7 @@ const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress})
                     <TextField className="form-block__field input-wrap--check-inside" name="passport_address" placeholder="Адрес проживание">
                         <label className="check-wrap">
                             <input type="checkbox" checked={state.registration_equals_address} onChange={e => {
-                                setRegistrationEqualsAddress(!state.registration_equals_address);
+                                //setRegistrationEqualsAddress(!state.registration_equals_address);
                             }} className="check-wrap__input"/>
                             <span className="check-wrap__mark"></span>
                         </label>
@@ -45,23 +45,23 @@ const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress})
 
 let mapStateToProps = (state) => ({
     state: {
-        registration_equals_address: state.driverPassportReducer.registration_equals_address
+        registration_equals_address: state.driversReducer.registration_equals_address
     },
     initialValues: {
-        passport_name: state.driverPassportReducer.passport_name,
-        passport_birthday: state.driverPassportReducer.passport_birthday,
-        passport_number: state.driverPassportReducer.passport_number,
-        passport_series: state.driverPassportReducer.passport_series,
-        passport_issued_by: state.driverPassportReducer.passport_issued_by,
-        passport_department: state.driverPassportReducer.passport_department,
-        passport_issued_date: state.driverPassportReducer.passport_issued_date,
-        passport_registration: state.driverPassportReducer.passport_registration,
-        passport_address: state.driverPassportReducer.passport_address,
-        passport_reversal_photo: state.driverPassportReducer.passport_reversal_photo,
-        passport_registration_photo: state.driverPassportReducer.passport_registration_photo,
+        passport_name: state.driversReducer.passport_name,
+        passport_birthday: state.driversReducer.passport_birthday,
+        passport_number: state.driversReducer.passport_number,
+        passport_series: state.driversReducer.passport_series,
+        passport_issued_by: state.driversReducer.passport_issued_by,
+        passport_department: state.driversReducer.passport_department,
+        passport_issued_date: state.driversReducer.passport_issued_date,
+        passport_registration: state.driversReducer.passport_registration,
+        passport_address: state.driversReducer.passport_address,
+        passport_reversal_photo: state.driversReducer.passport_reversal_photo,
+        passport_registration_photo: state.driversReducer.passport_registration_photo,
     }
 });
 
 export default compose(
-    connect(mapStateToProps, {onSubmit: setPassportData, setRegistrationEqualsAddress}),
-    reduxForm({form: 'driver-passport', enableReinitialize: false}))(DriverPassportForm);
+    connect(mapStateToProps, {onSubmit: setNewDriverData}),
+    reduxForm({form: 'driver-passport-add', enableReinitialize: false}))(DriverPassportForm);

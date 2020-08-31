@@ -21,6 +21,8 @@ import driverPassportReducer from "./registration/driverPassportReducer";
 import {reducer as formReducer} from 'redux-form'
 import driverLicenseReducer from "./registration/driverLicenseReducer";
 import recommendContactsReducer from "./registration/recommendContactsReducer";
+import driversReducer from "./registration/driversReducer";
+import completeReducer from "./registration/completeReducer";
 
 
 let reducers = combineReducers({
@@ -47,6 +49,8 @@ let reducers = combineReducers({
     carsReducer,
     driverLicenseReducer,
     recommendContactsReducer,
+    driversReducer,
+    completeReducer,
 
     // Redux-Form
     form: formReducer

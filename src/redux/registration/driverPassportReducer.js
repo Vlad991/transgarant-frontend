@@ -3,18 +3,18 @@ const SET_CONTROL_PHOTO = 'SET-CONTROL-PHOTO'
 const SET_REGISTRATION_EQUALS_ADDRESS = 'SET-REGISTRATION-EQUALS-ADDRESS';
 
 let initialState = {
-    passport_name: '',
-    passport_birthday: '',
-    passport_number: '',
-    passport_series: '',
-    passport_issued_by: '',
-    passport_department: '',
-    passport_issued_date: '',
-    passport_registration: '',
-    passport_address: '',
+    passport_name: null,
+    passport_birthday: null,
+    passport_number: null,
+    passport_series: null,
+    passport_issued_by: null,
+    passport_department: null,
+    passport_issued_date: null,
+    passport_registration: null,
+    passport_address: null,
     registration_equals_address: false,
-    passport_reversal_photo: '',
-    passport_registration_photo: '',
+    passport_reversal_photo: null,
+    passport_registration_photo: null,
     passport_photo_control: null
 };
 

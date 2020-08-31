@@ -6,9 +6,13 @@ import IndividualEntrepreneurContainer from "./Registration/IndividualEntreprene
 import DriverPassportContainer from "./Registration/DriverPassport/DriverPassportContainer";
 import CarsContainer from "./Registration/Cars/CarsContainer";
 import AddCarFormContainer from "./Registration/AddCar/AddCarContainer";
+import AddCarContainer from "./Registration/AddCar/AddCarContainer";
 import DriverDataContainer from "./Registration/DriverData/DriverDataContainer";
 import DriverLicenseContainer from "./Registration/DriverLicense/DriverLicenseContainer";
 import RecommendContactsContainer from "./Registration/RecommendContacts/RecommendContactsContainer";
+import DriversContainer from "./Registration/Drivers/DriversContainer";
+import AddDriverContainer from "./Registration/AddDriver/AddDriverContainer";
+import CompleteContainer from "./Registration/Complete/CompleteContainer";
 
 class Registration extends React.Component {
     render() {
@@ -22,22 +26,21 @@ class Registration extends React.Component {
                             <>
                                 <DriverDataContainer title="Регистрация владельца"/>
                                 <DriverPassportContainer/>
-                                <DriverLicenseContainer/>
                                 <CarsContainer/>
-                                <AddCarFormContainer/>
-                                <DriverPassportContainer/>
-                                <DriverLicenseContainer/>
-                                <RecommendContactsContainer/>
+                                <AddCarContainer/>
+                                <DriversContainer/>
+                                <AddDriverContainer/>
                             </> :
                             <>
                                 <IndividualEntrepreneurContainer/>
                                 <DriverDataContainer title="Регистрация водителя"/>
                                 <DriverPassportContainer/>
-                                <CarsContainer/>
                                 <DriverLicenseContainer/>
+                                <CarsContainer/>
                                 <AddCarFormContainer/>
-                                <RecommendContactsContainer/>
                             </>}
+                        <RecommendContactsContainer/>
+                        <CompleteContainer/>
                     </>
                     : <NumberContainer/>}
             </div>

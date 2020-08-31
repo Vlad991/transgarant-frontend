@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
-import TextField from "../../Elements/TextField";
 import {Field, reduxForm} from "redux-form";
 import {compose} from "redux";
-import {setDriverLicenseData} from "../../../redux/registration/driverLicenseReducer";
-import DateField from "../../Elements/DateField";
-import SelectContainer from "../../Elements/SelectContainer";
 import FileField from "../../Elements/FileField";
+import DateField from "../../Elements/DateField";
+import TextField from "../../Elements/TextField";
+import SelectContainer from "../../Elements/SelectContainer";
+import {setNewDriverData} from "../../../redux/registration/driversReducer";
+import handleSubmit from "redux-form/lib/handleSubmit";
 
 const DriverLicenseForm = ({state, handleSubmit}) => {
     return (
@@ -40,23 +41,23 @@ const DriverLicenseForm = ({state, handleSubmit}) => {
 
 let mapStateToProps = (state) => ({
     state: {
-        license_countries: state.driverLicenseReducer.license_countries,
-        license_categories: state.driverLicenseReducer.license_categories,
+        license_countries: state.driversReducer.license_countries,
+        license_categories: state.driversReducer.license_categories,
     },
     initialValues: {
-        license_name: state.driverLicenseReducer.license_name,
-        license_number: state.driverLicenseReducer.license_number,
-        license_series: state.driverLicenseReducer.license_series,
-        license_issue_date: state.driverLicenseReducer.license_issue_date,
-        license_validity_date: state.driverLicenseReducer.license_validity_date,
-        license_issued_by: state.driverLicenseReducer.license_issued_by,
-        selected_license_country_id: state.driverLicenseReducer.selected_license_country_id,
-        selected_license_category_id: state.driverLicenseReducer.selected_license_category_id,
-        license_photo_1: state.driverLicenseReducer.license_photo_1,
-        license_photo_2: state.driverLicenseReducer.license_photo_2,
+        license_name: state.driversReducer.license_name,
+        license_number: state.driversReducer.license_number,
+        license_series: state.driversReducer.license_series,
+        license_issue_date: state.driversReducer.license_issue_date,
+        license_validity_date: state.driversReducer.license_validity_date,
+        license_issued_by: state.driversReducer.license_issued_by,
+        selected_license_country_id: state.driversReducer.selected_license_country_id,
+        selected_license_category_id: state.driversReducer.selected_license_category_id,
+        license_photo_1: state.driversReducer.license_photo_1,
+        license_photo_2: state.driversReducer.license_photo_2,
     }
 });
 
 export default compose(
-    connect(mapStateToProps, {onSubmit: setDriverLicenseData}),
-    reduxForm({form: 'driver-license', enableReinitialize: false}))(DriverLicenseForm);
+    connect(mapStateToProps, {onSubmit: setNewDriverData}),
+    reduxForm({form: 'driver-license-add', enableReinitialize: false}))(DriverLicenseForm);
