@@ -1,3 +1,5 @@
+import {submit} from "redux-form";
+
 const SET_AGREE_TERMS = 'SET-AGREE-TERMS';
 
 let initialState = {
@@ -17,5 +19,10 @@ const completeReducer = (state = initialState, action) => {
 };
 
 export const setAgreeTerms = (value) => ({type: SET_AGREE_TERMS, value});
+
+export const completeRegistrationThunk = () => async (dispatch) => {
+    await dispatch(submit('driver-data'));
+    await dispatch(submit('driver-passport'));
+}
 
 export default completeReducer;

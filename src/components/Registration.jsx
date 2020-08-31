@@ -23,24 +23,27 @@ class Registration extends React.Component {
                     <>
                         <CarHolderContainer/>
                         {this.props.car_holder_type === 0 ?
-                            <>
+                            this.props.inn_entered ? <>
                                 <DriverDataContainer title="Регистрация владельца"/>
                                 <DriverPassportContainer/>
                                 <CarsContainer/>
                                 <AddCarContainer/>
                                 <DriversContainer/>
                                 <AddDriverContainer/>
-                            </> :
-                            <>
+                                <RecommendContactsContainer/>
+                                <CompleteContainer/>
+                            </> : null
+                            :
+                            this.props.inn_ie_entered && this.props.inn_sam_entered ? <>
                                 <IndividualEntrepreneurContainer/>
                                 <DriverDataContainer title="Регистрация водителя"/>
                                 <DriverPassportContainer/>
                                 <DriverLicenseContainer/>
                                 <CarsContainer/>
                                 <AddCarFormContainer/>
-                            </>}
-                        <RecommendContactsContainer/>
-                        <CompleteContainer/>
+                                <RecommendContactsContainer/>
+                                <CompleteContainer/>
+                            </> : null}
                     </>
                     : <NumberContainer/>}
             </div>
@@ -50,7 +53,10 @@ class Registration extends React.Component {
 
 let mapStateToProps = (state) => ({
     phone_is_verified: state.numberReducer.phone_is_verified,
-    car_holder_type: state.carHolderReducer.holder_type
+    car_holder_type: state.carHolderReducer.holder_type,
+    inn_entered: state.carHolderReducer.inn_entered,
+    inn_ie_entered: state.carHolderReducer.inn_ie_entered,
+    inn_sam_entered: state.carHolderReducer.inn_sam_entered,
 });
 
 export default connect(mapStateToProps, {})(Registration);

@@ -22,17 +22,17 @@ const CarHolder = ({
                                       value={state.inn}
                                       onChange={setInn}
                                       count={5}
-                                      containerClassName={"car-holder__input input-wrap input-wrap_address"}
-                                      inputProps={{className: 'input-wrap__input', placeholder: 'ИНН'}}/>
+                                      containerClassName={"car-holder__input input-wrap input-wrap_address" + (state.inn_entered ? " input-wrap--disabled" : "")}
+                                      inputProps={{className: 'input-wrap__input', placeholder: 'ИНН', disabled: state.inn_entered}}/>
                     : <>
                         <PartySuggestions token={token}
                                           value={state.inn_ie}
                                           onChange={setInnIe}
                                           count={5}
-                                          containerClassName={"car-holder__input input-wrap input-wrap_address"}
-                                          inputProps={{className: 'input-wrap__input', placeholder: 'ИНН ИП'}}/>
-                        <label key="sam" className="car-holder__input input-wrap">
-                            <input type="text" value={state.inn_sam} onChange={e => setInnSam(e.target.value)} onBlur={checkInnThunk} className="input-wrap__input" placeholder="ИНН САМ"/>
+                                          containerClassName={"car-holder__input input-wrap input-wrap_address" + (state.inn_ie_entered ? " input-wrap--disabled" : "")}
+                                          inputProps={{className: 'input-wrap__input', placeholder: 'ИНН ИП', disabled: state.inn_ie_entered}}/>
+                        <label key="sam" className={"car-holder__input input-wrap" + (state.inn_sam_entered ? " input-wrap--disabled" : "")}>
+                            <input type="text" value={state.inn_sam} disabled={state.inn_sam_entered} onChange={e => setInnSam(e.target.value)} onBlur={checkInnThunk} className="input-wrap__input" placeholder="ИНН САМ"/>
                         </label>
                     </>}
             </div>

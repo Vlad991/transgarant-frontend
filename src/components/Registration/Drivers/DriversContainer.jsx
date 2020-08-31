@@ -1,14 +1,15 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Drivers from "./Drivers";
-import {toggleUpdateDriver} from "../../../redux/registration/driversReducer";
+import {setDriverCar, toggleUpdateDriver} from "../../../redux/registration/driversReducer";
 
 class DriversContainer extends React.Component {
     render() {
         return (
             <Drivers state={this.props.state}
                      cars={this.props.cars}
-                     toggleUpdateDriver={this.props.toggleUpdateDriver}/>
+                     toggleUpdateDriver={this.props.toggleUpdateDriver}
+                     setDriverCar={this.props.setDriverCar}/>
         );
     };
 }
@@ -18,4 +19,4 @@ let mapStateToProps = (state) => ({
     cars: state.carsReducer.cars
 });
 
-export default connect(mapStateToProps, {toggleUpdateDriver})(DriversContainer);
+export default connect(mapStateToProps, {toggleUpdateDriver, setDriverCar})(DriversContainer);

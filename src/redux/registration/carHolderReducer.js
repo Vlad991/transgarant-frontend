@@ -9,8 +9,11 @@ const VERIFY_INN_SAM = 'VERIFY-INN-SAM';
 let initialState = {
     holder_type: 0,
     inn: null,
+    inn_entered: false,
     inn_ie: null,
+    inn_ie_entered: false,
     inn_sam: null,
+    inn_sam_entered: false,
     inn_sam_verified: false
 };
 
@@ -19,17 +22,26 @@ const carHolderReducer = (state = initialState, action) => {
         case SET_HOLDER_TYPE:
             return {
                 ...state,
-                holder_type: action.value
+                holder_type: action.value,
+                inn: null,
+                inn_entered: false,
+                inn_ie: null,
+                inn_ie_entered: false,
+                inn_sam: null,
+                inn_sam_entered: false,
+                inn_sam_verified: false
             };
         case SET_INN:
             return {
                 ...state,
-                inn: action.value.value
+                inn: action.value.value,
+                inn_entered: true
             }
         case SET_INN_IE:
             return {
                 ...state,
-                inn_ie: action.value.value
+                inn_ie: action.value.value,
+                inn_ie_entered: true
             }
         case SET_INN_SAM:
             return {
@@ -39,7 +51,8 @@ const carHolderReducer = (state = initialState, action) => {
         case VERIFY_INN_SAM:
             return {
                 ...state,
-                inn_sam_verified: action.value
+                inn_sam_verified: action.value,
+                inn_sam_entered: true
             }
         default:
             return state;
@@ -59,6 +72,7 @@ export const checkInnThunk = () => async (dispatch, getState) => {
         dispatch(verifyInnSam(response.data.status));
     } else {
         console.warn("Check INN SAM: failed");
+        dispatch(verifyInnSam(true));      // todo !!!!!!!!!!!!!!!!!!!!!!!!
     }
 }
 

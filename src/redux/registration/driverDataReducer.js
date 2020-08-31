@@ -2,7 +2,7 @@ const SET_DRIVER_DATA = 'SET-DRIVER-DATA';
 
 let initialState = {
     driver_name: null,
-    driver_phones: ['', ''],
+    driver_phones: ['+7 (123) 456 78 99'],
     driver_email: null
 };
 

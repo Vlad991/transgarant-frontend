@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {setPassportData, setRegistrationEqualsAddress} from "../../../redux/registration/driverPassportReducer";
 import TextField from "../../Elements/TextField";
-import {reduxForm} from "redux-form";
+import {autofill, Field, formValueSelector, reduxForm} from "redux-form";
 import DateField from "../../Elements/DateField";
 import FileField from "../../Elements/FileField";
 import {compose} from "redux";
@@ -27,9 +27,12 @@ const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress})
                     <TextField className="form-block__field" name="passport_registration" placeholder="Данные прописки"/>
                     <TextField className="form-block__field input-wrap--check-inside" name="passport_address" placeholder="Адрес проживание">
                         <label className="check-wrap">
-                            <input type="checkbox" checked={state.registration_equals_address} onChange={e => {
-                                setRegistrationEqualsAddress(!state.registration_equals_address);
-                            }} className="check-wrap__input"/>
+                            <Field name="registration_equals_address" component={({input, meta}) =>
+                                <input type="checkbox" className="check-wrap__input" checked={input.value} name={input.name} onChange={e => {
+                                    if (!input.value) setRegistrationEqualsAddress(meta.form, 'passport_address', state.passport_registration);
+                                    input.onChange(!input.value);
+                                }}/>
+                            }/>
                             <span className="check-wrap__mark"></span>
                         </label>
                     </TextField>
@@ -45,7 +48,8 @@ const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress})
 
 let mapStateToProps = (state) => ({
     state: {
-        registration_equals_address: state.driverPassportReducer.registration_equals_address
+        registration_equals_address: state.driverPassportReducer.registration_equals_address,
+        passport_registration: formValueSelector('driver-passport')(state, 'passport_registration')
     },
     initialValues: {
         passport_name: state.driverPassportReducer.passport_name,
@@ -59,9 +63,10 @@ let mapStateToProps = (state) => ({
         passport_address: state.driverPassportReducer.passport_address,
         passport_reversal_photo: state.driverPassportReducer.passport_reversal_photo,
         passport_registration_photo: state.driverPassportReducer.passport_registration_photo,
+        registration_equals_address: state.driverPassportReducer.registration_equals_address
     }
 });
 
 export default compose(
-    connect(mapStateToProps, {onSubmit: setPassportData, setRegistrationEqualsAddress}),
+    connect(mapStateToProps, {onSubmit: setPassportData, setRegistrationEqualsAddress: autofill}),
     reduxForm({form: 'driver-passport', enableReinitialize: false}))(DriverPassportForm);

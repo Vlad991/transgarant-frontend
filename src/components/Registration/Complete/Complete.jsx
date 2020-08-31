@@ -1,9 +1,9 @@
 import React from "react";
 
-const Complete = ({state, setAgreeTerms}) => {
+const Complete = ({state, setAgreeTerms, completeRegistration}) => {
     return (
         <section className="registration__complete complete">
-            <button className="complete__button button button">Завершить регистрацию</button>
+            <button onClick={completeRegistration} className="complete__button button button">Завершить регистрацию</button>
             <div className="complete__check-wrap">
                 <label className="check-wrap">
                     <span>Я принииаю <a onClick={e => e.stopPropagation()} target="_blank" href="/terms-of-use" className="client-form__agree-link">пользовательское соглашение</a> и <a target="_blank" onClick={e => e.stopPropagation()} href="/privacy-policy" className="client-form__agree-link">политику конфиденциальности</a></span>

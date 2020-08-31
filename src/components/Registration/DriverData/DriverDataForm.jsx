@@ -6,16 +6,17 @@ import {compose} from "redux";
 import {setDriverData} from "../../../redux/registration/driverDataReducer";
 import PhoneField from "../../Elements/PhoneField";
 
-const DriverDataForm = ({title, handleChange}) => {
+const DriverDataForm = ({state, title, handleSubmit}) => {
     return (
-        <form onChange={handleChange} className="registration__driver-data driver-data">
+        <form onSubmit={handleSubmit} className="registration__driver-data driver-data">
             <h2 className="registration__title">{title}</h2>
             <div className="driver-data__form">
                 <TextField className="driver-data__field driver-data__name" name="driver_name" placeholder="ФИО"/>
-                <FieldArray name="driver_phones" component={({fields, meta}) =>
-                    fields.map(field => {
-                        return <PhoneField className="driver-data__field driver-data__phone" name={field} placeholder="Номер телефона"/>
-                    })}/>
+                <FieldArray name="driver_phones" component={({fields, meta}) => {
+                    return fields.map((field, index, fields) => {
+                        return <PhoneField className="driver-data__field driver-data__phone" addPhone={() => fields.length < 3 ? fields.push('') : null} isLast={fields.length === (index + 1)} name={field} placeholder="Номер телефона"/>
+                    });
+                }}/>
                 <TextField className="driver-data__field driver-data__email" name="driver_email" placeholder="Email"/>
             </div>
         </form>
@@ -23,9 +24,12 @@ const DriverDataForm = ({title, handleChange}) => {
 }
 
 let mapStateToProps = (state) => ({
+    state: {
+        driver_phones: state.driverDataReducer.driver_phones
+    },
     initialValues: state.driverDataReducer
 });
 
 export default compose(
-    connect(mapStateToProps, {onChange: setDriverData}),
+    connect(mapStateToProps, {onSubmit: setDriverData}),
     reduxForm({form: 'driver-data', enableReinitialize: false}))(DriverDataForm);

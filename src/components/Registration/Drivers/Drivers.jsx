@@ -1,7 +1,7 @@
 import React from "react";
 import SelectContainer from "../../Elements/SelectContainer";
 
-const Drivers = ({state, cars, toggleUpdateDriver}) => {
+const Drivers = ({state, cars, toggleUpdateDriver, setDriverCar}) => {
     return (
         <div className="registration__cars cars">
             {state.drivers.map((driver, index) => {
@@ -48,8 +48,10 @@ const Drivers = ({state, cars, toggleUpdateDriver}) => {
                                              name=""
                                              elementClass="car-card__select"
                                              selected={cars[driver.car_index]}
+                                             itemProp="certificate_brand"
+                                             index={true}
                                              items={cars}
-                                             setItem={() => {}}/>
+                                             setItem={(e) => setDriverCar(index, e.target.value)}/>
                         </div>
                         {(driver.license_photo_1 && driver.license_photo_2 && driver.passport_reversal_photo && driver.passport_registration_photo) ?
                             <div className="car-card__file">

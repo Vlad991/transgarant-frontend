@@ -157,6 +157,7 @@ sup
   display: flex
   align-items: center
   cursor: pointer
+  position: relative
   @include tabletSmall
     height: 47px
 
@@ -249,10 +250,18 @@ sup
 
   &--check-inside
     display: flex
+
     .check-wrap
       width: 20px
       height: 17px
       padding: 0
+
+  &--disabled
+    cursor: not-allowed
+    background-color: #EAEAEA
+
+    .input-wrap__input
+      cursor: not-allowed
 
 .input-wrap__input
   border: none
@@ -275,6 +284,26 @@ sup
     visibility: visible
     opacity: 1
     top: 53px
+
+.input-wrap__add-phone
+  position: absolute
+  top: 12px
+  right: 13px
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 22px
+  height: 22px
+  border: 2px solid $yellow
+  border-radius: 50%
+  background-color: $yellow
+  padding: 0
+  box-sizing: border-box
+  @include fontSWCL(16px, bold, #fff, 20px)
+  transition: all 0.2s ease-in-out
+  &:hover
+    background-color: #fff
+    color: $yellow
 
 .check-wrap
   display: flex

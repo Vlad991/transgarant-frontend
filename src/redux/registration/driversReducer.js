@@ -5,6 +5,7 @@ const TOGGLE_SHOW_DRIVER_FORM = 'TOGGLE-SHOW-DRIVER-FORM';
 const ADD_NEW_DRIVER = 'ADD-NEW-DRIVER';
 const TOGGLE_UPDATE_DRIVER_MODE = 'TOGGLE-UPDATE-DRIVER-MODE';
 const DO_UPDATE_DRIVER = 'DO-UPDATE-DRIVER';
+const SET_DRIVER_CAR = 'SET-DRIVER-CAR';
 
 let initialState = {
     drivers: [
@@ -243,6 +244,14 @@ const driversReducer = (state = initialState, action) => {
                 license_photo_1: null,
                 license_photo_2: null,
             }
+        case SET_DRIVER_CAR:
+            let drivers = [...state.drivers];
+            drivers[action.driver_index].car_index = action.car_index;
+            console.log(action.car_index);
+            return {
+                ...state,
+                drivers: drivers
+            }
         default:
             return state;
     }
@@ -253,6 +262,7 @@ export const toggleShowForm = (value) => ({type: TOGGLE_SHOW_DRIVER_FORM, value}
 export const addNewDriver = () => ({type: ADD_NEW_DRIVER});
 export const toggleUpdateDriver = (index) => ({type: TOGGLE_UPDATE_DRIVER_MODE, index});
 export const updateDriver = () => ({type: DO_UPDATE_DRIVER});
+export const setDriverCar = (driver_index, car_index) => ({type: SET_DRIVER_CAR, driver_index, car_index});
 
 export const submitDriverForms = () => (dispatch) => {
     dispatch(submit('driver-passport-add'));
