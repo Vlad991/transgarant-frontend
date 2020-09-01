@@ -1,4 +1,5 @@
 import {numberAPI} from "../../api/registration-api";
+import {setFirstDriverPhone} from "./driverDataReducer";
 
 const SET_PHONE_NUMBER = 'SET-PHONE-NUMBER';
 const SET_SMS_CODE = 'SET-SMS-CODE';
@@ -84,6 +85,7 @@ export const setSmsCodeThunk = (code) => async (dispatch, getState) => {
             let response = await numberAPI.verifyPhone(getState().numberReducer.phone_number, code.replace(/ /g, ''));
             if (response.status === 200 && response.data) {
                 dispatch(setPhoneVerified(response.data.valid));
+                dispatch(setFirstDriverPhone(getState().numberReducer.phone_number));
             } else {
                 console.warn('Verify phone: failed');
             }

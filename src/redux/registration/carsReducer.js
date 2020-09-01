@@ -5,6 +5,7 @@ const TOGGLE_SHOW_FORM = 'TOGGLE-SHOW-FORM';
 const ADD_NEW_CAR = 'ADD-NEW-CAR';
 const TOGGLE_UPDATE_CAR_MODE = 'TOGGLE-UPDATE-CAR-MODE';
 const DO_UPDATE_CAR = 'DO-UPDATE-CAR';
+const DELETE_CAR = 'DELETE-CAR';
 
 let initialState = {
     cars: [
@@ -31,7 +32,7 @@ let initialState = {
             photo_side: {name: 'file3.jpg', data: ''},
 
             certificate_national_number: null,
-            certificate_vin: null,
+            certificate_vin: 'A134AA',
             certificate_brand: 'Марка 1',
             certificate_model: 'Модель 1',
             certificate_car_type: null,
@@ -344,6 +345,13 @@ const carsReducer = (state = initialState, action) => {
                 certificate_photo_1: null,
                 certificate_photo_2: null,
             }
+        case DELETE_CAR:
+            let deleteCars = [...state.cars];
+            deleteCars.splice(action.index, 1);
+            return {
+                ...state,
+                cars: deleteCars
+            }
         default:
             return state;
     }
@@ -354,6 +362,7 @@ export const toggleShowForm = (value) => ({type: TOGGLE_SHOW_FORM, value});
 export const addNewCar = () => ({type: ADD_NEW_CAR});
 export const toggleUpdateCar = (index) => ({type: TOGGLE_UPDATE_CAR_MODE, index});
 export const updateCar = () => ({type: DO_UPDATE_CAR});
+export const deleteCar = (index) => ({type: DELETE_CAR, index});
 
 export const submitCarForms = () => (dispatch) => {
     dispatch(submit('car-data'));

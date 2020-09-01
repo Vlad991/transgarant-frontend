@@ -6,9 +6,9 @@ import {setRecommendContactsData} from "../../../redux/registration/recommendCon
 import TextField from "../../Elements/TextField";
 import PhoneField from "../../Elements/PhoneField";
 
-const RecommendContactsForm = ({handleChange}) => {
+const RecommendContactsForm = ({handleSubmit}) => {
     return (
-        <form onChange={handleChange} className="recommend__form">
+        <form onSubmit={handleSubmit} className="recommend__form">
             <TextField className="recommend__field" name="recommend_name" placeholder="ФИО"/>
             <TextField className="recommend__field" name="recommend_post" placeholder="Должность"/>
             <PhoneField className="recommend__field" name="recommend_phone" placeholder="Телефон"/>
@@ -17,9 +17,13 @@ const RecommendContactsForm = ({handleChange}) => {
 }
 
 let mapStateToProps = (state) => ({
-    initialValues: state.recommendContactsReducer
+    initialValues: {
+        recommend_name: state.recommendContactsReducer.recommend_name,
+        recommend_post: state.recommendContactsReducer.recommend_post,
+        recommend_phone: state.recommendContactsReducer.recommend_phone,
+    }
 });
 
 export default compose(
-    connect(mapStateToProps, {onChange: setRecommendContactsData}),
-    reduxForm({form: 'recommend-contacts', enableReinitialize: true}))(RecommendContactsForm);
+    connect(mapStateToProps, {onSubmit: setRecommendContactsData}),
+    reduxForm({form: 'recommend-contacts', enableReinitialize: false}))(RecommendContactsForm);

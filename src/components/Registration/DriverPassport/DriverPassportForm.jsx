@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {setPassportData, setRegistrationEqualsAddress} from "../../../redux/registration/driverPassportReducer";
+import {setPassportData} from "../../../redux/registration/driverPassportReducer";
 import TextField from "../../Elements/TextField";
 import {autofill, Field, formValueSelector, reduxForm} from "redux-form";
 import DateField from "../../Elements/DateField";

@@ -1,3 +1,5 @@
+import {reset, submit} from "redux-form";
+
 const SET_RECOMMEND_CONTACTS_DATA = 'SET-RECOMMEND-CONTACTS-DATA';
 const ADD_RECOMMEND_CONTACT = 'ADD-RECOMMEND-CONTACT';
 
@@ -29,5 +31,11 @@ const recommendContactsReducer = (state = initialState, action) => {
 
 export const setRecommendContactsData = (data) => ({type: SET_RECOMMEND_CONTACTS_DATA, data});
 export const addRecommendContact = () => ({type: ADD_RECOMMEND_CONTACT});
+
+export const addRecommendContactThunk = () => async (dispatch) => {
+    await dispatch(submit('recommend-contacts'));
+    await dispatch(addRecommendContact());
+    dispatch(reset('recommend-contacts'));
+}
 
 export default recommendContactsReducer;

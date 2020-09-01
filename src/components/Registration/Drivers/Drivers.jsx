@@ -1,18 +1,22 @@
 import React from "react";
 import SelectContainer from "../../Elements/SelectContainer";
+import {getDateString} from "../../../func/dateFormat";
 
-const Drivers = ({state, cars, toggleUpdateDriver, setDriverCar}) => {
+const Drivers = ({state, cars, toggleUpdateDriver, setDriverCar, deleteDriver}) => {
     return (
         <div className="registration__cars cars">
             {state.drivers.map((driver, index) => {
                 return (
                     <div key={index} onClick={() => toggleUpdateDriver(index)} className="cars__item car-card car-card--driver">
-                        <div className="car-card__cross">
+                        <div onClick={e => deleteDriver(e, index)} className="car-card__cross">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 1.4L12.6 0L7 5.6L1.4 0L0 1.4L5.6 7L0 12.6L1.4 14L7 8.4L12.6 14L14 12.6L8.4 7L14 1.4Z" fill="#A3A3A3"/>
                             </svg>
                         </div>
-                        <h4 className="car-card__heading">{driver.passport_name}</h4>
+                        <h4 className="car-card__heading car-card__heading--driver">
+                            {driver.passport_name}
+                            {(driver.car_index !== null) ? <div className="car-card__driver-car">{cars[driver.car_index].certificate_vin}</div> : null}
+                        </h4>
                         <div className="car-card__row">
                             <div className="car-card__item">
                                 <div className="car-card__item-name">Кем выдан</div>
@@ -30,13 +34,13 @@ const Drivers = ({state, cars, toggleUpdateDriver, setDriverCar}) => {
                             </div>
                             <div className="car-card__item">
                                 <div className="car-card__item-name">Дата выдачи</div>
-                                <div className="car-card__item-value">{driver.license_issue_date}</div>
+                                <div className="car-card__item-value">{getDateString(driver.license_issue_date, '.')}</div>
                             </div>
                         </div>
                         <div className="car-card__row">
                             <div className="car-card__item">
                                 <div className="car-card__item-name">Срок действия</div>
-                                <div className="car-card__item-value">{driver.license_validity_date}</div>
+                                <div className="car-card__item-value">{getDateString(driver.license_validity_date, '.')}</div>
                             </div>
                             <div className="car-card__item">
                                 <div className="car-card__item-name">Страна</div>

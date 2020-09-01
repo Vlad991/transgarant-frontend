@@ -6,6 +6,7 @@ const ADD_NEW_DRIVER = 'ADD-NEW-DRIVER';
 const TOGGLE_UPDATE_DRIVER_MODE = 'TOGGLE-UPDATE-DRIVER-MODE';
 const DO_UPDATE_DRIVER = 'DO-UPDATE-DRIVER';
 const SET_DRIVER_CAR = 'SET-DRIVER-CAR';
+const DELETE_DRIVER = 'DELETE-DRIVER';
 
 let initialState = {
     drivers: [
@@ -16,7 +17,7 @@ let initialState = {
             passport_series: 9686574,
             passport_issued_by: 'Заводским МВУ',
             passport_department: null,
-            passport_issued_date: '12.10.2020',
+            passport_issued_date: new Date(),
             passport_registration: null,
             passport_address: null,
             registration_equals_address: false,
@@ -27,8 +28,8 @@ let initialState = {
             license_name: null,
             license_number: null,
             license_series: null,
-            license_issue_date: '12.10.2020',
-            license_validity_date: '12.10.2020',
+            license_issue_date: new Date(),
+            license_validity_date: new Date(),
             license_issued_by: null,
             selected_license_country_id: 0,
             selected_license_category_id: 1,
@@ -252,6 +253,13 @@ const driversReducer = (state = initialState, action) => {
                 ...state,
                 drivers: drivers
             }
+        case DELETE_DRIVER:
+            let deleteDrivers = [...state.drivers];
+            deleteDrivers.splice(action.index, 1);
+            return {
+                ...state,
+                drivers: deleteDrivers
+            }
         default:
             return state;
     }
@@ -263,6 +271,7 @@ export const addNewDriver = () => ({type: ADD_NEW_DRIVER});
 export const toggleUpdateDriver = (index) => ({type: TOGGLE_UPDATE_DRIVER_MODE, index});
 export const updateDriver = () => ({type: DO_UPDATE_DRIVER});
 export const setDriverCar = (driver_index, car_index) => ({type: SET_DRIVER_CAR, driver_index, car_index});
+export const deleteDriver = (index) => ({type: DELETE_DRIVER, index});
 
 export const submitDriverForms = () => (dispatch) => {
     dispatch(submit('driver-passport-add'));
