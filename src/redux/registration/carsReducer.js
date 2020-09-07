@@ -167,7 +167,7 @@ const carsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SUBMIT_CAR_FORM:
             let cars = [...state.cars];
-            if (state.update_car) {
+            if (state.update_car || (state.update_car === 0)) {
                 cars[state.update_car] = {...action.data};
             } else {
                 cars.push({...action.data});

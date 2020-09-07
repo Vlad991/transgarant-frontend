@@ -15,7 +15,7 @@ const Drivers = ({state, cars, toggleUpdateDriver, setDriverCar, deleteDriver}) 
                         </div>
                         <h4 className="car-card__heading car-card__heading--driver">
                             {driver.passport_name}
-                            {(driver.car_index !== null) ? <div className="car-card__driver-car">{cars[driver.car_index].certificate_vin}</div> : null}
+                            {(driver.car_index !== null) ? <div className="car-card__driver-car">{cars[driver.car_index].certificate_national_number}</div> : null}
                         </h4>
                         <div className="car-card__row">
                             <div className="car-card__item">

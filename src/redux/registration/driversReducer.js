@@ -73,10 +73,10 @@ const driversReducer = (state = initialState, action) => {
     switch (action.type) {
         case SUBMIT_DRIVER_FORM:
             let driversSubmit = [...state.drivers];
-            if (state.update_driver) {
-                driversSubmit[state.update_driver] = {...action.data};
+            if (state.update_driver || (state.update_driver === 0)) {
+                driversSubmit[state.update_driver] = {...action.data, car_index: null};
             } else {
-                driversSubmit.push({...action.data});
+                driversSubmit.push({...action.data, car_index: null});
             }
             return {
                 ...state,
@@ -158,7 +158,6 @@ const driversReducer = (state = initialState, action) => {
         case SET_DRIVER_CAR:
             let drivers = [...state.drivers];
             drivers[action.driver_index].car_index = action.car_index;
-            console.log(action.car_index);
             return {
                 ...state,
                 drivers: drivers

@@ -5,10 +5,11 @@ import {compose} from "redux";
 import FileField from "../../Elements/FileField";
 import AddressField from "../../Elements/AddressField";
 import {submitCarForm} from "../../../redux/registration/carsReducer";
-import {required, requiredAddress, requiredSelect} from "../../../func/validation";
+import {length17, length5, length6, maxLength9, minLength7, required, requiredAddress, requiredSelect} from "../../../func/validation";
 import SelectField from "../../Elements/SelectField";
 import TextField from "../../Elements/TextField";
 import DateField from "../../Elements/DateField";
+import {carPassportNumberMask, carPassportSeriesMask} from "../../../func/mask";
 
 const AddCarForm = ({state, handleSubmit}) => {
     return (
@@ -65,8 +66,8 @@ const AddCarForm = ({state, handleSubmit}) => {
                 <h3 className="form-block__heading">Свидетельство о регистрации ТС</h3>
                 <div className="form-block__fields">
                     <div className="form-block__fields-line car-certificate__fields-line">
-                        <TextField className="form-block__field" name="certificate_national_number" placeholder="Регистрационный государственный номер" validate={[required]}/>
-                        <TextField className="form-block__field" name="certificate_vin" placeholder="Индетефикационный номер VIN" validate={[required]}/>
+                        <TextField className="form-block__field" name="certificate_national_number" placeholder="Регистрационный государственный номер" validate={[required, minLength7, maxLength9]}/>
+                        <TextField className="form-block__field" name="certificate_vin" placeholder="Индетефикационный номер VIN" validate={[required, length17]}/>
                         <TextField className="form-block__field" name="certificate_brand" placeholder="Марка транспортного средства" validate={[required]}/>
                         <TextField className="form-block__field" name="certificate_model" placeholder="Модель транспортного средства" validate={[required]}/>
                     </div>
@@ -77,10 +78,10 @@ const AddCarForm = ({state, handleSubmit}) => {
                         <TextField className="form-block__field" name="certificate_ecology_class" placeholder="Экологический класс" validate={[required]}/>
                     </div>
                     <div className="form-block__fields-line car-certificate__six-line">
-                        <TextField className="form-block__field" name="certificate_ptc_series" placeholder="Серия ПТС" validate={[required]}/>
-                        <TextField className="form-block__field" name="certificate_ptc_number" placeholder="Номер ПТС" validate={[required]}/>
-                        <TextField className="form-block__field" name="certificate_ctc_series" placeholder="Серия СТС" validate={[required]}/>
-                        <TextField className="form-block__field" name="certificate_ctc_number" placeholder="Номер СТС" validate={[required]}/>
+                        <TextField className="form-block__field" name="certificate_ptc_series" normalize={carPassportNumberMask} placeholder="Серия ПТС" validate={[required, length5]}/>
+                        <TextField className="form-block__field" name="certificate_ptc_number" normalize={carPassportSeriesMask} placeholder="Номер ПТС" validate={[required, length6]}/>
+                        <TextField className="form-block__field" name="certificate_ctc_series" normalize={carPassportNumberMask} placeholder="Серия СТС" validate={[required, length5]}/>
+                        <TextField className="form-block__field" name="certificate_ctc_number" normalize={carPassportSeriesMask} placeholder="Номер СТС" validate={[required, length6]}/>
                         <FileField className="form-block__field" name="certificate_photo_1" placeholder="Фото 1" validate={[required]}/>
                         <FileField className="form-block__field" name="certificate_photo_2" placeholder="Фото 2" validate={[required]}/>
                     </div>

@@ -7,7 +7,8 @@ import {setDriverLicenseData} from "../../../redux/registration/driverLicenseRed
 import DateField from "../../Elements/DateField";
 import SelectContainer from "../../Elements/SelectContainer";
 import FileField from "../../Elements/FileField";
-import {required} from "../../../func/validation";
+import {required, requiredSelect} from "../../../func/validation";
+import SelectField from "../../Elements/SelectField";
 
 const DriverLicenseForm = ({state, handleSubmit}) => {
     return (
@@ -25,13 +26,11 @@ const DriverLicenseForm = ({state, handleSubmit}) => {
                 </div>
                 <div className="form-block__fields-line passport__fields-line">
                     <TextField className="form-block__field" name="license_issued_by" placeholder="Кем выдан"/>
-                    <Field name="selected_license_country_id" component={({input, meta}) =>
-                        <SelectContainer placeholder="Страна" name={input.name} elementClass="form-block__field" selected={state.license_countries.find(item => item.id === input.value)} items={state.license_countries} setItem={input.onChange}/>}/>
-                    <Field name="selected_license_category_id" component={({input, meta}) =>
-                        <SelectContainer placeholder="Категория" hidePlaceholder={true} name={input.name} elementClass="form-block__field" selected={state.license_categories.find(item => item.id === input.value)} items={state.license_categories} setItem={input.onChange}/>}/>
+                    <SelectField name="selected_license_country_id" placeholder="Страна" className="form-block__field" items={state.license_countries} validate={[requiredSelect]}/>
+                    <SelectField name="selected_license_category_id" placeholder="Категория" hidePlaceholder={true} className="form-block__field" items={state.license_categories} validate={[requiredSelect]}/>
                     <label className="form-block__field passport__field--files">
-                        <FileField className="form-block__field" name="license_photo_1" placeholder="Фото 1"/>
-                        <FileField className="form-block__field" name="license_photo_2" placeholder="Фото 2"/>
+                        <FileField className="form-block__field" name="license_photo_1" placeholder="Фото 1" validate={[required]}/>
+                        <FileField className="form-block__field" name="license_photo_2" placeholder="Фото 2" validate={[required]}/>
                     </label>
                 </div>
             </div>
