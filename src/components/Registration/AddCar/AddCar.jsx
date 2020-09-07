@@ -1,13 +1,11 @@
 import React from "react";
 import AddCarForm from "./AddCarForm";
-import CarCertificateForm from "./CarCertificateForm";
 
-const AddCar = ({state, toggleShowForm, addNewCar, toggleUpdateCar, updateCar}) => {
+const AddCar = ({state, toggleShowForm, addNewCar, updateCar}) => {
     return (
         <>
             {state.show_add_form ? <>
                 <AddCarForm/>
-                <CarCertificateForm/>
             </> : null}
             {state.show_add_form ?
                 (state.update_car !== null ?

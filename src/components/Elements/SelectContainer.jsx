@@ -14,6 +14,9 @@ class SelectContainer extends React.Component {
         this.setState({
             active: !this.state.active
         });
+        if (this.props.setTouched) {
+            this.props.setTouched();
+        }
     }
 
     setItem = (e, id) => {

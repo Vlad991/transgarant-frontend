@@ -1,13 +1,11 @@
 import React from "react";
-import DriverPassportForm from "./DriverPassportForm";
-import DriverLicenseForm from "./DriverLicenseForm";
+import DriverForm from "./DriverForm";
 
 const AddDriver = ({state, toggleShowForm, addNewDriver, toggleUpdateDriver, updateDriver}) => {
     return (
         <>
             {state.show_add_form ? <>
-                <DriverPassportForm/>
-                <DriverLicenseForm/>
+                <DriverForm/>
             </> : null}
             {state.show_add_form ?
                 (state.update_driver !== null ?

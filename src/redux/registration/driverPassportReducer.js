@@ -10,7 +10,7 @@ let initialState = {
     passport_issued_by: null,
     passport_department: null,
     passport_issued_date: null,
-    passport_registration: {string: 'test'},
+    passport_registration: {},
     passport_address: {},
     registration_equals_address: false,
     passport_reversal_photo: null,

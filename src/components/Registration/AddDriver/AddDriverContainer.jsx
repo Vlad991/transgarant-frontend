@@ -1,18 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
 import AddDriver from "./AddDriver";
-import {addNewDriver, submitDriverForms, toggleShowForm, toggleUpdateDriver, updateDriver} from "../../../redux/registration/driversReducer";
+import {submitDriverForms, toggleShowForm, toggleUpdateDriver} from "../../../redux/registration/driversReducer";
 
 class AddDriverContainer extends React.Component {
 
-    updateDriver = async () => {
-        await this.props.submitDriverForms();
-        this.props.updateDriver();
+    updateDriver = () => {
+        this.props.submitDriverForms();
     }
 
-    addNewDriver = async () => {
-        await this.props.submitDriverForms();
-        this.props.addNewDriver();
+    addNewDriver = () => {
+        this.props.submitDriverForms();
     }
 
     render() {
@@ -30,4 +28,4 @@ let mapStateToProps = (state) => ({
     state: state.driversReducer
 });
 
-export default connect(mapStateToProps, {toggleShowForm, addNewDriver, toggleUpdateDriver, updateDriver, submitDriverForms})(AddDriverContainer);
+export default connect(mapStateToProps, {toggleShowForm, toggleUpdateDriver, submitDriverForms})(AddDriverContainer);

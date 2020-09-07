@@ -2,6 +2,8 @@ export const required = value => value ? undefined : 'Обязательно';
 
 export const requiredAddress = value => value && value.string ? undefined : 'Обязательно';
 
+export const requiredSelect = value => value || (value === 0) ? undefined : 'Обязательно';
+
 const maxLength = max => value => value && value.length > max ? `Максимум ${max} символа` : undefined;
 
 export const maxLength3 = maxLength(3);
