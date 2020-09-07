@@ -1,5 +1,3 @@
-import {initialize} from "redux-form";
-
 const SET_PASSPORT_DATA = 'SET-PASSPORT-DATA';
 const SET_CONTROL_PHOTO = 'SET-CONTROL-PHOTO'
 const SET_REGISTRATION_EQUALS_ADDRESS = 'SET-REGISTRATION-EQUALS-ADDRESS';
@@ -12,8 +10,8 @@ let initialState = {
     passport_issued_by: null,
     passport_department: null,
     passport_issued_date: null,
-    passport_registration: {},
-    passport_address: null,
+    passport_registration: {string: 'test'},
+    passport_address: {},
     registration_equals_address: false,
     passport_reversal_photo: null,
     passport_registration_photo: null,
