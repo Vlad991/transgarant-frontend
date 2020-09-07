@@ -4,8 +4,9 @@ import {Field, reduxForm} from "redux-form";
 import {compose} from "redux";
 import SelectContainer from "../../Elements/SelectContainer";
 import FileField from "../../Elements/FileField";
-import AddressFieldContainer from "../../Elements/AddressFieldContainer";
+import AddressField from "../../Elements/AddressField";
 import {setNewCarData} from "../../../redux/registration/carsReducer";
+import {required} from "../../../func/validation";
 
 const AddCarForm = ({state, handleSubmit}) => {
     return (
@@ -53,7 +54,7 @@ const AddCarForm = ({state, handleSubmit}) => {
                             <span className="check-wrap__mark"></span>
                         </label>
                     </div>
-                    <Field component={AddressFieldContainer} name="garage_address" initialValue={state.garage_address.string} placeholder="Место гаража" count={5} elementClass="form-block__field input-wrap input-wrap_address"/>
+                    <AddressField name="garage_address" initialValue={state.garage_address.string} placeholder="Место гаража" count={5} validate={[required]} className="form-block__field"/>
                 </div>
                 <div className="form-block__fields-line car-form__fields-line">
                     <FileField className="form-block__field" name="photo_inside" placeholder="Фото кузова внутри"/>

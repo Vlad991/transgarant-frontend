@@ -9,12 +9,12 @@ const VERIFY_INN_SAM = 'VERIFY-INN-SAM';
 let initialState = {
     holder_type: 0,
     inn: null,
-    inn_entered: false,
+    inn_entered: true, // todo!
     inn_ie: null,
-    inn_ie_entered: false,
+    inn_ie_entered: true, // todo!
     inn_sam: null,
-    inn_sam_entered: false,
-    inn_sam_verified: false
+    inn_sam_entered: true, // todo!
+    inn_sam_verified: true // todo!
 };
 
 const carHolderReducer = (state = initialState, action) => {

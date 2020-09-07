@@ -1,6 +1,4 @@
 import React from 'react';
-import {token} from "../../api/dadata-api";
-import {AddressSuggestions} from "react-dadata";
 import {Field} from "redux-form";
 
 class FileField extends React.Component {
@@ -16,15 +14,16 @@ class FileField extends React.Component {
         }
     }
 
+    renderComponent = ({input, meta: {touched, error, warning}}) => {
+        return <label className={this.props.className + " input-wrap input-wrap--file" + (touched ? ((error ? ' input-wrap--error' : '') || (warning ? ' input-wrap--warning' : '')) : '')}>
+            {input.value ? input.value.name : this.props.placeholder}
+            <input onChange={(e) => this.addFile(e, input)} name={input.name} type="file" className="input-wrap__input"/>
+        </label>
+    }
+
     render() {
         return (
-            <label className={this.props.className + " input-wrap input-wrap--file"}>
-                <Field name={this.props.name} component={({input, meta}) =>
-                    <>
-                        {input.value ? input.value.name : this.props.placeholder}
-                        <input onChange={(e) => this.addFile(e, input)} name={input.name} type="file" className="input-wrap__input"/>
-                    </>}/>
-            </label>
+            <Field name={this.props.name} validate={this.props.validate} component={this.renderComponent}/>
         )
     }
 }

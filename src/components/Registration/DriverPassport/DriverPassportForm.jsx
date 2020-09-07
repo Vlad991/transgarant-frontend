@@ -6,6 +6,9 @@ import {autofill, Field, formValueSelector, reduxForm} from "redux-form";
 import DateField from "../../Elements/DateField";
 import FileField from "../../Elements/FileField";
 import {compose} from "redux";
+import {length5, length6, length7, minLength3, number, required, requiredAddress} from "../../../func/validation";
+import {passportDepartmentMask, passportNumberMask, passportSeriesMask} from "../../../func/mask";
+import AddressField from "../../Elements/AddressField";
 
 const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress}) => {
     return (
@@ -13,19 +16,19 @@ const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress})
             <h3 className="form-block__heading">Паспорт</h3>
             <div className="form-block__fields">
                 <div className="form-block__fields-line passport__fields-line">
-                    <TextField className="form-block__field" name="passport_name" placeholder="Иван Иван Иванов"/>
-                    <DateField className="form-block__field" name="passport_birthday" placeholder="Дата рождения"/>
+                    <TextField className="form-block__field" name="passport_name" placeholder="Иван Иван Иванов" validate={[required, minLength3]}/>
+                    <DateField className="form-block__field" name="passport_birthday" placeholder="Дата рождения" validate={[required]}/>
                     <div className="form-block__field passport__number">
-                        <TextField className="" name="passport_number" placeholder="№"/>
-                        <TextField className="" name="passport_series" placeholder="0000000"/>
+                        <TextField className="" name="passport_number" placeholder="№" normalize={passportNumberMask} validate={[required, length5]}/>
+                        <TextField className="" name="passport_series" placeholder="0000000" normalize={passportSeriesMask} validate={[required, number, length6]}/>
                     </div>
-                    <TextField className="form-block__field" name="passport_issued_by" placeholder="Кем выдан"/>
+                    <TextField className="form-block__field" name="passport_issued_by" validate={[required, minLength3]} placeholder="Кем выдан"/>
                 </div>
                 <div className="form-block__fields-line passport__fields-line">
-                    <TextField className="form-block__field" name="passport_department" placeholder="Код подразденения"/>
-                    <DateField className="form-block__field" name="passport_issued_date" placeholder="Дата выдачи"/>
-                    <TextField className="form-block__field" name="passport_registration" placeholder="Данные прописки"/>
-                    <TextField className="form-block__field input-wrap--check-inside" name="passport_address" placeholder="Адрес проживание">
+                    <TextField className="form-block__field" name="passport_department" normalize={passportDepartmentMask} validate={[required, length7]} placeholder="Код подразденения"/>
+                    <DateField className="form-block__field" name="passport_issued_date" validate={[required]} placeholder="Дата выдачи"/>
+                    <AddressField className="form-block__field" name="passport_registration" placeholder="Данные прописки" count={5} validate={[requiredAddress]}/>
+                    <AddressField className="form-block__field input-wrap--check-inside" name="passport_address" placeholder="Адрес проживание" count={5} validate={[requiredAddress]}>
                         <label className="check-wrap">
                             <Field name="registration_equals_address" component={({input, meta}) =>
                                 <input type="checkbox" className="check-wrap__input" checked={input.value} name={input.name} onChange={e => {
@@ -35,11 +38,11 @@ const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress})
                             }/>
                             <span className="check-wrap__mark"></span>
                         </label>
-                    </TextField>
+                    </AddressField>
                 </div>
                 <div className="form-block__fields-line passport__photo-line">
-                    <FileField className="form-block__field" name="passport_reversal_photo" placeholder="Фото разворота"/>
-                    <FileField className="form-block__field" name="passport_registration_photo" placeholder="Фото прописки"/>
+                    <FileField className="form-block__field" name="passport_reversal_photo" placeholder="Фото разворота" validate={[required]}/>
+                    <FileField className="form-block__field" name="passport_registration_photo" placeholder="Фото прописки" validate={[required]}/>
                 </div>
             </div>
         </form>

@@ -7,6 +7,7 @@ import {setDriverLicenseData} from "../../../redux/registration/driverLicenseRed
 import DateField from "../../Elements/DateField";
 import SelectContainer from "../../Elements/SelectContainer";
 import FileField from "../../Elements/FileField";
+import {required} from "../../../func/validation";
 
 const DriverLicenseForm = ({state, handleSubmit}) => {
     return (
@@ -14,10 +15,10 @@ const DriverLicenseForm = ({state, handleSubmit}) => {
             <h3 className="form-block__heading">Водительское удостоверение</h3>
             <div className="form-block__fields">
                 <div className="form-block__fields-line passport__fields-line">
-                    <TextField className="form-block__field" name="license_name" placeholder="ФИО"/>
+                    <TextField className="form-block__field" name="license_name" placeholder="Фамилия Имя Отчество" validate={[required]}/>
                     <div className="form-block__field passport__number">
-                        <TextField className="" name="license_number" placeholder="№"/>
-                        <TextField className="" name="license_series" placeholder="0000000"/>
+                        <TextField className="" name="license_number" placeholder="№" validate={[required]}/>
+                        <TextField className="" name="license_series" placeholder="0000000" validate={[required]}/>
                     </div>
                     <DateField className="form-block__field" name="license_issue_date" placeholder="Дата выдачи"/>
                     <DateField className="form-block__field" name="license_validity_date" placeholder="Срок действия"/>

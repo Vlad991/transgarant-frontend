@@ -16,7 +16,7 @@ let initialState = {
     sms_is_sent: false,
     sms_code: null,
     sms_code_is_entered: false,
-    phone_is_verified: false,
+    phone_is_verified: true, // todo!
 };
 
 const numberReducer = (state = initialState, action) => {

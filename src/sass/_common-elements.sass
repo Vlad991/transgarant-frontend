@@ -256,6 +256,18 @@ sup
       height: 17px
       padding: 0
 
+  &--error
+    border-color: crimson
+
+    &:focus-within
+      border-color: crimson
+
+  &--warning
+    border-color: crimson
+
+    &:focus-within
+      border-color: crimson
+
   &--disabled
     cursor: not-allowed
     background-color: #EAEAEA
@@ -301,9 +313,24 @@ sup
   box-sizing: border-box
   @include fontSWCL(16px, bold, #fff, 20px)
   transition: all 0.2s ease-in-out
+
   &:hover
     background-color: #fff
     color: $yellow
+
+.input-text-anim
+  &--focus
+    .input-text-anim__text
+      top: -9px
+      font-size: 11px
+
+.input-text-anim__text
+  position: absolute
+  top: 14px
+  left: 20px
+  @include fontSWCL(13px, normal, rgba(0, 0, 0, 0.5), 16px)
+  background-color: #fff
+  transition: all 0.2s ease-in-out
 
 .check-wrap
   display: flex

@@ -21,8 +21,10 @@ const completeReducer = (state = initialState, action) => {
 export const setAgreeTerms = (value) => ({type: SET_AGREE_TERMS, value});
 
 export const completeRegistrationThunk = () => async (dispatch) => {
+    await dispatch(submit('individual-entrepreneur'));
     await dispatch(submit('driver-data'));
     await dispatch(submit('driver-passport'));
+    await dispatch(submit('driver-license'));
 }
 
 export default completeReducer;
