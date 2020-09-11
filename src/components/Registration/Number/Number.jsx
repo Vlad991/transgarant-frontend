@@ -5,10 +5,12 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 const Number = ({
                     state,
+
                     setPhoneNumber,
                     setRecaptcha,
                     sendSms,
-                    setSmsCode
+                    setSmsCode,
+                    setAgreeTerms
                 }) => {
     return (
         <section className="registration__number-reg number-reg">
@@ -26,12 +28,19 @@ const Number = ({
                         </InputMask>
                         {state.phone_is_entered && state.recaptcha_is_entered ? <button onClick={sendSms} className="button button--sms">{state.sms_is_clicked ? <Loader style={{display: "flex"}} type="Puff" color="#FFFFFF" height={20} width={20}/> : 'Получить код'}</button> : null}
                     </label>
-                    {state.phone_is_entered && !state.recaptcha_is_entered ? <ReCAPTCHA
+                    {state.phone_is_entered && state.agree_terms && !state.recaptcha_is_entered ? <ReCAPTCHA
                         className="number-reg__captcha"
                         sitekey="6LebB7AZAAAAAEtmo9ov7UG6uOqxHA8zIphbIhQF"
                         onChange={setRecaptcha}
                     /> : null}
                 </>}
+            <div className="number-reg__check complete__check-wrap">
+                <label className="check-wrap">
+                    <span>Я принииаю <a onClick={e => e.stopPropagation()} target="_blank" href="/terms-of-use" className="client-form__agree-link">пользовательское соглашение</a> и <a target="_blank" onClick={e => e.stopPropagation()} href="/privacy-policy" className="client-form__agree-link">политику конфиденциальности</a></span>
+                    <input type="checkbox" checked={state.agree_terms} onChange={() => setAgreeTerms(!state.agree_terms)} className="check-wrap__input"/>
+                    <span className="check-wrap__mark"></span>
+                </label>
+            </div>
         </section>
     );
 }

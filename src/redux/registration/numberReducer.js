@@ -7,6 +7,7 @@ const SET_SMS_IS_CLICKED = 'SET-SMS-IS-CLICKED';
 const SET_SMS_IS_SENT = 'SET-SMS-IS-SENT';
 const SET_PHONE_VERIFIED = 'SET-PHONE-VERIFIED';
 const SET_RECAPTCHA_ENTERED = 'SET-RECAPTCHA-ENTERED';
+const SET_PHONE_AGREE_TERMS = 'SET-PHONE-AGREE-TERMS';
 
 let initialState = {
     phone_number: null,
@@ -16,7 +17,8 @@ let initialState = {
     sms_is_sent: false,
     sms_code: null,
     sms_code_is_entered: false,
-    phone_is_verified: false,
+    phone_is_verified: false, //todo
+    agree_terms: false
 };
 
 const numberReducer = (state = initialState, action) => {
@@ -53,6 +55,11 @@ const numberReducer = (state = initialState, action) => {
                 ...state,
                 phone_is_verified: action.value
             }
+        case SET_PHONE_AGREE_TERMS:
+            return {
+                ...state,
+                agree_terms: action.value
+            }
         default:
             return state;
     }
@@ -64,6 +71,7 @@ export const setSmsClicked = (value) => ({type: SET_SMS_IS_CLICKED, value});
 export const setSmsSent = (value) => ({type: SET_SMS_IS_SENT, value});
 export const setSmsCode = (value) => ({type: SET_SMS_CODE, value});
 export const setPhoneVerified = (value) => ({type: SET_PHONE_VERIFIED, value});
+export const setAgreeTerms = (value) => ({type: SET_PHONE_AGREE_TERMS, value});
 
 export const sendSmsThunk = () => async (dispatch, getState) => {
     if (!getState().numberReducer.sms_is_clicked) {

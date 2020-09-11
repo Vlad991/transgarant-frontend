@@ -20,7 +20,7 @@ class LeafletMap extends React.Component {
 
     loadRoute = () => {
         let points = [...this.props.points];
-        points = points.map(point => [point.address.latitude, point.address.longitude]);
+        points = points.map(point => [point.address.longitude, point.address.latitude]);
         if (this.props.docReturn) {
             points.push([this.props.lastPointLongitude, this.props.lastPointLatitude]);
         }
@@ -52,7 +52,7 @@ class LeafletMap extends React.Component {
                     {routes}
                     {markers}
                 </Map>
-                <a target="_blank" rel="noopener noreferrer" href={"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.latitude + ',' + point.address.longitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('')} className="">
+                <a target="_blank" rel="noopener noreferrer" href={"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.longitude + ',' + point.address.latitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('')} className="">
                     {"http://37.9.7.75/?coords=" + this.props.points.map((point, index) => (point.address.latitude + ',' + point.address.longitude + (((index + 1) !== this.props.points.length) ? ";" : ""))).join('')}
                 </a>
             </>

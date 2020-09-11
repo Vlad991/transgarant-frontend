@@ -8,34 +8,34 @@ const DELETE_DRIVER = 'DELETE-DRIVER';
 
 let initialState = {
     drivers: [
-        {
-            passport_name: 'Иван Иванов Иванов',
-            passport_birthday: null,
-            passport_number: 55,
-            passport_series: 9686574,
-            passport_issued_by: 'Заводским МВУ',
-            passport_department: null,
-            passport_issued_date: new Date(),
-            passport_registration: null,
-            passport_address: null,
-            registration_equals_address: false,
-            passport_reversal_photo: null,
-            passport_registration_photo: null,
-            passport_photo_control: null,
-
-            license_name: null,
-            license_number: null,
-            license_series: null,
-            license_issue_date: new Date(),
-            license_validity_date: new Date(),
-            license_issued_by: null,
-            selected_license_country_id: 0,
-            selected_license_category_id: 1,
-            license_photo_1: null,
-            license_photo_2: null,
-
-            car_index: null
-        }
+        // {
+        //     passport_name: 'Иван Иванов Иванов',
+        //     passport_birthday: new Date(),
+        //     passport_number: '21 45',
+        //     passport_series: '698769',
+        //     passport_issued_by: 'Заводским МВУ',
+        //     passport_department: 'abc',
+        //     passport_issued_date: new Date(),
+        //     passport_registration: {region_type: "г", region: "Москва", street_type: "ул.", street: "Пушкинская", house: "оф. 2", longitude: 55.750465, latitude: 37.599598, string: "г. Москва ул. Пушкинская оф. 2 "},
+        //     passport_address: {region_type: "г", region: "Москва", street_type: "ул.", street: "Пушкинская", house: "оф. 2", longitude: 55.750465, latitude: 37.599598, string: "г. Москва ул. Пушкинская оф. 2 "},
+        //     registration_equals_address: true,
+        //     passport_reversal_photo: {name: 'file.txt'},
+        //     passport_registration_photo: {name: 'file.txt'},
+        //     passport_photo_control: {name: 'file.txt'},
+        //
+        //     license_name: 'Иван Иванов Иванов',
+        //     license_number: '67 98',
+        //     license_series: '234234',
+        //     license_issue_date: new Date(),
+        //     license_validity_date: new Date(),
+        //     license_issued_by: 'Заводским МВУ',
+        //     selected_license_country_id: 0,
+        //     selected_license_category_id: 1,
+        //     license_photo_1: {name: 'file.txt'},
+        //     license_photo_2: {name: 'file.txt'},
+        //
+        //     car_index: null
+        // } // todo
     ],
 
     passport_name: null,

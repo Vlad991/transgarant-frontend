@@ -15,16 +15,17 @@ let initialState = {
     registration_equals_address: false,
     passport_reversal_photo: null,
     passport_registration_photo: null,
-    passport_photo_control: null
+    passport_photo_control: null,
+    valid: false
 };
 
 const driverPassportReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_PASSPORT_DATA:
-            console.log(action.data);
             return {
                 ...state,
-                ...action.data
+                ...action.data,
+                valid: true
             }
         case SET_CONTROL_PHOTO:
             return {

@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
 import DriverLicense from "./DriverLicense";
-import {setDriverLicenseData} from "../../../redux/registration/driverLicenseReducer";
 
 class DriverLicenseContainer extends React.Component {
     render() {

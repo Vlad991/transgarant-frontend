@@ -5,6 +5,7 @@ import {toggleValuesCollapse} from "../redux/checkout/pointsReducer";
 import {toggleChCollapse, toggleOptionCollapse} from "../redux/checkout/carBodyReducer";
 import {togglePackageCollapse, togglePalletCollapse} from "../redux/checkout/cargoReducer";
 import Loader from "react-loader-spinner";
+
 const CategoryContainer = React.lazy(() => import('./Checkout/Category/CategoryContainer'));
 const CarBodyContainer = React.lazy(() => import('./Checkout/CarBody/CarBodyContainer'));
 const DopContainer = React.lazy(() => import('./Checkout/Dop/DopContainer'));

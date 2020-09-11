@@ -14,6 +14,8 @@ const Points = ({
                     lastPointAddressLatitude,
                     lastPointFullName,
                     lastPointPhone,
+                    addressRef,
+                    setAddressRef,
 
                     toggleForm,
                     toggleAddressMap,
@@ -95,8 +97,8 @@ const Points = ({
                     <div className="route__add-form add-form">
                         <div className="add-form__col add-form__col_first">
                             <div className="add-form__heading">Точка {state.update_point || (state.update_point === 0) ? state.update_point + 1 : state.points.length + 1}</div>
-                            <div className="add-form__address-text">{state.address.string}</div>
-                            <AddressSuggestions token={token}
+                            <AddressSuggestions ref={ref => setAddressRef(ref)}
+                                                token={token}
                                                 value={state.address.string}
                                                 onChange={setAddress}
                                                 renderOption={addressRenderOption}

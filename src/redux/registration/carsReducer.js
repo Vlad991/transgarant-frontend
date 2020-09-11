@@ -7,45 +7,44 @@ const DELETE_CAR = 'DELETE-CAR';
 
 let initialState = {
     cars: [
-        {
-            selected_capacity_id: 1,
-            selected_body_type_id: 3,
-            selected_pass_type_id: 2,
-            selected_gidrobort_id: 2,
-            selected_ramp_id: 1,
-            agree_help: true,
-            driver_loader: true,
-            garage_address: {
-                region_type: "г",
-                region: "Москва",
-                street_type: "ул.",
-                street: "Пушкинская",
-                house: "оф. 2",
-                longitude: 55.750465,
-                latitude: 37.599598,
-                string: "г. Москва ул. Пушкинская оф. 2 "
-            },
-            photo_inside: {name: 'file1.jpg', data: ''},
-            photo_in_front: {name: 'file2.jpg', data: ''},
-            photo_side: {name: 'file3.jpg', data: ''},
-
-            certificate_national_number: null,
-            certificate_vin: 'A134AA',
-            certificate_brand: 'Марка 1',
-            certificate_model: 'Модель 1',
-            certificate_car_type: null,
-            certificate_car_category: null,
-            certificate_car_issue_date: null,
-            certificate_ecology_class: null,
-            certificate_ptc_series: null,
-            certificate_ptc_number: null,
-            certificate_ctc_series: null,
-            certificate_ctc_number: null,
-            certificate_photo_1: {name: 'file1.jpg', data: ''},
-            certificate_photo_2: {name: 'file2.jpg', data: ''},
-        }
+        // {
+        //     selected_capacity_id: 1,
+        //     selected_body_type_id: 3,
+        //     selected_pass_type_id: 2,
+        //     selected_gidrobort_id: 2,
+        //     selected_ramp_id: 1,
+        //     agree_help: true,
+        //     driver_loader: true,
+        //     garage_address: {
+        //         region_type: "г",
+        //         region: "Москва",
+        //         street_type: "ул.",
+        //         street: "Пушкинская",
+        //         house: "оф. 2",
+        //         longitude: 55.750465,
+        //         latitude: 37.599598,
+        //         string: "г. Москва ул. Пушкинская оф. 2 "
+        //     },
+        //     photo_inside: {name: 'file1.jpg', data: ''},
+        //     photo_in_front: {name: 'file2.jpg', data: ''},
+        //     photo_side: {name: 'file3.jpg', data: ''},
+        //
+        //     certificate_national_number: 'A134AA35',
+        //     certificate_vin: '1j23l2344g6j34gf3',
+        //     certificate_brand: 'Марка 1',
+        //     certificate_model: 'Модель 1',
+        //     certificate_car_type: 'abc',
+        //     certificate_car_category: 'a',
+        //     certificate_car_issue_date: new Date(),
+        //     certificate_ecology_class: '1',
+        //     certificate_ptc_series: '87 fu',
+        //     certificate_ptc_number: '987987',
+        //     certificate_ctc_series: '98 tg',
+        //     certificate_ctc_number: '698679',
+        //     certificate_photo_1: {name: 'file1.jpg', data: ''},
+        //     certificate_photo_2: {name: 'file2.jpg', data: ''},
+        // } //todo
     ],
-
     capacity_types: [
         {
             id: 0,
@@ -135,6 +134,11 @@ let initialState = {
             id: 4,
             name: 120
         },
+        {
+            id: 5,
+            custom: true,
+            name: ''
+        }
     ],
     selected_ramp_id: null,
     agree_help: false,

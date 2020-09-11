@@ -16,18 +16,22 @@ class YMap extends React.Component {
         this.map = null;
         this.state = {
             myPlacemark: null,
-            ymaps: null
+            ymaps: null,
+            loaded: false
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.address !== this.props.address) {
-            let coords = [parseFloat(this.props.address.longitude), parseFloat(this.props.address.latitude)];
-            this.getAddress(coords, this.state.myPlacemark, this.state.ymaps);
+        if (prevProps.address !== this.props.address || prevProps.show_map !== this.props.show_map) {
+            if (this.state.myPlacemark && this.state.ymaps) {
+                let coords = [parseFloat(this.props.address.latitude), parseFloat(this.props.address.longitude)];
+                this.getAddress(coords, this.state.myPlacemark, this.state.ymaps);
+            }
         }
     }
 
     onLoad = (ymaps) => {
+        this.setState({loaded: true});
         const thisObj = this;
         let myPlacemark = new ymaps.Placemark(mapState.center,
             {iconCaption: 'поиск...'}, {preset: 'islands#violetDotIconWithCaption', draggable: true});
@@ -51,6 +55,7 @@ class YMap extends React.Component {
     }
 
     getAddress = (coords, myPlacemark, ymaps) => {
+        console.log('loaded');
         myPlacemark.properties.set('iconCaption', 'поиск...');
         ymaps.geocode(coords).then(function (res) {
             let firstGeoObject = res.geoObjects.get(0);

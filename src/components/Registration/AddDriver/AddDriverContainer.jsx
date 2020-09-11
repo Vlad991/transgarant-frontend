@@ -5,6 +5,18 @@ import {submitDriverForms, toggleShowForm, toggleUpdateDriver} from "../../../re
 
 class AddDriverContainer extends React.Component {
 
+    componentDidMount() {
+        if (this.props.state.drivers.length === 0) {
+            this.props.toggleShowForm(true);
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.state.drivers !== this.props.state.drivers && this.props.state.drivers.length === 0) {
+            this.props.toggleShowForm(true);
+        }
+    }
+
     updateDriver = () => {
         this.props.submitDriverForms();
     }

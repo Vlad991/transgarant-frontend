@@ -5,6 +5,17 @@ import {addFileThunk, addPoint, deletePoint, doUpdatePoint, setAddress, setFormS
 import AlertContainer from "../Allert/AlertContainer";
 
 class PointsContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.addressRef = React.createRef();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.state.address !== this.props.state.address) {
+            if (this.addressRef) this.addressRef.setInputValue(this.props.state.address.string);
+        }
+    }
+
     toggleCollapse = (e) => {
         e.stopPropagation();
         this.props.toggleValuesCollapse(!this.props.state.show_values_collapse);
@@ -35,6 +46,10 @@ class PointsContainer extends React.Component {
         }
     }
 
+    setAddressRef = (ref) => {
+        this.addressRef = ref;
+    }
+
     render() {
         let hasError = this.props.error_mode && (this.props.state.points.length < 2);
         return (
@@ -46,6 +61,8 @@ class PointsContainer extends React.Component {
                         lastPointAddressLatitude={this.props.last_point_address_latitude}
                         lastPointFullName={this.props.last_point_full_name}
                         lastPointPhone={this.props.last_point_phone}
+                        addressRef={this.addressRef}
+                        setAddressRef={this.setAddressRef}
 
                         toggleForm={this.props.toggleForm}
                         toggleAddressMap={this.props.toggleAddressMap}

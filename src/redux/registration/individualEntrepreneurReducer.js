@@ -8,7 +8,8 @@ let initialState = {
     bank_tax: null,
     bank_registration_reason_code: null,
     bank_national_registration_number: null,
-    bank_law_address: null
+    bank_law_address: null,
+    valid: false
 };
 
 const individualEntrepreneurReducer = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const individualEntrepreneurReducer = (state = initialState, action) => {
         case SET_IE_DETAILS_DATA:
             return {
                 ...state,
-                ...action.data
+                ...action.data,
+                valid: true
             }
         default:
             return state;

@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
 import TextField from "../../Elements/TextField";
-import {Field, reduxForm} from "redux-form";
+import {reduxForm} from "redux-form";
 import {compose} from "redux";
 import {setDriverLicenseData} from "../../../redux/registration/driverLicenseReducer";
 import DateField from "../../Elements/DateField";
-import SelectContainer from "../../Elements/SelectContainer";
 import FileField from "../../Elements/FileField";
 import {required, requiredSelect} from "../../../func/validation";
 import SelectField from "../../Elements/SelectField";
@@ -21,11 +20,11 @@ const DriverLicenseForm = ({state, handleSubmit}) => {
                         <TextField className="" name="license_number" placeholder="№" validate={[required]}/>
                         <TextField className="" name="license_series" placeholder="0000000" validate={[required]}/>
                     </div>
-                    <DateField className="form-block__field" name="license_issue_date" placeholder="Дата выдачи"/>
-                    <DateField className="form-block__field" name="license_validity_date" placeholder="Срок действия"/>
+                    <DateField className="form-block__field" name="license_issue_date" placeholder="Дата выдачи" validate={[required]}/>
+                    <DateField className="form-block__field" name="license_validity_date" placeholder="Срок действия" validate={[required]}/>
                 </div>
                 <div className="form-block__fields-line passport__fields-line">
-                    <TextField className="form-block__field" name="license_issued_by" placeholder="Кем выдан"/>
+                    <TextField className="form-block__field" name="license_issued_by" placeholder="Кем выдан" validate={[required]}/>
                     <SelectField name="selected_license_country_id" placeholder="Страна" className="form-block__field" items={state.license_countries} validate={[requiredSelect]}/>
                     <SelectField name="selected_license_category_id" placeholder="Категория" hidePlaceholder={true} className="form-block__field" items={state.license_categories} validate={[requiredSelect]}/>
                     <label className="form-block__field passport__field--files">

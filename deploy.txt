@@ -1,4 +1,6 @@
 1. set home in package.json
+    1.1 set App.js context path
+    1.2 set title in index.html
 2. edit deployment.js file
 3. edit deployment.css file
 4. build

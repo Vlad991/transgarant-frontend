@@ -24,8 +24,8 @@ let initialState = {
         //         street_type: "б-р",
         //         street: "Гоголевский",
         //         house: "31",
-        //         longitude: 55.750465,
-        //         latitude: 37.599598,
+        //         longitude: 37.599598,
+        //         latitude: 55.750465,
         //         string: "г Москва, Гоголевский б-р, д 31 стр 2"
         //     },
         //     comment: "Мой очень очень длинный длинный комментарий",
@@ -75,8 +75,8 @@ let initialState = {
         //         street_type: "ул",
         //         street: "Дзержинского",
         //         house: "11",
-        //         longitude: 55.752496,
-        //         latitude: 37.858483,
+        //         longitude: 37.858483,
+        //         latitude: 55.752496,
         //         string: "Московская обл, г Реутов, ул Дзержинского, д 11"
         //     },
         //     comment: "Мой комментарий",
@@ -202,7 +202,6 @@ const pointsReducer = (state = initialState, action) => {
             }
             let points = [...state.points];
             points.push(point);
-            console.log(point);
             return {
                 ...state,
                 points: points,
@@ -392,8 +391,8 @@ const pointsReducer = (state = initialState, action) => {
                     street_type: data.street_type,
                     street: data.street,
                     house: data.house,
-                    longitude: data.geo_lat,
-                    latitude: data.geo_lon,
+                    longitude: data.geo_lon,
+                    latitude: data.geo_lat,
                     string: action.value.value
                 },
             }

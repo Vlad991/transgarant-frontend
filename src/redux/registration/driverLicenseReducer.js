@@ -12,7 +12,8 @@ let initialState = {
     license_categories: [{id: 0, name: 'Категория 1'}, {id: 1, name: 'Категория 1+'}, {id: 2, name: 'Категория 2'}],
     selected_license_category_id: null,
     license_photo_1: null,
-    license_photo_2: null
+    license_photo_2: null,
+    valid: false
 };
 
 const driverLicenseReducer = (state = initialState, action) => {
@@ -20,7 +21,8 @@ const driverLicenseReducer = (state = initialState, action) => {
         case SET_DRIVER_LICENSE_DATA:
             return {
                 ...state,
-                ...action.data
+                ...action.data,
+                valid: true
             }
         default:
             return state;

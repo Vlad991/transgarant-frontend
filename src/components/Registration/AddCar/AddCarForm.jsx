@@ -31,12 +31,12 @@ const AddCarForm = ({state, handleSubmit}) => {
                             <div className="car-form__check-title">Согласны ли вы оказывать помощь в погрузке разгрузки</div>
                             <label className="car-form__check check-wrap">
                                 Да
-                                <Field component="input" name="agree_help" value={true} normalize={value => value == 'true'} type="radio" className="check-wrap__input"/>
+                                <Field component="input" name="agree_help" value={true} normalize={value => value.toString() === 'true'} type="radio" className="check-wrap__input"/>
                                 <span className="check-wrap__mark"></span>
                             </label>
                             <label className="car-form__check check-wrap">
                                 Нет
-                                <Field component="input" name="agree_help" value={false} normalize={value => value == 'true'} type="radio" className="check-wrap__input"/>
+                                <Field component="input" name="agree_help" value={false} normalize={value => value.toString() === 'true'} type="radio" className="check-wrap__input"/>
                                 <span className="check-wrap__mark"></span>
                             </label>
                         </div>
@@ -44,12 +44,12 @@ const AddCarForm = ({state, handleSubmit}) => {
                             <div className="car-form__check-title">Водитель-грузчик(оплачиваеться)</div>
                             <label className="car-form__check check-wrap">
                                 Да
-                                <Field component="input" name="driver_loader" value={true} normalize={value => value == 'true'} type="radio" className="check-wrap__input"/>
+                                <Field component="input" name="driver_loader" value={true} normalize={value => value.toString() === 'true'} type="radio" className="check-wrap__input"/>
                                 <span className="check-wrap__mark"></span>
                             </label>
                             <label className="car-form__check check-wrap">
                                 Нет
-                                <Field component="input" name="driver_loader" value={false} normalize={value => value == 'true'} type="radio" className="check-wrap__input"/>
+                                <Field component="input" name="driver_loader" value={false} normalize={value => value.toString() === 'true'} type="radio" className="check-wrap__input"/>
                                 <span className="check-wrap__mark"></span>
                             </label>
                         </div>

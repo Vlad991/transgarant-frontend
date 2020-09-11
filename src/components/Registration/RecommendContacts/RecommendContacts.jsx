@@ -20,8 +20,8 @@ const RecommendContacts = ({state, addRecommendContact}) => {
                     </div>
                 )
             })}
-            <RecommendContactsForm/>
-            <button type="button" onClick={addRecommendContact} className="recommend__button button button--inverse">Добавить</button>
+            {state.recommend_contact_list.length < 3 && <RecommendContactsForm/>}
+            {state.recommend_contact_list.length < 3 && <button type="button" onClick={addRecommendContact} className="recommend__button button button--inverse">Добавить</button>}
         </section>
     );
 }

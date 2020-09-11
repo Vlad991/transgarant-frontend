@@ -105,6 +105,24 @@ button, input
 
 @import "../../components/Registration/RecommendContacts/recommend-contacts"
 
+//......................................Stage Buttons.............................................
+
+@import "../../components/Registration/StageButtons/stage-buttons"
+
 //......................................Complete.............................................
 
 @import "../../components/Registration/Complete/complete"
+
+.option-enter
+  opacity: 0
+
+.option-enter.option-enter-active
+  transition: all 0s ease-in-out
+  opacity: 1
+
+.option-exit
+  transition: all 0s ease-in-out
+  opacity: 1
+
+.option-exit.option-exit-active
+  opacity: 0

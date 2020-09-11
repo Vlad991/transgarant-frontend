@@ -318,6 +318,27 @@ sup
     background-color: #fff
     color: $yellow
 
+.input-wrap__remove-phone
+  position: absolute
+  top: 3px
+  right: 3px
+  display: flex
+  align-items: center
+  justify-content: center
+  transform: rotate(45deg)
+  width: 12px
+  height: 12px
+  border: none
+  border-radius: 50%
+  background-color: #C5C5C5
+  padding: 0
+  box-sizing: border-box
+  @include fontSWCL(12px, bold, #fff, 12px)
+  transition: all 0.1s ease-in-out
+
+  &:hover
+    background-color: #a7a7a7
+
 .input-text-anim
   &--focus
     .input-text-anim__text

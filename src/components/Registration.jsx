@@ -13,6 +13,7 @@ import RecommendContactsContainer from "./Registration/RecommendContacts/Recomme
 import DriversContainer from "./Registration/Drivers/DriversContainer";
 import AddDriverContainer from "./Registration/AddDriver/AddDriverContainer";
 import CompleteContainer from "./Registration/Complete/CompleteContainer";
+import StageButtonsContainer from "./Registration/StageButtons/StageButtonsContainer";
 
 class Registration extends React.Component {
     render() {
@@ -24,25 +25,30 @@ class Registration extends React.Component {
                         <CarHolderContainer/>
                         {this.props.car_holder_type === 0 ?
                             this.props.inn_entered ? <>
-                                <DriverDataContainer title="Регистрация владельца"/>
-                                <DriverPassportContainer/>
-                                <CarsContainer/>
-                                <AddCarContainer/>
-                                <DriversContainer/>
-                                <AddDriverContainer/>
-                                <RecommendContactsContainer/>
-                                <CompleteContainer/>
+                                {this.props.stage === 0 && <DriverDataContainer title="Регистрация владельца"/>}
+                                {this.props.stage === 0 && <DriverPassportContainer/>}
+                                {this.props.stage === 1 && <CarsContainer/>}
+                                {this.props.stage === 1 && <AddCarContainer/>}
+                                {this.props.stage === 2 && <>
+                                    <DriversContainer/>
+                                    <AddDriverContainer/>
+                                </>}
+                                {this.props.stage === 3 && <>
+                                    <RecommendContactsContainer/>
+                                    <CompleteContainer/>
+                                </>}
+                                {this.props.stage !== 3 && <StageButtonsContainer/>}
                             </> : null
-                            :
-                            this.props.inn_ie_entered && this.props.inn_sam_entered ? <>
-                                <IndividualEntrepreneurContainer/>
-                                <DriverDataContainer title="Регистрация водителя"/>
-                                <DriverPassportContainer/>
-                                <DriverLicenseContainer/>
-                                <CarsContainer/>
-                                <AddCarFormContainer/>
-                                <RecommendContactsContainer/>
-                                <CompleteContainer/>
+                            : this.props.inn_entered || this.props.inn_sam_entered ? <>
+                                {this.props.stage === 0 && <IndividualEntrepreneurContainer/>}
+                                {this.props.stage === 1 && <DriverDataContainer title="Регистрация водителя"/>}
+                                {this.props.stage === 1 && <DriverPassportContainer/>}
+                                {this.props.stage === 1 && <DriverLicenseContainer/>}
+                                {this.props.stage === 2 && <CarsContainer/>}
+                                {this.props.stage === 2 && <AddCarFormContainer/>}
+                                {this.props.stage === 3 && <RecommendContactsContainer/>}
+                                {this.props.stage === 3 && <CompleteContainer/>}
+                                {this.props.stage !== 3 && <StageButtonsContainer/>}
                             </> : null}
                     </>
                     : <NumberContainer/>}
@@ -55,8 +61,9 @@ let mapStateToProps = (state) => ({
     phone_is_verified: state.numberReducer.phone_is_verified,
     car_holder_type: state.carHolderReducer.holder_type,
     inn_entered: state.carHolderReducer.inn_entered,
-    inn_ie_entered: state.carHolderReducer.inn_ie_entered,
     inn_sam_entered: state.carHolderReducer.inn_sam_entered,
+
+    stage: state.stagesReducer.stage
 });
 
 export default connect(mapStateToProps, {})(Registration);
