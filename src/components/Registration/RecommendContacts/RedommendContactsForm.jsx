@@ -5,13 +5,14 @@ import {compose} from "redux";
 import {setRecommendContactsData} from "../../../redux/registration/recommendContactsReducer";
 import TextField from "../../Elements/TextField";
 import PhoneField from "../../Elements/PhoneField";
+import {minLength3, required, name} from "../../../func/validation";
 
 const RecommendContactsForm = ({handleSubmit}) => {
     return (
         <form onSubmit={handleSubmit} className="recommend__form">
-            <TextField className="recommend__field" name="recommend_name" placeholder="ФИО"/>
-            <TextField className="recommend__field" name="recommend_post" placeholder="Должность"/>
-            <PhoneField className="recommend__field" name="recommend_phone" placeholder="Телефон"/>
+            <TextField className="recommend__field" name="recommend_name" placeholder="ФИО" validate={[required, minLength3, name]}/>
+            <TextField className="recommend__field" name="recommend_post" placeholder="Должность" validate={[required, minLength3, name]}/>
+            <PhoneField className="recommend__field" name="recommend_phone" placeholder="Телефон" validate={[required]}/>
         </form>
     );
 }

@@ -27,6 +27,8 @@ export const length17 = length(17);
 
 export const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Неверный формат email' : undefined;
 
-export const tooOld = value => value && value > 65 ? 'You might be too old for this' : undefined;
+export const name = value => value && !/^[\u0400-\u04FF\s]+$/.test(value) ? 'Неверный формат ФИО' : undefined;
 
-export const aol = value => value && /.+@aol\.com/.test(value) ? 'Really? You still use AOL for your email?' : undefined
+export const cyrillicAndNumbers = value => value && !/^[\u0400-\u04FF\s\d]+$/.test(value) ? 'Неверный формат' : undefined;
+
+export const latinAndNumbers = value => value && !/^[a-zA-Z\d]+$/.test(value) ? 'Неверный формат' : undefined;

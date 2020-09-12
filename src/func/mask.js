@@ -32,3 +32,15 @@ export const carPassportSeriesMask = value => {
     const onlyNums = value.replace(/[^\d]/g, '');
     if (onlyNums.length <= 6) return onlyNums;
 }
+
+export const carVinMask = value => {
+    if (!value) return value;
+    const template = value.replace(/[^\a-zA-Z\d]/g, '');
+    if (template.length <= 17) return template;
+}
+
+export const carNumberMask = value => {
+    if (!value) return value;
+    const template = value.replace(/[^\u0400-\u04FF\d]/g, '');
+    if (template.length <= 17) return template;
+}

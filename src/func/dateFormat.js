@@ -5,3 +5,19 @@ export const getDateString = (date, separator) => {
         + separator
         + date.getFullYear();
 }
+
+export const getYear = (date) => {
+    return date.getFullYear();
+}
+
+export const getMonth = (date) => {
+    return date.getMonth();
+}
+
+export const range = (start, end) => {
+    let array = [];
+    for (let i = start; i <= end; i++) {
+        array.push(i);
+    }
+    return array;
+}

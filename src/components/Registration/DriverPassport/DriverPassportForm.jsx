@@ -6,45 +6,76 @@ import {autofill, Field, formValueSelector, reduxForm} from "redux-form";
 import DateField from "../../Elements/DateField";
 import FileField from "../../Elements/FileField";
 import {compose} from "redux";
-import {length5, length6, length7, minLength3, number, required, requiredAddress} from "../../../func/validation";
+import {cyrillicAndNumbers, length5, length6, length7, minLength3, name, number, required, requiredAddress} from "../../../func/validation";
 import {passportDepartmentMask, passportNumberMask, passportSeriesMask} from "../../../func/mask";
 import AddressField from "../../Elements/AddressField";
+import Webcam from "react-webcam";
 
-const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress}) => {
+const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress, showCamera, getControlPhoto, toggleCamera}) => {
+    let webcamRef = React.createRef();
+
+    const videoConstraints = {
+        facingMode: "user"
+    };
+
     return (
-        <form onSubmit={handleSubmit} className="registration__passport passport form-block">
-            <h3 className="form-block__heading">Паспорт</h3>
-            <div className="form-block__fields">
-                <div className="form-block__fields-line passport__fields-line">
-                    <TextField className="form-block__field" name="passport_name" placeholder="Иван Иван Иванов" validate={[required, minLength3]}/>
-                    <DateField className="form-block__field" name="passport_birthday" placeholder="Дата рождения" validate={[required]}/>
-                    <div className="form-block__field passport__number">
-                        <TextField className="" name="passport_number" placeholder="№" normalize={passportNumberMask} validate={[required, length5]}/>
-                        <TextField className="" name="passport_series" placeholder="0000000" normalize={passportSeriesMask} validate={[required, number, length6]}/>
+        <form onSubmit={handleSubmit} className="">
+            <div className="registration__passport passport form-block">
+                <h3 className="form-block__heading">Паспорт</h3>
+                <div className="form-block__fields">
+                    <div className="form-block__fields-line passport__fields-line">
+                        <TextField className="form-block__field" name="passport_name" placeholder="ФИО" validate={[required, minLength3, name]}/>
+                        <DateField className="form-block__field" name="passport_birthday" placeholder="Дата рождения" validate={[required]}/>
+                        <div className="form-block__field passport__number">
+                            <TextField className="" name="passport_number" placeholder="№" normalize={passportNumberMask} validate={[required, length5]}/>
+                            <TextField className="" name="passport_series" placeholder="0000000" normalize={passportSeriesMask} validate={[required, number, length6]}/>
+                        </div>
+                        <TextField className="form-block__field" name="passport_issued_by" validate={[required, minLength3, cyrillicAndNumbers]} placeholder="Кем выдан"/>
                     </div>
-                    <TextField className="form-block__field" name="passport_issued_by" validate={[required, minLength3]} placeholder="Кем выдан"/>
-                </div>
-                <div className="form-block__fields-line passport__fields-line">
-                    <TextField className="form-block__field" name="passport_department" normalize={passportDepartmentMask} validate={[required, length7]} placeholder="Код подразденения"/>
-                    <DateField className="form-block__field" name="passport_issued_date" validate={[required]} placeholder="Дата выдачи"/>
-                    <AddressField className="form-block__field" name="passport_registration" placeholder="Данные прописки" count={5} validate={[requiredAddress]}/>
-                    <AddressField className="form-block__field input-wrap--check-inside" name="passport_address" placeholder="Адрес проживание" count={5} validate={[requiredAddress]}>
-                        <label className="check-wrap">
-                            <Field name="registration_equals_address" component={({input, meta}) =>
-                                <input type="checkbox" className="check-wrap__input" checked={input.value} name={input.name} onChange={e => {
-                                    if (!input.value) setRegistrationEqualsAddress(meta.form, 'passport_address', state.passport_registration);
-                                    input.onChange(!input.value);
-                                }}/>
-                            }/>
-                            <span className="check-wrap__mark"></span>
-                        </label>
-                    </AddressField>
-                </div>
-                <div className="form-block__fields-line passport__photo-line">
-                    <FileField className="form-block__field" name="passport_reversal_photo" placeholder="Фото разворота" validate={[required]}/>
-                    <FileField className="form-block__field" name="passport_registration_photo" placeholder="Фото прописки" validate={[required]}/>
+                    <div className="form-block__fields-line passport__fields-line">
+                        <TextField className="form-block__field" name="passport_department" normalize={passportDepartmentMask} validate={[required, length7]} placeholder="Код подразденения"/>
+                        <DateField className="form-block__field" name="passport_issued_date" validate={[required]} placeholder="Дата выдачи"/>
+                        <AddressField className="form-block__field" name="passport_registration" placeholder="Данные прописки" count={5} validate={[requiredAddress]}/>
+                        <AddressField className="form-block__field input-wrap--check-inside" name="passport_address" placeholder="Адрес проживание" count={5} validate={[requiredAddress]}>
+                            <label className="check-wrap">
+                                <Field name="registration_equals_address" component={({input, meta}) =>
+                                    <input type="checkbox" className="check-wrap__input" checked={input.value} name={input.name} onChange={e => {
+                                        if (!input.value) setRegistrationEqualsAddress(meta.form, 'passport_address', state.passport_registration);
+                                        input.onChange(!input.value);
+                                    }}/>
+                                }/>
+                                <span className="check-wrap__mark"></span>
+                            </label>
+                        </AddressField>
+                    </div>
+                    <div className="form-block__fields-line passport__photo-line">
+                        <FileField className="form-block__field" name="passport_reversal_photo" placeholder="Фото разворота" validate={[required]}/>
+                        <FileField className="form-block__field" name="passport_registration_photo" placeholder="Фото прописки" validate={[required]}/>
+                        <FileField className="form-block__field" name="passport_photo_control" placeholder="Фото контроль" validate={[required]}/>
+                    </div>
                 </div>
             </div>
+            <Field name="passport_photo_control" validate={[required]} component={({input, meta}) => {
+                return (
+                    <>
+                        <div className={"passport__photo-control" + (showCamera && " passport__photo-control--active")}>
+                            {showCamera &&
+                                <div className="photo-control">
+                                    <Webcam
+                                        className="photo-control__video"
+                                        audio={false}
+                                        ref={webcamRef}
+                                        mirrored={true}
+                                        screenshotQuality={1}
+                                        screenshotFormat="image/jpeg"
+                                        videoConstraints={videoConstraints}/>
+                                </div>}
+                        </div>
+                        <button type="button" className={"passport__photo-btn button button--inverse"} onClick={() => toggleCamera(!showCamera)}>{input.value ? input.value.name : 'Фото контроль'}</button>
+                        {showCamera && <button type="button" className="passport__photo-btn button button--inverse" onClick={() => {input.onChange(getControlPhoto(webcamRef))}}>Сделать фото</button>}
+                    </>
+                )
+            }}/>
         </form>
     );
 }

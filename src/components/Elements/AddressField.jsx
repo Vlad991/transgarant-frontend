@@ -59,8 +59,8 @@ class RenderComponent extends React.Component {
                 string: value.value
             })}
             containerClassName={this.props.className + ' input-wrap input-wrap_address' + (this.state.touched || this.props.meta.touched ? ((this.props.meta.error ? ' input-wrap--error' : '') || (this.props.meta.warning ? ' input-wrap--warning' : '')) : '')}
-            renderOption={this.addressRenderOption}
-            filterLocations={[{region: 'Москва'}, {region: 'Московская'}]}
+            //renderOption={this.addressRenderOption}
+            // filterLocations={[{region: 'Москва'}, {region: 'Московская'}]}
             count={this.props.count}
             inputProps={{className: 'input-wrap__input', placeholder: this.props.placeholder, onBlur: this.onBlur, name: this.props.input.name}}>
             {this.props.children}

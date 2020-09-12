@@ -23,7 +23,7 @@ let AppContainer = connect(mapStateToProps, {})(App);
 
 const CheckoutApp = (props) => {
     return <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename="/registration">
             <AppContainer/>
         </BrowserRouter>
     </Provider>

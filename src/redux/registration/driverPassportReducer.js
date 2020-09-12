@@ -1,6 +1,5 @@
 const SET_PASSPORT_DATA = 'SET-PASSPORT-DATA';
 const SET_CONTROL_PHOTO = 'SET-CONTROL-PHOTO'
-const SET_REGISTRATION_EQUALS_ADDRESS = 'SET-REGISTRATION-EQUALS-ADDRESS';
 
 let initialState = {
     passport_name: null,
@@ -32,12 +31,6 @@ const driverPassportReducer = (state = initialState, action) => {
                 ...state,
                 passport_photo_control: action.file
             }
-        case SET_REGISTRATION_EQUALS_ADDRESS:
-            return {
-                ...state,
-                passport_address: action.value ? state.passport_registration : '',
-                registration_equals_address: action.value
-            }
         default:
             return state;
     }
@@ -45,6 +38,5 @@ const driverPassportReducer = (state = initialState, action) => {
 
 export const setPassportData = (data) => ({type: SET_PASSPORT_DATA, data});
 export const setControlPhoto = (file) => ({type: SET_CONTROL_PHOTO, file});
-export const setRegistrationEqualsAddress = (value) => ({type: SET_REGISTRATION_EQUALS_ADDRESS, value});
 
 export default driverPassportReducer;

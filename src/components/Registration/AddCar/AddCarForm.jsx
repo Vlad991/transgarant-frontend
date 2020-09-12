@@ -5,11 +5,11 @@ import {compose} from "redux";
 import FileField from "../../Elements/FileField";
 import AddressField from "../../Elements/AddressField";
 import {submitCarForm} from "../../../redux/registration/carsReducer";
-import {length17, length5, length6, maxLength9, minLength7, required, requiredAddress, requiredSelect} from "../../../func/validation";
+import {latinAndNumbers, length17, length5, length6, maxLength9, minLength7, required, requiredAddress, requiredSelect} from "../../../func/validation";
 import SelectField from "../../Elements/SelectField";
 import TextField from "../../Elements/TextField";
 import DateField from "../../Elements/DateField";
-import {carPassportNumberMask, carPassportSeriesMask} from "../../../func/mask";
+import {carPassportNumberMask, carPassportSeriesMask, carVinMask} from "../../../func/mask";
 
 const AddCarForm = ({state, handleSubmit}) => {
     return (
@@ -66,8 +66,8 @@ const AddCarForm = ({state, handleSubmit}) => {
                 <h3 className="form-block__heading">Свидетельство о регистрации ТС</h3>
                 <div className="form-block__fields">
                     <div className="form-block__fields-line car-certificate__fields-line">
-                        <TextField className="form-block__field" name="certificate_national_number" placeholder="Регистрационный государственный номер" validate={[required, minLength7, maxLength9]}/>
-                        <TextField className="form-block__field" name="certificate_vin" placeholder="Индетефикационный номер VIN" validate={[required, length17]}/>
+                        <TextField className="form-block__field" name="certificate_national_number" placeholder="Регистрационный гос. номер" validate={[required, minLength7, maxLength9, latinAndNumbers]}/>
+                        <TextField className="form-block__field" name="certificate_vin" normalize={carVinMask} placeholder="VIN" validate={[required, length17]}/>
                         <TextField className="form-block__field" name="certificate_brand" placeholder="Марка транспортного средства" validate={[required]}/>
                         <TextField className="form-block__field" name="certificate_model" placeholder="Модель транспортного средства" validate={[required]}/>
                     </div>
@@ -75,7 +75,7 @@ const AddCarForm = ({state, handleSubmit}) => {
                         <TextField className="form-block__field" name="certificate_car_type" placeholder="Тип транспортного средства" validate={[required]}/>
                         <TextField className="form-block__field" name="certificate_car_category" placeholder="Категория транспортного средства" validate={[required]}/>
                         <DateField className="form-block__field" name="certificate_car_issue_date" placeholder="Год выпуска" validate={[required]}/>
-                        <TextField className="form-block__field" name="certificate_ecology_class" placeholder="Экологический класс" validate={[required]}/>
+                        <SelectField className="form-block__field" name="certificate_ecology_class" placeholder="Экологический класс" items={state.ecology_items} validate={[requiredSelect]}/>
                     </div>
                     <div className="form-block__fields-line car-certificate__six-line">
                         <TextField className="form-block__field" name="certificate_ptc_series" normalize={carPassportNumberMask} placeholder="Серия ПТС" validate={[required, length5]}/>
@@ -98,6 +98,7 @@ let mapStateToProps = (state) => ({
         pass_types: state.carsReducer.pass_types,
         gidrobort_types: state.carsReducer.gidrobort_types,
         ramp_types: state.carsReducer.ramp_types,
+        ecology_items: state.carsReducer.ecology_items,
         garage_address: state.carsReducer.garage_address,
     },
     initialValues: {

@@ -155,6 +155,28 @@ let initialState = {
     certificate_car_type: null,
     certificate_car_category: null,
     certificate_car_issue_date: null,
+    ecology_items: [
+        {
+            id: 0,
+            name: 1
+        },
+        {
+            id: 1,
+            name: 2
+        },
+        {
+            id: 3,
+            name: 3
+        },
+        {
+            id: 4,
+            name: 4
+        },
+        {
+            id: 5,
+            name: 5
+        }
+    ],
     certificate_ecology_class: null,
     certificate_ptc_series: null,
     certificate_ptc_number: null,

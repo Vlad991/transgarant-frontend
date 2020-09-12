@@ -5,7 +5,7 @@ import {submitDriverForms} from "./driversReducer";
 const SET_STAGE = 'SET-STAGE';
 
 let initialState = {
-    stage: 0
+    stage: 1
 };
 
 const stagesReducer = (state = initialState, action) => {
@@ -24,7 +24,7 @@ export const setStage = (stage) => ({type: SET_STAGE, stage});
 
 export const submitStage = (nextStage) => async (dispatch, getState) => {
     const stage = getState().stagesReducer.stage;
-    if (getState().carHolderReducer.car_holder_type === 0) {
+    if (getState().carHolderReducer.holder_type === 0) {
         if (stage === 0) {
             await dispatch(submit('driver-data'));
             await dispatch(submit('driver-passport'));

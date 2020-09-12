@@ -16,10 +16,11 @@ class DriverPassportContainer extends React.Component {
 
     getControlPhoto = (webcamRef) => {
         const data = webcamRef.current.getScreenshot();
-        let file = new File([], "photo-control", undefined)
+        let file = new File([], "photo-control.jpg", undefined)
         file.data = data;
         this.props.setControlPhoto(file);
         this.toggleCamera(false);
+        return file;
     }
 
     render() {
