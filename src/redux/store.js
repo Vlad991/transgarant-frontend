@@ -23,7 +23,6 @@ import driverLicenseReducer from "./registration/driverLicenseReducer";
 import recommendContactsReducer from "./registration/recommendContactsReducer";
 import driversReducer from "./registration/driversReducer";
 import completeReducer from "./registration/completeReducer";
-import stagesReducer from "./registration/stagesReducer";
 
 
 let reducers = combineReducers({
@@ -43,7 +42,6 @@ let reducers = combineReducers({
 
     // registration
     numberReducer,
-    stagesReducer,
     carHolderReducer,
     individualEntrepreneurReducer,
     driverDataReducer,

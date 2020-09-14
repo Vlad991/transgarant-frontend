@@ -19,8 +19,8 @@ const DriverPassportForm = ({state, handleSubmit, setRegistrationEqualsAddress, 
     };
 
     return (
-        <form onSubmit={handleSubmit} className="">
-            <div className="registration__passport passport form-block">
+        <form onSubmit={handleSubmit} className="registration__passport passport">
+            <div className="form-block">
                 <h3 className="form-block__heading">Паспорт</h3>
                 <div className="form-block__fields">
                     <div className="form-block__fields-line passport__fields-line">
