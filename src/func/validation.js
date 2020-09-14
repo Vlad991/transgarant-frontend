@@ -20,6 +20,8 @@ export const minLength7 = minLength(7);
 
 const length = length => value => value && value.length !== length ? `${length} символа` : undefined;
 
+export const length2 = length(2);
+export const length3 = length(3);
 export const length5 = length(5);
 export const length6 = length(6);
 export const length7 = length(7);

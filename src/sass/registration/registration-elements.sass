@@ -164,6 +164,19 @@
     color: #fff
     font-weight: bold
 
+  &.check-wrap
+    display: flex
+
+  .check-wrap__mark
+    position: static
+    margin-right: 10px
+
+  .check-wrap__input
+    top: 0
+
+    &:checked ~ .check-wrap__mark::after
+      position: relative
+
 .react-dadata__suggestions
   position: absolute
   top: 38px

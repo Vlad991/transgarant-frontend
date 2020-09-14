@@ -182,6 +182,8 @@ let initialState = {
     certificate_ptc_number: null,
     certificate_ctc_series: null,
     certificate_ctc_number: null,
+    certificate_max_mass: null,
+    certificate_mass: null,
     certificate_photo_1: null,
     certificate_photo_2: null,
 

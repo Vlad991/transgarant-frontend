@@ -3,8 +3,9 @@ import {connect} from "react-redux";
 import TextField from "../../Elements/TextField";
 import {reduxForm} from "redux-form";
 import {compose} from "redux";
-import {minLength3, required} from "../../../func/validation";
+import {minLength3, required, requiredAddress} from "../../../func/validation";
 import {setIEDetailsData} from "../../../redux/registration/individualEntrepreneurReducer";
+import AddressField from "../../Elements/AddressField";
 
 const IndividualEntrepreneurForm = ({state, handleSubmit}) => {
     return (
@@ -21,7 +22,7 @@ const IndividualEntrepreneurForm = ({state, handleSubmit}) => {
                     <TextField className="form-block__field" name="bank_tax" placeholder="ИНН банка" validate={[required, minLength3]}/>
                     <TextField className="form-block__field" name="bank_registration_reason_code" placeholder="КПП банка" validate={[required, minLength3]}/>
                     <TextField className="form-block__field" name="bank_national_registration_number" placeholder="ОГРН банка" validate={[required, minLength3]}/>
-                    <TextField className="form-block__field" name="bank_law_address" placeholder="Юридический адрес банка" validate={[required, minLength3]}/>
+                    <AddressField className="form-block__field" name="bank_law_address" placeholder="Юридический адрес банка" count={5} validate={[requiredAddress]}/>
                 </div>
             </div>
         </form>

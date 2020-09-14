@@ -21,26 +21,17 @@ export const passportDepartmentMask = value => {
 export const carPassportNumberMask = value => {
     if (!value) return value;
     const onlyNums = value.replace(/[^\d]/g, '');
-    const onlyLetters = value.replace(/[^\a-zA-Z]/g, '');
-    if (onlyNums.length < 2) return onlyNums;
-    if (onlyNums.length === 2 && onlyLetters.length === 0) return onlyNums + " ";
-    if (onlyNums.length === 2 && onlyLetters.length > 0 && onlyLetters.length <= 2) return onlyNums + " " + onlyLetters;
+    if (onlyNums.length <= 2) return onlyNums;
 }
 
 export const carPassportSeriesMask = value => {
     if (!value) return value;
     const onlyNums = value.replace(/[^\d]/g, '');
-    if (onlyNums.length <= 6) return onlyNums;
+    if (onlyNums.length <= 3) return onlyNums;
 }
 
 export const carVinMask = value => {
     if (!value) return value;
     const template = value.replace(/[^\a-zA-Z\d]/g, '');
-    if (template.length <= 17) return template;
-}
-
-export const carNumberMask = value => {
-    if (!value) return value;
-    const template = value.replace(/[^\u0400-\u04FF\d]/g, '');
     if (template.length <= 17) return template;
 }

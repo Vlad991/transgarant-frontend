@@ -30,7 +30,7 @@ const Drivers = ({state, cars, toggleUpdateDriver, setDriverCar, deleteDriver}) 
                         <div className="car-card__row">
                             <div className="car-card__item">
                                 <div className="car-card__item-name">Категория</div>
-                                <div className="car-card__item-value">{state.license_categories.find(category => category.id === driver.selected_license_category_id).name}</div>
+                                <div className="car-card__item-value">{state.license_categories.find(category => category.selected).name}</div>
                             </div>
                             <div className="car-card__item">
                                 <div className="car-card__item-name">Дата выдачи</div>

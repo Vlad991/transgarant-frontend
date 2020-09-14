@@ -5,7 +5,7 @@ import {submitDriverForms} from "./driversReducer";
 const SET_STAGE = 'SET-STAGE';
 
 let initialState = {
-    stage: 1
+    stage: 0
 };
 
 const stagesReducer = (state = initialState, action) => {

@@ -5,7 +5,7 @@ import {compose} from "redux";
 import FileField from "../../Elements/FileField";
 import AddressField from "../../Elements/AddressField";
 import {submitCarForm} from "../../../redux/registration/carsReducer";
-import {latinAndNumbers, length17, length5, length6, maxLength9, minLength7, required, requiredAddress, requiredSelect} from "../../../func/validation";
+import {latinAndNumbers, length17, length2, length3, length5, length6, maxLength9, minLength7, number, required, requiredAddress, requiredSelect} from "../../../func/validation";
 import SelectField from "../../Elements/SelectField";
 import TextField from "../../Elements/TextField";
 import DateField from "../../Elements/DateField";
@@ -78,10 +78,12 @@ const AddCarForm = ({state, handleSubmit}) => {
                         <SelectField className="form-block__field" name="certificate_ecology_class" placeholder="Экологический класс" items={state.ecology_items} validate={[requiredSelect]}/>
                     </div>
                     <div className="form-block__fields-line car-certificate__six-line">
-                        <TextField className="form-block__field" name="certificate_ptc_series" normalize={carPassportNumberMask} placeholder="Серия ПТС" validate={[required, length5]}/>
-                        <TextField className="form-block__field" name="certificate_ptc_number" normalize={carPassportSeriesMask} placeholder="Номер ПТС" validate={[required, length6]}/>
-                        <TextField className="form-block__field" name="certificate_ctc_series" normalize={carPassportNumberMask} placeholder="Серия СТС" validate={[required, length5]}/>
-                        <TextField className="form-block__field" name="certificate_ctc_number" normalize={carPassportSeriesMask} placeholder="Номер СТС" validate={[required, length6]}/>
+                        <TextField className="form-block__field" name="certificate_ptc_series" placeholder="Серия ПТС" validate={[required, latinAndNumbers]}/>
+                        <TextField className="form-block__field" name="certificate_ptc_number" placeholder="Номер ПТС" validate={[required, latinAndNumbers]}/>
+                        <TextField className="form-block__field" name="certificate_ctc_series" placeholder="Серия СТС" validate={[required, latinAndNumbers]}/>
+                        <TextField className="form-block__field" name="certificate_ctc_number" placeholder="Номер СТС" validate={[required, latinAndNumbers]}/>
+                        <TextField className="form-block__field" name="certificate_max_mass" placeholder="Max масса" validate={[required, number]}/>
+                        <TextField className="form-block__field" name="certificate_mass" placeholder="Масса без нагр." validate={[required, number]}/>
                         <FileField className="form-block__field" name="certificate_photo_1" placeholder="Фото 1" validate={[required]}/>
                         <FileField className="form-block__field" name="certificate_photo_2" placeholder="Фото 2" validate={[required]}/>
                     </div>
@@ -133,6 +135,8 @@ let mapStateToProps = (state) => ({
         certificate_ptc_number: state.carsReducer.certificate_ptc_number,
         certificate_ctc_series: state.carsReducer.certificate_ctc_series,
         certificate_ctc_number: state.carsReducer.certificate_ctc_number,
+        certificate_max_mass: state.carsReducer.certificate_max_mass,
+        certificate_mass: state.carsReducer.certificate_mass,
         certificate_photo_1: state.carsReducer.certificate_photo_1,
         certificate_photo_2: state.carsReducer.certificate_photo_2,
     }

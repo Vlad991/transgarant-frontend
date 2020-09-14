@@ -10,6 +10,8 @@ import {submitDriverForm} from "../../../redux/registration/driversReducer";
 import AddressField from "../../Elements/AddressField";
 import SelectField from "../../Elements/SelectField";
 import {passportNumberMask, passportSeriesMask} from "../../../func/mask";
+import WebcamField from "../../Elements/WebcamField";
+import MultiSelectField from "../../Elements/MultiSelectField";
 
 const DriverForm = ({state, handleSubmit, setRegistrationEqualsAddress}) => {
     return (
@@ -45,9 +47,11 @@ const DriverForm = ({state, handleSubmit, setRegistrationEqualsAddress}) => {
                     <div className="form-block__fields-line passport__photo-line">
                         <FileField className="form-block__field" name="passport_reversal_photo" placeholder="Фото разворота" validate={[required]}/>
                         <FileField className="form-block__field" name="passport_registration_photo" placeholder="Фото прописки" validate={[required]}/>
+                        <FileField className="form-block__field" name="passport_photo_control" placeholder="Фото контроль" validate={[required]}/>
                     </div>
                 </div>
             </div>
+            <WebcamField name="passport_photo_control" validate={[required]}/>
             <div className="registration__passport registration__passport--license passport passport--license form-block">
                 <h3 className="form-block__heading">Водительское удостоверение</h3>
                 <div className="form-block__fields">
@@ -63,7 +67,7 @@ const DriverForm = ({state, handleSubmit, setRegistrationEqualsAddress}) => {
                     <div className="form-block__fields-line passport__fields-line">
                         <TextField className="form-block__field" name="license_issued_by" placeholder="Кем выдан" validate={[required, minLength3, cyrillicAndNumbers]}/>
                         <SelectField name="selected_license_country_id" placeholder="Страна" className="form-block__field" items={state.license_countries} validate={[requiredSelect]}/>
-                        <SelectField name="selected_license_category_id" placeholder="Категория" hidePlaceholder={true} className="form-block__field" items={state.license_categories} validate={[requiredSelect]}/>
+                        <MultiSelectField name="license_categories" placeholder="Категория" hidePlaceholder={true} className="form-block__field" validate={[requiredSelect]}/>
                         <label className="form-block__field passport__field--files">
                             <FileField className="form-block__field" name="license_photo_1" placeholder="Фото 1" validate={[required]}/>
                             <FileField className="form-block__field" name="license_photo_2" placeholder="Фото 2" validate={[required]}/>
@@ -80,8 +84,7 @@ let mapStateToProps = (state) => ({
         registration_equals_address: state.driversReducer.registration_equals_address,
         passport_registration: formValueSelector('driver-data-add')(state, 'passport_registration'),
 
-        license_countries: state.driversReducer.license_countries,
-        license_categories: state.driversReducer.license_categories,
+        license_countries: state.driversReducer.license_countries
     },
     initialValues: {
         passport_name: state.driversReducer.passport_name,
@@ -95,6 +98,7 @@ let mapStateToProps = (state) => ({
         passport_address: state.driversReducer.passport_address,
         passport_reversal_photo: state.driversReducer.passport_reversal_photo,
         passport_registration_photo: state.driversReducer.passport_registration_photo,
+        passport_photo_control: state.driversReducer.passport_photo_control,
         registration_equals_address: state.driversReducer.registration_equals_address,
 
         license_name: state.driversReducer.license_name,
@@ -104,7 +108,7 @@ let mapStateToProps = (state) => ({
         license_validity_date: state.driversReducer.license_validity_date,
         license_issued_by: state.driversReducer.license_issued_by,
         selected_license_country_id: state.driversReducer.selected_license_country_id,
-        selected_license_category_id: state.driversReducer.selected_license_category_id,
+        license_categories: state.driversReducer.license_categories,
         license_photo_1: state.driversReducer.license_photo_1,
         license_photo_2: state.driversReducer.license_photo_2,
     }

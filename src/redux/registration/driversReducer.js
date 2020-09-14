@@ -60,8 +60,7 @@ let initialState = {
     license_issued_by: null,
     license_countries: [{id: 0, name: 'Россия'}, {id: 1, name: 'Беларусь'}, {id: 2, name: 'Казахстан'}],
     selected_license_country_id: null,
-    license_categories: [{id: 0, name: 'Категория A'}, {id: 1, name: 'Категория B'}, {id: 2, name: 'Категория C'}],
-    selected_license_category_id: null,
+    license_categories: [{id: 0, name: 'A'}, {id: 1, name: 'B'}, {id: 2, name: 'C'}],
     license_photo_1: null,
     license_photo_2: null,
 
