@@ -21,6 +21,7 @@
 .car-form__check-wrap
   display: flex
   align-items: center
+  padding: 0 8px
 
 .car-form__check-title
   width: 50%
@@ -33,5 +34,22 @@
   align-items: center
   padding-left: 30px
   padding-right: 0
+
   &:nth-child(3)
     margin-left: auto
+
+.property
+
+.property__name
+  @include fontSWCL(13px, normal, #000, 16px)
+
+.property__values
+  padding: 0 20px
+
+.property__value
+  margin-top: 10px
+  @include fontSWCL(12px, normal, #666, 18px)
+  padding: 0 25px
+
+  .check-wrap__mark
+    position: absolute

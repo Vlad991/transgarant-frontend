@@ -4,6 +4,7 @@ const SUBMIT_CAR_FORM = 'SUBMIT_CAR_FORM';
 const TOGGLE_SHOW_FORM = 'TOGGLE-SHOW-FORM';
 const TOGGLE_UPDATE_CAR_MODE = 'TOGGLE-UPDATE-CAR-MODE';
 const DELETE_CAR = 'DELETE-CAR';
+const TOGGLE_PROPERTIES = 'TOGGLE-PROPERTIES';
 
 let initialState = {
     cars: [
@@ -45,6 +46,7 @@ let initialState = {
         //     certificate_photo_2: {name: 'file2.jpg', data: ''},
         // } //todo
     ],
+
     capacity_types: [
         {
             id: 0,
@@ -83,6 +85,14 @@ let initialState = {
         },
     ],
     selected_body_type_id: null,
+    properties: [
+        {id: 0, name: "temperature", text: "Выберете температурный режим работы рефрижератора", values: ["от +12°C до 0°C", "от +12°C до -10°C", "от +12°C до -20°С"]},
+        {id: 1, name: "termo", text: "Термопицес", values: ["Да", "Нет"]},
+        {id: 2, name: "termo-online", text: "Термопицес", values: ["Да", "Нет"]},
+        {id: 3, name: "akt_desinf", text: "Акт о дезинфекции", values: ["Есть", "Нет"]}
+    ],
+    show_properties: false,
+    medical_book: false,
     pass_types: [
         {
             id: 0,
@@ -288,6 +298,11 @@ const carsReducer = (state = initialState, action) => {
                 ...state,
                 cars: deleteCars
             }
+        case TOGGLE_PROPERTIES:
+            return {
+                ...state,
+                show_properties: action.value
+            }
         default:
             return state;
     }
@@ -297,6 +312,7 @@ export const submitCarForm = (data) => ({type: SUBMIT_CAR_FORM, data});
 export const toggleShowForm = (value) => ({type: TOGGLE_SHOW_FORM, value});
 export const toggleUpdateCar = (index) => ({type: TOGGLE_UPDATE_CAR_MODE, index});
 export const deleteCar = (index) => ({type: DELETE_CAR, index});
+export const toggleProperties = (value) => ({type: TOGGLE_PROPERTIES, value});
 
 export const submitCarForms = () => async (dispatch) => {
     dispatch(submit('car-data'));
