@@ -1,7 +1,7 @@
 import React from 'react';
 import Tariff from "./Tariff";
 import {connect} from "react-redux";
-import {loadTariffThunk, setMapType, setTariff} from "../../../redux/checkout/tariffReducer";
+import {loadTariffThunk, setMapType, setTariffThunk} from "../../../redux/checkout/tariffReducer";
 
 class TariffContainer extends React.Component {
     state = {
@@ -28,11 +28,6 @@ class TariffContainer extends React.Component {
         });
     }
 
-
-    loadTariff = () => {
-        this.props.loadTariffThunk(this.props.state.selected_tariff);
-    }
-
     loadAllTariffs = () => {
         this.props.state.tariff_types.forEach(tariff => {
             this.props.loadTariffThunk(tariff.id);
@@ -56,9 +51,14 @@ class TariffContainer extends React.Component {
             (prevProps.pallets !== this.props.pallets) ||
             (prevProps.packages !== this.props.packages) ||
             (prevState.isShown !== this.state.isShown)) {
-            if (this.state.isShown) {
+            if (this.state.isShown
+                && this.props.points.length > 1
+                && (this.props.pallets.length > 0 || this.props.packages.length > 0 || this.props.places.length > 0)) {
                 this.loadAllTariffs();
             }
+        }
+        if (prevProps.date_from !== this.props.date_from || prevProps.date_to !== this.props.date_to) {
+            this.props.setTariffThunk(this.props.state.selected_tariff);
         }
     }
 
@@ -68,7 +68,7 @@ class TariffContainer extends React.Component {
                     yandexMapIsShown={this.state.yandexMapIsShown}
                     osrmMapIsShown={this.state.osrmMapIsShown}
 
-                    setTariff={this.props.setTariff}
+                    setTariff={this.props.setTariffThunk}
                     setView={this.setView}
                     setYandexMapView={this.setYandexMapView}
                     setOsrmMapView={this.setOsrmMapView}
@@ -95,4 +95,4 @@ let mapStateToProps = (state) => ({
     packages: state.cargoReducer.packages,
 });
 
-export default connect(mapStateToProps, {setTariff, loadTariffThunk, setMapType})(TariffContainer);
+export default connect(mapStateToProps, {setTariffThunk, loadTariffThunk, setMapType})(TariffContainer);

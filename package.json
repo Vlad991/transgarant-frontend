@@ -1,7 +1,7 @@
 {
   "name": "transgarant-frontend",
   "version": "0.1.0",
-  "homepage": "https://kuzma-vlad.000webhostapp.com/registration",
+  "homepage": "https://kuzma-vlad.000webhostapp.com/checkout",
   "private": true,
   "dependencies": {
     "@mapbox/polyline": "^1.1.0",
@@ -13,6 +13,7 @@
     "axios-retry": "^3.1.8",
     "date-fns": "^2.16.0",
     "leaflet": "^1.6.0",
+    "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dadata": "^2.3.3",

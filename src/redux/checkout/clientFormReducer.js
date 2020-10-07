@@ -372,6 +372,9 @@ const validateAllData = (state, dispatch) => {
     if (!state.clientFormReducer.agree) {
         hasErrors = true;
     }
+    if (state.dateReducer.has_error) {
+        hasErrors = true;
+    }
     if (hasErrors) {
         dispatch(enableErrorMode(true));
     } else {

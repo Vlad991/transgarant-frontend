@@ -2,6 +2,7 @@ import React from 'react';
 import Date from "./Date";
 import {connect} from "react-redux";
 import {setDateFrom, setDateTo} from "../../../redux/checkout/dateReducer";
+import AlertContainer from "../Allert/AlertContainer";
 
 class DateContainer extends React.Component {
     state = {
@@ -23,15 +24,18 @@ class DateContainer extends React.Component {
 
     render() {
         return (
-            <Date state={this.props.state}
-                  showFromPicker={this.state.showFromPicker}
-                  setDateFrom={this.props.setDateFrom}
-                  showToPicker={this.state.showToPicker}
-                  setDateTo={this.props.setDateTo}
-                  toggleFromPicker={this.toggleFromPicker}
-                  toggleToPicker={this.toggleToPicker}
-                  hasError={this.props.hasError}
-            />
+            <>
+                <Date state={this.props.state}
+                      showFromPicker={this.state.showFromPicker}
+                      setDateFrom={this.props.setDateFrom}
+                      showToPicker={this.state.showToPicker}
+                      setDateTo={this.props.setDateTo}
+                      toggleFromPicker={this.toggleFromPicker}
+                      toggleToPicker={this.toggleToPicker}
+                      hasError={this.props.state.has_error}
+                />
+                {this.props.state.has_error ? <AlertContainer index={3} text="Ошибка: Время для данного тарифа должно быть указано в промежутке 13:00 - 17:00"/> : null}
+            </>
         );
     };
 }

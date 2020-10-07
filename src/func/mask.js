@@ -35,3 +35,9 @@ export const carVinMask = value => {
     const template = value.replace(/[^\a-zA-Z\d]/g, '');
     if (template.length <= 17) return template;
 }
+
+export const sizeMask = value => {
+    if (!value) return value;
+    const template = value.replace(/[^\d.]/g, '');
+    if (template) return template;
+}

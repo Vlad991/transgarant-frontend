@@ -1,5 +1,6 @@
 import {orderAPI} from "../../api/checkout-api";
 import * as axios from "axios";
+import {setDateError} from "./dateReducer";
 
 const SET_TARIFF = 'SET-TARIFF';
 const LOAD_TARIFF = 'LOAD-TARIFF';
@@ -277,6 +278,21 @@ export const loadTariffThunk = (tariffId) => async (dispatch, getState) => {
     } else {
         console.warn("Load Tariff: failed");
     }
+};
+export const setTariffThunk = (tariffId) => async (dispatch, getState) => {
+    const dateFrom = getState().dateReducer.date_from;
+    const dateTo = getState().dateReducer.date_to;
+    const rmTariffIdList = ['aa6d8cc0-e0f1-11ea-8dfb-000c298a28ba', 'bdc31825-7d68-11ea-a9c9-00155d8e4e03', 'aa6d8cc1-e0f1-11ea-8dfb-000c298a28ba'];
+    if (rmTariffIdList.includes(tariffId)) {
+        if (dateFrom.getHours() < 13 || (dateTo.getHours() > 17 || (dateTo.getHours() === 17 && dateTo.getMinutes() > 0))) {
+            dispatch(setDateError(true));
+        } else {
+            dispatch(setDateError(false));
+        }
+    } else {
+        dispatch(setDateError(false));
+    }
+    dispatch(setTariff(tariffId));
 };
 
 export default tariffReducer;

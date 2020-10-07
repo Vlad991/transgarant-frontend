@@ -9,7 +9,7 @@ import {latinAndNumbers, length17, maxLength9, minLength7, number, required, req
 import SelectField from "../../Elements/SelectField";
 import TextField from "../../Elements/TextField";
 import DateField from "../../Elements/DateField";
-import {carVinMask} from "../../../func/mask";
+import {carVinMask, sizeMask} from "../../../func/mask";
 
 const AddCarForm = ({state, toggleProperties, handleSubmit}) => {
     return (
@@ -86,12 +86,15 @@ const AddCarForm = ({state, toggleProperties, handleSubmit}) => {
                         </div>
                     </div>
                     <div className="form-block__fields-line car-form__fields-line">
+                        <TextField className="form-block__field" name="car_length" normalize={sizeMask} placeholder="Длинна в метрах" validate={[required]}/>
+                        <TextField className="form-block__field" name="car_width" normalize={sizeMask} placeholder="Ширина в метрах" validate={[required]}/>
+                        <TextField className="form-block__field" name="car_height" normalize={sizeMask} placeholder="Высота в метрах" validate={[required]}/>
+                        <AddressField name="garage_address" initialValue={state.garage_address.string} placeholder="Место гаража" count={5} validate={[requiredAddress]} className="form-block__field"/>
+                    </div>
+                    <div className="form-block__fields-line car-form__fields-line">
                         <FileField className="form-block__field" name="photo_inside" placeholder="Фото кузова внутри" validate={[required]}/>
                         <FileField className="form-block__field" name="photo_in_front" placeholder="Фото ТС перед" validate={[required]}/>
                         <FileField className="form-block__field" name="photo_side" placeholder="Фото машины бок" validate={[required]}/>
-                    </div>
-                    <div className="form-block__fields-line car-form__fields-line">
-                        <AddressField name="garage_address" initialValue={state.garage_address.string} placeholder="Место гаража" count={5} validate={[requiredAddress]} className="form-block__field"/>
                     </div>
                 </div>
             </div>
@@ -150,6 +153,9 @@ let mapStateToProps = (state) => ({
         agree_help: state.carsReducer.agree_help,
         driver_loader: state.carsReducer.driver_loader,
         garage_address: state.carsReducer.garage_address,
+        car_length: state.carsReducer.car_length,
+        car_width: state.carsReducer.car_width,
+        car_height: state.carsReducer.car_height,
         photo_inside: state.carsReducer.photo_inside,
         photo_in_front: state.carsReducer.photo_in_front,
         photo_side: state.carsReducer.photo_side,

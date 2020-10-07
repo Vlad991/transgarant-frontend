@@ -1,9 +1,11 @@
 const SET_DATE_FROM = 'SET-DATE-FROM';
 const SET_DATE_TO = 'SET-DATE-TO';
+const SET_DATE_ERROR = 'SET-DATE-ERROR';
 
 let initialState = {
     date_from: new Date(),
-    date_to: new Date()
+    date_to: new Date(),
+    has_error: false
 };
 
 const dateReducer = (state = initialState, action) => {
@@ -36,6 +38,11 @@ const dateReducer = (state = initialState, action) => {
                 date_to: action.date,
                 date_from: dateFromCopy
             };
+        case SET_DATE_ERROR:
+            return {
+                ...state,
+                has_error: action.value
+            }
         default:
             return state;
     }
@@ -43,5 +50,6 @@ const dateReducer = (state = initialState, action) => {
 
 export const setDateFrom = (date) => ({type: SET_DATE_FROM, date});
 export const setDateTo = (date) => ({type: SET_DATE_TO, date});
+export const setDateError = (value) => ({type: SET_DATE_ERROR, value});
 
 export default dateReducer;
