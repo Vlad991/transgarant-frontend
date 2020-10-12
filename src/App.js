@@ -1,7 +1,6 @@
 import React from 'react';
 import './sass/common.sass';
 import './sass/checkout/checkout.sass';
-import './sass/registration/registration.sass';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {connect, Provider} from "react-redux";
 import store from "./redux/store";
@@ -23,7 +22,7 @@ let AppContainer = connect(mapStateToProps, {})(App);
 
 const CheckoutApp = (props) => {
     return <Provider store={store}>
-        <BrowserRouter basename="/checkout">
+        <BrowserRouter basename="/">
             <AppContainer/>
         </BrowserRouter>
     </Provider>

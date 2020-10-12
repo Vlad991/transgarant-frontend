@@ -12,21 +12,9 @@ import socialReducer from "./checkout/socialReducer";
 import clientFormReducer from "./checkout/clientFormReducer";
 import docReturnReducer from "./checkout/docReturnReducer";
 import leafletMapReducer from "./checkout/leaflet/leafletMapReducer";
-import numberReducer from "./registration/numberReducer";
-import carHolderReducer from "./registration/carHolderReducer";
-import individualEntrepreneurReducer from "./registration/individualEntrepreneurReducer";
-import driverDataReducer from "./registration/driverDataReducer";
-import carsReducer from "./registration/carsReducer";
-import driverPassportReducer from "./registration/driverPassportReducer";
-import {reducer as formReducer} from 'redux-form'
-import driverLicenseReducer from "./registration/driverLicenseReducer";
-import recommendContactsReducer from "./registration/recommendContactsReducer";
-import driversReducer from "./registration/driversReducer";
-import completeReducer from "./registration/completeReducer";
 
 
 let reducers = combineReducers({
-    // checkout
     categoryReducer,
     carBodyReducer,
     dopReducer,
@@ -39,21 +27,6 @@ let reducers = combineReducers({
     socialReducer,
     clientFormReducer,
     mapReducer: leafletMapReducer,
-
-    // registration
-    numberReducer,
-    carHolderReducer,
-    individualEntrepreneurReducer,
-    driverDataReducer,
-    driverPassportReducer,
-    carsReducer,
-    driverLicenseReducer,
-    recommendContactsReducer,
-    driversReducer,
-    completeReducer,
-
-    // Redux-Form
-    form: formReducer
 });
 
 const composeEnhancers = compose;
