@@ -9,7 +9,6 @@ const Cargo = ({
                    bodyOptions,
                    activeBodyOption,
                    bodyOptionCh,
-                   categoryChanged,
                    showCargoValue,
 
                    setActiveTab,
@@ -36,7 +35,7 @@ const Cargo = ({
     }
     return (
         <section className="checkout__cargo cargo">
-            <div className={"checkout__title cargo__heading"  + (hasError ? ' checkout__has-error' : '')}>Введите данные о перевозимом грузе</div>
+            <div className={"checkout__title cargo__heading" + (hasError ? ' checkout__has-error' : '')}>Введите данные о перевозимом грузе</div>
             <form className="cargo__form">
                 <div className="cargo__first-col">
                     <div className="cargo__head-block">
@@ -237,30 +236,29 @@ const Cargo = ({
                     {state.active_tab === 3 ? <button type="button" onClick={addPackage} className="cargo__button button">Добавить</button> : null}
                 </div>
                 <div className="cargo__second-col" onMouseEnter={() => showCargo(true)} onMouseLeave={() => showCargo(false)}>
-                    {categoryChanged ?
-                        <div className="cargo__info-block">
-                            <div style={{textTransform: "uppercase"}}>
-                                {categories.map(category => {
-                                    if (category.id === activeCategory) {
-                                        return category.name;
-                                    } else {
-                                        return null;
-                                    }
-                                })} {bodyOptions.map(option => option.id === activeBodyOption ? option.name : null)}
+                    <div className="cargo__info-block">
+                        <div style={{textTransform: "uppercase"}}>
+                            {categories.map(category => {
+                                if (category.id === activeCategory) {
+                                    return category.name;
+                                } else {
+                                    return null;
+                                }
+                            })} {bodyOptions.map(option => option.id === activeBodyOption ? option.name : null)}
+                        </div>
+                        <div className="info-icon">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.3644 2.63581C11.8497 -0.87857 6.15097 -0.878962 2.63581 2.63581C-0.878962 6.15058 -0.87857 11.8493 2.63581 15.3644C6.15058 18.8784 11.8493 18.8788 15.3644 15.3644C18.8788 11.8493 18.8784 6.15097 15.3644 2.63581ZM10.1737 12.9133C10.1737 13.5617 9.64814 14.0872 8.99973 14.0872C8.35133 14.0872 7.82579 13.5617 7.82579 12.9133V8.2175C7.82579 7.56909 8.35133 7.04356 8.99973 7.04356C9.64814 7.04356 10.1737 7.56909 10.1737 8.2175V12.9133ZM8.97899 6.21084C8.3028 6.21084 7.85201 5.73188 7.8661 5.1406C7.85201 4.52076 8.3028 4.05628 8.99269 4.05628C9.68296 4.05628 10.1197 4.52116 10.1341 5.1406C10.1338 5.73188 9.68335 6.21084 8.97899 6.21084Z" fill="#ADADAD"/>
+                            </svg>
+                            <div className="info-icon__text">
+                                ВНИМАНИЕ! Категория транспортного средства подбирается автоматически под характеристики Вашего груза и может измениться на более оптимальную после ввода данных о грузе.
+                                <br/><br/>
+                                Пожалуйста, убедитесь, что автоматически подобранная категория соответствует Вашему выбору.
+                                <br/><br/>
+                                Вы также можете отказаться от автоматически подобранной категории и выбрать любую категорию транспортного средства под Ваш груз, не указывая характеристики груза.
                             </div>
-                            <div className="info-icon">
-                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.3644 2.63581C11.8497 -0.87857 6.15097 -0.878962 2.63581 2.63581C-0.878962 6.15058 -0.87857 11.8493 2.63581 15.3644C6.15058 18.8784 11.8493 18.8788 15.3644 15.3644C18.8788 11.8493 18.8784 6.15097 15.3644 2.63581ZM10.1737 12.9133C10.1737 13.5617 9.64814 14.0872 8.99973 14.0872C8.35133 14.0872 7.82579 13.5617 7.82579 12.9133V8.2175C7.82579 7.56909 8.35133 7.04356 8.99973 7.04356C9.64814 7.04356 10.1737 7.56909 10.1737 8.2175V12.9133ZM8.97899 6.21084C8.3028 6.21084 7.85201 5.73188 7.8661 5.1406C7.85201 4.52076 8.3028 4.05628 8.99269 4.05628C9.68296 4.05628 10.1197 4.52116 10.1341 5.1406C10.1338 5.73188 9.68335 6.21084 8.97899 6.21084Z" fill="#ADADAD"/>
-                                </svg>
-                                <div className="info-icon__text">
-                                    ВНИМАНИЕ! Категория транспортного средства подбирается автоматически под характеристики Вашего груза и может измениться на более оптимальную после ввода данных о грузе.
-                                    <br/><br/>
-                                    Пожалуйста, убедитесь, что автоматически подобранная категория соответствует Вашему выбору.
-                                    <br/><br/>
-                                    Вы также можете отказаться от автоматически подобранной категории и выбрать любую категорию транспортного средства под Ваш груз, не указывая характеристики груза.
-                                </div>
-                            </div>
-                        </div> : null}
+                        </div>
+                    </div>
                     <div className={"cargo__sizes" + (state.cargo_loading ? " cargo__sizes--loading" : "")} style={{
                         width: cargoAdaptiveWidth,
                         height: cargoAdaptiveHeight

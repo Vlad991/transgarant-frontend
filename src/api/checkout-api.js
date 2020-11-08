@@ -122,7 +122,7 @@ export const orderAPI = {
                 return error;
             });
     },
-    orders(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type, car_type_id) {
+    orders(date, body_type_id, body_option_id, body_option_characteristics, additional_requirements, routes, name, price, places, pallets, packages, tariff_type_id, full_name, phone, phone_ext, email, payment_type, car_type_id, tin) {
         let data = {
             date: date,
             body_type_id: body_type_id,
@@ -144,7 +144,8 @@ export const orderAPI = {
                 phone_ext: phone_ext,
                 email: email
             },
-            payment_type: payment_type
+            payment_type: payment_type,
+            TIN: tin
         }
         if (places.length === 0 && pallets.length === 0 && packages.length === 0) {
             data.car_type_id = car_type_id;

@@ -7,21 +7,12 @@ import AlertContainer from "../Allert/AlertContainer";
 
 class CargoContainer extends React.Component {
     state = {
-        categoryChanged: false,
         showCargoValue: false
     }
 
     componentDidMount() {
         this.props.setPalletTypesThunk();
         this.props.setPackageTypesThunk();
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.active_category !== this.props.active_category) {
-            this.setState({
-                categoryChanged: true
-            });
-        }
     }
 
     showCargo = (value) => {
@@ -40,7 +31,6 @@ class CargoContainer extends React.Component {
                        bodyOptions={this.props.body_options}
                        activeBodyOption={this.props.active_body_option}
                        bodyOptionCh={this.props.body_option_characteristics}
-                       categoryChanged={this.state.categoryChanged}
                        showCargoValue={this.state.showCargoValue}
 
                        setActiveTab={this.props.setActiveTab}

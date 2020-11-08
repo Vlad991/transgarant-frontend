@@ -324,18 +324,19 @@ export const doOrderThunk = () => async (dispatch, getState) => {
             additionalRequirements,
             points,
             state.cargoReducer.name,
-            parseInt(state.cargoReducer.price),
+            state.tariffReducer.tariff_types.find(tariff => tariff.id === state.tariffReducer.selected_tariff).cost,
             state.cargoReducer.places,
             state.cargoReducer.pallets,
             state.cargoReducer.packages,
             state.tariffReducer.selected_tariff,
-            state.clientFormReducer.full_name,
-            state.clientFormReducer.phone,
+            state.clientFormReducer.client_name,
+            state.clientFormReducer.client_number,
             '777',
-            state.clientFormReducer.email,
+            state.clientFormReducer.client_email,
             state.paymentReducer.payments.find((item, index) => (index + 1) === state.paymentReducer.selected_payment) ?
                 state.paymentReducer.payments.find((item, index) => (index + 1) === state.paymentReducer.selected_payment).data : '',
-            state.categoryReducer.active_category);
+            state.categoryReducer.active_category,
+            state.paymentReducer.company.data.inn);
         if (response.status === 200) {
             dispatch(showOrderResult(response.data.id, true));
         } else {
